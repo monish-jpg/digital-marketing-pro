@@ -1,0 +1,41 @@
+{
+  "name": "digital-marketing-pro",
+  "owner": {
+    "name": "Indranil Banerjee"
+  },
+  "metadata": {
+    "description": "Comprehensive digital marketing plugin for Claude Code — strategy, SEO, paid ads, content, email, social, PR, analytics, CRO, and agency operations",
+    "version": "2.5.1"
+  },
+  "plugins": [
+    {
+      "name": "digital-marketing-pro",
+      "source": {
+        "source": "github",
+        "repo": "indranilbanerjee/digital-marketing-pro",
+        "ref": "main"
+      },
+      "description": "Plan, execute, and measure digital marketing across all channels. 25 specialist agents handle strategy, SEO, paid ads, content, email, social, PR, analytics, CRO, and agency operations — with brand voice enforcement, quality evaluation, multilingual support, and persistent campaign memory.",
+      "version": "2.5.1",
+      "author": {
+        "name": "Indranil Banerjee"
+      },
+      "homepage": "https://github.com/indranilbanerjee/digital-marketing-pro",
+      "repository": "https://github.com/indranilbanerjee/digital-marketing-pro",
+      "license": "MIT",
+      "keywords": [
+        "marketing",
+        "seo",
+        "content",
+        "paid-ads",
+        "email",
+        "social-media",
+        "analytics",
+        "cro",
+        "agency",
+        "digital-marketing"
+      ],
+      "category": "marketing"
+    }
+  ]
+}
