@@ -73,7 +73,16 @@ cp .mcp.json.example .mcp.json
 
 See [CONNECTORS.md](CONNECTORS.md) for the full connector reference and [MCP Integration Guide](docs/integrations-guide.md) for detailed setup.
 
-### Option A: Add from a local directory
+### Option A: Install from the marketplace (recommended)
+
+One-command install directly from GitHub — no cloning required:
+
+```bash
+claude plugin marketplace add github:indranilbanerjee/digital-marketing-pro
+claude plugin install digital-marketing-pro@digital-marketing-pro
+```
+
+### Option B: Add from a local directory
 
 Clone or download this plugin directory, then register it with Claude Code:
 
@@ -81,7 +90,7 @@ Clone or download this plugin directory, then register it with Claude Code:
 claude plugins add /path/to/digital-marketing-pro
 ```
 
-### Option B: Place in your plugins directory
+### Option C: Place in your plugins directory
 
 Copy or clone the plugin directly into your Claude Code plugins folder:
 
@@ -89,7 +98,7 @@ Copy or clone the plugin directly into your Claude Code plugins folder:
 ~/.claude/plugins/digital-marketing-pro/
 ```
 
-### Option C: Install in Claude Cowork
+### Option D: Install in Claude Cowork
 
 1. Compress the `digital-marketing-pro/` folder into a ZIP file
 2. Open Cowork in Claude Desktop
