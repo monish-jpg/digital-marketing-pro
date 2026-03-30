@@ -1,6 +1,6 @@
 # Technical Architecture Reference
 
-**Digital Marketing Pro** -- Claude Code Plugin v2.5.0
+**Digital Marketing Pro** -- Claude Code Plugin v2.6.0
 
 This document describes the internal architecture of the Digital Marketing Pro plugin for developers and contributors. It covers file structure, the WAT framework mapping, component anatomy, the hook system, script conventions, data persistence, adaptive scoring, and extension points.
 
@@ -11,9 +11,9 @@ This document describes the internal architecture of the Digital Marketing Pro p
 ```
 digital-marketing-pro/
 ├── .claude-plugin/
-│   └── plugin.json                    # Plugin manifest (v2.5.0)
+│   └── plugin.json                    # Plugin manifest (v2.6.0)
 ├── .mcp.json                          # 14 HTTP connectors (auto-loaded)
-├── .mcp.json.example                  # 67 npx servers (opt-in for Claude Code)
+├── .mcp.json.example                  # 68 npx servers (opt-in for Claude Code)
 ├── hooks/
 │   └── hooks.json                     # 3 lifecycle hooks
 ├── agents/                            # 25 specialist agents
@@ -109,7 +109,7 @@ digital-marketing-pro/
 │   ├── prompt-ab-tester.py          # Prompt variation quality comparison (v2.2.0)
 │   ├── language-router.py           # Translation service routing (v2.2.0)
 │   └── requirements.txt               # Python dependencies
-├── skills/                            # 135 skill directories
+├── skills/                            # 141 skill directories
 │   ├── context-engine/                # Shared intelligence layer
 │   │   ├── SKILL.md
 │   │   ├── industry-profiles.md       # 22 industries

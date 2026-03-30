@@ -4,6 +4,53 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [2.6.0] — 2026-03-30
+
+### Added — SEO Capability Expansion
+
+Closes the gap with dedicated SEO tools by adding 6 new SEO sub-skills, expanded schema markup support, reference documentation, and a new MCP integration. Inspired by capabilities identified in [claude-seo](https://github.com/AgriciDaniel/claude-seo) — adapted to work within the full marketing system architecture with brand context, execution layer, multi-client support, and quality evaluation.
+
+#### New Skills (6)
+
+- **`/dm:programmatic-seo`** — Programmatic SEO at scale: data source assessment, template engine planning, URL pattern strategy, internal linking automation, thin content safeguards with quality gates (WARNING at 100 pages, HARD STOP at 500), index bloat prevention, and Google's Scaled Content Abuse policy enforcement (June 2025 / August 2025 escalation context)
+- **`/dm:competitor-pages`** — SEO-optimized competitor comparison page generator: "X vs Y" pages, "alternatives to X" pages, "best tools" roundup pages, feature matrix tables. Includes Product/SoftwareApplication/ItemList schema markup, conversion-optimized CTA layouts, keyword targeting formulas, fairness guidelines, and social proof integration
+- **`/dm:image-seo-audit`** — Dedicated image optimization audit: alt text quality, tiered file size thresholds (thumbnail/content/hero), format analysis (WebP/AVIF/JPEG XL status), responsive images (`srcset`/`sizes`), lazy loading validation (flags `loading="lazy"` on LCP images), `fetchpriority="high"` checks, `decoding="async"`, CLS prevention via dimensions, file naming, CDN usage
+- **`/dm:page-analysis`** — Deep single-page SEO analysis: all ranking dimensions for one URL (title, meta, headings, content depth, E-E-A-T, schema detection with deprecation tracking, images, internal links, technical signals, AI search readiness). More granular than site-wide `/dm:seo-audit`. Use for landing page optimization, content refresh prioritization, or pre-publish quality checks
+- **`/dm:sitemap`** — XML sitemap analysis and generation: parse existing sitemaps for issues (stale lastmod, 404s, noindex conflicts, missing URLs, protocol limit violations), or generate new sitemaps with industry-specific templates (SaaS, ecommerce, local, publisher, agency). Includes sitemap index strategy, robots.txt registration, and compression recommendations
+- **`/dm:seo-plan`** — Comprehensive SEO strategy planning with industry-specific templates: discovery, competitive analysis, architecture design, content strategy, technical foundation, and 4-phase implementation roadmap (Foundation → Expansion → Scale → Authority). Templates for SaaS, ecommerce, local service, publisher/media, and agency business models
+
+#### New Reference Files (2)
+
+- **`schema-templates.json`** — Ready-to-use JSON-LD template library with 12 schema types: VideoObject, BroadcastEvent (LIVE badge), Clip (key moments), SeekToAction (video seek), SoftwareSourceCode, ProductGroup (e-commerce variants), ProfilePage (E-E-A-T), Certification (replaced EnergyConsumptionDetails), OfferShippingDetails, MerchantReturnPolicy, SoftwareApplication, ItemList. Includes deprecation tracker for HowTo (Sept 2023), FAQ (Aug 2023), SpecialAnnouncement (July 2025), EnergyConsumptionDetails (April 2025)
+- **`google-seo-reference.md`** — Concise Google SEO quick reference for agents: Search Essentials, E-E-A-T framework (with December 2025 update extending to all competitive queries), Core Web Vitals (INP current, FID removed), schema markup status table, image SEO best practices, AI search optimization signals, spam policies including Scaled Content Abuse and Site Reputation Abuse
+
+#### Updated — schema-generator.py
+
+- **9 new schema types** added: BroadcastEvent, Clip, SeekToAction, SoftwareSourceCode, SoftwareApplication, ProductGroup, ProfilePage, Certification, ItemList, plus dedicated builder functions for each
+- **Deprecation warnings** — Automatic warnings when generating HowTo or FAQPage schemas, citing deprecation dates and recommending alternatives
+- Total supported types: 18 (was 9)
+
+#### Updated — seo-specialist Agent
+
+- References new skills (programmatic-seo, competitor-pages, image-seo-audit, page-seo-analysis, sitemap-manager, seo-plan) with invocation guidance
+- References new reference files (google-seo-reference.md, schema-templates.json)
+
+#### New MCP Integration
+
+- **DataForSEO** — Live SERP data, keyword research, backlink profiles, on-page analysis, content analysis, competitor domain analysis, AI visibility checking, LLM mention tracking. 9 API modules. Added to `.mcp.json.example` with `DATAFORSEO_USERNAME` and `DATAFORSEO_PASSWORD` environment variables
+
+### Summary
+
+| Metric | Before (v2.5.1) | After (v2.6.0) |
+|--------|-----------------|-----------------|
+| Skills | 135 | 141 |
+| Schema types in generator | 9 | 18 |
+| SEO-specific commands | ~14 | ~20 |
+| MCP integrations | 67 | 68 |
+| Reference files | 146 | 148 |
+
+---
+
 ## [2.5.1] — 2026-03-05
 
 ### Added — Skill Platform Enhancements

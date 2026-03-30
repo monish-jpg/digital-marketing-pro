@@ -704,6 +704,18 @@
       },
       "description": "Brandwatch — social listening, competitor mentions, sentiment analysis, share of voice"
     },
+    "dataforseo": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "dataforseo-mcp-server"
+      ],
+      "env": {
+        "DATAFORSEO_USERNAME": "${DATAFORSEO_USERNAME}",
+        "DATAFORSEO_PASSWORD": "${DATAFORSEO_PASSWORD}"
+      },
+      "description": "DataForSEO — live SERP data, keyword research, backlinks, on-page analysis, content analysis, competitor domains, AI visibility checking, LLM mention tracking. 9 API modules: SERP, Keywords Data, DataForSEO Labs, Backlinks, On-Page, Domain Analytics, Content Analytics, Business Data, App Data"
+    },
     "marketo": {
       "command": "npx",
       "args": [

@@ -1,4 +1,4 @@
-# Digital Marketing Pro Testing Guide — v2.5.1
+# Digital Marketing Pro Testing Guide — v2.6.0
 
 Complete testing guide for the Digital Marketing Pro plugin.
 
@@ -68,7 +68,7 @@ rm -rf ~/.claude-marketing/
 **Expected Results:**
 - [ ] Marketplace loads without errors
 - [ ] DM Pro listed with version 2.5.0
-- [ ] Description mentions "25 specialist agents, 7 commands, 118 skills, 14 HTTP connectors"
+- [ ] Description mentions "25 specialist agents, 7 commands, 141 skills, 14 HTTP connectors"
 - [ ] Installation completes without rollback
 - [ ] No "Host key verification failed" error (uses HTTPS, not SSH)
 
@@ -94,7 +94,7 @@ rm -rf ~/.claude-marketing/
 - [ ] SessionStart hook fires — setup.py runs `--check-deps --summary`
 - [ ] No Python errors or tracebacks
 - [ ] 7 commands visible in Customize panel (brand-setup, campaign-plan, seo-audit, content-engine, performance-report, competitor-analysis, email-sequence)
-- [ ] 118 skills visible in Skills section
+- [ ] 141 skills visible in Skills section
 - [ ] 25 agents registered (check for no frontmatter errors in logs)
 
 ### 2.4 Plugin Structure Verification
@@ -102,10 +102,10 @@ rm -rf ~/.claude-marketing/
 **Expected file counts:**
 - [ ] `agents/` — 25 agent .md files (all with YAML frontmatter)
 - [ ] `commands/` — 7 command .md files
-- [ ] `skills/` — 118 skill directories, each with SKILL.md
+- [ ] `skills/` — 141 skill directories, each with SKILL.md
 - [ ] `scripts/` — 65 Python scripts
 - [ ] `.mcp.json` — 14 HTTP connectors
-- [ ] `.mcp.json.example` — 67 npx servers (opt-in for Claude Code)
+- [ ] `.mcp.json.example` — 68 npx servers (opt-in for Claude Code)
 - [ ] `hooks/hooks.json` — 4 hook events
 - [ ] `docs/` — 11 documentation guides
 - [ ] `CONNECTORS.md` — Connector reference with `~~category` placeholders
@@ -200,7 +200,7 @@ Test all 7 commands visible in the Customize panel.
 
 ## 4. Skill Tests
 
-DM Pro has 118 skills. Test a representative sample from each module.
+DM Pro has 141 skills. Test a representative sample from each module.
 
 ### Context & Setup Module
 
@@ -632,7 +632,7 @@ Run this after any changes to verify nothing is broken.
 
 - [ ] `/dm:help` shows complete, accurate information
 - [ ] `/dm:integrations` shows 14 HTTP connectors with correct status
-- [ ] All 118 skills respond to invocation (spot check at minimum)
+- [ ] All 141 skills respond to invocation (spot check at minimum)
 - [ ] Skills handle missing connectors gracefully
 
 ### Skill Platform Features
@@ -658,7 +658,7 @@ Run this after any changes to verify nothing is broken.
 - [ ] `README.md` version = 2.5.1
 - [ ] Marketplace entry version = 2.5.1
 - [ ] `25 agents` in all descriptions
-- [ ] `118 skills` in all descriptions (not 115, not 117)
+- [ ] `141 skills` in all descriptions (not 115, not 117)
 - [ ] `7 commands` in all descriptions
 - [ ] `65 scripts` in all descriptions (not 64)
 - [ ] `14 HTTP connectors` in all descriptions

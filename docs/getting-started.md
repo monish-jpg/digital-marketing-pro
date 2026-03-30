@@ -34,7 +34,7 @@ That is it. Everything else is optional.
 **Optional but nice to have:**
 
 - **Python 3.8 or newer** --- unlocks advanced scoring features like brand voice analysis and content readability. The plugin works perfectly without Python; you just get bonus capabilities if it is installed.
-- **No API keys required** --- the plugin ships with 143 reference knowledge files that power all 16 marketing modules. The optional MCP integrations (14 HTTP connectors that work in Cowork, plus 67 npx integrations for Claude Code) use your own account credentials and can be configured later. Run `/dm:integrations` to see which connectors are available and `/dm:connect <name>` for step-by-step setup.
+- **No API keys required** --- the plugin ships with 148 reference knowledge files that power all 16 marketing modules. The optional MCP integrations (14 HTTP connectors that work in Cowork, plus 68 npx integrations for Claude Code) use your own account credentials and can be configured later. Run `/dm:integrations` to see which connectors are available and `/dm:connect <name>` for step-by-step setup.
 
 > **Bottom line:** If you can run Claude Code or Claude Cowork, you can use this plugin right now.
 
@@ -87,11 +87,11 @@ For full details on Cowork capabilities (document creation, visual review, app i
 After running either command, you should see output similar to this:
 
 ```
-Installing plugin: digital-marketing-pro v2.5.0
+Installing plugin: digital-marketing-pro v2.6.0
   - 16 marketing modules loaded
-  - 118 slash commands registered (/dm:*)
+  - 141 slash commands registered (/dm:*)
   - 25 specialist agents available
-  - 14 HTTP connectors + 67 npx integrations configured
+  - 14 HTTP connectors + 68 npx integrations configured
   - 3 event hooks configured (SessionStart, PreToolUse, SessionEnd)
 
 Plugin "digital-marketing-pro" installed successfully.
@@ -471,7 +471,7 @@ printed                  (just ask for things)        session
 
 ## 8. Python Dependencies (Optional)
 
-Digital Marketing Pro is designed to work at full capability without Python. All 16 marketing modules, 25 specialist agents, and 118 slash commands function using the plugin's built-in reference knowledge. Python adds bonus scoring and automation features.
+Digital Marketing Pro is designed to work at full capability without Python. All 16 marketing modules, 25 specialist agents, and 141 slash commands function using the plugin's built-in reference knowledge. Python adds bonus scoring and automation features.
 
 ### Three dependency modes
 
@@ -486,8 +486,8 @@ Digital Marketing Pro is designed to work at full capability without Python. All
 This is what you get out of the box. No setup required.
 
 You have access to:
-- All 16 marketing modules with 143 reference knowledge files
-- All **118** `/dm:` slash commands
+- All 16 marketing modules with 148 reference knowledge files
+- All **141** `/dm:` slash commands
 - All 25 specialist agents
 - Brand profiling, session hooks, and campaign tracking
 - Industry benchmarks, compliance rules, and platform specifications
@@ -565,7 +565,7 @@ Example output:
  ...
 
 Connected: 14 HTTP | Available: 33 npx
-Skills fully unlocked: 87/118 | Skills with enhanced capabilities: **118/118**
+Skills fully unlocked: 87/141 | Skills with enhanced capabilities: **141/141**
 ```
 
 ### Setting up a new connector
@@ -586,7 +586,7 @@ To check platform-level integrations: Open Claude Desktop → Settings → Integ
 
 ## 10. Available Commands
 
-Digital Marketing Pro provides 118 slash commands, all prefixed with `/dm:`. You can type these directly in your Claude Code session.
+Digital Marketing Pro provides 141 slash commands, all prefixed with `/dm:`. You can type these directly in your Claude Code session.
 
 ### Brand Management
 
@@ -740,7 +740,7 @@ Slash commands are useful for structured, templated outputs. But you can also ju
 "I need to respond to negative reviews on Google"
 ```
 
-The plugin's 16 modules will activate based on the intent of your request, whether or not you use a slash command. The 118 commands simply give you a direct shortcut to a specific workflow.
+The plugin's 16 modules will activate based on the intent of your request, whether or not you use a slash command. The 141 commands simply give you a direct shortcut to a specific workflow.
 
 ---
 
@@ -802,4 +802,4 @@ If something is not working as expected:
 
 ---
 
-*Digital Marketing Pro v2.5.0 --- Built for marketing professionals who want strategy, execution, and publishing that stays on-brand, every time. Plan it, approve it, execute it, monitor it --- all from Claude Code and Claude Cowork.*
+*Digital Marketing Pro v2.6.0 --- Built for marketing professionals who want strategy, execution, and publishing that stays on-brand, every time. Plan it, approve it, execute it, monitor it --- all from Claude Code and Claude Cowork.*

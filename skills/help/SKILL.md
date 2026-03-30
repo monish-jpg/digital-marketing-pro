@@ -19,11 +19,11 @@ Display this quick orientation:
 ```
 === DIGITAL MARKETING PRO — HELP ===
 
-Version: 2.5.1
+Version: 2.6.0
 Agents: 25 specialist agents
-Skills: 118 slash commands (/dm:*) — all with argument-hint autocomplete
+Skills: 141 slash commands (/dm:*) — all with argument-hint autocomplete
 Modules: 16 marketing knowledge domains
-Connectors: 14 HTTP + 67 npx integrations
+Connectors: 14 HTTP + 68 npx integrations
 
 Getting Started:
   1. /dm:brand-setup        — Create your brand profile (start here)

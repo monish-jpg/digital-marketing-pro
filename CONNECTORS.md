@@ -15,7 +15,7 @@ Plugins are **tool-agnostic** — they describe workflows in terms of categories
 | CRM | `~~CRM` | HubSpot | Salesforce, Pipedrive, Zoho |
 | Product analytics | `~~product analytics` | Amplitude | Mixpanel, Google Analytics |
 | Knowledge base | `~~knowledge base` | Notion | Confluence, Guru |
-| SEO | `~~SEO` | Ahrefs, Similarweb | Semrush, Moz |
+| SEO | `~~SEO` | Ahrefs, Similarweb | Semrush, Moz, DataForSEO |
 | Email marketing | `~~email marketing` | Klaviyo | Mailchimp, Brevo, Customer.io, SendGrid |
 | Calendar | `~~calendar` | Google Calendar | Outlook Calendar |
 | Email | `~~email` | Gmail | Outlook |
@@ -61,7 +61,7 @@ Use these skills to discover and manage your integrations:
 
 ## Advanced configuration (Claude Code)
 
-For Claude Code CLI users who want the full 67-server configuration with npx/stdio transports, rename the example file:
+For Claude Code CLI users who want the full 68-server configuration with npx/stdio transports, rename the example file:
 
 ```bash
 cp .mcp.json.example .mcp.json

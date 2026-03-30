@@ -42,7 +42,7 @@ Structure SEO recommendations as: Priority (Quick Win / Strategic / Fill-In), Op
 
 - **schema-generator.py** — Generate JSON-LD structured data
   `python "scripts/schema-generator.py" --type FAQPage --data '{"questions":[{"question":"What is SEO?","answer":"Search engine optimization is..."}]}'`
-  When: Recommending schema markup — provide ready-to-implement JSON-LD. Types: Article | FAQPage | HowTo | Product | LocalBusiness | Organization | Person | Event | VideoObject
+  When: Recommending schema markup — provide ready-to-implement JSON-LD. Types: Article | FAQPage | HowTo | Product | LocalBusiness | Organization | Person | Event | VideoObject | BroadcastEvent | Clip | SeekToAction | SoftwareSourceCode | SoftwareApplication | ProductGroup | ProfilePage | Certification | ItemList. Note: HowTo and FAQPage are deprecated — script warns automatically.
 
 - **ai-visibility-checker.py** — Check brand visibility in AI responses
   `python "scripts/ai-visibility-checker.py" --brand "Brand Name" --mode manual --industry "saas"`
@@ -102,6 +102,8 @@ Load when relevant:
 - `industry-profiles.md` — industry-specific SEO benchmarks, keyword difficulty expectations, content format effectiveness
 - `compliance-rules.md` — regulated industry content restrictions that affect SEO copy
 - `intelligence-layer.md` — campaign memory patterns for tracking SEO progress over time
+- `google-seo-reference.md` — Google SEO quick reference: Search Essentials, E-E-A-T, CWV thresholds, schema status, AI search optimization, spam policies (updated March 2026)
+- `schema-templates.json` — Ready-to-use JSON-LD templates for VideoObject, BroadcastEvent, Clip, SeekToAction, SoftwareSourceCode, ProductGroup, ProfilePage, Certification, SoftwareApplication, ItemList, OfferShippingDetails, MerchantReturnPolicy. Includes deprecation tracking for HowTo, FAQ, SpecialAnnouncement, EnergyConsumptionDetails.
 - `skills/technical-seo/core-web-vitals.md` — LCP, INP, CLS thresholds, optimization strategies, measurement tools
 - `skills/technical-seo/crawlability.md` — Robots.txt, XML sitemaps, crawl budget, JavaScript rendering, log file analysis
 - `skills/technical-seo/site-architecture.md` — URL structure, internal linking, pagination, faceted navigation, site migrations
@@ -111,6 +113,15 @@ Load when relevant:
 - `skills/local-seo/citation-management.md` — NAP consistency, citation sources by industry, data aggregators, audit methodology
 - `skills/local-seo/local-content.md` — Local keyword research, location pages, city pages, "near me" optimization, voice search
 - `skills/local-seo/multi-location.md` — Multi-location GBP management, store locators, franchise SEO, location page hierarchy
+
+## Additional SEO Skills (invoke when relevant)
+
+- **programmatic-seo** (`/dm:programmatic-seo`) — Programmatic SEO at scale: data source assessment, template engines, URL patterns, quality gates (WARNING at 100 pages, HARD STOP at 500), thin content safeguards, index bloat prevention, Scaled Content Abuse policy enforcement
+- **competitor-pages** (`/dm:competitor-pages`) — "X vs Y" comparison pages, "alternatives to X" pages, roundup pages, feature matrices with Product/SoftwareApplication/ItemList schema and conversion-optimized layouts
+- **image-seo-audit** (`/dm:image-seo-audit`) — Dedicated image optimization: alt text, file sizes (tiered thresholds), WebP/AVIF, responsive images, lazy loading, fetchpriority, CLS prevention, CDN usage
+- **page-seo-analysis** (`/dm:page-analysis`) — Deep single-page SEO analysis: all ranking dimensions for one URL, with schema deprecation checking and competitor comparison
+- **sitemap-manager** (`/dm:sitemap`) — XML sitemap analysis and generation with industry templates (SaaS, ecommerce, local, publisher, agency)
+- **seo-plan** (`/dm:seo-plan`) — Comprehensive SEO strategy with industry-specific templates, competitive analysis, content roadmap, and phased 4-phase implementation plan
 
 ## Cross-Agent Collaboration
 

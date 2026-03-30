@@ -1,8 +1,8 @@
 # Integrations & CRM Guide
 
-> **Digital Marketing Pro** v2.5.0 | For marketing operations managers
+> **Digital Marketing Pro** v2.6.0 | For marketing operations managers
 >
-> This guide covers all 67 MCP integrations available in the plugin, how to configure them, how to manage credentials across multiple clients, and what the plugin can do with or without live connections.
+> This guide covers all 68 MCP integrations available in the plugin, how to configure them, how to manage credentials across multiple clients, and what the plugin can do with or without live connections.
 
 ---
 
@@ -50,9 +50,9 @@ In practical terms: instead of you manually pulling a GA4 report, pasting it int
 
 ### How the Plugin Uses MCP
 
-The plugin ships with a `.mcp.json` configuration file that defines 67 MCP server connections. Each one maps to a marketing platform or productivity tool. None of them are active by default. They activate only when you set the required environment variables for that service.
+The plugin ships with a `.mcp.json` configuration file that defines 68 MCP server connections. Each one maps to a marketing platform or productivity tool. None of them are active by default. They activate only when you set the required environment variables for that service.
 
-This is the key design principle: **the plugin works fully without any integrations enabled.** All 16 skill modules, 143 reference knowledge files, scoring scripts, brand voice analysis, compliance checking, and campaign planning features operate entirely offline using built-in benchmarks and reference data. MCP integrations layer real data on top of that foundation.
+This is the key design principle: **the plugin works fully without any integrations enabled.** All 16 skill modules, 148 reference knowledge files, scoring scripts, brand voice analysis, compliance checking, and campaign planning features operate entirely offline using built-in benchmarks and reference data. MCP integrations layer real data on top of that foundation.
 
 ### What Happens Under the Hood
 
@@ -1351,7 +1351,7 @@ You: Pull the latest ad creative designs from our Figma project and review them 
 
 ### SEO & Monitoring (v2.1.0)
 
-v2.1.0 adds SEO and brand monitoring platforms that complement the existing SEMrush and Ahrefs integrations.
+v2.1.0 adds SEO and brand monitoring platforms that complement the existing SEMrush and Ahrefs integrations. v2.6.0 adds DataForSEO for live SERP data, keyword research, backlink analysis, and AI visibility tracking.
 
 #### Moz
 
@@ -1417,6 +1417,51 @@ You: Run Core Web Vitals checks on our top 20 landing pages and flag any failing
 **Example usage:**
 ```
 You: Monitor brand sentiment across social channels and flag any emerging reputation issues
+```
+
+---
+
+#### DataForSEO
+
+**What it enables:** Live SERP data, keyword research with search volume and difficulty, backlink profiles with spam scoring, on-page analysis (Lighthouse + content parsing), content analysis, competitor domain analysis, business listings search, AI visibility checking across ChatGPT and other LLMs, and LLM mention tracking. Powers the `seo-audit`, `keyword-research`, `competitor-analysis`, `page-analysis`, `rank-monitor`, `competitor-pages`, and `geo-monitor` commands with live data instead of estimates.
+
+**Required environment variables:**
+
+| Variable | Description |
+|---|---|
+| `DATAFORSEO_USERNAME` | DataForSEO account username (email) |
+| `DATAFORSEO_PASSWORD` | DataForSEO account password |
+
+**Where to get credentials:**
+1. Create an account at [app.dataforseo.com/register](https://app.dataforseo.com/register)
+2. Your login email is the username, your account password is the password
+3. API access is included with all plans. Pay-as-you-go pricing starts at $0.0001 per task for most endpoints
+4. Test with the sandbox environment first (set `DATAFORSEO_SANDBOX=true` for free testing with sample data)
+
+**9 API modules available:**
+
+| Module | What It Provides |
+|---|---|
+| SERP | Google/Bing/Yahoo organic results, YouTube search results, video deep analysis |
+| Keywords Data | Search volume, keyword trends over time |
+| DataForSEO Labs | Keyword ideas, difficulty scores, intent classification, competitor domains, ranked keywords, subdomains |
+| Backlinks | Full backlink profiles with spam scores, referring domains, anchor text distribution |
+| On-Page | Lighthouse-based page analysis, content parsing, technical signals |
+| Domain Analytics | Technology stack detection, WHOIS data |
+| Content Analytics | Content analysis, phrase trends, search intent |
+| Business Data | Business listings search, Google Business Profile data |
+| App Data | AI visibility scraping (ChatGPT web search), LLM mention tracking |
+
+**Example usage:**
+```
+You: Research keywords for "AI marketing tools" — I need volume, difficulty, and intent classification
+→ Uses DataForSEO Labs for keyword ideas, volume, difficulty, and intent
+
+You: Analyze the backlink profile of competitor.com and compare it to ours
+→ Uses DataForSEO Backlinks module for full profile with spam scoring
+
+You: Check if our brand is being mentioned in ChatGPT responses
+→ Uses DataForSEO App Data module for AI visibility scraping and LLM mention tracking
 ```
 
 ---
@@ -1888,10 +1933,10 @@ When connecting MCP integrations that access personal data (especially GA4, HubS
 | Optimizely | `OPTIMIZELY_API_TOKEN`, `OPTIMIZELY_PROJECT_ID` | -- |
 | Supabase | `SUPABASE_URL`, `SUPABASE_SERVICE_KEY` | -- |
 
-**Total unique variables:** 96 across all 67 integrations (because `GOOGLE_APPLICATION_CREDENTIALS` is shared across GA4, GSC, Google Ads, Sheets, YouTube, BigQuery, and Google Drive, and Pardot shares Salesforce OAuth credentials).
+**Total unique variables:** 98 across all 68 integrations (because `GOOGLE_APPLICATION_CREDENTIALS` is shared across GA4, GSC, Google Ads, Sheets, YouTube, BigQuery, and Google Drive, and Pardot shares Salesforce OAuth credentials).
 
 **Minimum setup for maximum coverage:** A single GCP service account JSON file + your GA4 Property ID + GSC Site URL gives you up to seven Google integrations (GA4, GSC, Sheets, YouTube, BigQuery, Google Drive, Google Ads) from a shared credential base.
 
 ---
 
-*Digital Marketing Pro v2.5.0 -- Integrations & CRM Guide*
+*Digital Marketing Pro v2.6.0 -- Integrations & CRM Guide*
