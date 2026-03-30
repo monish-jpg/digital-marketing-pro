@@ -1,6 +1,6 @@
 ---
 name: campaign-status
-description: "Use when the user wants to check the status of all active campaigns across platforms, including execution history, performance metrics, and pending approvals."
+description: "Check active campaign status. Use when: cross-platform execution history, performance metrics, pending approvals."
 ---
 
 # /dm:campaign-status

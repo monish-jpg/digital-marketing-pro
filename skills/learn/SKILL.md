@@ -1,6 +1,6 @@
 ---
 name: learn
-description: "Use when the user wants to save a marketing learning or insight — structured knowledge with context, conditions, confidence score, and source — for compound intelligence that improves over time."
+description: "Save a marketing learning or insight. Use when: capturing knowledge, recording campaign results, building compound intelligence."
 ---
 
 # /dm:learn

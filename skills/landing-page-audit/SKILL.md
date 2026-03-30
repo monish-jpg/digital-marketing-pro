@@ -1,6 +1,6 @@
 ---
 name: landing-page-audit
-description: Use when the user needs a landing page scored across above-fold clarity, trust signals, form friction, message match, page speed, and mobile experience.
+description: "Audit landing pages. Use when: scoring above-fold clarity, trust signals, form friction, message match, or mobile UX."
 argument-hint: "[URL]"
 ---
 

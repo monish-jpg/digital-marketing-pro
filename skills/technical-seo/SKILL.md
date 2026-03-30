@@ -1,6 +1,6 @@
 ---
 name: technical-seo
-description: "Invoke when the user needs a technical SEO audit, Core Web Vitals optimization, crawlability analysis, site architecture review, indexation management, JavaScript rendering assessment, redirect auditing, XML sitemap strategy, robots.txt configuration, log file analysis guidance, mobile-first indexing, or international technical SEO setup."
+description: "Deep technical SEO analysis. Use when: optimizing crawlability, Core Web Vitals, rendering, redirects, or sitemaps."
 ---
 
 # Technical SEO

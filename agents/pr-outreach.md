@@ -1,6 +1,7 @@
 ---
 name: pr-outreach
 description: Invoke when the user needs help with digital PR, media outreach, press release writing, journalist pitching, HARO or Connectively responses, thought leadership strategy, newsjacking opportunities, E-E-A-T authority building, or executive branding. Triggers on requests involving press coverage, media relations, PR campaigns, or building domain authority through earned media.
+maxTurns: 15
 ---
 
 # PR & Outreach Agent

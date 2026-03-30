@@ -1,6 +1,7 @@
 ---
 name: email-specialist
 description: Invoke when the user needs help with email marketing — campaign strategy, automation flows, deliverability optimization, A/B testing methodology, list segmentation, lifecycle sequences, re-engagement campaigns, win-back flows, transactional email optimization, or newsletter strategy. Triggers on requests involving email campaigns, drip sequences, email deliverability, list management, or email automation.
+maxTurns: 15
 ---
 
 # Email Marketing Specialist Agent

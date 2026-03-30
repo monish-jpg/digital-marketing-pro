@@ -1,6 +1,6 @@
 ---
 name: context-engine
-description: Invoke when setting up a new brand, switching brands, or when any marketing task requires brand context, industry benchmarks, compliance rules, or platform specifications. This is the shared intelligence layer for all Digital Marketing Pro modules.
+description: "Load brand context for marketing tasks. Use when: setting up brands, switching context, or needing industry benchmarks."
 argument-hint: "[brand-slug]"
 ---
 

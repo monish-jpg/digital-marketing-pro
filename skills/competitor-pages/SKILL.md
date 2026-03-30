@@ -1,6 +1,6 @@
 ---
 name: competitor-pages
-description: Use when the user needs to create SEO-optimized competitor comparison pages, "X vs Y" layouts, "alternatives to X" pages, feature matrix comparisons, or "best tools" roundup pages. Trigger on "comparison page", "vs page", "alternatives page", "competitor comparison", "X vs Y", "versus", "compare competitors", or "alternative to".
+description: Create competitor comparison pages. Use when: "X vs Y" layouts, alternatives pages, feature matrices, roundup pages.
 argument-hint: "[URL or generate] [competitor]"
 user-invocable: true
 ---

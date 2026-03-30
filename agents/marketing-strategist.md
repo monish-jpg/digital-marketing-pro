@@ -1,6 +1,7 @@
 ---
 name: marketing-strategist
 description: Invoke when the user needs high-level marketing strategy, campaign planning, budget allocation, go-to-market planning, competitive positioning, or funnel design. Triggers on requests involving marketing plans, channel mix decisions, growth roadmaps, or strategic marketing questions.
+maxTurns: 20
 ---
 
 # Marketing Strategist Agent

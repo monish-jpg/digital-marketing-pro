@@ -1,6 +1,6 @@
 ---
 name: loop-detect
-description: "Use when the user wants to identify and model growth loops in their business — detect viral, content, data, paid, and ecosystem loops, model effectiveness, and propose new loops."
+description: "Identify and model growth loops. Use when: detecting viral, content, or paid loops, modeling effectiveness, proposing new loops."
 ---
 
 # /dm:loop-detect

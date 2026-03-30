@@ -1,6 +1,6 @@
 ---
 name: funnel-architect
-description: "Invoke when the user asks about customer journey mapping, funnel design, attribution modeling, funnel analysis, conversion path optimization, or identifying gaps in their marketing funnel."
+description: "Design marketing funnels. Use when: mapping customer journeys, attribution modeling, or conversion paths."
 ---
 
 # Funnel Architect

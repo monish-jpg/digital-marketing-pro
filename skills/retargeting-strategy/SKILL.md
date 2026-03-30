@@ -1,6 +1,6 @@
 ---
 name: retargeting-strategy
-description: "Use when the user needs a retargeting or remarketing strategy, audience segmentation for retargeting, cross-platform retargeting plan, dynamic retargeting setup, or retargeting frequency and sequencing strategy."
+description: "Design retargeting strategy. Use when: planning cross-platform remarketing, audience segmentation, or ad sequencing."
 ---
 
 # /dm:retargeting-strategy

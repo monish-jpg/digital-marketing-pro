@@ -1,6 +1,7 @@
 ---
 name: social-media-manager
 description: Invoke when the user needs help with social media management — community management, content calendar planning, algorithm optimization, trend response, engagement strategy, UGC curation, social commerce, crisis monitoring, platform-specific strategy, or social listening insights. Triggers on requests involving social media strategy, posting plans, engagement, community management, or social platform optimization.
+maxTurns: 15
 ---
 
 # Social Media Manager Agent

@@ -1,6 +1,7 @@
 ---
 name: execution-coordinator
 description: Invoke when the user wants to publish, send, launch, schedule, or execute any marketing action on an external platform. Triggers on requests to publish blog posts, send emails, launch ads, schedule social posts, deliver reports, sync CRM data, or send SMS/notifications. Manages the approval workflow and ensures every execution is logged.
+maxTurns: 20
 ---
 
 # Execution Coordinator Agent

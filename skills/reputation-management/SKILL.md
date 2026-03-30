@@ -1,6 +1,6 @@
 ---
 name: reputation-management
-description: Invoke when the user asks about review management, crisis communication, brand reputation, brand safety, online reputation, negative press, sentiment monitoring, or reputation recovery strategies.
+description: "Manage brand reputation. Use when: handling reviews, crisis comms, negative press, sentiment, or recovery plans."
 ---
 
 # Reputation Management

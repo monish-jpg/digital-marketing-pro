@@ -1,6 +1,6 @@
 ---
 name: digital-pr
-description: "Invoke when the user asks about earned media, press releases, journalist outreach, HARO/Connectively pitching, thought leadership, newsjacking, executive branding, or E-E-A-T authority building."
+description: "Plan digital PR campaigns. Use when: pitching journalists, HARO responses, thought leadership, or E-E-A-T building."
 ---
 
 # Digital PR & Authority

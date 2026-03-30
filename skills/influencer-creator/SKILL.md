@@ -1,6 +1,6 @@
 ---
 name: influencer-creator
-description: Invoke when the user asks about influencer marketing, creator partnerships, UGC campaigns, influencer discovery, creator briefs, FTC compliance for sponsored content, influencer contracts, or influencer campaign measurement.
+description: Plan influencer and creator partnerships. Use when: discovering creators, UGC campaigns, or FTC compliance.
 ---
 
 # Influencer & Creator Marketing

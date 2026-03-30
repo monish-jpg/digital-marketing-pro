@@ -1,6 +1,6 @@
 ---
 name: pr-pitch
-description: Use when the user needs media pitch packages including pitch templates, target media lists, outreach strategy, or HARO/Connectively responses.
+description: "Create media pitch packages. Use when: building pitch templates, media lists, outreach strategy, or HARO responses."
 argument-hint: "[topic or news-hook]"
 ---
 

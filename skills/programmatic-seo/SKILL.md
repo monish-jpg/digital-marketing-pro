@@ -1,6 +1,6 @@
 ---
 name: programmatic-seo
-description: Use when the user needs to plan, audit, or scale programmatic SEO pages generated from structured data sources. Covers template engines, URL patterns, internal linking automation, thin content safeguards, index bloat prevention, and quality gates. Trigger on "programmatic SEO", "pages at scale", "dynamic pages", "template pages", "generated pages", or "data-driven SEO".
+description: "Plan programmatic SEO pages. Use when: building template engines, URL patterns, thin content safeguards, or quality gates."
 argument-hint: "[URL or plan]"
 user-invocable: true
 ---

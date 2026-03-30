@@ -1,6 +1,6 @@
 ---
 name: marketing-automation
-description: "Invoke when the user needs help with marketing automation workflows, lead scoring, nurture sequences, drip campaigns, behavioral triggers, lifecycle marketing, marketing operations, or automation platform strategy."
+description: "Design marketing automation workflows. Use when: building lead scoring, nurture sequences, drip campaigns, or behavioral triggers."
 ---
 
 # Marketing Automation

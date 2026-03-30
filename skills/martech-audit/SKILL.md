@@ -1,6 +1,6 @@
 ---
 name: martech-audit
-description: "Use when the user needs a marketing technology stack audit, martech evaluation, tool consolidation recommendations, marketing automation assessment, or needs help choosing between marketing platforms."
+description: "Audit the martech stack. Use when: evaluating marketing tools, recommending consolidation, or choosing between platforms."
 ---
 
 # /dm:martech-audit

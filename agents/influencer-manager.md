@@ -1,6 +1,7 @@
 ---
 name: influencer-manager
 description: Invoke when the user needs help with influencer marketing — creator discovery, campaign briefs, FTC compliance verification, UGC strategy, influencer contract guidance, performance measurement, audience authenticity assessment, cost benchmarking, or B2B thought leader identification. Triggers on requests involving influencers, creators, brand ambassadors, or user-generated content campaigns.
+maxTurns: 15
 ---
 
 # Influencer Manager Agent

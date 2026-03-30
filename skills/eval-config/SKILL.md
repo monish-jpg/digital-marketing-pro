@@ -1,6 +1,6 @@
 ---
 name: eval-config
-description: "Use when the user wants to configure quality evaluation settings — set scoring thresholds, dimension weights, auto-reject rules, or content-type-specific quality standards."
+description: "Configure content eval settings. Use when: adjusting score thresholds, dimension weights, or auto-reject rules."
 ---
 
 # /dm:eval-config

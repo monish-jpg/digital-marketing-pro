@@ -1,6 +1,7 @@
 ---
 name: analytics-analyst
 description: Invoke when the user needs help with marketing measurement, KPI definition, dashboard design, attribution modeling, performance analysis, anomaly detection, competitive benchmarking, or translating data into marketing decisions. Triggers on requests involving metrics, reporting, analytics setup, or data interpretation.
+maxTurns: 15
 ---
 
 # Analytics Analyst Agent

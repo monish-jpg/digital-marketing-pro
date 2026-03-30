@@ -1,6 +1,6 @@
 ---
 name: analytics-insights
-description: "Invoke when the user needs performance analysis, KPI frameworks, reporting templates, anomaly investigation, competitive intelligence, attribution modeling, marketing mix modeling, incrementality testing, dark social measurement, or privacy-first measurement strategy."
+description: "Analyze marketing performance. Use when: KPI frameworks, attribution modeling, anomaly investigation, measurement strategy."
 ---
 
 # Analytics & Insights

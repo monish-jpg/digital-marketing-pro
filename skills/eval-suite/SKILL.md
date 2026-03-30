@@ -1,6 +1,6 @@
 ---
 name: eval-suite
-description: "Use when the user wants to batch evaluate multiple content pieces — run the eval pipeline across an entire content library, campaign assets, or set of deliverables to get a portfolio quality assessment."
+description: "Batch evaluate multiple content pieces. Use when: scoring a content library, campaign assets, or deliverable set."
 ---
 
 # /dm:eval-suite

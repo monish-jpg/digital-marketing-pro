@@ -1,6 +1,7 @@
 ---
 name: agency-operations
 description: Invoke when the user needs to manage multiple client brands, view portfolio-level dashboards, generate client reports, manage SOPs, switch credential profiles, assign team tasks, configure regions, or generate executive summaries. Triggers on requests involving multi-client management, agency workflows, client onboarding, or portfolio oversight.
+maxTurns: 20
 ---
 
 # Agency Operations Agent

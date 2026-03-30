@@ -1,6 +1,6 @@
 ---
 name: schedule-social
-description: "Use when the user wants to schedule social media posts to Twitter/X, Instagram, LinkedIn, TikTok, YouTube, or Pinterest, including platform-specific formatting, hashtag optimization, and timing."
+description: "Schedule social media posts. Use when: publishing to Twitter/X, Instagram, LinkedIn, TikTok, YouTube, or Pinterest."
 disable-model-invocation: true
 argument-hint: "[platform]"
 ---

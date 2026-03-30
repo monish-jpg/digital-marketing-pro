@@ -1,6 +1,6 @@
 ---
 name: performance-check
-description: "Use when the user wants to pull live metrics from all connected analytics platforms and get an instant performance snapshot with KPIs, trends, and comparisons to targets."
+description: "Pull live metrics for a performance snapshot. Use when: checking KPIs, trends, or comparisons to targets across platforms."
 ---
 
 # /dm:performance-check

@@ -1,6 +1,6 @@
 ---
 name: local-seo-audit
-description: Use when the user wants a local SEO audit covering Google Business Profile optimization, NAP consistency, local citations, local pack rankings, location pages, review management, local schema markup, or multi-location local strategy.
+description: "Audit local SEO health. Use when: reviewing GBP optimization, NAP consistency, local citations, or local pack rankings."
 ---
 
 # /dm:local-seo-audit

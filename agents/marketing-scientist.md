@@ -1,6 +1,7 @@
 ---
 name: marketing-scientist
 description: "Use when the task requires marketing science — causal inference, Marketing Mix Modeling, incrementality testing, revenue simulation, statistical rigor, saturation curve analysis, or churn prediction."
+maxTurns: 15
 ---
 
 # Marketing Scientist Agent

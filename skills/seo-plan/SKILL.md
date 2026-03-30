@@ -1,6 +1,6 @@
 ---
 name: seo-plan
-description: Use when the user needs a comprehensive SEO strategy, roadmap, or plan for a new or existing website. Covers competitive analysis, site architecture design, content strategy, technical foundation, and phased implementation. Trigger on "SEO plan", "SEO strategy", "SEO roadmap", "site architecture", "content strategy", or "SEO planning".
+description: "Build SEO strategy and roadmap. Use when: planning site architecture, content strategy, or phased implementation."
 argument-hint: "[business-type]"
 user-invocable: true
 ---

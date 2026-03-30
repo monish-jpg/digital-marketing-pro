@@ -1,6 +1,7 @@
 ---
 name: competitor-intelligence
 description: "Use when the task requires ongoing competitive monitoring, competitor change detection, share of voice tracking, competitive alerts, ad monitoring, price monitoring, win/loss analysis, or competitive narrative mapping."
+maxTurns: 15
 ---
 
 # Competitor Intelligence Agent

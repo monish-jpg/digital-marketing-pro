@@ -1,6 +1,6 @@
 ---
 name: exec-summary
-description: "Use when the user wants to generate a C-suite-ready executive summary with portfolio ROI, strategic recommendations, risk flags, competitive positioning, and key marketing metrics."
+description: "Generate C-suite executive summaries. Use when: preparing board reports, portfolio ROI, or strategic reviews."
 ---
 
 # /dm:exec-summary

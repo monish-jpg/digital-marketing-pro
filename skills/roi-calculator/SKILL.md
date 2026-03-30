@@ -1,6 +1,6 @@
 ---
 name: roi-calculator
-description: "Use when the user needs to calculate campaign ROI, marketing ROAS, customer acquisition cost, cost per lead, lifetime value analysis, or multi-channel attribution ROI for budget justification."
+description: "Calculate marketing ROI. Use when: measuring campaign ROAS, CAC, CPL, LTV, or multi-channel attribution returns."
 argument-hint: "[campaign-name]"
 ---
 

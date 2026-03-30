@@ -1,6 +1,6 @@
 ---
 name: entity-audit
-description: "Use when the user wants to audit their brand's entity consistency across Wikidata, Google Knowledge Panel, Wikipedia, and industry directories — identifying and fixing inconsistencies that affect AI visibility."
+description: "Audit brand entity consistency. Use when: checking Wikidata, Knowledge Panel, or directory discrepancies."
 ---
 
 # /dm:entity-audit

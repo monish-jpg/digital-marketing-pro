@@ -1,6 +1,6 @@
 ---
 name: connect
-description: "Use when the user wants to set up a specific MCP connector — get step-by-step instructions for connecting a service like Google Ads, Salesforce, Mailchimp, etc. to the plugin."
+description: "Set up an MCP connector. Use when: connecting Google Ads, Salesforce, Mailchimp, or any service to the plugin."
 argument-hint: "[connector-name]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: team-assign
-description: "Use when the user wants to assign marketing tasks to team members based on role, channel expertise, and current capacity, or manage team member roles and workload."
+description: "Assign tasks to team members. Use when: distributing work by role, expertise, and capacity, or managing workloads."
 ---
 
 # /dm:team-assign

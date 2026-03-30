@@ -1,6 +1,6 @@
 ---
 name: region-config
-description: "Use when the user wants to configure regional or market settings for a brand — timezone, language, compliance rules, local platform preferences, currency, and business hours."
+description: "Configure regional settings. Use when: setting timezone, language, compliance rules, currency, or local preferences."
 ---
 
 # /dm:region-config

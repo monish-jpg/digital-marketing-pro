@@ -1,6 +1,6 @@
 ---
 name: audience-intelligence
-description: "Invoke when the user needs buyer personas, audience research, segmentation strategy, Jobs-to-Be-Done analysis, psychographic profiling, or understanding their target audience at a deep level."
+description: "Research target audiences. Use when: buyer personas, segmentation, Jobs-to-Be-Done, psychographic profiling, audience deep-dive."
 ---
 
 # Audience Intelligence

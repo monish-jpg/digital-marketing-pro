@@ -1,6 +1,6 @@
 ---
 name: client-proposal
-description: "Use when the user needs to create a marketing agency proposal, pitch deck outline, client onboarding document, scope of work, service level agreement, or agency capabilities presentation for a prospective or existing client."
+description: "Draft agency proposals. Use when: pitch deck, scope of work, SLA, capabilities presentation for prospects or clients."
 ---
 
 # /dm:client-proposal

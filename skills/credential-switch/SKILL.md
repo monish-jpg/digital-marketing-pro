@@ -1,6 +1,6 @@
 ---
 name: credential-switch
-description: "Use when the user wants to switch the active brand credential profile for multi-client management — activates the correct API keys for all MCP servers connected to that brand."
+description: "Switch brand credentials. Use when: activating the correct API keys for MCP servers in multi-client workflows."
 disable-model-invocation: true
 argument-hint: "[brand-slug]"
 ---

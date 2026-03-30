@@ -1,6 +1,6 @@
 ---
 name: video-script
-description: "Use when the user needs to write a video script, create video content for YouTube, TikTok, Instagram Reels, LinkedIn video, product demo script, explainer video, testimonial video, ad script, or any video marketing content with hooks, timestamps, and visual direction."
+description: "Write video scripts. Use when: creating YouTube, TikTok, Reels, LinkedIn, demo, or explainer video content."
 argument-hint: "[topic or format]"
 ---
 

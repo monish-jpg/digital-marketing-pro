@@ -1,6 +1,6 @@
 ---
 name: page-seo-analysis
-description: Use when the user needs a deep SEO analysis of a single specific page (not a full site audit). Covers on-page signals, schema detection, content quality, E-E-A-T, image optimization, internal linking, and AI search readiness — all focused on one URL. Trigger on "analyze this page", "page audit", "page SEO", "check this URL", "single page analysis", or when a specific page URL is provided for SEO review.
+description: "Analyze SEO for a single page. Use when: auditing on-page signals, schema, content quality, E-E-A-T, or AI search readiness."
 argument-hint: "[URL]"
 user-invocable: true
 ---

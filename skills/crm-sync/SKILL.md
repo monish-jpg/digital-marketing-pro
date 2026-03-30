@@ -1,6 +1,6 @@
 ---
 name: crm-sync
-description: "Use when the user wants to sync marketing contacts, deals, or campaign data to Salesforce, HubSpot, Zoho, or Pipedrive, including field mapping, deduplication, and sync logging."
+description: "Sync data to CRM platforms. Use when: pushing contacts, deals, or campaigns to Salesforce, HubSpot, Zoho, or Pipedrive."
 disable-model-invocation: true
 argument-hint: "[crm-platform]"
 ---

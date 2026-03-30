@@ -1,6 +1,6 @@
 ---
 name: share-of-voice
-description: "Use when the user wants to calculate share of voice — measure keyword visibility, SERP presence, ad impression share, social mention volume, or AI visibility compared to competitors."
+description: "Measure share of voice. Use when: comparing keyword visibility, SERP presence, ad share, or AI citations vs competitors."
 ---
 
 # /dm:share-of-voice

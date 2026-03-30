@@ -1,6 +1,6 @@
 ---
 name: creative-testing-framework
-description: "Use when the user needs to design a systematic creative testing plan, ad creative testing framework, multivariate creative strategy, creative iteration process, or structured approach to testing headlines, images, copy, formats, and creative elements across advertising platforms."
+description: "Design structured ad creative tests. Use when: planning A/B tests, multivariate creative strategy, or iteration."
 ---
 
 # /dm:creative-testing-framework

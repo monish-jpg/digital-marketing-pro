@@ -1,6 +1,6 @@
 ---
 name: social-strategy
-description: Use when the user needs a platform-specific social media strategy with content pillars, posting cadence, engagement tactics, and a growth plan.
+description: "Build social media strategy. Use when: defining content pillars, posting cadence, engagement tactics, or growth plans."
 argument-hint: "[platform or objective]"
 ---
 

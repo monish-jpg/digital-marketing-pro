@@ -1,6 +1,6 @@
 ---
 name: review-response
-description: "Use when the user needs to respond to online reviews (Google, Yelp, G2, Capterra, etc.), create review response templates, handle negative reviews, or build a systematic review management workflow."
+description: "Respond to online reviews. Use when: drafting replies for Google, Yelp, G2, or building review response templates."
 ---
 
 # /dm:review-response

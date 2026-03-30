@@ -1,6 +1,6 @@
 ---
 name: narrative-tracker
-description: "Use when the user wants to track what AI engines say about their brand — detect narrative drift, misrepresentation, competitor narrative gains, and changes in how AI platforms describe the brand over time."
+description: "Track AI engine brand narratives. Use when: detecting narrative drift, misrepresentation, or competitor narrative gains over time."
 ---
 
 # /dm:narrative-tracker

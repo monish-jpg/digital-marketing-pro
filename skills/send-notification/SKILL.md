@@ -1,6 +1,6 @@
 ---
 name: send-notification
-description: "Use when the user wants to send a team notification — campaign updates, performance alerts, approval requests, or status updates — via Slack or Intercom."
+description: "Send team notifications. Use when: pushing campaign updates, alerts, or approval requests via Slack or Intercom."
 disable-model-invocation: true
 argument-hint: "[channel or recipient]"
 ---

@@ -1,7 +1,8 @@
 ---
 name: launch-plan
-description: Use when the user needs a complete product or feature launch playbook with pre-launch, launch day, and post-launch phases across all marketing channels.
+description: Build product launch playbooks. Use when: planning pre-launch, launch day, or post-launch phases.
 argument-hint: "[product-name]"
+disable-model-invocation: true
 ---
 
 # /dm:launch-plan

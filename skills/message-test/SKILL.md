@@ -1,6 +1,6 @@
 ---
 name: message-test
-description: "Use when the user wants to test message variants — predict response rates, sentiment, and objections across audience segments before spending on real A/B tests or campaigns."
+description: "Test message variants on synthetic audiences. Use when: predicting response rates, sentiment, or objections before live tests."
 ---
 
 # /dm:message-test

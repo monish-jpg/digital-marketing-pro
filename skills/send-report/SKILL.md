@@ -1,6 +1,6 @@
 ---
 name: send-report
-description: "Use when the user wants to generate and deliver a performance report via Slack, email, or Google Sheets, including KPI summaries, trend analysis, and recommendations."
+description: "Deliver performance reports. Use when: sending KPI summaries via Slack, email, or Google Sheets with analysis."
 disable-model-invocation: true
 argument-hint: "[destination]"
 ---

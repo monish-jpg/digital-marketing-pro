@@ -1,6 +1,6 @@
 ---
 name: case-study-plan
-description: "Use when the user needs to create a case study, customer success story, client results showcase, portfolio piece, testimonial-based content, or structured proof point that demonstrates marketing results for a specific client or project."
+description: "Create case studies and success stories. Use when: client results showcase, portfolio piece, testimonial-based proof points."
 argument-hint: "[client-name]"
 ---
 

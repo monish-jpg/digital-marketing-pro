@@ -1,6 +1,6 @@
 ---
 name: language-audit
-description: "Use when the user wants to audit multilingual content consistency — check hreflang tags, content parity across languages, regional compliance, translation quality, and localization completeness."
+description: "Audit multilingual content consistency. Use when: checking language parity, regional compliance, or translation quality."
 ---
 
 # /dm:language-audit

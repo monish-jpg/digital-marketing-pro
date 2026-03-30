@@ -1,6 +1,7 @@
 ---
 name: journey-orchestrator
 description: "Use when the task requires designing cross-channel customer journeys, mapping touchpoint sequences, planning journey state machines with branching logic, simulating journey outcomes, or coordinating multi-channel nurture flows."
+maxTurns: 15
 ---
 
 # Journey Orchestrator Agent

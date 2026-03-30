@@ -1,6 +1,6 @@
 ---
 name: content-repurpose
-description: "Use when the user wants to repurpose existing content across channels, adapt a blog post into social media posts, turn a webinar into articles, create derivative content from a pillar piece, or maximize content ROI through format adaptation."
+description: "Repurpose content across channels. Use when: blog-to-social, webinar-to-article, pillar derivatives, format adaptation."
 ---
 
 # /dm:content-repurpose

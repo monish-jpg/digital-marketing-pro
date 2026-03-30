@@ -1,6 +1,6 @@
 ---
 name: publish-blog
-description: "Use when the user wants to publish a blog post to WordPress or Webflow, including SEO optimization, category assignment, featured image, and scheduling."
+description: "Publish blog posts. Use when: deploying to WordPress or Webflow with SEO optimization, categories, and scheduling."
 disable-model-invocation: true
 argument-hint: "[--platform=wordpress|webflow]"
 ---

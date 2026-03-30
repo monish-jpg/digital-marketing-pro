@@ -1,6 +1,6 @@
 ---
 name: influencer-brief
-description: Use when the user needs an influencer campaign brief with discovery criteria, creator guidelines, FTC compliance checklist, and measurement plan.
+description: Create influencer campaign briefs. Use when: setting creator criteria, FTC compliance, or measurement plans.
 argument-hint: "[campaign-objective]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: churn-risk
-description: "Use when the user wants to assess customer churn risk — score segments by churn probability, identify at-risk customers, and generate intervention playbooks with recommended actions and timing."
+description: "Assess customer churn risk. Use when: churn scoring, at-risk segment identification, intervention playbook generation."
 ---
 
 # /dm:churn-risk

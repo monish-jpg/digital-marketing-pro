@@ -1,6 +1,6 @@
 ---
 name: translate-content
-description: "Use when the user wants to translate marketing content — translate with brand voice preservation, automatic translation service routing, quality scoring, and transcreation option for emotional content."
+description: "Translate marketing content. Use when: localizing with brand voice preservation, quality scoring, or transcreation."
 argument-hint: "[target-language]"
 ---
 

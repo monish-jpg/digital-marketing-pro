@@ -1,6 +1,7 @@
 ---
 name: competitive-intel
 description: Invoke when the user needs competitor analysis — content strategy teardowns, SEO gap analysis, paid ad analysis from ad libraries, social media benchmarking, AI visibility comparisons, pricing and positioning research, or market landscape mapping. Triggers on requests mentioning competitors, competitive gaps, market analysis, or benchmarking.
+maxTurns: 15
 ---
 
 # Competitive Intelligence Agent

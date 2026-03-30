@@ -1,6 +1,6 @@
 ---
 name: cohort-analysis
-description: "Use when the user needs customer cohort analysis — acquisition cohorts, retention curves, LTV by cohort, behavioral cohorts, or time-based cohort comparison to understand customer lifecycle patterns."
+description: "Analyze customer cohorts. Use when: acquisition cohorts, retention curves, LTV by cohort, behavioral segmentation."
 ---
 
 # /dm:cohort-analysis

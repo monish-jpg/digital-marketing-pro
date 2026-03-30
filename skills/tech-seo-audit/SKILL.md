@@ -1,6 +1,6 @@
 ---
 name: tech-seo-audit
-description: Use when the user wants a technical SEO audit covering Core Web Vitals, crawlability, indexation, site architecture, page speed, mobile-first indexing, redirect health, structured data, or JavaScript rendering assessment.
+description: "Run technical SEO audit. Use when: checking Core Web Vitals, crawlability, indexation, speed, or structured data."
 argument-hint: "[URL]"
 ---
 

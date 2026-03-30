@@ -1,6 +1,7 @@
 ---
 name: growth-engineer
 description: Invoke when the user needs help with product-led growth strategy, referral programs, viral loop design, launch strategy, retention optimization, growth experiments, activation funnels, or conversion rate optimization. Triggers on requests involving growth models, PLG, user acquisition loops, experiment design, or retention mechanics for SaaS, marketplace, and consumer products.
+maxTurns: 15
 ---
 
 # Growth Engineer Agent

@@ -1,6 +1,6 @@
 ---
 name: lead-import
-description: "Use when the user wants to import leads from forms, CSV files, or manual entry into their CRM, with deduplication, validation, and lead scoring."
+description: "Import leads into CRM. Use when: loading leads from forms, CSV, or manual entry with deduplication and scoring."
 disable-model-invocation: true
 argument-hint: "[source-file or URL]"
 ---

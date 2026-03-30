@@ -1,6 +1,6 @@
 ---
 name: what-if
-description: "Use when the user wants a quick scenario comparison — test 2-4 marketing budget allocation scenarios side-by-side with projected outcomes and recommendations."
+description: "Compare budget scenarios side-by-side. Use when: testing 2-4 allocation variants with projected outcomes."
 ---
 
 # /dm:what-if

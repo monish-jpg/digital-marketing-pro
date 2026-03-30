@@ -1,6 +1,6 @@
 ---
 name: rank-monitor
-description: "Use when the user wants to set up or check keyword ranking monitoring — track target keyword positions daily or weekly, detect ranking drops, and alert on significant position changes."
+description: "Monitor keyword rankings. Use when: tracking keyword positions, detecting ranking drops, or alerting on position changes."
 ---
 
 # /dm:rank-monitor

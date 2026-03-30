@@ -1,6 +1,6 @@
 ---
 name: journey-design
-description: "Use when the user wants to design a cross-channel customer journey — define states, transitions, touchpoints, branching logic, timing, and content per stage with simulation before launch."
+description: "Design cross-channel customer journeys. Use when: mapping touchpoints, branching logic, or stage transitions."
 ---
 
 # /dm:journey-design

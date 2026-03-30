@@ -1,6 +1,6 @@
 ---
 name: pipeline-update
-description: "Use when the user wants to update deal stages, values, or notes in their CRM pipeline, track pipeline velocity, or manage deal progression."
+description: "Update CRM pipeline. Use when: changing deal stages, values, notes, tracking velocity, or managing deal progression."
 disable-model-invocation: true
 argument-hint: "[deal-name or stage]"
 ---

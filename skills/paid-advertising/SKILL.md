@@ -1,6 +1,6 @@
 ---
 name: paid-advertising
-description: Invoke when the user asks about Google Ads, Meta/Facebook Ads, LinkedIn Ads, TikTok Ads, programmatic advertising, retail media networks, bid strategy, ad audience targeting, or paid media budget optimization.
+description: "Plan paid advertising campaigns. Use when: managing Google Ads, Meta Ads, LinkedIn Ads, bid strategy, or budget optimization."
 ---
 
 # Paid Advertising

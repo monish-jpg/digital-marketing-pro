@@ -1,6 +1,6 @@
 ---
 name: data-import
-description: "Use when the user wants to import data into a connected platform — CRM contacts, email lists, audience segments, competitor data, or campaign data from CSV, JSON, or Google Sheets."
+description: "Import data from external sources. Use when: loading CRM contacts, email lists, or campaign data from CSV, JSON, or Sheets."
 disable-model-invocation: true
 argument-hint: "[source-file or URL]"
 ---

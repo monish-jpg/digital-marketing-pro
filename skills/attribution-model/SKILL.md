@@ -1,6 +1,6 @@
 ---
 name: attribution-model
-description: "Use when the user needs to set up marketing attribution, select an attribution model, implement multi-touch attribution, design credit distribution rules, configure GA4 attribution, or understand how different channels contribute to conversions across the customer journey."
+description: "Set up attribution models. Use when: multi-touch attribution, credit distribution rules, GA4 config, channel contribution."
 ---
 
 # /dm:attribution-model

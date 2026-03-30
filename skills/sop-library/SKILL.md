@@ -1,6 +1,6 @@
 ---
 name: sop-library
-description: "Use when the user wants to manage agency SOPs — create from template, assign to brands, track compliance, review or update existing SOPs, or version control procedures."
+description: "Manage agency SOPs. Use when: creating, assigning, versioning, or auditing standard operating procedures."
 ---
 
 # /dm:sop-library

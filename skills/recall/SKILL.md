@@ -1,6 +1,6 @@
 ---
 name: recall
-description: "Use when the user wants to recall relevant marketing learnings — query the intelligence graph for what we know about a specific channel, audience, objective, or situation."
+description: "Recall marketing learnings. Use when: querying what we know about a channel, audience, objective, or past campaign."
 ---
 
 # /dm:recall

@@ -1,6 +1,6 @@
 ---
 name: performance-report
-description: Use when the user needs a marketing performance report with KPI tracking, trend analysis, anomaly detection, insights, and actionable recommendations.
+description: "Generate performance reports. Use when: tracking KPIs, trend analysis, anomaly detection, and actionable recommendations."
 argument-hint: "[time-period]"
 ---
 

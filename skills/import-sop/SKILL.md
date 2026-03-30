@@ -1,6 +1,6 @@
 ---
 name: import-sop
-description: Use when the user wants to import, add, or update agency SOPs, workflow definitions, approval processes, launch checklists, escalation procedures, or quality assurance processes.
+description: Import agency SOPs. Use when: adding workflow definitions, approval processes, or launch checklists.
 ---
 
 # /dm:import-sop

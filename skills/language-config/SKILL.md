@@ -1,6 +1,6 @@
 ---
 name: language-config
-description: "Use when the user wants to configure language settings — set primary and secondary languages, do-not-translate terms, translation service preferences, and locale formatting for the active brand."
+description: "Configure language settings. Use when: setting primary languages, do-not-translate terms, or locale formatting."
 ---
 
 # /dm:language-config

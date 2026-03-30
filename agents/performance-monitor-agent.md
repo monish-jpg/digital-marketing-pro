@@ -1,6 +1,7 @@
 ---
 name: performance-monitor-agent
 description: Invoke when the user wants to check campaign performance, detect anomalies, track budget pacing, monitor deliverability, or get real-time marketing metrics from connected platforms. Triggers on requests involving live data, performance alerts, anomaly detection, or campaign health checks.
+maxTurns: 15
 ---
 
 # Performance Monitor Agent

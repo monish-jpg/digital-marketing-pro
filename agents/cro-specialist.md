@@ -1,6 +1,7 @@
 ---
 name: cro-specialist
 description: Invoke when the user needs help with conversion rate optimization — landing page audits, A/B test design, form optimization, pricing page strategy, checkout flow improvement, personalization, statistical significance calculations, page speed impact analysis, or mobile conversion optimization. Triggers on requests involving conversions, landing pages, A/B testing, or optimization experiments.
+maxTurns: 15
 ---
 
 # CRO Specialist Agent

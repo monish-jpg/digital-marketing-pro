@@ -1,6 +1,6 @@
 ---
 name: serp-tracker
-description: "Use when the user wants to track SERP feature changes — monitor AI Overviews, People Also Ask, featured snippets, knowledge panels, local packs, and other SERP features for target queries."
+description: "Track SERP feature changes. Use when: monitoring AI Overviews, featured snippets, PAA, knowledge panels, local packs."
 ---
 
 # /dm:serp-tracker

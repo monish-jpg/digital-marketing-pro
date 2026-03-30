@@ -1,6 +1,6 @@
 ---
 name: competitor-monitor
-description: "Use when the user wants to set up ongoing competitor monitoring — define competitors to track, configure scanning frequency, enable change detection alerts, and establish competitive intelligence baselines."
+description: "Set up ongoing competitor monitoring. Use when: defining tracked competitors, scan frequency, change detection alerts."
 ---
 
 # /dm:competitor-monitor

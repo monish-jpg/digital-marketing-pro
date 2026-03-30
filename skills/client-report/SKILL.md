@@ -1,6 +1,6 @@
 ---
 name: client-report
-description: "Use when the user wants to generate a client-facing performance report for a specific brand — white-labeled, agency-voiced, with KPIs, trends, and strategic recommendations."
+description: "Generate client-facing reports. Use when: white-labeled performance report with KPIs, trends, strategic recommendations."
 ---
 
 # /dm:client-report

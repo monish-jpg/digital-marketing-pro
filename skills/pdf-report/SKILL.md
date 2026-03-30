@@ -1,6 +1,6 @@
 ---
 name: pdf-report
-description: "Use when the user wants to generate a downloadable PDF or presentation report with branding — executive summaries, campaign reports, performance reviews, or client-ready deliverables."
+description: "Generate branded PDF reports. Use when: creating executive summaries, campaign reports, or client deliverables."
 ---
 
 # /dm:pdf-report

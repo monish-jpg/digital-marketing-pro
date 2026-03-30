@@ -1,6 +1,6 @@
 ---
 name: aeo-geo
-description: "Invoke when the user asks about AI visibility, answer engine optimization, generative engine optimization, how their brand appears in ChatGPT/Perplexity/Google AI Overviews, citation optimization, entity consistency across AI platforms, or structured data for AI citation."
+description: "Optimize AI engine visibility. Use when: AEO/GEO strategy, citation optimization, entity consistency across AI platforms."
 ---
 
 # AEO/GEO Intelligence

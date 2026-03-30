@@ -1,6 +1,6 @@
 ---
 name: simulate
-description: "Use when the user wants to simulate revenue impact of marketing decisions — channel mix changes, budget shifts, new channel launches — using Monte Carlo simulation with confidence intervals."
+description: "Simulate revenue impact via Monte Carlo. Use when: testing channel mix changes, budget shifts, or new channel launches."
 ---
 
 # /dm:simulate

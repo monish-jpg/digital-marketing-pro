@@ -1,6 +1,6 @@
 ---
 name: save-knowledge
-description: "Use when the user wants to save brand knowledge — campaign learnings, competitive intelligence, brand guidelines, or performance insights — to persistent memory (vector database) for future RAG retrieval."
+description: "Save brand knowledge to memory. Use when: persisting campaign learnings, guidelines, or competitive intel for retrieval."
 ---
 
 # /dm:save-knowledge

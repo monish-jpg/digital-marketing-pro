@@ -1,6 +1,6 @@
 ---
 name: pricing-test
-description: "Use when the user wants to test pricing strategies — simulate willingness to pay, price sensitivity, and optimal price points across customer segments using synthetic audience data."
+description: "Test pricing strategies with synthetic data. Use when: simulating willingness to pay, price sensitivity, or optimal price points."
 ---
 
 # /dm:pricing-test

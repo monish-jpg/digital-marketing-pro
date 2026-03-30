@@ -1,6 +1,6 @@
 ---
 name: sync-memory
-description: "Use when the user wants to batch sync session learnings, campaign insights, and performance history to persistent memory for long-term retention across sessions."
+description: "Batch sync session learnings to memory. Use when: persisting campaign insights and performance history across sessions."
 ---
 
 # /dm:sync-memory

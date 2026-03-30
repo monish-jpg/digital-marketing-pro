@@ -1,6 +1,6 @@
 ---
 name: emerging-channels
-description: Invoke when the user asks about voice search optimization, visual search, conversational commerce, chatbot marketing, social commerce, community building, podcast marketing, video marketing strategy, or marketing on newer/underutilized platforms.
+description: Explore emerging marketing channels. Use when: evaluating voice search, social commerce, or new platforms.
 ---
 
 # Emerging Channels

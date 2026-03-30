@@ -1,6 +1,6 @@
 ---
 name: hreflang-check
-description: "Use when the user wants to audit hreflang implementation — check for missing tags, incorrect language codes, orphaned annotations, self-referential errors, and x-default configuration."
+description: "Audit hreflang tags. Use when: checking missing tags, incorrect language codes, or x-default configuration."
 ---
 
 # /dm:hreflang-check

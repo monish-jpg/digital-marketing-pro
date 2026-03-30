@@ -1,6 +1,7 @@
 ---
 name: seo-specialist
 description: Invoke when the user needs help with search engine optimization, AI engine optimization (AEO), generative engine optimization (GEO), keyword research, technical SEO audits, content optimization for search, local SEO, link building strategy, or improving visibility in AI-generated answers and search features.
+maxTurns: 20
 ---
 
 # SEO Specialist Agent

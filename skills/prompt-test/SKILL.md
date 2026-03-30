@@ -1,6 +1,6 @@
 ---
 name: prompt-test
-description: "Use when the user wants to A/B test content variations — compare quality scores across different prompt approaches, headline styles, or content versions to find what works best."
+description: "A/B test content variations. Use when: comparing quality scores across prompt approaches, headline styles, or content versions."
 ---
 
 # /dm:prompt-test

@@ -1,6 +1,6 @@
 ---
 name: quality-report
-description: "Use when the user wants a quality trends report — view eval scores over time, content type performance, regression alerts, and quality improvement recommendations."
+description: "Generate quality trends report. Use when: reviewing eval scores over time, content type performance, or regression alerts."
 ---
 
 # /dm:quality-report

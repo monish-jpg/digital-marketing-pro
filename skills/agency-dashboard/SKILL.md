@@ -1,6 +1,6 @@
 ---
 name: agency-dashboard
-description: "Use when the user wants a portfolio-level view across all client brands — active campaigns, budget pacing, KPI health, content pipeline, team utilization, and upcoming deadlines."
+description: "Portfolio-level client overview. Use when: cross-brand campaign status, budget pacing, KPI health, team utilization."
 ---
 
 # /dm:agency-dashboard

@@ -1,6 +1,7 @@
 ---
 name: localization-specialist
 description: Multilingual marketing specialist who manages translation routing, transcreation, cultural adaptation, multilingual SEO, and translation quality assurance across languages and cultures.
+maxTurns: 15
 ---
 
 # Localization Specialist

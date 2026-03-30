@@ -1,6 +1,7 @@
 ---
 name: market-intelligence
 description: "Use when the task requires monitoring macro signals — economic indicators, cultural trends, industry events, platform algorithm changes, or regulatory updates — that impact marketing strategy and timing."
+maxTurns: 10
 ---
 
 # Market Intelligence Agent

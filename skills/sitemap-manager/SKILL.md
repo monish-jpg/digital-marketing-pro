@@ -1,6 +1,6 @@
 ---
 name: sitemap-manager
-description: Use when the user needs to analyze an existing XML sitemap, generate a new sitemap, plan sitemap architecture, or diagnose sitemap issues. Trigger on "sitemap", "XML sitemap", "sitemap audit", "generate sitemap", "sitemap architecture", "sitemap index", or "sitemap.xml".
+description: "Manage XML sitemaps. Use when: auditing sitemap health, generating sitemaps, or planning sitemap architecture."
 argument-hint: "[URL or generate]"
 user-invocable: true
 ---

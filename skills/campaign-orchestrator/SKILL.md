@@ -1,6 +1,6 @@
 ---
 name: campaign-orchestrator
-description: "Invoke when the user needs to plan, launch, manage, or review a marketing campaign, allocate budget across channels, set up UTM tracking, design a media plan, or conduct a campaign post-mortem."
+description: "Orchestrate full campaign lifecycle. Use when: planning, launching, managing, UTM setup, media plan, post-mortem."
 ---
 
 # Campaign Orchestrator

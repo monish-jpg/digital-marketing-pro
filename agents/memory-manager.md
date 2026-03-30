@@ -1,6 +1,7 @@
 ---
 name: memory-manager
 description: Invoke when the user wants to save brand knowledge to persistent memory, search past campaign learnings, sync session insights to a vector database, manage the knowledge graph, or configure the memory architecture. Triggers on requests involving long-term memory, RAG retrieval, knowledge storage, cross-session learnings, or "what worked before" queries.
+maxTurns: 10
 ---
 
 # Memory Manager Agent

@@ -1,6 +1,6 @@
 ---
 name: launch-ad-campaign
-description: "Use when the user wants to create and launch a paid advertising campaign on Google Ads, Meta, LinkedIn, or TikTok, including audience targeting, budget safeguards, and performance monitoring setup."
+description: "Launch paid ad campaigns. Use when: deploying ads on Google, Meta, LinkedIn, or TikTok with targeting and safeguards."
 disable-model-invocation: true
 argument-hint: "[platform]"
 ---

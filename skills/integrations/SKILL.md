@@ -1,6 +1,6 @@
 ---
 name: integrations
-description: "Use when the user wants to see which MCP connectors are active, which are available to add, and which skills each connector unlocks. Provides a full integration status dashboard."
+description: "Show MCP integration status. Use when: checking active connectors, available integrations, or skill unlocks."
 ---
 
 # /dm:integrations

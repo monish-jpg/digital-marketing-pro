@@ -1,6 +1,6 @@
 ---
 name: send-email-campaign
-description: "Use when the user wants to send an email campaign via SendGrid, Klaviyo, Customer.io, Brevo, or Mailgun, including personalization, A/B subject testing, and deliverability monitoring."
+description: "Send email campaigns. Use when: deploying via SendGrid, Klaviyo, Customer.io, Brevo, or Mailgun with A/B testing."
 disable-model-invocation: true
 argument-hint: "[campaign-name]"
 ---

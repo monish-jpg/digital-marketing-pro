@@ -1,6 +1,6 @@
 ---
 name: narrative-landscape
-description: "Use when the user wants to map the competitive narrative landscape — understand positioning territories, gaps, competitor claims, and opportunities for differentiated brand positioning."
+description: "Map the competitive narrative landscape. Use when: analyzing positioning territories, gaps, competitor claims, differentiation."
 ---
 
 # /dm:narrative-landscape

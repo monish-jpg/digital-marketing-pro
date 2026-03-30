@@ -1,6 +1,6 @@
 ---
 name: content-decay-scan
-description: "Use when the user wants to scan their content library for decay — declining traffic, falling rankings, outdated statistics, dropping AI citations — and prioritize content refreshes by revenue impact."
+description: "Scan for content decay. Use when: declining traffic, falling rankings, outdated stats, dropping AI citations, refresh priority."
 ---
 
 # /dm:content-decay-scan

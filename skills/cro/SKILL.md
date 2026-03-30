@@ -1,6 +1,6 @@
 ---
 name: cro
-description: Invoke when the user asks about conversion rate optimization, landing page audits, A/B testing, form optimization, pricing page design, checkout optimization, or improving website conversion rates.
+description: Optimize conversion rates. Use when: auditing landing pages, testing forms, or improving checkout flow.
 ---
 
 # CRO (Conversion Rate Optimization)

@@ -1,6 +1,6 @@
 ---
 name: growth-engineering
-description: Invoke when the user asks about product-led growth, referral programs, viral loops, product launch strategy, retention optimization, growth experiments, affiliate marketing, or growth hacking techniques.
+description: Engineer growth loops. Use when: building referral programs, viral loops, or product-led growth strategy.
 ---
 
 # Growth Engineering

@@ -1,6 +1,6 @@
 ---
 name: email-sequence
-description: Use when the user needs a complete email sequence with subject lines, body copy, timing, segmentation logic, and deliverability guidance.
+description: "Design email sequences. Use when: building subject lines, body copy, timing, segmentation logic, and deliverability plans."
 argument-hint: "[sequence-type]"
 ---
 

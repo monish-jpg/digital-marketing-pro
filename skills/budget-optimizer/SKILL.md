@@ -1,6 +1,6 @@
 ---
 name: budget-optimizer
-description: "Use when the user needs to optimize marketing budget allocation, reallocate spend across channels based on performance, create a data-driven budget plan, or justify budget changes with ROI projections."
+description: "Optimize budget allocation. Use when: channel spend reallocation, data-driven budget planning, ROI-based justification."
 argument-hint: "[total-budget]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: keyword-research
-description: "Use when the user needs keyword research, keyword clustering, search intent mapping, keyword opportunity analysis, content gap analysis by keywords, or long-tail keyword discovery for SEO or content planning."
+description: "Research and cluster keywords. Use when: mapping search intent, finding content gaps, or long-tail discovery."
 argument-hint: "[topic or seed keywords]"
 ---
 

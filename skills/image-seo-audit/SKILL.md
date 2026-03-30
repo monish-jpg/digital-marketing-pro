@@ -1,6 +1,6 @@
 ---
 name: image-seo-audit
-description: Use when the user needs a dedicated image optimization audit covering alt text, file sizes, formats (WebP/AVIF), responsive images, lazy loading, CLS prevention, fetchpriority, and file naming. Trigger on "image optimization", "image SEO", "image audit", "alt text audit", "image size", or "image performance".
+description: Audit image SEO. Use when: checking alt text, file sizes, WebP/AVIF formats, lazy loading, or responsive images.
 argument-hint: "[URL]"
 user-invocable: true
 ---

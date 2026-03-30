@@ -1,6 +1,6 @@
 ---
 name: redirect-manager
-description: "Use when the user needs to manage URL redirects — create 301/302 redirects, audit existing redirect chains, fix redirect loops, or deploy redirects via WordPress or Webflow CMS MCP."
+description: "Manage URL redirects. Use when: creating 301/302 redirects, auditing chains, fixing loops, or deploying via CMS MCP."
 disable-model-invocation: true
 argument-hint: "[URL or action]"
 ---

@@ -1,6 +1,6 @@
 ---
 name: creative-health
-description: "Use when the user wants a creative health dashboard — fatigue prediction for active ads, refresh recommendations, A/B test plan generation for fatiguing creatives, and creative lifecycle management."
+description: "Assess ad creative fatigue. Use when: ads underperform, need refresh timing, or creative lifecycle review."
 ---
 
 # /dm:creative-health

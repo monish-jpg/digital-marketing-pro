@@ -1,6 +1,7 @@
 ---
 name: content-creator
 description: Invoke when the user needs any form of marketing content created or refined — blog posts, ad copy, email campaigns, social media posts, landing page copy, press releases, video scripts, product descriptions, or newsletter content. Triggers on requests to write, draft, rewrite, or improve marketing copy.
+maxTurns: 20
 ---
 
 # Content Creator Agent

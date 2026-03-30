@@ -1,6 +1,6 @@
 ---
 name: content-engine
-description: "Invoke when the user needs to create, optimize, or audit any marketing content including blog posts, ad copy, emails, social media posts, landing page copy, content calendars, brand voice guidelines, or when checking content for decay, AI quality, accessibility, or multilingual adaptation."
+description: "Create or optimize marketing content. Use when: blog posts, ad copy, emails, social posts, landing pages, voice guidelines."
 argument-hint: "[content-type and topic]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: attribution-report
-description: "Use when the user needs multi-touch attribution analysis — first-touch, last-touch, linear, time-decay, or position-based attribution models with revenue allocation across channels and campaigns."
+description: "Run multi-touch attribution analysis. Use when: first/last-touch, linear, time-decay, position-based revenue allocation."
 ---
 
 # /dm:attribution-report

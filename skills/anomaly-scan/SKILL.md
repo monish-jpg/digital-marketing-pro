@@ -1,6 +1,6 @@
 ---
 name: anomaly-scan
-description: "Use when the user wants to detect anomalies in marketing performance — traffic drops, cost spikes, deliverability issues, conversion rate changes, or budget overruns."
+description: "Detect marketing anomalies. Use when: traffic drops, cost spikes, conversion changes, deliverability issues, budget overruns."
 ---
 
 # /dm:anomaly-scan

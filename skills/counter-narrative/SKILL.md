@@ -1,6 +1,6 @@
 ---
 name: counter-narrative
-description: "Use when a competitor makes a strategic positioning move — rebrand, new category creation, aggressive campaign, price change — and the user needs a counter-narrative playbook to respond."
+description: "Build counter-narrative playbooks. Use when: competitor rebrand, new category claim, aggressive campaign, price change response."
 ---
 
 # /dm:counter-narrative

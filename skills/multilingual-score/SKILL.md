@@ -1,6 +1,6 @@
 ---
 name: multilingual-score
-description: "Use when the user wants to score translated or localized content quality — check translation accuracy, cultural adaptation, brand voice preservation, formatting integrity, and compliance alignment."
+description: "Score localized content quality. Use when: checking translation accuracy, cultural adaptation, or voice preservation."
 ---
 
 # /dm:multilingual-score

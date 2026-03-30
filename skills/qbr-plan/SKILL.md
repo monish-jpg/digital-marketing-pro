@@ -1,6 +1,6 @@
 ---
 name: qbr-plan
-description: "Use when the user needs to prepare a Quarterly Business Review, QBR presentation, client performance review, quarterly strategy update, account health assessment, or renewal preparation meeting for a marketing client or stakeholder."
+description: "Prepare a Quarterly Business Review. Use when: building QBR presentations, client performance reviews, or strategy updates."
 ---
 
 # /dm:qbr-plan

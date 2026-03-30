@@ -1,6 +1,7 @@
 ---
 name: crm-manager
 description: Invoke when the user needs to manage CRM operations — creating contacts, importing leads, updating deals, syncing campaign data, segmenting audiences, managing pipelines, or connecting marketing data to Salesforce, HubSpot, Zoho, or Pipedrive. Triggers on requests involving CRM data, lead management, pipeline updates, or sales-marketing alignment.
+maxTurns: 15
 ---
 
 # CRM Manager Agent

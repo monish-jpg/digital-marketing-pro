@@ -1,6 +1,6 @@
 ---
 name: local-seo
-description: "Invoke when the user needs local SEO strategy, Google Business Profile optimization, local citation building, NAP consistency auditing, local pack ranking improvement, location page optimization, multi-location management, 'near me' search optimization, local link building, local schema markup, or review management for local visibility."
+description: "Build local SEO strategy. Use when: optimizing Google Business Profile, fixing NAP consistency, improving local pack rankings."
 ---
 
 # Local SEO

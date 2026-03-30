@@ -1,6 +1,6 @@
 ---
 name: dark-funnel
-description: "Use when the user wants to map the invisible buyer journey — understand how prospects discover and evaluate the brand through Reddit, AI chatbots, podcasts, word-of-mouth, and other untrackable channels."
+description: "Map invisible buyer journeys. Use when: tracking unattributed discovery, Reddit, AI chatbots, or word-of-mouth."
 ---
 
 # /dm:dark-funnel

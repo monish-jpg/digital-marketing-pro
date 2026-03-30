@@ -1,6 +1,6 @@
 ---
 name: intelligence-report
-description: "Use when the user wants a full intelligence briefing — compound learnings summary, intelligence base health, cross-agent patterns, and actionable playbooks from accumulated marketing knowledge."
+description: "Generate marketing intelligence briefings. Use when: reviewing learnings, cross-agent patterns, or playbooks."
 ---
 
 # /dm:intelligence-report

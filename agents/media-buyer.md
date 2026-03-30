@@ -1,6 +1,7 @@
 ---
 name: media-buyer
 description: Invoke when the user needs help with paid advertising — campaign setup, audience targeting, bid strategies, ad creative recommendations, budget pacing, performance optimization, or media plans across Google Ads, Meta Ads, LinkedIn Ads, TikTok Ads, Pinterest Ads, Amazon Ads, programmatic, or retail media networks.
+maxTurns: 15
 ---
 
 # Media Buyer Agent

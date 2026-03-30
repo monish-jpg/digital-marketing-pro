@@ -1,6 +1,6 @@
 ---
 name: switch-brand
-description: Switch the active brand profile for multi-client/agency workflows. Use when the user wants to change which brand context is active.
+description: "Switch active brand profile. Use when: changing brand context in multi-client or agency workflows."
 argument-hint: "[brand-slug]"
 ---
 

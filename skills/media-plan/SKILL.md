@@ -1,6 +1,6 @@
 ---
 name: media-plan
-description: "Use when the user needs to create a paid media plan, media buy schedule, advertising flight plan, cross-channel budget allocation, creative rotation calendar, or holistic paid advertising strategy across multiple platforms and campaigns."
+description: "Create a paid media plan. Use when: building media buy schedules, cross-channel budget allocation, or creative rotation calendars."
 argument-hint: "[--budget=amount --channels=list]"
 ---
 

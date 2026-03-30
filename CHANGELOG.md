@@ -4,6 +4,33 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [2.7.0] — 2026-03-31
+
+### Changed — Skill Budget, Agent Safety, Execution Safety
+
+Structural quality release addressing plugin best practice audit. No feature changes — all existing functionality preserved.
+
+#### Skill Description Optimization (141 skills)
+
+- All 141 descriptions trimmed to <130 characters (from 130-400+) to fit within the ~15,500 char skill discovery budget
+- Preserves trigger intent: "[Verb] [domain]. Use when: [triggers]." pattern
+- Previously 140/141 skills exceeded convention — Claude may not have discovered all skills
+
+#### Agent Safety (25 agents)
+
+- `maxTurns` added to all 25 agents — prevents runaway execution
+- 10 turns (5 agents), 15 turns (15 agents), 20 turns (5 agents)
+
+#### Execution Safety
+
+- `disable-model-invocation: true` added to `launch-plan` (total: 18 protected skills)
+
+#### Hook Stability
+
+- SessionStart: `timeout 30` wrapper on setup.py prevents session hang
+
+---
+
 ## [2.6.0] — 2026-03-30
 
 ### Added — SEO Capability Expansion

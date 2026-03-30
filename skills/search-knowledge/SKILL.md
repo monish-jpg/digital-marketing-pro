@@ -1,6 +1,6 @@
 ---
 name: search-knowledge
-description: "Use when the user wants to search past brand knowledge — 'What worked for email in Q4?', 'What are our brand voice guidelines?', 'What did we learn about competitor X?' — using semantic search across stored memory."
+description: "Search stored brand knowledge. Use when: recalling past learnings, voice guidelines, or competitor insights via semantic search."
 ---
 
 # /dm:search-knowledge

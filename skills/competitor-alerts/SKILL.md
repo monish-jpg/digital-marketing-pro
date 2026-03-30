@@ -1,6 +1,6 @@
 ---
 name: competitor-alerts
-description: "Use when the user wants to configure the competitor alert system — set up notifications for competitor content changes, pricing changes, ad campaigns, social mention spikes, SERP feature changes, or positioning shifts."
+description: "Configure competitor alerts. Use when: tracking content changes, pricing shifts, ad launches, SERP changes, social spikes."
 ---
 
 # /dm:competitor-alerts

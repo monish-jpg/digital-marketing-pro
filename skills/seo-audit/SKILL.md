@@ -1,6 +1,6 @@
 ---
 name: seo-audit
-description: Use when the user needs a comprehensive SEO audit covering technical health, on-page optimization, content quality, E-E-A-T signals, local SEO, and link profile analysis.
+description: "Run comprehensive SEO audit. Use when: checking technical health, on-page, content quality, E-E-A-T, or link profile."
 argument-hint: "[URL]"
 ---
 

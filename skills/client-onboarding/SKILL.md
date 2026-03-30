@@ -1,6 +1,6 @@
 ---
 name: client-onboarding
-description: "Use when the user needs to create a client onboarding plan, kickoff meeting agenda, discovery questionnaire, new account setup checklist, stakeholder mapping, 30-60-90 day expectations, or post-sale account activation workflow for a new marketing client."
+description: "Plan client onboarding. Use when: kickoff agenda, discovery questionnaire, account setup checklist, 30-60-90 day plan."
 ---
 
 # /dm:client-onboarding

@@ -1,6 +1,6 @@
 ---
 name: content-brief
-description: Use when the user needs a detailed content brief with keyword targets, outline, structure, voice guidelines, and SEO requirements for a specific piece of content.
+description: Create detailed content briefs. Use when: keyword targets, outline, structure, voice guidelines, SEO requirements.
 argument-hint: "[topic]"
 ---
 

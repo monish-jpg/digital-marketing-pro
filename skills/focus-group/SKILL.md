@@ -1,6 +1,6 @@
 ---
 name: focus-group
-description: "Use when the user wants to run a synthetic focus group — test messaging, pricing, or positioning on AI-simulated audience segments grounded in real CRM data before spending on real research or campaigns."
+description: "Run synthetic focus groups. Use when: testing messaging, pricing, or positioning before live research spend."
 ---
 
 # /dm:focus-group

@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/scripts/setup.py --check-deps --summary"
+            "command": "timeout 30 python3 ${CLAUDE_PLUGIN_ROOT}/scripts/setup.py --check-deps --summary"
           }
         ]
       }

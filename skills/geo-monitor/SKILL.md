@@ -1,6 +1,6 @@
 ---
 name: geo-monitor
-description: "Use when the user wants to monitor their brand's AI visibility — track how the brand appears in ChatGPT, Perplexity, Gemini, AI Overviews, and Copilot responses, with scoring and trend tracking."
+description: "Monitor brand AI visibility. Use when: tracking mentions in ChatGPT, Perplexity, Gemini, or AI Overviews."
 ---
 
 # /dm:geo-monitor

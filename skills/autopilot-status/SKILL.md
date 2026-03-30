@@ -1,6 +1,6 @@
 ---
 name: autopilot-status
-description: "Use when the user wants to check the campaign operations autopilot — see health scores for active campaigns, auto-corrections taken, current guardrails, and campaigns needing human attention."
+description: "Check campaign autopilot status. Use when: health scores, auto-corrections, guardrail review, campaigns needing attention."
 ---
 
 # /dm:autopilot-status

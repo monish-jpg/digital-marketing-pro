@@ -1,6 +1,6 @@
 ---
 name: validate-output
-description: "Use when the user wants to validate content structure and format — check if content matches expected schema, required sections, word count, formatting rules, and placeholder detection."
+description: "Validate content structure. Use when: checking schema compliance, required sections, word count, or placeholders."
 ---
 
 # /dm:validate-output

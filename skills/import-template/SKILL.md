@@ -1,6 +1,6 @@
 ---
 name: import-template
-description: Use when the user wants to import, add, or update deliverable templates — proposal formats, report structures, brief templates, presentation outlines, or any custom output format.
+description: Import deliverable templates. Use when: adding proposal formats, report structures, or brief templates.
 ---
 
 # /dm:import-template

@@ -1,6 +1,6 @@
 ---
 name: budget-tracker
-description: "Use when the user wants real-time budget tracking across all ad platforms with pacing analysis, overspend alerts, and reallocation recommendations."
+description: "Track budget pacing in real time. Use when: cross-platform spend tracking, overspend alerts, reallocation recommendations."
 ---
 
 # /dm:budget-tracker

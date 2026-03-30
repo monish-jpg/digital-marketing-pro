@@ -1,6 +1,6 @@
 ---
 name: market-weather
-description: "Use when the user wants a Marketing Weather Report — a quick assessment of current market conditions combining economic indicators, cultural moments, competitive activity, platform changes, and regulatory updates."
+description: "Assess current market conditions. Use when: checking economic indicators, cultural moments, or competitive activity."
 ---
 
 # /dm:market-weather

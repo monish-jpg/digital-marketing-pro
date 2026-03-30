@@ -1,6 +1,6 @@
 ---
 name: executive-dashboard
-description: "Use when the user needs to design an executive dashboard, C-suite reporting framework, CMO dashboard, marketing performance dashboard, board-level metrics view, or business-outcome focused reporting for senior leadership."
+description: "Design executive marketing dashboards. Use when: building CMO reports, board metrics, or leadership views."
 ---
 
 # /dm:executive-dashboard

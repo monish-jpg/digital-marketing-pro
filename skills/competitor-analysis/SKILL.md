@@ -1,6 +1,6 @@
 ---
 name: competitor-analysis
-description: Use when the user needs a multi-dimensional competitive analysis covering content, SEO, paid ads, social presence, AI visibility, pricing, and market positioning.
+description: Run competitive analysis. Use when: content, SEO, paid ads, social, AI visibility, pricing, positioning comparison.
 argument-hint: "[competitor names]"
 ---
 

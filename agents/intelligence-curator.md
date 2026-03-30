@@ -1,6 +1,7 @@
 ---
 name: intelligence-curator
 description: "Use when the task requires storing, retrieving, synthesizing, or distributing marketing learnings across agents — compound intelligence, pattern recognition, playbook generation, or institutional knowledge management."
+maxTurns: 10
 ---
 
 # Intelligence Curator Agent
