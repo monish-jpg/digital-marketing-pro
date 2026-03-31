@@ -488,7 +488,7 @@ The plugin stores brand data at `~/.claude-marketing/`:
 
 ```
 digital-marketing-pro/
-├── .claude-plugin/plugin.json    # Plugin manifest (v2.6.0)
+├── .claude-plugin/plugin.json    # Plugin manifest (v2.7.0)
 ├── .mcp.json                     # 14 HTTP connectors (auto-loaded)
 ├── .mcp.json.example             # 68 npx servers (opt-in for Claude Code)
 ├── CONNECTORS.md                 # Connector reference with skill links
@@ -511,7 +511,7 @@ See [Architecture Reference](docs/architecture.md) for the full technical deep-d
 | Feature | Scope | Purpose |
 |---------|-------|---------|
 | `argument-hint` | 61 skills | Autocomplete hints in the Skills UI (e.g., `[URL]`, `[brand-name --full]`) |
-| `disable-model-invocation` | 17 execution skills | Prevents Claude from auto-triggering publish, send, launch, import, and export skills — user must invoke explicitly |
+| `disable-model-invocation` | 18 execution skills | Prevents Claude from auto-triggering publish, send, launch, import, and export skills — user must invoke explicitly |
 | `evals/evals.json` | 3 key skills | Structured test cases with prompts, expected outputs, and quantitative/qualitative assertions |
 
 **Execution safety**: Skills that write to external platforms (publish-blog, send-email-campaign, launch-ad-campaign, schedule-social, send-report, send-sms, send-notification, data-export, data-import, crm-sync, lead-import, pipeline-update, segment-audience, seo-implement, launch-plan, publish-blog, live-dashboard) have `disable-model-invocation: true`. Claude cannot trigger these autonomously — you must type the `/dm:skill-name` command. This works alongside the MCP write approval hook for defense-in-depth.

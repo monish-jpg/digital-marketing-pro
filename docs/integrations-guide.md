@@ -1,6 +1,6 @@
 # Integrations & CRM Guide
 
-> **Digital Marketing Pro** v2.6.0 | For marketing operations managers
+> **Digital Marketing Pro** v2.7.0 | For marketing operations managers
 >
 > This guide covers all 68 MCP integrations available in the plugin, how to configure them, how to manage credentials across multiple clients, and what the plugin can do with or without live connections.
 
@@ -1939,4 +1939,4 @@ When connecting MCP integrations that access personal data (especially GA4, HubS
 
 ---
 
-*Digital Marketing Pro v2.6.0 -- Integrations & CRM Guide*
+*Digital Marketing Pro v2.7.0 -- Integrations & CRM Guide*

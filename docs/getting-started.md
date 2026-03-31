@@ -87,7 +87,7 @@ For full details on Cowork capabilities (document creation, visual review, app i
 After running either command, you should see output similar to this:
 
 ```
-Installing plugin: digital-marketing-pro v2.6.0
+Installing plugin: digital-marketing-pro v2.7.0
   - 16 marketing modules loaded
   - 141 slash commands registered (/dm:*)
   - 25 specialist agents available
@@ -802,4 +802,4 @@ If something is not working as expected:
 
 ---
 
-*Digital Marketing Pro v2.6.0 --- Built for marketing professionals who want strategy, execution, and publishing that stays on-brand, every time. Plan it, approve it, execute it, monitor it --- all from Claude Code and Claude Cowork.*
+*Digital Marketing Pro v2.7.0 --- Built for marketing professionals who want strategy, execution, and publishing that stays on-brand, every time. Plan it, approve it, execute it, monitor it --- all from Claude Code and Claude Cowork.*

@@ -1,4 +1,4 @@
-# Digital Marketing Pro Testing Guide — v2.6.0
+# Digital Marketing Pro Testing Guide — v2.7.0
 
 Complete testing guide for the Digital Marketing Pro plugin.
 
