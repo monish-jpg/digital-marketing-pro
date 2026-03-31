@@ -109,6 +109,22 @@ Copy or clone the plugin directly into your Claude Code plugins folder:
 
 Or install from the [Claude plugin marketplace](https://claude.com/plugins) if published. See the [Claude Interfaces Guide](docs/claude-interfaces.md#installing-in-cowork) for full details.
 
+### Updating to Latest Version
+
+Plugins do NOT auto-update. When a new version is released, run:
+```
+claude plugin marketplace update neels-plugins
+claude plugin update digital-marketing-pro@neels-plugins
+```
+
+If the version number hasn't changed but content was updated, force a reinstall:
+```
+claude plugin uninstall digital-marketing-pro@neels-plugins
+claude plugin install digital-marketing-pro@neels-plugins
+```
+
+After updating, start a new conversation for changes to take effect.
+
 ### First-Run Setup
 
 On first use, the plugin will:
