@@ -1,6 +1,6 @@
 ---
 name: import-guidelines
-description: Import brand guidelines. Use when: adding voice guides, style restrictions, or messaging frameworks.
+description: "Import brand guidelines. Use when: adding voice guides, style restrictions, or messaging frameworks."
 argument-hint: "[file-path or URL]"
 ---
 

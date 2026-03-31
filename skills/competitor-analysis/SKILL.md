@@ -1,6 +1,6 @@
 ---
 name: competitor-analysis
-description: Run competitive analysis. Use when: content, SEO, paid ads, social, AI visibility, pricing, positioning comparison.
+description: "Run competitive analysis. Use when: content, SEO, paid ads, social, AI visibility, pricing, positioning comparison."
 argument-hint: "[competitor names]"
 ---
 

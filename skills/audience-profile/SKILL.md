@@ -1,6 +1,6 @@
 ---
 name: audience-profile
-description: Build detailed buyer personas. Use when: demographics, psychographics, behaviors, JTBD, content preferences.
+description: "Build detailed buyer personas. Use when: demographics, psychographics, behaviors, JTBD, content preferences."
 argument-hint: "[audience-segment]"
 ---
 

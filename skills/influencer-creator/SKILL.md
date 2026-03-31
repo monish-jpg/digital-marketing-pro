@@ -1,6 +1,6 @@
 ---
 name: influencer-creator
-description: Plan influencer and creator partnerships. Use when: discovering creators, UGC campaigns, or FTC compliance.
+description: "Plan influencer and creator partnerships. Use when: discovering creators, UGC campaigns, or FTC compliance."
 ---
 
 # Influencer & Creator Marketing

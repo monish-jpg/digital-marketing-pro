@@ -1,6 +1,6 @@
 ---
 name: funnel-audit
-description: Audit funnel performance. Use when: finding drop-off points, conversion gaps, or stage bottlenecks.
+description: "Audit funnel performance. Use when: finding drop-off points, conversion gaps, or stage bottlenecks."
 argument-hint: "[funnel-stage or URL]"
 ---
 

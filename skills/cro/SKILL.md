@@ -1,6 +1,6 @@
 ---
 name: cro
-description: Optimize conversion rates. Use when: auditing landing pages, testing forms, or improving checkout flow.
+description: "Optimize conversion rates. Use when: auditing landing pages, testing forms, or improving checkout flow."
 ---
 
 # CRO (Conversion Rate Optimization)

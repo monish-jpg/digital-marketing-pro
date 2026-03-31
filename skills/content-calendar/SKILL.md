@@ -1,6 +1,6 @@
 ---
 name: content-calendar
-description: Plan content calendars. Use when: monthly or quarterly scheduling, platform assignments, content pillars, repurposing.
+description: "Plan content calendars. Use when: monthly or quarterly scheduling, platform assignments, content pillars, repurposing."
 argument-hint: "[month or quarter]"
 ---
 

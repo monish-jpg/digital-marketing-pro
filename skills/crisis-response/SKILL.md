@@ -1,6 +1,6 @@
 ---
 name: crisis-response
-description: Manage PR crises. Use when: reputational threat emerges, need stakeholder messaging, or communication timeline.
+description: "Manage PR crises. Use when: reputational threat emerges, need stakeholder messaging, or communication timeline."
 argument-hint: "[situation-description]"
 ---
 

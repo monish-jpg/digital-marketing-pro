@@ -1,6 +1,6 @@
 ---
 name: ad-creative
-description: Generate platform-specific ad copy. Use when: Google RSA, Meta, LinkedIn, TikTok ad variations with quality scoring.
+description: "Generate platform-specific ad copy. Use when: Google RSA, Meta, LinkedIn, TikTok ad variations with quality scoring."
 argument-hint: "[platform]"
 ---
 

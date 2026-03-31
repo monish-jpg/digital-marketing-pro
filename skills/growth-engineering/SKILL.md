@@ -1,6 +1,6 @@
 ---
 name: growth-engineering
-description: Engineer growth loops. Use when: building referral programs, viral loops, or product-led growth strategy.
+description: "Engineer growth loops. Use when: building referral programs, viral loops, or product-led growth strategy."
 ---
 
 # Growth Engineering

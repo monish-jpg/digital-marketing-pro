@@ -1,6 +1,6 @@
 ---
 name: brand-setup
-description: Set up or update a brand profile. Use when: new brand onboarding, client setup, brand switching, context update.
+description: "Set up or update a brand profile. Use when: new brand onboarding, client setup, brand switching, context update."
 argument-hint: "[brand-name or --full]"
 ---
 

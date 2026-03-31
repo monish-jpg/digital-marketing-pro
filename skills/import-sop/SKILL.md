@@ -1,6 +1,6 @@
 ---
 name: import-sop
-description: Import agency SOPs. Use when: adding workflow definitions, approval processes, or launch checklists.
+description: "Import agency SOPs. Use when: adding workflow definitions, approval processes, or launch checklists."
 ---
 
 # /dm:import-sop

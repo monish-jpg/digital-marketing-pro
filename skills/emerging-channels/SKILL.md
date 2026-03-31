@@ -1,6 +1,6 @@
 ---
 name: emerging-channels
-description: Explore emerging marketing channels. Use when: evaluating voice search, social commerce, or new platforms.
+description: "Explore emerging marketing channels. Use when: evaluating voice search, social commerce, or new platforms."
 ---
 
 # Emerging Channels
