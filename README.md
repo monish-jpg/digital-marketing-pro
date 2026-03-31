@@ -75,16 +75,18 @@ See [CONNECTORS.md](CONNECTORS.md) for the full connector reference and [MCP Int
 
 ### Option A: Install from the marketplace (recommended)
 
-One-command install directly from GitHub — no cloning required:
-
-```bash
-claude plugin marketplace add github:indranilbanerjee/digital-marketing-pro
-claude plugin install digital-marketing-pro@digital-marketing-pro
+```
+/plugin marketplace add indranilbanerjee/neels-plugins
+/plugin install digital-marketing-pro@neels-plugins
 ```
 
-### Option B: Add from a local directory
+### Option B: Direct from GitHub
 
-Clone or download this plugin directory, then register it with Claude Code:
+```
+claude plugins add github:indranilbanerjee/digital-marketing-pro
+```
+
+### Option C: Add from a local directory
 
 ```
 claude plugins add /path/to/digital-marketing-pro
