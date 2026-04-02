@@ -777,6 +777,25 @@ See the [Integrations Guide](docs/integrations-guide.md) for setup instructions,
 
 See [CHANGELOG.md](CHANGELOG.md) for version history.
 
+## Neelverse Marketing Suite
+
+Digital Marketing Pro is part of the **Neelverse Marketing Suite** — three plugins that work together for end-to-end marketing:
+
+| Plugin | What It Does | Install |
+|--------|-------------|---------|
+| **Digital Marketing Pro** (this plugin) | Strategy, SEO, paid ads, analytics, email, social, PR — 141 skills, 25 agents | `claude plugin install digital-marketing-pro@neels-plugins` |
+| **[ContentForge](https://github.com/indranilbanerjee/contentforge)** | Publication-ready content via 10-phase pipeline — research, draft, fact-check, SEO, humanize | `claude plugin install contentforge@neels-plugins` |
+| **[SocialForge](https://github.com/indranilbanerjee/socialforge)** | Social media calendar automation with AI image + video generation (Vertex AI + Kling v3.0) | `claude plugin install socialforge@neels-plugins` |
+
+**Use together:** Plan campaigns in DM Pro, produce articles with ContentForge, create social media visuals with SocialForge. All share the same brand profiles and marketplace.
+
+```
+claude plugin marketplace add indranilbanerjee/neels-plugins
+claude plugin install digital-marketing-pro@neels-plugins
+claude plugin install contentforge@neels-plugins
+claude plugin install socialforge@neels-plugins
+```
+
 ## License
 
 [MIT](LICENSE)
