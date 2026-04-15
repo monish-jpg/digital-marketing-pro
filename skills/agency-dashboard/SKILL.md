@@ -1,6 +1,16 @@
 ---
 name: agency-dashboard
-description: "Portfolio-level client overview. Use when: cross-brand campaign status, budget pacing, KPI health, team utilization."
+description: "Portfolio-level agency dashboard aggregating health metrics across all client brands — campaign status, budget pacing, KPI attainment, team utilization. Use when reviewing cross-brand portfolio health, preparing for agency leadership standups, or getting a single-view snapshot of all client accounts."
+user-invocable: true
+triggers:
+  - agency portfolio dashboard
+  - cross-brand campaign status
+  - budget pacing all clients
+  - agency KPI overview
+  - portfolio health check
+  - multi-client dashboard
+  - agency team utilization
+  - overview of all client accounts
 ---
 
 # /dm:agency-dashboard
