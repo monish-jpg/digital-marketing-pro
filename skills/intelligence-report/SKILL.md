@@ -1,6 +1,16 @@
 ---
 name: intelligence-report
-description: "Generate marketing intelligence briefings. Use when: reviewing learnings, cross-agent patterns, or playbooks."
+description: "Generate marketing intelligence briefings from compound intelligence across agents — surfaces learnings, cross-agent patterns, confidence distribution, and playbooks. Use when reviewing accumulated marketing learnings, preparing for quarterly planning, onboarding team members, or identifying knowledge gaps."
+user-invocable: true
+triggers:
+  - generate marketing intelligence report
+  - summarize what we've learned
+  - cross-agent marketing patterns
+  - marketing intelligence briefing
+  - compound learning report
+  - review marketing playbooks
+  - quarterly marketing intelligence
+  - what patterns have we identified
 ---
 
 # /dm:intelligence-report

@@ -1,6 +1,16 @@
 ---
 name: performance-check
-description: "Pull live metrics for a performance snapshot. Use when: checking KPIs, trends, or comparisons to targets across platforms."
+description: "Pull live marketing metrics for a performance snapshot: KPIs vs targets, trend comparison, and cross-platform overview. Use when checking current marketing performance, monitoring KPI health, comparing to benchmarks, or getting a quick status update across analytics platforms."
+user-invocable: true
+triggers:
+  - check marketing performance
+  - pull current KPIs
+  - performance snapshot
+  - how are our marketing metrics
+  - compare performance to targets
+  - marketing performance check
+  - quick KPI health check
+  - check campaign performance
 ---
 
 # /dm:performance-check
