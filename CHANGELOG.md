@@ -4,6 +4,35 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.1.0] — 2026-05-03
+
+### Changed — Multi-Plugin Coexistence (Removed All Global Hooks)
+
+Audit of the v3.0 install footprint surfaced the same issue that prompted ContentForge v3.9.0 and SocialForge v1.5.0 the same day: Claude Code plugin hooks fire *globally* when the plugin is enabled. There is no per-directory or per-project scoping. DMP's four prior hooks were particularly problematic because one of them — the `PreToolUse mcp_.*` matcher — intercepted EVERY MCP tool call from EVERY installed plugin (Slack, Notion, GitHub MCP, Stripe, anything), forcing a brand-compliance LLM evaluation on every MCP write regardless of whether it had any connection to marketing work.
+
+#### Removed All 4 Global Hooks
+
+[hooks/hooks.json](hooks/hooks.json) now contains an empty `hooks: {}` object plus a `_readme` explaining the rationale. The four prior hooks are preserved with per-hook rationale notes at [hooks/hooks-reference.example.json](hooks/hooks-reference.example.json):
+
+- **SessionStart** — ran `python3 scripts/setup.py --check-deps --summary` on every Claude Code launch in every project. Now run on demand.
+- **PreToolUse Write|Edit** — large brand-compliance + hallucination-check prompt fired on every file edit. Compliance and hallucination checks already run inside the agents responsible for generating the marketing content; the hook was a duplicate execution layer with a SKIP guard that still cost a model invocation per edit.
+- **PreToolUse mcp_.\*** — the worst offender. Gated every MCP tool call from every plugin through DMP's brand-compliance prompt. A user installing DMP alongside other MCP-using plugins (which is common) saw this prompt fire on every Slack message, every Notion page write, every GitHub PR creation, etc. — even when those operations had nothing to do with marketing. Per-agent decision flows already require explicit user approval for marketing MCP writes.
+- **SessionEnd** — insight-saving prompt for marketing work, fired at every session end. Insight capture should be opt-in (run the engagement orchestrator), not automatic.
+
+#### Why It Matters
+
+The mcp_.* matcher meant DMP was effectively becoming a global gatekeeper for every MCP tool call across the user's entire Claude Code installation. That is far beyond DMP's scope of authority. Removing it fixes the most acute multi-plugin coexistence problem in the marketing plugin family.
+
+#### Behavior Preserved
+
+All compliance checks, brand voice enforcement, MCP write approvals, and dependency setup still run — they were always also encoded in the agent files, the engagement orchestrator, and the per-agent decision flows. The hook layer was a duplicate execution path. Removing it produces identical output quality with zero side-effects on other Claude Code work or other installed plugins.
+
+### Migration
+
+No breaking changes to commands, skills, agents, or production behavior. Brand profiles, engagement state, tracking data, and the v3.0 12-Part Methodology are all preserved. If you specifically want a hook back, copy the relevant entry from `hooks/hooks-reference.example.json` into `hooks/hooks.json` — but be aware that the `mcp_.*` matcher will gate every MCP call from every installed plugin.
+
+---
+
 ## [3.0.0] — 2026-05-03
 
 ### Added — The 12-Part Engagement Methodology
