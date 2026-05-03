@@ -1,6 +1,6 @@
-# Digital Marketing Pro Testing Guide — v2.7.0
+# Digital Marketing Pro Testing Guide — v3.0.0
 
-Complete testing guide for the Digital Marketing Pro plugin.
+Complete testing guide for the Digital Marketing Pro plugin, including the v3.0 12-Part engagement methodology.
 
 ---
 
@@ -17,6 +17,7 @@ Complete testing guide for the Digital Marketing Pro plugin.
 9. [Edge Cases & Error Scenarios](#9-edge-cases--error-scenarios)
 10. [Regression Checklist](#10-regression-checklist)
 11. [Test Priority Order](#11-test-priority-order)
+12. [v3.0 Engagement Methodology Tests](#12-v30-engagement-methodology-tests)
 
 ---
 
@@ -681,3 +682,133 @@ If time is limited, test in this order:
 | 8 | MCP connectors | 8 | Requires external service accounts |
 | 9 | Agent registration | 5 | Verify all 25 registered |
 | 10 | Edge cases | 9 | Robustness testing |
+| 11 | v3.0 engagement methodology smoke test | 12 | Validates the methodology orchestration end-to-end |
+
+---
+
+## 12. v3.0 Engagement Methodology Tests
+
+The v3.0 release introduces the 12-Part engagement methodology. The new components require their own smoke tests.
+
+### 12.1 engagement-state.py CLI smoke test
+
+This test does not require Claude — it validates the persistence engine directly. Run from a shell:
+
+```bash
+# Set up an isolated test workspace
+export CLAUDE_PLUGIN_DATA="$(mktemp -d)"
+cd /path/to/digital-marketing-pro
+
+# Test 1: Initialise an engagement
+python scripts/engagement-state.py init --brand "test-brand" --id "2026-q2"
+# Expect: {"status": "ok", "action": "initialised", ...}
+
+# Test 2: Status returns the initialised engagement
+python scripts/engagement-state.py status --brand "test-brand" --id "2026-q2"
+# Expect: current_part = "1", parts[1].status = "in_progress"
+
+# Test 3: Stone fact intake
+python scripts/engagement-state.py add-stone-fact --brand "test-brand" --id "2026-q2" \
+  --fact-json '{"category":"company","fact":"Founded 2018","source":"client statement"}'
+# Expect: {"status": "ok", "action": "stone_fact_added", "id": "stone-001"}
+
+# Test 4: Opinion hypothesis intake
+python scripts/engagement-state.py add-opinion --brand "test-brand" --id "2026-q2" \
+  --hypothesis-json '{"category":"positioning","hypothesis":"H","client_evidence":"E","research_question":"Q"}'
+# Expect: {"status": "ok", "action": "opinion_added", "id": "opinion-001"}
+
+# Test 5: Mark Part 1 complete; current_part should auto-advance to 2
+python scripts/engagement-state.py mark-part-completed --brand "test-brand" --id "2026-q2" --part 1
+# Expect: {"status": "ok", "action": "part_completed", "part": "1", "next_part": "2"}
+
+# Test 6: Decision Matrix
+python scripts/engagement-state.py decision-matrix --brand "test-brand" --id "2026-q2" \
+  --triggers "competitors_changed,positioning_changed"
+# Expect: triggered_reruns = ["3.1", "3.2", "3.3", "3.4", "4.1", "4.2"]
+
+# Test 7: Update-Back version bump
+python scripts/engagement-state.py bump-version --brand "test-brand" --id "2026-q2" \
+  --doc 3.1 --reason "test version bump"
+# Expect: {"status": "ok", "version": "v1.0", ...}
+
+# Test 8: File tree shows the engagement structure
+python scripts/engagement-state.py file-tree --brand "test-brand" --id "2026-q2"
+# Expect: list of paths under the engagement directory
+
+# Test 9: List engagements finds the test engagement
+python scripts/engagement-state.py list-engagements
+# Expect: at least one engagement with brand="test-brand", engagement_id="2026-q2"
+
+# Cleanup
+rm -rf "$CLAUDE_PLUGIN_DATA"
+```
+
+All tests must return `status: ok` (or matching expectations). Any non-zero exit code indicates a failure.
+
+### 12.2 Engagement command smoke test (in Claude Code or Cowork)
+
+Within a Claude session with the plugin installed:
+
+| # | Test | Expected behaviour |
+|---|------|-------------------|
+| 1 | `/dm:engagement start <brand-slug> 2026-test` | Engagement directory created; Stone vs Opinion intake walked |
+| 2 | `/dm:engagement status` | Status table shown; current part = 1 |
+| 3 | `/dm:engagement file-tree <brand-slug> 2026-test` | Directory tree printed with all 12 part subdirs + reports + LIF |
+| 4 | `/dm:engagement lif-show <brand-slug> 2026-test` | Living Project Instruction File printed |
+| 5 | `/dm:engagement list-engagements` | Test engagement listed |
+
+### 12.3 Methodology skill discovery
+
+Verify that the 6 new methodology skills are discovered by Claude:
+
+```
+/dm:engagement-workflow
+/dm:four-core-documents
+/dm:client-validation-document
+/dm:growth-plan
+/dm:yearly-planner
+/dm:continuous-improvement-loop
+```
+
+Each should show its description and not return "command not found."
+
+### 12.4 Context-engine reference doc accessibility
+
+Verify all 23 new reference docs are readable and properly cross-referenced:
+
+```bash
+ls skills/context-engine/{engagement-flow-methodology,four-core-documents-spec,two-views-model,decision-matrix-rerun,update-back-rule,stone-vs-opinion,living-instruction-file-spec,five-digital-markets,channel-families,in-market-out-market,decision-framework,unit-economics-framework,actionable-persona-format,b2b-decision-making-unit,three-scenario-forecasting,30-60-90-framework,reporting-cadence,fixed-vs-variable-budget,competitor-3-question-output,india-market-context,growth-plan-template,yearly-planner-template,monthly-report-template}.md
+# Expect: all 23 files listed, no "No such file" errors
+```
+
+### 12.5 Decision Matrix coverage
+
+Test every Decision Matrix trigger to confirm the engine produces the right re-run set:
+
+| Trigger | Expected re-runs |
+|---------|------------------|
+| `competitors_changed` | 3.1, 3.2, 3.3, 3.4, 4.1, 4.2 |
+| `target_market_changed` | 4.3, 4.4 |
+| `audiences_changed` | 3.2, 3.3, 3.4 |
+| `positioning_changed` | 3.3 |
+| `budget_or_scope_changed` | 3.4 |
+| `pricing_or_offering_changed` | 3.1 |
+| `unit_economics_changed` | 3.1 |
+| `minor_corrections_only` | (empty list — no re-runs) |
+| Combined: `competitors_changed,positioning_changed` | 3.1, 3.2, 3.3, 3.4, 4.1, 4.2 (union) |
+
+### 12.6 Backward compatibility regression
+
+After installing v3.0, verify v2.7 still works:
+
+| # | Test | Expected behaviour |
+|---|------|-------------------|
+| 1 | `/dm:brand-setup` (existing brand) | Works as before; profile loaded |
+| 2 | `/dm:campaign-plan` (no engagement context) | Works as before; produces campaign brief |
+| 3 | `/dm:content-engine` (no engagement context) | Works as before |
+| 4 | `/dm:competitor-analysis` (no engagement context) | Works as before |
+| 5 | SessionStart hook | Brand summary banner prints normally |
+| 6 | PreToolUse compliance check | Compliance check runs on Write/Edit |
+| 7 | SessionEnd hook | Insights saved to brand profile |
+
+If any v2.7 functionality regresses, that is a critical bug. v3.0 is intended to be purely additive.

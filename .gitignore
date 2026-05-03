@@ -79,3 +79,7 @@ operations/
 growth/
 reports/
 .mcp.json
+
+# Internal source / reference PDFs (local only — never for public repo)
+*.pdf
+DM_Strategy_*

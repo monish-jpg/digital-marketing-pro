@@ -31,7 +31,35 @@ Every brand you create gets its own isolated directory at `~/.claude-marketing/b
   performance/           Performance snapshots over time
   content-library/       Saved content pieces and templates
   voice-samples/         Reference content that exemplifies the brand voice
+  engagements/           v3.0: each engagement (e.g., 2026-q2/) gets its own subdirectory
 ```
+
+### v3.0 — Per-Brand Engagement Isolation
+
+Each brand can have any number of engagements (e.g., a quarterly strategy refresh, an annual plan, a major repositioning). Each engagement gets its own isolated subdirectory under `engagements/`:
+
+```
+~/.claude-marketing/brands/{slug}/engagements/
+  2026-q1/                 Q1 2026 engagement
+  2026-q2/                 Q2 2026 engagement
+  2026-rebrand/            Rebrand engagement
+  ...
+```
+
+Engagements within the same brand share the brand profile (voice, channels, compliance, persona library) but maintain their own:
+
+- **State** (`_engagement.json`) — current part, version history, re-run decisions
+- **Living Project Instruction File** — what is currently true for that engagement
+- **Source documents** at v1/v2 — Four Core Documents, competitive analyses
+- **Client-facing deliverables** — Growth Plan, Yearly Planner specific to that engagement
+- **Channel docs** — Part 9 outputs for the engagement's channel mix
+- **Reports** — monthly/quarterly/annual reports for the engagement period
+
+This means a brand can have multiple parallel engagements (e.g., a Q2 quarterly refresh running alongside a parallel rebrand engagement) without state contamination between them. The same brand profile feeds both, but the strategic state is isolated.
+
+For agency multi-client workflows, each client is a separate brand, and each client's engagements are isolated under their respective brand directory. See [Agency Multi-Client Pattern](#agency-multi-client-pattern) below.
+
+For full details on the engagement workflow, see [docs/engagement-methodology.md](engagement-methodology.md).
 
 The `profile.json` file is the heart of each brand. It stores:
 

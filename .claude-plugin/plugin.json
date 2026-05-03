@@ -1,8 +1,44 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin",
   "name": "digital-marketing-pro",
-  "version": "2.7.0",
-  "description": "Plan, execute, and measure digital marketing across all channels. 25 specialist agents handle strategy, SEO, paid ads, content, email, social, PR, analytics, CRO, and agency operations — with brand voice enforcement, quality evaluation, multilingual support, and persistent campaign memory. v2.6 adds 6 dedicated SEO sub-skills (programmatic SEO, competitor comparison pages, image SEO audit, single-page deep analysis, sitemap management, SEO strategic planning), expanded schema markup support (18 types with deprecation tracking), Google SEO quick reference, and DataForSEO MCP integration.",
+  "version": "3.0.0",
+  "description": "End-to-end digital marketing engagement methodology for Claude Code. v3.0 introduces the 12-Part Strategy Flow — the canonical sequential engagement workflow producing the Four Core Documents (61 explicit steps), the Two-Views Model (v1 unbiased + v2 client-validated), the Decision Matrix for selective re-runs, the Update-Back Rule for in-life corrections, and the Living Project Instruction File. Includes 22 strategic-framework reference docs (Five Digital Markets, Channel Families, In-Market vs Out-Market, Multi-Dimensional Decision Framework, Unit Economics, Actionable Persona Format, B2B Decision-Making Unit, Three-Scenario Forecasting, 30/60/90 Framework, Reporting Cadence, India Market Context, more). Builds on v2.7's 25 specialist agents, 141 atomic skills, 65 Python scripts, 14 HTTP MCP connectors, 16 industry profiles, and 16 privacy-law jurisdictions.",
   "author": {
-    "name": "Indranil Banerjee"
-  }
+    "name": "Indranil Banerjee",
+    "url": "https://github.com/indranilbanerjee"
+  },
+  "homepage": "https://github.com/indranilbanerjee/digital-marketing-pro",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/indranilbanerjee/digital-marketing-pro.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "digital-marketing",
+    "marketing-strategy",
+    "engagement-methodology",
+    "12-part-flow",
+    "four-core-documents",
+    "two-views-model",
+    "growth-plan",
+    "yearly-planner",
+    "seo",
+    "aeo",
+    "geo",
+    "ppc",
+    "google-ads",
+    "meta-ads",
+    "linkedin-ads",
+    "tiktok-ads",
+    "email-marketing",
+    "content-marketing",
+    "competitor-analysis",
+    "audience-intelligence",
+    "brand-voice",
+    "agency-operations",
+    "multi-brand",
+    "compliance",
+    "claude-code",
+    "claude-cowork"
+  ]
 }

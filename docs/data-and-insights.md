@@ -4,6 +4,8 @@ How Digital Marketing Pro collects, stores, and leverages marketing data across 
 
 **Audience:** Marketing analysts and data-driven marketers who want to understand the plugin's data infrastructure, how insights accumulate, and how to query historical performance for better decision-making.
 
+> **v3.0 update:** The 12-Part engagement methodology adds two new persistent data structures — the **Living Project Instruction File** (per-engagement "currently true" record) and the **engagement version history** (every source document carries its v1.0 → v1.1 → v2.0 → v2.1 lineage). See section 8 below.
+
 ---
 
 ## Table of Contents
@@ -15,6 +17,7 @@ How Digital Marketing Pro collects, stores, and leverages marketing data across 
 5. [Performance Tracking Over Time](#5-performance-tracking-over-time)
 6. [Querying Your Data](#6-querying-your-data)
 7. [Limitations](#7-limitations)
+8. [v3.0 Engagement Data Layer](#8-v30-engagement-data-layer)
 
 ---
 
@@ -548,4 +551,111 @@ The sweet spot is using the plugin's data layer for **institutional knowledge** 
 
 ---
 
-*Digital Marketing Pro v1.9.0 -- Data Analysis & Insights Guide*
+*Digital Marketing Pro v3.0.0 -- Data Analysis & Insights Guide*
+
+---
+
+## 8. v3.0 Engagement Data Layer
+
+The 12-Part engagement methodology (v3.0) introduces a richer per-engagement data structure that lives alongside the existing brand-level data described in Sections 1–7.
+
+### 8.1 The Engagement Directory
+
+Each engagement gets its own isolated directory at:
+
+```
+~/.claude-marketing/brands/{brand-slug}/engagements/{engagement-id}/
+```
+
+Inside this directory, three new persistent data structures exist beyond the source documents themselves:
+
+#### `_engagement.json` — engagement state
+
+The state file tracks:
+
+- Current part (1–12)
+- Status of each of the 12 parts (`not_started`, `in_progress`, `awaiting_input`, `blocked`, `completed`, `deferred`)
+- Decision matrix re-run history (every Part 5 → Part 6 decision is logged with triggers, triggered re-runs, executed re-runs, and any skipped re-runs)
+- Version history per source document (`3.1` v1.0 → v2.0 → v2.1 lineage)
+- LIF change log
+
+#### `living-instruction-file.md` — the "currently true" record
+
+A markdown file that serves as the single source of truth for what is currently true about the engagement. Contains:
+
+- Quick Status (current part, active campaigns, open review items, outstanding corrections)
+- Currently True — Strategic Facts (positioning, primary persona, unit economics, channel selections, compliance profile)
+- Recent Corrections (last 30 days)
+- Open Items Requiring Resolution
+- Current Part Status
+- Version History
+- Engagement Health Indicators
+
+The LIF is auto-updated when source documents change. All skills read it before producing output.
+
+#### `part-XX-*/` — per-part outputs with version history
+
+Source documents (Parts 3 and 4) are stored in v1/v2 subdirectories so that both views remain available forever per the Two-Views Model:
+
+```
+part-03-four-core-documents/
+  v1/
+    3.1-business-and-sbu-analysis.md         (v1.0)
+    3.1-business-and-sbu-analysis.v1.1.md    (minor correction in v1)
+    3.2-segmentation-framework.md
+    3.3-brand-positioning-and-communications.md
+    3.4-dmflow.md
+  v2/
+    3.3-brand-positioning-and-communications.md      (v2.0 from Part 6 re-run)
+    3.3-brand-positioning-and-communications.v2.1.md (Update-Back correction)
+```
+
+### 8.2 How Engagement Data Compounds
+
+Within a single engagement:
+
+1. Stone facts and Opinion hypotheses captured in Part 1 inform Parts 2–4
+2. Parts 2–4 produce v1 source documents that flow into Part 5 client validation
+3. Part 5 responses drive Part 6 re-runs (Decision Matrix)
+4. v2 source documents feed Parts 7–11 execution
+5. Part 12 captures signals from execution and feeds them back as recommendations to product and offering teams
+6. Update-Back corrections during execution produce v2.1, v2.2 source document versions, all tracked
+
+Across engagements (same brand, different engagement IDs):
+
+- Brand profile carries voice, channels, compliance, persona library forward
+- Each new engagement starts fresh on engagement state, but inherits brand context
+- Cross-engagement learnings can be migrated by referencing prior engagements in Part 1 intake
+
+### 8.3 Querying Engagement Data
+
+Use `engagement-state.py` for programmatic queries:
+
+```bash
+# List all engagements (optionally filter by brand)
+python scripts/engagement-state.py list-engagements --brand acme-corp
+
+# Get full status for a specific engagement
+python scripts/engagement-state.py status --brand acme-corp --id 2026-q2
+
+# Show the LIF
+python scripts/engagement-state.py lif-show --brand acme-corp --id 2026-q2
+
+# Show the file tree
+python scripts/engagement-state.py file-tree --brand acme-corp --id 2026-q2
+```
+
+For interactive use, the same operations are exposed through `/dm:engagement` subcommands.
+
+### 8.4 What This Means for Analytics and Insights
+
+The engagement data layer makes audit trails first-class. Analysts can answer questions like:
+
+- *Why was Segment X deprioritised in Q2?* → Read `client-validation-document.reviewed.md` and the corresponding `_engagement.json` rerun_decisions entry
+- *When did the CAC assumption for Segment Y change?* → Read the `version_history` for 3.1 and the change log of the v2.X document where the change was made
+- *What did the unbiased market view say before the client weighed in?* → Read the v1 docs (which are never deleted)
+- *What signals drove the Q3 product recommendation?* → Read the `signals.jsonl` file and the corresponding `quarterly-briefs/2026-Q3-quarterly-improvement-brief.md`
+
+This level of traceability is what makes the engagement layer suitable for regulated industries, agency multi-client engagements, and any context where strategic rationale must be defensible months later.
+
+For the full methodology, see [docs/engagement-methodology.md](engagement-methodology.md).

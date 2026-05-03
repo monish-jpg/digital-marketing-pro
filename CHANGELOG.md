@@ -4,6 +4,92 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.0.0] — 2026-05-03
+
+### Added — The 12-Part Engagement Methodology
+
+Major release introducing a sequential engagement workflow that transforms the plugin from a catalog of 141 atomic skills into a methodology-driven engagement system. Every brand engagement now runs through 12 canonical parts producing ~50–60 files in a defined structure.
+
+#### New Methodology Layer
+
+- **12-Part Strategy Flow** — sequential engagement workflow from intake through continuous improvement (`skills/context-engine/engagement-flow-methodology.md`)
+- **Four Core Documents** — the strategic spine produced in Part 3 with 61 explicit steps across 3.1 Business & SBU Analysis (18 steps), 3.2 Segmentation Framework (15 steps), 3.3 Brand Positioning & Communications (19 steps), 3.4 DMFlow (9 steps) (`skills/context-engine/four-core-documents-spec.md`)
+- **Two-Views Model** — v1 unbiased market view + v2 client-validated view; both kept forever for different decision types (`skills/context-engine/two-views-model.md`)
+- **Stone vs Opinion intake** — every Part 1 fact tagged with confidence level; Stone facts treated as ground truth, Opinion hypotheses become research questions (`skills/context-engine/stone-vs-opinion.md`)
+- **Decision Matrix for v2 Re-runs** — explicit mapping of client validation responses to which Core Documents need re-running (`skills/context-engine/decision-matrix-rerun.md`)
+- **Update-Back Rule** — versioning protocol (v2.1, v2.2 etc.) for in-life corrections after Part 7+ (`skills/context-engine/update-back-rule.md`)
+- **Living Project Instruction File** — single source of truth per engagement that all skills read first (`skills/context-engine/living-instruction-file-spec.md`)
+
+#### New Strategic Framework References (15 docs)
+
+- **Five Digital Markets** — Search / Profile / Contextual / Marketplace / Utility taxonomy (`skills/context-engine/five-digital-markets.md`)
+- **Channel Families** — 7 families covering 17 channels for Part 9 (`skills/context-engine/channel-families.md`)
+- **In-Market vs Out-Market** — 3-5% vs 95-97% audience split, budget allocation logic (`skills/context-engine/in-market-out-market.md`)
+- **Multi-Dimensional Decision Framework** — weight + score + weighted total for any consequential decision (`skills/context-engine/decision-framework.md`)
+- **Unit Economics Framework** — CAC / LTV / LTV:CAC ≥ 3.0 / payback period; foundation for all recommendations (`skills/context-engine/unit-economics-framework.md`)
+- **Actionable Persona Format** — 6-question format replacing biographical narratives (`skills/context-engine/actionable-persona-format.md`)
+- **B2B Decision-Making Unit** — User / Influencer / Decision-maker / Gatekeeper roles with role-specific messaging (`skills/context-engine/b2b-decision-making-unit.md`)
+- **Three-Scenario Forecasting** — Conservative / Moderate / Aggressive for every projection (`skills/context-engine/three-scenario-forecasting.md`)
+- **30 / 60 / 90-Day Framework** — Foundation / Validation / Optimisation phasing (`skills/context-engine/30-60-90-framework.md`)
+- **Reporting Cadence** — daily / weekly / monthly / quarterly / annual scopes and audiences (`skills/context-engine/reporting-cadence.md`)
+- **Fixed vs Variable Budget** — Fixed monthly + Variable reserve mechanism with monthly recommendation conversation (`skills/context-engine/fixed-vs-variable-budget.md`)
+- **Competitor 3-Question Output** — what they do well / poorly / are NOT doing — enforced output for every competitor analysis (`skills/context-engine/competitor-3-question-output.md`)
+- **India Market Context** — regional context module (DPDP Act, mobile-first, festive seasonality, WhatsApp, vernacular content, INR pricing benchmarks, tier-1/2/3 differentiation) (`skills/context-engine/india-market-context.md`)
+- **Growth Plan Template** — canonical 11-section structure for the Part 8 flagship deliverable (`skills/context-engine/growth-plan-template.md`)
+- **Yearly Planner Template** — canonical structure for the 12-month operational companion (`skills/context-engine/yearly-planner-template.md`)
+- **Monthly Report Template** — 9-section structure with writing principles enforcing insight over data (`skills/context-engine/monthly-report-template.md`)
+
+#### New Engagement Skills (6)
+
+- `engagement-workflow` — the 12-Part orchestrator that owns engagement lifecycle
+- `four-core-documents` — produces all 4 Part 3 documents (61 steps); supports `--view v2` for re-runs
+- `client-validation-document` — produces the Part 5 deliverable (the "one true stop")
+- `growth-plan` — produces the Part 8 flagship 11-section client deliverable
+- `yearly-planner` — produces the Part 8 operational 12-month companion
+- `continuous-improvement-loop` — Part 12 quarterly briefs and ad-hoc briefs aggregating market + operating signals into product/offering recommendations
+
+#### New Command
+
+- `/dm:engagement` — entry point with subcommands: `start`, `status`, `next`, `validate`, `re-run-decision`, `update-back`, `lif-show`, `file-tree`, `list-engagements`, `four-core`, `growth-plan`, `yearly-planner`, `loop`
+
+#### New Persistence Script
+
+- `scripts/engagement-state.py` — manages the engagement state, directory tree, Stone/Opinion intake, Decision Matrix evaluation, Update-Back versioning, Living Project Instruction File. 14 subcommands with JSON I/O for skill consumption. Atomic writes; no hand-editing of `_engagement.json` required.
+
+#### New Engagement Directory Structure
+
+Every engagement now lives at:
+```
+~/.claude-marketing/brands/{brand-slug}/engagements/{engagement-id}/
+```
+With a canonical 12-part directory tree, v1/v2 split for Parts 3 and 4, persistent reports directory, and the Living Project Instruction File.
+
+#### Plugin Manifest Modernised to 2026 Spec
+
+`.claude-plugin/plugin.json` updated with:
+- `$schema` reference for JSON schema validation
+- `homepage` and `repository` URLs
+- `license` field
+- Expanded `keywords` array for marketplace discovery
+- Author URL added
+
+### Compatibility
+
+- **All existing v2.7.0 skills, agents, scripts, hooks remain functional and unchanged.** v3.0 is purely additive at the methodology layer.
+- The 12-Part workflow uses existing skills as Part-specific producers (e.g., Part 4 uses existing `competitor-analysis`, `audience-intelligence`, `market-intelligence`).
+- Engagements are an opt-in workflow. Single-skill invocations (e.g., `/dm:content-engine` for a one-off blog post) continue to work without an engagement context.
+
+### Migration
+
+No migration needed. Existing brand profiles at `~/.claude-marketing/brands/{slug}/profile.json` continue to work. Engagements are new directories that sit alongside the existing brand state.
+
+To start using the new methodology:
+```
+/dm:engagement start <your-brand-slug> <your-engagement-id>
+```
+
+---
+
 ## [2.7.0] — 2026-03-31
 
 ### Changed — Skill Budget, Agent Safety, Execution Safety

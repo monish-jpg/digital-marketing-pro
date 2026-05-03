@@ -1,8 +1,10 @@
 # Historical Data & Campaign Memory
 
-**Version 1.2.0** | A guide to how Digital Marketing Pro remembers, learns, and applies past marketing work
+**Version 3.0.0** | A guide to how Digital Marketing Pro remembers, learns, and applies past marketing work
 
-Digital Marketing Pro does not start from scratch every session. It builds a persistent memory of your campaigns, performance metrics, and strategic learnings --- then uses that history to make every future recommendation sharper. This guide explains what gets saved, how it informs new work, and how to query and manage your marketing data over time.
+Digital Marketing Pro does not start from scratch every session. It builds a persistent memory of your campaigns, performance metrics, and strategic learnings --- then uses that history to make every future recommendation sharper. v3.0 extends this with a per-engagement version history (every source document carries its v1.0 → v2.0 → v2.1 lineage) and the Living Project Instruction File. This guide explains what gets saved, how it informs new work, and how to query and manage your marketing data over time.
+
+> **For v3.0 engagement-level history (Two-Views Model, Decision Matrix re-runs, Update-Back versioning, Living Project Instruction File), see [docs/engagement-methodology.md](engagement-methodology.md) and section 8 of [docs/data-and-insights.md](data-and-insights.md). This guide focuses on brand-level historical data — campaigns, performance snapshots, accumulated insights — that v2.x established and that continues to operate alongside the v3.0 engagement layer.**
 
 ---
 

@@ -1,8 +1,10 @@
 # Technical Architecture Reference
 
-**Digital Marketing Pro** -- Claude Code Plugin v2.7.0
+**Digital Marketing Pro** -- Claude Code Plugin v3.0.0
 
-This document describes the internal architecture of the Digital Marketing Pro plugin for developers and contributors. It covers file structure, the WAT framework mapping, component anatomy, the hook system, script conventions, data persistence, adaptive scoring, and extension points.
+This document describes the internal architecture of the Digital Marketing Pro plugin for developers and contributors. It covers file structure, the WAT framework mapping, component anatomy, the hook system, script conventions, data persistence, adaptive scoring, the v3.0 methodology layer, and extension points.
+
+> **v3.0 note:** v3.0 introduces a methodology orchestration layer on top of the v2.x foundation. Sections 1–11 cover the v2.x architecture that remains unchanged. Section 12 is dedicated to the v3.0 methodology layer (engagement workflow, Two-Views Model, Decision Matrix, Update-Back Rule, Living Project Instruction File, engagement-state script).
 
 ---
 
@@ -11,11 +13,12 @@ This document describes the internal architecture of the Digital Marketing Pro p
 ```
 digital-marketing-pro/
 ├── .claude-plugin/
-│   └── plugin.json                    # Plugin manifest (v2.7.0)
+│   └── plugin.json                    # Plugin manifest (v3.0.0; full 2026 spec with $schema, homepage, repository, license, keywords)
 ├── .mcp.json                          # 14 HTTP connectors (auto-loaded)
 ├── .mcp.json.example                  # 68 npx servers (opt-in for Claude Code)
 ├── hooks/
 │   └── hooks.json                     # 3 lifecycle hooks
+├── commands/                          # 8 top-level commands (7 v2.x + /dm:engagement v3.0)
 ├── agents/                            # 25 specialist agents
 │   ├── marketing-strategist.md
 │   ├── content-creator.md
@@ -983,3 +986,226 @@ Each eval contains:
 - `assertions[]` — verifiable checks (type: `quantitative` for measurable criteria, `qualitative` for judgment-based criteria)
 
 When adding evals to new skills, follow this pattern and include 2-3 test cases covering different scenarios.
+
+---
+
+## 12. v3.0 — The Engagement Methodology Layer
+
+v3.0 introduces a methodology orchestration layer on top of the v2.x foundation. This section covers the new components introduced in v3.0.
+
+### 12.1 New Files Added in v3.0
+
+```
+digital-marketing-pro/
+├── commands/
+│   └── engagement.md                                # NEW: /dm:engagement command
+├── scripts/
+│   └── engagement-state.py                          # NEW: persistence + Decision Matrix engine
+├── skills/
+│   ├── engagement-workflow/SKILL.md                 # NEW: 12-Part orchestrator
+│   ├── four-core-documents/SKILL.md                 # NEW: produces Part 3 (61 steps)
+│   ├── client-validation-document/SKILL.md          # NEW: produces Part 5
+│   ├── growth-plan/SKILL.md                         # NEW: produces Part 8 flagship
+│   ├── yearly-planner/SKILL.md                      # NEW: produces Part 8 companion
+│   ├── continuous-improvement-loop/SKILL.md         # NEW: produces Part 12
+│   └── context-engine/                              # 23 NEW reference docs:
+│       ├── engagement-flow-methodology.md           # Master 12-Part spec
+│       ├── four-core-documents-spec.md              # 61-step specification
+│       ├── two-views-model.md                       # v1 + v2 architecture
+│       ├── decision-matrix-rerun.md                 # When to re-run what
+│       ├── update-back-rule.md                      # Versioning protocol
+│       ├── stone-vs-opinion.md                      # Confidence tagging
+│       ├── living-instruction-file-spec.md          # LIF schema
+│       ├── five-digital-markets.md                  # Channel taxonomy
+│       ├── channel-families.md                      # 7 families x 17 channels
+│       ├── in-market-out-market.md                  # 3-5% vs 95-97% audience split
+│       ├── decision-framework.md                    # Multi-dimensional decision-making
+│       ├── unit-economics-framework.md              # CAC / LTV / payback
+│       ├── actionable-persona-format.md             # 6-question format
+│       ├── b2b-decision-making-unit.md              # User / Influencer / DM / Gatekeeper
+│       ├── three-scenario-forecasting.md            # Conservative / Moderate / Aggressive
+│       ├── 30-60-90-framework.md                    # Foundation / Validation / Optimisation
+│       ├── reporting-cadence.md                     # daily / weekly / monthly / quarterly / annual
+│       ├── fixed-vs-variable-budget.md              # Fixed monthly + Variable reserve
+│       ├── competitor-3-question-output.md          # Required output for competitor analysis
+│       ├── india-market-context.md                  # Regional context module
+│       ├── growth-plan-template.md                  # 11-section deliverable structure
+│       ├── yearly-planner-template.md               # 12-month operational structure
+│       └── monthly-report-template.md               # 9-section monthly structure
+└── docs/
+    └── engagement-methodology.md                    # NEW: user-facing methodology guide
+```
+
+### 12.2 Component Architecture
+
+The methodology layer flows from the `/dm:engagement` command (entry point) through the `engagement-workflow` skill (orchestrator), which delegates to part-specific skills. All persistence flows through `scripts/engagement-state.py` to the engagement directory tree.
+
+Components:
+
+- **Entry point:** `commands/engagement.md` — defines the `/dm:engagement` subcommands
+- **Orchestrator:** `skills/engagement-workflow/SKILL.md` — reads engagement state, reads Living Project Instruction File, delegates to part-specific producers
+- **Part producers (new in v3.0):** `four-core-documents` (Part 3), `client-validation-document` (Part 5), `growth-plan` (Part 8), `yearly-planner` (Part 8), `continuous-improvement-loop` (Part 12)
+- **Part producers (existing v2.x):** Parts 2, 4, 7, 9, 10, 11 use existing skills (market-intelligence, competitor-analysis, audience-intelligence, campaign-orchestrator, content-engine, channel-specific paid-advertising/aeo-geo skills, etc.)
+- **Persistence engine:** `scripts/engagement-state.py` — atomic JSON writes; 14 subcommands; the only authorised writer of `_engagement.json`
+- **Storage:** `~/.claude-marketing/brands/{brand}/engagements/{id}/` — canonical directory tree
+
+### 12.3 _engagement.json — State Schema
+
+```json
+{
+  "schema_version": "1.0.0",
+  "brand": "acme-corp",
+  "engagement_id": "2026-q2",
+  "created_at": "2026-05-03T10:00:00Z",
+  "last_updated_at": "2026-05-03T10:00:00Z",
+  "current_part": "1",
+  "parts": {
+    "1": {
+      "name": "Client Inputs",
+      "type": "intake",
+      "status": "in_progress",
+      "started_at": "2026-05-03T10:00:00Z",
+      "completed_at": null,
+      "subdocs": [],
+      "notes": ""
+    },
+    "3": {
+      "name": "Four Core Documents",
+      "type": "strategy",
+      "status": "not_started",
+      "started_at": null,
+      "completed_at": null,
+      "subdocs": ["3.1", "3.2", "3.3", "3.4"],
+      "notes": ""
+    }
+  },
+  "rerun_decisions": [
+    {
+      "timestamp": "2026-05-15T14:00:00Z",
+      "triggers": ["competitors_changed", "positioning_changed"],
+      "triggered_reruns": ["3.1", "3.2", "3.3", "3.4", "4.1", "4.2"],
+      "user_decision": "approved",
+      "executed_reruns": ["3.1", "3.2", "3.3", "3.4", "4.1", "4.2"],
+      "skipped_reruns": [],
+      "notes": ""
+    }
+  ],
+  "version_history": {
+    "3.1": [
+      {"version": "v1.0", "updated_at": "...", "reason": "Initial unbiased research", "previous_version": null},
+      {"version": "v2.0", "updated_at": "...", "reason": "Part 6 re-run after client validation", "previous_version": "v1.0"},
+      {"version": "v2.1", "updated_at": "...", "reason": "Segment X CAC corrected (Update-Back)", "previous_version": "v2.0"}
+    ]
+  },
+  "lif_change_log": [
+    {"timestamp": "...", "section": "Recent Corrections", "summary": "Segment X CAC corrected"}
+  ]
+}
+```
+
+### 12.4 Part Status Lifecycle
+
+```
+not_started -> in_progress -> (completed | awaiting_input | blocked | deferred)
+                  ^                |
+                  └────────────────┘  (re-open via mark-part-started --force)
+```
+
+Valid statuses: `not_started`, `in_progress`, `awaiting_input`, `blocked`, `completed`, `deferred`.
+
+### 12.5 Decision Matrix Rules
+
+The Decision Matrix in `engagement-state.py` implements these rules (per `skills/context-engine/decision-matrix-rerun.md`):
+
+| Trigger | Triggered re-runs |
+|---------|-------------------|
+| `competitors_changed` | 3.1, 3.2, 3.3, 3.4, 4.1, 4.2 |
+| `target_market_changed` | 4.3, 4.4 |
+| `audiences_changed` | 3.2, 3.3, 3.4 |
+| `positioning_changed` | 3.3 |
+| `budget_or_scope_changed` | 3.4 |
+| `pricing_or_offering_changed` | 3.1 |
+| `unit_economics_changed` | 3.1 |
+| `minor_corrections_only` | (none — no v2 re-runs) |
+
+The triggered re-run set is the union of all matched triggers' re-run lists.
+
+### 12.6 Storage Conventions
+
+- **Atomic writes:** `engagement-state.py` writes to `<filename>.tmp` and renames atomically. Prevents partial writes corrupting JSON.
+- **Versioning:** v1.0 -> v1.1 (minor v1 correction) -> v2.0 (Part 6 re-run) -> v2.1 (Update-Back correction). Old versions are preserved as separate files; nothing is overwritten.
+- **JSON I/O contract:** every `engagement-state.py` command returns JSON to stdout. Errors go to stderr with exit code 1. Skills consume the JSON output programmatically.
+- **CLAUDE_PLUGIN_DATA respected:** when set, the workspace is `$CLAUDE_PLUGIN_DATA/digital-marketing-pro/`; otherwise falls back to `~/.claude-marketing/`.
+
+### 12.7 Skill Frontmatter Conventions for v3.0
+
+The 6 new methodology skills declare two new frontmatter fields:
+
+```yaml
+engagement-part: "3"          # Which part this skill produces (1-12, or "orchestrator")
+view-preference: v2-primary   # v1-only / v1-primary / v2-only / v2-primary / both
+```
+
+`view-preference` controls which version of source documents the skill loads:
+
+- `v2-primary` — load v2 docs; fall back to v1 only if specific doc has no v2
+- `v1-primary` — load v1 docs always
+- `both` — load both v1 and v2 versions; the skill content compares them
+- `v1-only` — load only v1 (used by ideation skills + Part 5 client validation)
+- `v2-only` — load only v2 (used by execution-only skills)
+
+Existing v2.x skills do not require these fields. They are additive for skills that participate in the engagement workflow.
+
+### 12.8 Living Project Instruction File Update Triggers
+
+The LIF is auto-updated when:
+
+1. A source document version is bumped (any v1.X -> v2.0 -> v2.X)
+2. An Update-Back action completes
+3. An engagement part is marked completed or started
+4. A compliance violation is detected (existing PreToolUse hook integration)
+5. The optional daily background pull updates health indicators
+
+Skills should never hand-edit the LIF body. Always go through `engagement-state.py lif-log-change` for change-log entries; the LIF body sections are auto-maintained by the engagement-state script.
+
+### 12.9 Backward Compatibility
+
+v3.0 is purely additive. Specifically:
+
+- All v2.x skills, agents, scripts, hooks, commands continue to work unchanged
+- The brand profile system at `~/.claude-marketing/brands/{slug}/profile.json` is untouched
+- Existing `setup.py`, `campaign-tracker.py`, `adaptive-scorer.py`, etc. continue to function
+- Engagements are stored under `engagements/` subdirectory of the brand directory — sits alongside existing `campaigns/`, `performance/`, `insights.json`, `guidelines/`, etc.
+- Single-skill invocations (e.g., `/dm:content-engine`) work without an engagement context, just as in v2.7
+
+A user can adopt the methodology selectively: brand A may use the full engagement workflow; brand B may continue with one-off commands. Both work in the same plugin installation.
+
+### 12.10 Where to Read More
+
+- **User-facing guide:** [docs/engagement-methodology.md](engagement-methodology.md)
+- **Methodology specification:** [skills/context-engine/engagement-flow-methodology.md](../skills/context-engine/engagement-flow-methodology.md)
+- **Four Core Documents 61-step spec:** [skills/context-engine/four-core-documents-spec.md](../skills/context-engine/four-core-documents-spec.md)
+- **Decision Matrix specification:** [skills/context-engine/decision-matrix-rerun.md](../skills/context-engine/decision-matrix-rerun.md)
+- **Update-Back Rule:** [skills/context-engine/update-back-rule.md](../skills/context-engine/update-back-rule.md)
+- **Two-Views Model:** [skills/context-engine/two-views-model.md](../skills/context-engine/two-views-model.md)
+- **LIF schema:** [skills/context-engine/living-instruction-file-spec.md](../skills/context-engine/living-instruction-file-spec.md)
+- **Engagement state script source:** `scripts/engagement-state.py`
+- **Engagement command:** `commands/engagement.md`
+
+### 12.11 Adding New Methodology Components
+
+Pattern for adding a new context-engine reference doc:
+
+1. Save to `skills/context-engine/<name>.md` with relevant cross-references
+2. Reference it from at least one consuming skill via `[link](../context-engine/<name>.md)`
+3. Add it to the user-facing guide at `docs/engagement-methodology.md` Section 13
+4. Update CHANGELOG with the addition
+
+Pattern for adding a new methodology skill:
+
+1. Create `skills/<skill-name>/SKILL.md` with frontmatter including `engagement-part`, `view-preference`, `triggers`, `user-invocable`
+2. Reference the relevant context-engine docs in the SKILL.md body
+3. If the skill produces persistent output, write it to the canonical location under `engagements/{id}/part-XX-.../`
+4. If the skill changes engagement state, invoke `engagement-state.py` (do not hand-write `_engagement.json`)
+5. If the skill changes source documents, trigger a version bump and an LIF change log entry
+6. Add the skill to `commands/engagement.md` if it should be exposed as a `/dm:engagement <subcommand>` shortcut

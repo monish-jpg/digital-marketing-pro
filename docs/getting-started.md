@@ -1,8 +1,8 @@
 # Getting Started with Digital Marketing Pro
 
-**Version 2.5.0** | A plugin for Claude Code and Claude Cowork
+**Version 3.0.0** | A plugin for Claude Code and Claude Cowork
 
-Digital Marketing Pro transforms Claude into a marketing command center that knows your brand, understands your industry, and produces strategy and content that sounds like you wrote it. This guide walks you through installation, brand setup, and your first marketing task.
+Digital Marketing Pro transforms Claude into a marketing command center that knows your brand, understands your industry, and produces strategy and content that sounds like you wrote it. v3.0 adds a **12-Part Engagement Methodology** that orchestrates the plugin into a sequential workflow producing ~50–60 traceable files per engagement. This guide walks you through installation, brand setup, your first marketing task, and your first full engagement.
 
 ---
 
@@ -14,11 +14,12 @@ Digital Marketing Pro transforms Claude into a marketing command center that kno
 4. [Your First Brand Profile](#4-your-first-brand-profile)
 5. [Importing Your Brand Guidelines (Optional)](#5-importing-your-brand-guidelines-optional)
 6. [Your First Marketing Task](#6-your-first-marketing-task)
-7. [Understanding the Session Lifecycle](#7-understanding-the-session-lifecycle)
-8. [Python Dependencies (Optional)](#8-python-dependencies-optional)
-9. [Connector Discovery (New in v2.4.0)](#9-connector-discovery-new-in-v240)
-10. [Available Commands](#10-available-commands)
-11. [Next Steps](#11-next-steps)
+7. [Your First Full Engagement (v3.0)](#7-your-first-full-engagement-v30)
+8. [Understanding the Session Lifecycle](#8-understanding-the-session-lifecycle)
+9. [Python Dependencies (Optional)](#9-python-dependencies-optional)
+10. [Connector Discovery](#10-connector-discovery)
+11. [Available Commands](#11-available-commands)
+12. [Next Steps](#12-next-steps)
 
 ---
 
@@ -87,15 +88,17 @@ For full details on Cowork capabilities (document creation, visual review, app i
 After running either command, you should see output similar to this:
 
 ```
-Installing plugin: digital-marketing-pro v2.7.0
+Installing plugin: digital-marketing-pro v3.0.0
   - 16 marketing modules loaded
-  - 141 slash commands registered (/dm:*)
+  - 147 slash commands registered (/dm:*)
   - 25 specialist agents available
   - 14 HTTP connectors + 68 npx integrations configured
   - 3 event hooks configured (SessionStart, PreToolUse, SessionEnd)
+  - 12-Part Engagement Methodology available (run /dm:engagement to start)
 
 Plugin "digital-marketing-pro" installed successfully.
-Run /dm:brand-setup to create your first brand profile.
+Run /dm:brand-setup to create your first brand profile, then
+/dm:engagement start <brand> <id> for a full engagement workflow.
 ```
 
 If you see an error instead, verify that your Claude Code installation is up to date and that the path to the plugin directory is correct.
@@ -416,7 +419,96 @@ Run `/dm:language-config` to set:
 
 ---
 
-## 7. Understanding the Session Lifecycle
+## 7. Your First Full Engagement (v3.0)
+
+Sections 1–6 cover the v2.x way of using the plugin: one-off tasks driven by `/dm:` commands. Both paths are supported and useful.
+
+For a real strategic engagement (a quarterly strategy, an annual plan, a new client onboarding, a major repositioning), v3.0 adds the **12-Part Engagement Methodology**. It orchestrates the same agents, skills, and connectors into a sequential workflow that produces ~50–60 traceable files per engagement.
+
+### When to use the engagement workflow vs one-off commands
+
+| You need | Use |
+|---|---|
+| A single deliverable (one campaign, one email sequence, one audit) | One-off `/dm:` commands |
+| A full strategic engagement with traceable rationale | `/dm:engagement` workflow |
+| Quick exploration | One-off commands |
+| Client-presentable Growth Plan + Yearly Planner | `/dm:engagement` workflow |
+| Internal team experimentation | One-off commands |
+| Multi-month engagement that needs version control + Update-Back corrections | `/dm:engagement` workflow |
+
+### Running an engagement — the short version
+
+```bash
+# One-time per brand (already covered above)
+/dm:brand-setup
+
+# Per engagement
+/dm:engagement start <brand-slug> <engagement-id>     # Init + Part 1 intake
+/dm:engagement four-core <brand> <id>                 # Produces Part 3 (61 steps across 4 docs)
+/dm:engagement validate <brand> <id>                  # Part 5 client validation document
+/dm:engagement re-run-decision <brand> <id>           # Part 6 v2 re-runs per Decision Matrix
+/dm:engagement growth-plan <brand> <id>               # Part 8 flagship deliverable
+/dm:engagement yearly-planner <brand> <id>            # Part 8 operational companion
+/dm:engagement loop <brand> <id>                      # Part 12 continuous improvement
+/dm:engagement status                                 # Check progress at any time
+```
+
+### What the methodology adds
+
+- **Stone vs Opinion intake** — separates verifiable client facts from client beliefs (which become research questions, not ground truth)
+- **Two-Views Model** — keeps both v1 (unbiased market view) and v2 (client-validated view) available forever
+- **Decision Matrix** — selectively re-runs only the documents affected by client validation; prevents over- and under-re-running
+- **Update-Back Rule** — versioning protocol for in-life corrections (v2.1, v2.2 ...) so the strategy stays honest over time
+- **Living Project Instruction File** — single source of truth that all skills read first
+
+### What you get out
+
+Per engagement, a structured directory at `~/.claude-marketing/brands/{brand-slug}/engagements/{engagement-id}/`:
+
+```
+├── _engagement.json                  # State + version history
+├── living-instruction-file.md        # "Currently true" record
+├── part-01-client-inputs/            # Stone facts + Opinion hypotheses
+├── part-02-external-research/        # 3 unbiased research docs
+├── part-03-four-core-documents/      # v1/ + v2/ (Four Core Documents, 61 steps)
+├── part-04-competitive-customer-market/  # v1/ + v2/ (4 docs)
+├── part-05-client-validation/        # The "one true stop"
+├── part-06-v2-reruns/                # Decision Matrix log
+├── part-07-preparation/              # 6 internal operating docs
+├── part-08-growth-plan/              # Growth Plan + Yearly Planner (client-facing)
+├── part-09-channel-strategy/         # Up to 17 channel docs
+├── part-10-execution-artefacts/      # Ad copy, post copy, headlines, CTAs
+├── part-11-ai-creative-instructions/ # Visual asset briefs
+├── part-12-continuous-improvement/   # Quarterly + ad-hoc briefs
+└── reports/                          # monthly/ quarterly/ annual/
+```
+
+Out of those ~50–60 files, only Parts 5 and 8 produce client-facing deliverables — the rest are internal operating documents that prioritise depth, rationale, and assumption discipline.
+
+### Where to learn more
+
+The full user-facing methodology guide is at **[docs/engagement-methodology.md](engagement-methodology.md)**. It covers:
+
+- Why a methodology
+- The 12 parts in detail
+- The Two-Views Model
+- The Decision Matrix
+- The Update-Back Rule
+- The Living Project Instruction File
+- Reading the engagement directory
+- Quality discipline
+- Common patterns and anti-patterns
+
+The methodology is supported by 23 reference documents in `skills/context-engine/`. The most foundational ones to read first:
+
+- [engagement-flow-methodology.md](../skills/context-engine/engagement-flow-methodology.md) — the master 12-Part flow specification
+- [four-core-documents-spec.md](../skills/context-engine/four-core-documents-spec.md) — the 61-step specification for Part 3
+- [stone-vs-opinion.md](../skills/context-engine/stone-vs-opinion.md) — confidence tagging at intake
+- [two-views-model.md](../skills/context-engine/two-views-model.md) — v1 + v2 architecture
+
+---
+
+## 8. Understanding the Session Lifecycle
 
 Digital Marketing Pro operates across three phases in every Claude Code or Cowork session. Understanding this lifecycle helps you get the most out of the plugin.
 
@@ -469,9 +561,9 @@ printed                  (just ask for things)        session
 
 ---
 
-## 8. Python Dependencies (Optional)
+## 9. Python Dependencies (Optional)
 
-Digital Marketing Pro is designed to work at full capability without Python. All 16 marketing modules, 25 specialist agents, and 141 slash commands function using the plugin's built-in reference knowledge. Python adds bonus scoring and automation features.
+Digital Marketing Pro is designed to work at full capability without Python. All 16 marketing modules, 25 specialist agents, and 147 slash commands function using the plugin's built-in reference knowledge. Python adds bonus scoring and automation features (and the engagement-state script that powers the v3.0 methodology — install Python if you plan to use the engagement workflow).
 
 ### Three dependency modes
 
@@ -486,11 +578,12 @@ Digital Marketing Pro is designed to work at full capability without Python. All
 This is what you get out of the box. No setup required.
 
 You have access to:
-- All 16 marketing modules with 148 reference knowledge files
-- All **141** `/dm:` slash commands
+- All 16 marketing modules with 170+ reference knowledge files (including 23 v3.0 methodology references)
+- All **147** `/dm:` slash commands (including the v3.0 engagement workflow)
 - All 25 specialist agents
 - Brand profiling, session hooks, and campaign tracking
 - Industry benchmarks, compliance rules, and platform specifications
+- The 12-Part engagement methodology (the engagement-state script requires Python — see below)
 
 The plugin will tell you when a Python-dependent feature is unavailable and will gracefully skip it rather than throwing an error.
 
@@ -532,9 +625,9 @@ Python: full (all deps)        (full mode)
 
 ---
 
-## 9. Connector Discovery (New in v2.4.0)
+## 10. Connector Discovery
 
-Digital Marketing Pro v2.4.0 introduces a connector discovery system that makes it easy to see which external platforms are connected and set up new ones.
+Digital Marketing Pro includes a connector discovery system that makes it easy to see which external platforms are connected and set up new ones.
 
 ### Checking your connector status
 
@@ -584,9 +677,27 @@ To check platform-level integrations: Open Claude Desktop → Settings → Integ
 
 ---
 
-## 10. Available Commands
+## 11. Available Commands
 
-Digital Marketing Pro provides 141 slash commands, all prefixed with `/dm:`. You can type these directly in your Claude Code session.
+Digital Marketing Pro provides 147 slash commands, all prefixed with `/dm:`. You can type these directly in your Claude Code session.
+
+### Engagement Workflow (v3.0)
+
+| Command | What it does |
+|---------|-------------|
+| `/dm:engagement start <brand> <id>` | Initialise a new engagement; walks Part 1 Stone vs Opinion intake |
+| `/dm:engagement status [brand] [id]` | Show current engagement status (or list all if omitted) |
+| `/dm:engagement next` | Advance to next part after confirming current is complete |
+| `/dm:engagement four-core <brand> <id>` | Produce Part 3 Four Core Documents (61 steps); supports `--doc 3.X` and `--view v2` |
+| `/dm:engagement validate <brand> <id>` | Produce Part 5 Client Validation Document (the "one true stop") |
+| `/dm:engagement re-run-decision <brand> <id>` | Apply Decision Matrix to determine v2 re-runs |
+| `/dm:engagement growth-plan <brand> <id>` | Produce Part 8 flagship 11-section client deliverable |
+| `/dm:engagement yearly-planner <brand> <id>` | Produce Part 8 12-month operational companion |
+| `/dm:engagement loop <brand> <id>` | Produce Part 12 quarterly or ad-hoc continuous improvement brief |
+| `/dm:engagement update-back <brand> <id> --doc <X> --reason "..."` | Bump source document version per the Update-Back Rule |
+| `/dm:engagement lif-show <brand> <id>` | Display the Living Project Instruction File |
+| `/dm:engagement file-tree <brand> <id>` | Show the engagement directory file tree |
+| `/dm:engagement list-engagements [brand]` | List all engagements (optionally filter by brand) |
 
 ### Brand Management
 
@@ -723,7 +834,7 @@ Digital Marketing Pro provides 141 slash commands, all prefixed with `/dm:`. You
 | `/dm:region-config` | Configure regional settings --- timezone, language, compliance, currency |
 | `/dm:exec-summary` | Generate C-suite executive summary with portfolio ROI and strategic recommendations |
 
-### Connector Discovery (New in v2.4.0)
+### Connector Discovery
 
 | Command | What it does |
 |---------|-------------|
@@ -740,33 +851,35 @@ Slash commands are useful for structured, templated outputs. But you can also ju
 "I need to respond to negative reviews on Google"
 ```
 
-The plugin's 16 modules will activate based on the intent of your request, whether or not you use a slash command. The 141 commands simply give you a direct shortcut to a specific workflow.
+The plugin's 16 modules will activate based on the intent of your request, whether or not you use a slash command. The 147 commands simply give you a direct shortcut to a specific workflow.
 
 ---
 
-## 11. Next Steps
+## 12. Next Steps
 
 You are set up and ready to go. Here are some resources for when you want to go deeper.
 
 ### Guides
 
-- **Importing brand guidelines** --- If your brand has a voice guide, restriction list, or channel-specific style rules, see `docs/brand-guidelines.md` for the full guide on importing guidelines, templates, and agency SOPs.
+- **The 12-Part Engagement Methodology (v3.0)** --- For full strategic engagements with traceable rationale and version-controlled deliverables, see [docs/engagement-methodology.md](engagement-methodology.md). This is the higher-leverage way to use the plugin.
 
-- **Managing multiple brands** --- If you work with more than one brand or run an agency, see `docs/multi-brand-guide.md` for brand switching, side-by-side comparison, and multi-client workflows.
+- **Importing brand guidelines** --- If your brand has a voice guide, restriction list, or channel-specific style rules, see [docs/brand-guidelines.md](brand-guidelines.md) for the full guide on importing guidelines, templates, and agency SOPs.
+
+- **Managing multiple brands** --- If you work with more than one brand or run an agency, see [docs/multi-brand-guide.md](multi-brand-guide.md) for brand switching, side-by-side comparison, multi-client workflows, and per-brand engagement isolation.
 
 - **Execution & Publishing** --- v2.0.0+ adds full execution capabilities. Every action goes through an approval workflow (draft → review → approve → execute → monitor). See the execution commands above.
 
-- **CRM Integration** --- Connect Salesforce, HubSpot, Zoho, or Pipedrive for bidirectional data sync. See `docs/integrations-guide.md` for setup.
+- **CRM Integration** --- Connect Salesforce, HubSpot, Zoho, or Pipedrive for bidirectional data sync. See [docs/integrations-guide.md](integrations-guide.md) for setup.
 
 - **Memory & RAG** --- Store and retrieve brand knowledge across sessions using Pinecone, Qdrant, or Supermemory vector databases. See the Memory & Knowledge commands above.
 
-- **Connecting your marketing tools** --- The plugin supports 67 MCP server integrations spanning analytics, advertising, CRM, email, social publishing, memory/RAG, and more. See `docs/integrations-guide.md` to connect your accounts.
+- **Connecting your marketing tools** --- The plugin supports 14 HTTP MCP connectors + 68 npx integrations spanning analytics, advertising, CRM, email, social publishing, memory/RAG, and more. See [docs/integrations-guide.md](integrations-guide.md) to connect your accounts.
 
-- **KPI-driven strategy** --- Learn how to set up marketing KPI frameworks, build reporting dashboards, and track campaign performance over time in `docs/strategy-and-kpis.md`.
+- **KPI-driven strategy** --- Learn how to set up marketing KPI frameworks, build reporting dashboards, and track campaign performance over time in [docs/strategy-and-kpis.md](strategy-and-kpis.md).
 
-- **Understanding the architecture** --- For a technical deep dive into how the 16 modules, 25 agents, context engine, and hook system work together, see `docs/architecture.md`.
+- **Understanding the architecture** --- For a technical deep dive into how the 16 modules, 25 agents, context engine, hook system, and v3.0 methodology layer work together, see [docs/architecture.md](architecture.md).
 
-- **Using Cowork** --- If you are using Claude Cowork (or considering it), see `docs/claude-interfaces.md` for Cowork-specific capabilities like document creation, visual page review, and a comparison with Anthropic's official marketing plugin.
+- **Using Cowork** --- If you are using Claude Cowork (or considering it), see [docs/claude-interfaces.md](claude-interfaces.md) for Cowork-specific capabilities like document creation, visual page review, and a comparison with other marketing plugins.
 
 ### Quick reference: The 16 marketing modules
 
@@ -802,4 +915,4 @@ If something is not working as expected:
 
 ---
 
-*Digital Marketing Pro v2.7.0 --- Built for marketing professionals who want strategy, execution, and publishing that stays on-brand, every time. Plan it, approve it, execute it, monitor it --- all from Claude Code and Claude Cowork.*
+*Digital Marketing Pro v3.0.0 --- Built for marketing professionals who want strategy, execution, and publishing that stays on-brand, every time. v3.0 adds the 12-Part Engagement Methodology with traceable rationale, version-controlled deliverables, and the Two-Views Model. Plan it, approve it, execute it, monitor it --- all from Claude Code and Claude Cowork. Built by [Indranil Banerjee](https://github.com/indranilbanerjee).*

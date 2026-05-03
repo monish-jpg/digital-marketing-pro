@@ -1,11 +1,102 @@
 # Digital Marketing Pro — Claude Code & Cowork Plugin
 
-[![Version](https://img.shields.io/badge/version-2.7.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-optional-yellow.svg)](#python-dependencies-optional)
 [![Cowork](https://img.shields.io/badge/cowork-compatible-purple.svg)](docs/claude-interfaces.md#claude-cowork-full-support)
+[![Author](https://img.shields.io/badge/author-Indranil_Banerjee-181717.svg?logo=github)](https://github.com/indranilbanerjee)
 
-The most comprehensive digital marketing plugin for Claude Code and Claude Cowork. 16 integrated modules covering the entire marketing spectrum from strategy to execution to measurement — including dedicated Technical SEO, Local SEO, and Marketing Automation modules. **v2.0 adds a full execution layer**: publish content, send emails, launch ads, schedule social, sync CRMs, manage persistent memory, and deliver reports — all with human-in-the-loop approval workflows. Multi-client agency operations with credential profiles, portfolio dashboards, and team management. **v2.1 adds predictive intelligence, GEO monitoring, competitor monitoring, SEO execution, self-healing campaigns, creative intelligence, compound intelligence, synthetic audience testing, journey orchestration, and more.** **v2.2 adds a comprehensive evaluation/QA layer (hallucination detection, claim verification, output validation, composite scoring, quality regression tracking) and full multilingual support (4 translation MCP servers, automatic language routing, transcreation, cultural adaptation, multilingual SEO).** **v2.3 introduces HTTP-only MCP connectors for Cowork compatibility (14 HTTP connectors that work in both Cowork and Claude Code).** **v2.4 adds connector discovery and onboarding (`/dm:integrations` status dashboard, `/dm:connect` guided setup, `/dm:help` quick reference).** **v2.5 adds 7 top commands visible in the Customize panel — brand setup, campaign planning, SEO audit, content engine, performance reports, competitor analysis, and email sequences.** **v2.6 adds 6 dedicated SEO sub-skills (programmatic SEO, competitor comparison pages, image SEO audit, single-page deep analysis, sitemap management, SEO strategic planning), expanded schema markup support (18 types with deprecation tracking), Google SEO quick reference, and DataForSEO MCP integration.**
+The most comprehensive digital marketing plugin for Claude Code and Claude Cowork. **v3.0 introduces the 12-Part Engagement Methodology** — a sequential workflow that produces ~50–60 canonical files per engagement: Stone-vs-Opinion intake, unbiased external research, the Four Core Documents (61 explicit steps), Client Validation Document with Decision Matrix for v2 re-runs, the Update-Back Rule for in-life corrections, the Living Project Instruction File, the Growth Plan + Yearly Planner client deliverables, channel strategy fan-out, execution artefacts, AI creative instructions, and a continuous improvement loop that feeds back into product/offering decisions. Built on top of v2.7's foundation: 25 specialist agents, 141 atomic skills, 65 Python scripts, 14 HTTP MCP connectors, 16 industry profiles, 16 privacy-law jurisdictions, and full execution-layer support.
+
+---
+
+## v3.0 — The 12-Part Engagement Methodology
+
+Most marketing tools generate isolated outputs — a campaign brief here, an email there, a content piece somewhere else. There is no canonical sequence, no shared state, no enforced structure. The result: inconsistent depth, missed dependencies, and outputs that do not compound across engagements.
+
+v3.0 introduces a **methodology-driven engagement workflow** that fixes this. Every brand engagement now runs through the same 12 parts in sequence, producing the same set of files in the same order, with explicit dependency rules between them.
+
+### The 12 Parts at a Glance
+
+| Part | Name | Output |
+|------|------|--------|
+| 1 | Client Inputs | Stone vs Opinion intake (what client knows for certain vs what they believe) |
+| 2 | External Research | Unbiased market research (no client docs used) |
+| 3 | **Four Core Documents** | 61 explicit steps across Business & SBU Analysis (18), Segmentation Framework (15), Brand Positioning & Communications (19), DMFlow (9) |
+| 4 | Competitive + Customer + Market | 4 unbiased analysis documents (4.1–4.4) |
+| 5 | **Client Validation Document** | The one true stop. Client accepts/rejects/edits each finding |
+| 6 | Selective v2 Re-runs | Subset of Part 3 + Part 4 docs re-run per the Decision Matrix |
+| 7 | Preparation Documents | Internal operating layer (campaign architecture, KPI tree, content pillars, asset inventory, approval chains) |
+| 8 | **Growth Plan + Yearly Planner** | The flagship 11-section client-facing strategy + 12-month operational calendar |
+| 9 | Channel Strategy Fan-out | Up to 17 channel docs grouped into 7 families (Search & Campaign, Paid platforms, Organic & Influencer, Marketplace & CRM, Content/ATL/BTL/PR, Web + Measurement) |
+| 10 | Execution Artefacts | Communication outputs (ad copy, post copy, headlines, CTAs) |
+| 11 | AI Creative Instructions | Visual asset briefs |
+| 12 | **Continuous Improvement Loop** | Quarterly briefs + ad-hoc briefs feeding market + operating signals back into product/offering decisions |
+
+### Key Architectural Concepts
+
+- **Two-Views Model** — After Part 5, every engagement carries both v1 (the unbiased market view) and v2 (the client-validated view). Operating decisions reference v2; ideation and stress-testing reference both. v1 is never deleted.
+- **Stone vs Opinion** — Every fact captured at intake is tagged with confidence level. Stone = client knows for certain. Opinion = client believes (becomes a research question, not ground truth).
+- **Decision Matrix** — Maps client validation responses to which v1 documents need v2 re-runs. Prevents over- and under-re-running.
+- **Update-Back Rule** — When live operations surface corrections after Part 7, the source documents get versioned (v2.1, v2.2 etc.) and the Living Project Instruction File propagates the change to all downstream skills.
+- **Living Project Instruction File** — Single source of truth per engagement. All skills read it first. Auto-updated when source docs change.
+
+### Strategic Framework References (15 New Docs)
+
+The methodology is supported by 15 reference documents in `skills/context-engine/`:
+
+- **Five Digital Markets** — Search / Profile / Contextual / Marketplace / Utility taxonomy that determines channel selection
+- **Channel Families** — 7 families covering 17 channels for Part 9 production
+- **In-Market vs Out-Market** — 3-5% vs 95-97% audience split with budget allocation logic
+- **Multi-Dimensional Decision Framework** — Weight + score + weighted total for any consequential decision
+- **Unit Economics Framework** — CAC / LTV / LTV:CAC ≥ 3.0 / payback period
+- **Actionable Persona Format** — 6-question format replacing biographical narratives
+- **B2B Decision-Making Unit** — User / Influencer / Decision-maker / Gatekeeper roles
+- **Three-Scenario Forecasting** — Conservative / Moderate / Aggressive for every projection
+- **30 / 60 / 90-Day Framework** — Foundation / Validation / Optimisation phasing
+- **Reporting Cadence** — Daily / weekly / monthly / quarterly / annual scopes
+- **Fixed vs Variable Budget** — Fixed monthly + Variable reserve mechanism
+- **Competitor 3-Question Output** — what they do well / poorly / are NOT doing — enforced output for every competitor analysis
+- **India Market Context** — DPDP Act, mobile-first, festive seasonality, WhatsApp, vernacular content, INR pricing benchmarks, tier-1/2/3 differentiation
+- **Growth Plan Template** — 11-section flagship deliverable structure
+- **Yearly Planner Template** — 12-month operational companion structure
+- **Monthly Report Template** — 9-section structure with writing principles
+- **Engagement Flow Methodology** — the master 12-Part flow document
+
+### Quick Start with the Methodology
+
+```bash
+# One-time per brand
+/dm:brand-setup
+
+# Per engagement
+/dm:engagement start <brand-slug> <engagement-id>     # Initialises Part 1
+/dm:engagement next                                    # Advance after part complete
+/dm:engagement four-core                               # Produces Part 3 (61 steps)
+/dm:engagement validate                                # Part 5 client validation
+/dm:engagement re-run-decision                         # Part 6 v2 re-runs per Decision Matrix
+/dm:engagement growth-plan                             # Part 8 flagship deliverable
+/dm:engagement yearly-planner                          # Part 8 operational companion
+/dm:engagement loop                                    # Part 12 continuous improvement
+/dm:engagement status                                  # Check progress at any time
+```
+
+See [skills/context-engine/engagement-flow-methodology.md](skills/context-engine/engagement-flow-methodology.md) for the full methodology specification.
+
+---
+
+## What v2.7 Built (Still Available)
+
+All v2.7 capabilities remain. v3.0 is purely additive at the methodology layer. Earlier feature history:
+
+- **v2.0** added a full execution layer: publish content, send emails, launch ads, schedule social, sync CRMs, manage persistent memory, deliver reports — with human-in-the-loop approval workflows. Multi-client agency operations with credential profiles, portfolio dashboards, team management.
+- **v2.1** added predictive intelligence, GEO monitoring, competitor monitoring, SEO execution, self-healing campaigns, creative intelligence, compound intelligence, synthetic audience testing, journey orchestration.
+- **v2.2** added a comprehensive evaluation/QA layer (hallucination detection, claim verification, output validation, composite scoring, quality regression tracking) and full multilingual support (4 translation MCP servers, automatic language routing, transcreation, cultural adaptation, multilingual SEO).
+- **v2.3** introduced HTTP-only MCP connectors for Cowork compatibility (14 HTTP connectors that work in both Cowork and Claude Code).
+- **v2.4** added connector discovery and onboarding (`/dm:integrations`, `/dm:connect`, `/dm:help`).
+- **v2.5** added 7 top commands visible in the Customize panel.
+- **v2.6** added 6 dedicated SEO sub-skills, expanded schema markup support (18 types with deprecation tracking), Google SEO quick reference, DataForSEO MCP integration.
+- **v2.7** addressed plugin best-practice audit: skill descriptions trimmed for discovery budget, agent maxTurns added, hook timeout wrappers, execution safety improvements.
 
 ## What This Plugin Does
 
@@ -803,3 +894,13 @@ claude plugin install socialforge@neels-plugins
 ## Contributing
 
 Contributions welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on skill structure, agent definitions, script conventions, and how to submit changes.
+
+## Author
+
+**Indranil Banerjee**
+
+GitHub: [@indranilbanerjee](https://github.com/indranilbanerjee)
+
+Plugin marketplace: [indranilbanerjee/neels-plugins](https://github.com/indranilbanerjee/neels-plugins)
+
+If this plugin is useful in your work, a star on the repository is the easiest way to support it. Issues, feature requests, and pull requests are all welcome — start with [CONTRIBUTING.md](CONTRIBUTING.md).

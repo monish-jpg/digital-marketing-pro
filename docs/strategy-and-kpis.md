@@ -4,6 +4,8 @@
 >
 > This document shows how to connect business objectives to measurable KPIs, translate KPI gaps into campaign strategies, and close the measurement loop so every planning cycle is smarter than the last.
 
+> **v3.0 update:** For full strategic engagements, the 12-Part Engagement Methodology (v3.0) provides a more structured way to do the work this document describes. The Growth Plan deliverable (Part 8) covers Sections 1–4 of this document as Sections 1–7 of its 11-section structure; the Yearly Planner covers Section 5 (Execute and Measure) at calendar-by-calendar granularity; the Continuous Improvement Loop (Part 12) handles Section 6 (Close the Loop). The frameworks below remain valid and form the conceptual basis for the methodology. See [docs/engagement-methodology.md](engagement-methodology.md) for the workflow that operationalises them, and the supporting reference docs in `skills/context-engine/` (especially `growth-plan-template.md`, `unit-economics-framework.md`, `three-scenario-forecasting.md`, `30-60-90-framework.md`, `reporting-cadence.md`, `fixed-vs-variable-budget.md`, `in-market-out-market.md`).**
+
 ---
 
 ## Table of Contents

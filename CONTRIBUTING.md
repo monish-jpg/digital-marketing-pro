@@ -35,6 +35,12 @@ Every skill directory must contain a `SKILL.md` file with YAML frontmatter:
 ---
 name: skill-name
 description: One sentence describing when this skill should be used.
+user-invocable: true
+triggers:
+  - natural language phrase 1
+  - natural language phrase 2
+  - 6-8 phrases that should trigger this skill
+allowed-tools: Read Write Edit Bash Glob Grep
 ---
 
 # /dm:skill-name
@@ -54,6 +60,34 @@ What the skill delivers.
 ## Agents Used
 Which specialist agents are activated.
 ```
+
+#### Skills that participate in the v3.0 engagement methodology
+
+Skills that produce or consume engagement-state must add two extra frontmatter fields:
+
+```yaml
+engagement-part: "3"          # Which part this skill produces (1-12, or "orchestrator")
+view-preference: v2-primary   # v1-only / v1-primary / v2-only / v2-primary / both
+```
+
+`view-preference` controls which version of source documents the skill loads:
+
+- `v2-primary` — load v2 docs; fall back to v1 only if specific doc has no v2
+- `v1-primary` — load v1 docs always
+- `both` — load both v1 and v2 versions; the skill content compares them
+- `v1-only` — load only v1 (used by ideation skills + Part 5 client validation)
+- `v2-only` — load only v2 (used by execution-only skills)
+
+These fields are **optional** for skills that do not participate in the engagement workflow. Existing v2.x skills continue to work without them.
+
+For methodology skills, follow the conventions in section 12.11 of [docs/architecture.md](docs/architecture.md). The canonical examples are:
+
+- `skills/engagement-workflow/SKILL.md`
+- `skills/four-core-documents/SKILL.md`
+- `skills/client-validation-document/SKILL.md`
+- `skills/growth-plan/SKILL.md`
+- `skills/yearly-planner/SKILL.md`
+- `skills/continuous-improvement-loop/SKILL.md`
 
 **Module skills** (16 core modules) must include a `## Brand Context (Auto-Applied)` section before `## Required Context`:
 
