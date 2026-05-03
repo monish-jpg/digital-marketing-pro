@@ -35,7 +35,7 @@ That is it. Everything else is optional.
 **Optional but nice to have:**
 
 - **Python 3.8 or newer** --- unlocks advanced scoring features like brand voice analysis and content readability. The plugin works perfectly without Python; you just get bonus capabilities if it is installed.
-- **No API keys required** --- the plugin ships with 148 reference knowledge files that power all 16 marketing modules. The optional MCP integrations (14 HTTP connectors that work in Cowork, plus 68 npx integrations for Claude Code) use your own account credentials and can be configured later. Run `/dm:integrations` to see which connectors are available and `/dm:connect <name>` for step-by-step setup.
+- **No API keys required** --- the plugin ships with 170+ reference knowledge files that power all 16 marketing modules (the v3.0 release added 23 methodology + framework reference docs to the original 148). The optional MCP integrations (14 HTTP connectors that work in Cowork, plus 68 npx integrations for Claude Code) use your own account credentials and can be configured later. Run `/dm:integrations` to see which connectors are available and `/dm:connect <name>` for step-by-step setup.
 
 > **Bottom line:** If you can run Claude Code or Claude Cowork, you can use this plugin right now.
 
@@ -90,7 +90,7 @@ After running either command, you should see output similar to this:
 ```
 Installing plugin: digital-marketing-pro v3.0.0
   - 16 marketing modules loaded
-  - 147 slash commands registered (/dm:*)
+  - 149 skills + 10 top commands registered (/dm:*)
   - 25 specialist agents available
   - 14 HTTP connectors + 68 npx integrations configured
   - 3 event hooks configured (SessionStart, PreToolUse, SessionEnd)
@@ -563,7 +563,7 @@ printed                  (just ask for things)        session
 
 ## 9. Python Dependencies (Optional)
 
-Digital Marketing Pro is designed to work at full capability without Python. All 16 marketing modules, 25 specialist agents, and 147 slash commands function using the plugin's built-in reference knowledge. Python adds bonus scoring and automation features (and the engagement-state script that powers the v3.0 methodology — install Python if you plan to use the engagement workflow).
+Digital Marketing Pro is designed to work at full capability without Python. All 16 marketing modules, 25 specialist agents, 10 top-level commands, and 149 skills function using the plugin's built-in reference knowledge. Python adds bonus scoring and automation features (and the engagement-state, dm-status, auto-save-insight, and eval scripts that power the v3.0 methodology + v3.2 quality gates — install Python if you plan to use the engagement workflow or the /dm:check + /dm:status commands).
 
 ### Three dependency modes
 
@@ -679,7 +679,7 @@ To check platform-level integrations: Open Claude Desktop → Settings → Integ
 
 ## 11. Available Commands
 
-Digital Marketing Pro provides 147 slash commands, all prefixed with `/dm:`. You can type these directly in your Claude Code session.
+Digital Marketing Pro provides 149 skills + 10 top-level commands, all prefixed with `/dm:`. You can type these directly in your Claude Code session.
 
 ### Pre-Publish Quality + Status (v3.2)
 
@@ -863,7 +863,7 @@ Slash commands are useful for structured, templated outputs. But you can also ju
 "I need to respond to negative reviews on Google"
 ```
 
-The plugin's 16 modules will activate based on the intent of your request, whether or not you use a slash command. The 147 commands simply give you a direct shortcut to a specific workflow.
+The plugin's 16 modules will activate based on the intent of your request, whether or not you use a slash command. The 149 skills + 10 top commands simply give you a direct shortcut to a specific workflow.
 
 ---
 

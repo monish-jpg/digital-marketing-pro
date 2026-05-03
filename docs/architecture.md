@@ -45,7 +45,7 @@ digital-marketing-pro/
 │   ├── journey-orchestrator.md        # NEW in v2.1.0
 │   ├── quality-assurance.md           # NEW in v2.2.0
 │   └── localization-specialist.md     # NEW in v2.2.0
-├── scripts/                           # 65 Python scripts + requirements
+├── scripts/                           # 68 Python scripts + requirements (65 v2.x + engagement-state.py v3.0 + dm-status.py + auto-save-insight.py v3.2)
 │   ├── setup.py                       # Brand management, initialization
 │   ├── campaign-tracker.py            # Campaign persistence + violation tracking
 │   ├── adaptive-scorer.py             # Context-aware scoring weights
@@ -112,7 +112,7 @@ digital-marketing-pro/
 │   ├── prompt-ab-tester.py          # Prompt variation quality comparison (v2.2.0)
 │   ├── language-router.py           # Translation service routing (v2.2.0)
 │   └── requirements.txt               # Python dependencies
-├── skills/                            # 141 skill directories
+├── skills/                            # 149 skill directories (141 atomic + 6 v3.0 methodology + 2 v3.2 quality-and-status)
 │   ├── context-engine/                # Shared intelligence layer
 │   │   ├── SKILL.md
 │   │   ├── industry-profiles.md       # 22 industries
@@ -136,8 +136,8 @@ digital-marketing-pro/
 │   ├── import-guidelines/SKILL.md     # Guideline import (v1.3.0)
 │   ├── import-sop/SKILL.md           # SOP import (v1.3.0)
 │   ├── import-template/SKILL.md      # Template import (v1.3.0)
-│   └── [97 commands]/                 # Slash command skills
-│       └── SKILL.md                   # Command definition
+│   └── [149 skills total]/             # 141 atomic skills + 6 v3.0 methodology skills + 2 v3.2 quality-and-status skills
+│       └── SKILL.md                   # Skill definition
 ├── docs/                              # Documentation
 ├── README.md
 ├── CHANGELOG.md
@@ -422,7 +422,7 @@ Three lifecycle hooks are defined in `hooks/hooks.json`. They wrap every Claude 
 
 ## 8. Script Architecture
 
-All 65 scripts in `scripts/` follow consistent conventions.
+All 68 scripts in `scripts/` follow consistent conventions.
 
 ### Conventions
 

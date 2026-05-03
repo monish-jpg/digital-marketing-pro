@@ -6,7 +6,7 @@
 [![Cowork](https://img.shields.io/badge/cowork-compatible-purple.svg)](docs/claude-interfaces.md#claude-cowork-full-support)
 [![Author](https://img.shields.io/badge/author-Indranil_Banerjee-181717.svg?logo=github)](https://github.com/indranilbanerjee)
 
-The most comprehensive digital marketing plugin for Claude Code and Claude Cowork. **v3.2 closes the v3.1 hook-removal gaps** with `/dm:check` (explicit pre-publish gate replacing the global PreToolUse hook), `/dm:status` (richer on-demand brand snapshot replacing the global SessionStart banner), embedded mandatory hallucination check inside content-creator/email-specialist/social-media-manager/pr-outreach agents, opt-in `auto_save_insights` brand flag for ambient learning capture, and a documented hook re-enable pattern at the user's own settings level. **v3.0 introduced the 12-Part Engagement Methodology** — a sequential workflow that produces ~50–60 canonical files per engagement: Stone-vs-Opinion intake, unbiased external research, the Four Core Documents (61 explicit steps), Client Validation Document with Decision Matrix for v2 re-runs, the Update-Back Rule for in-life corrections, the Living Project Instruction File, the Growth Plan + Yearly Planner client deliverables, channel strategy fan-out, execution artefacts, AI creative instructions, and a continuous improvement loop that feeds back into product/offering decisions. Built on top of v2.7's foundation: 25 specialist agents, 147 skills, 68 Python scripts, 14 HTTP MCP connectors, 16 industry profiles, 16 privacy-law jurisdictions, and full execution-layer support.
+The most comprehensive digital marketing plugin for Claude Code and Claude Cowork. **v3.2 closes the v3.1 hook-removal gaps** with `/dm:check` (explicit pre-publish gate replacing the global PreToolUse hook), `/dm:status` (richer on-demand brand snapshot replacing the global SessionStart banner), embedded mandatory hallucination check inside content-creator/email-specialist/social-media-manager/pr-outreach agents, opt-in `auto_save_insights` brand flag for ambient learning capture, and a documented hook re-enable pattern at the user's own settings level. **v3.0 introduced the 12-Part Engagement Methodology** — a sequential workflow that produces ~50–60 canonical files per engagement: Stone-vs-Opinion intake, unbiased external research, the Four Core Documents (61 explicit steps), Client Validation Document with Decision Matrix for v2 re-runs, the Update-Back Rule for in-life corrections, the Living Project Instruction File, the Growth Plan + Yearly Planner client deliverables, channel strategy fan-out, execution artefacts, AI creative instructions, and a continuous improvement loop that feeds back into product/offering decisions. Built on top of v2.7's foundation: 25 specialist agents, 149 skills, 68 Python scripts, 14 HTTP MCP connectors, 16 industry profiles, 16 privacy-law jurisdictions, and full execution-layer support.
 
 ---
 
@@ -179,11 +179,11 @@ Digital Marketing Pro transforms Claude into a full-stack marketing intelligence
 - **10 business models** supported (B2B SaaS, eCommerce, Local, Agency, Creator, Enterprise, Non-Profit, Marketplace, DTC, B2B Services)
 - **22 industry profiles** with benchmarks and compliance rules
 - **16 privacy law jurisdictions** auto-applied (GDPR, CCPA, PIPL, DPDPA, and more)
-- **25 specialist agents**, including 5 execution agents, 2 predictive intelligence agents, and agents for competitor intelligence, compound intelligence, journey orchestration, quality assurance, and localization, that activate based on conversation context, call 65 Python scripts for scoring, query MCP servers for live data, enforce brand guidelines, and persist campaign learnings
+- **25 specialist agents**, including 5 execution agents, 2 predictive intelligence agents, and agents for competitor intelligence, compound intelligence, journey orchestration, quality assurance, and localization, that activate based on conversation context, call 68 Python scripts for scoring, query MCP servers for live data, enforce brand guidelines, and persist campaign learnings. **The 4 most-used content-producer agents (content-creator, email-specialist, social-media-manager, pr-outreach) embed a mandatory hallucination check on their final output before delivery (v3.2+).**
 - **Brand guidelines enforcement** — import voice guides, restrictions, channel styles, messaging frameworks; automatically applied across all modules
 - **Deliverable templates** and **agency SOPs** — custom output formats and workflow definitions
-- **7 top commands** visible in the Customize panel + **141 slash commands** for direct access to all workflows — including execution, monitoring, predictive intelligence, GEO monitoring, competitor monitoring, SEO execution, creative intelligence, compound intelligence, journey orchestration, synthetic audience testing, evaluation/QA, multilingual support, connector discovery, and more
-- **65 Python scripts** for deterministic execution (scoring, analysis, generation, guidelines management, email testing, A/B testing, social optimization, technical SEO auditing, local SEO checking, ROI calculation, budget optimization, CLV analysis, revenue forecasting, content repurposing, review response drafting, link profile analysis, ad budget pacing, approval workflow, execution tracking, performance monitoring, CRM sync, credential management, team management, report generation, memory management, SEO execution, competitor tracking, GEO tracking, PDF generation, revenue simulation, churn prediction, macro signal tracking, creative fatigue prediction, intelligence graphing, journey engine, growth loop modeling, campaign health monitoring, narrative mapping, audience simulation, hallucination detection, claim verification, output validation, eval running, quality tracking, eval config management, prompt A/B testing, language routing)
+- **10 top-level commands** + **149 skills** (v3.0 added 6 methodology skills: engagement-workflow, four-core-documents, client-validation-document, growth-plan, yearly-planner, continuous-improvement-loop; v3.2 added 2 quality-and-status skills: check, status) + 141 atomic skills for direct access to all workflows — including execution, monitoring, predictive intelligence, GEO monitoring, competitor monitoring, SEO execution, creative intelligence, compound intelligence, journey orchestration, synthetic audience testing, evaluation/QA, multilingual support, connector discovery, and more
+- **68 Python scripts** for deterministic execution (scoring, analysis, generation, guidelines management, email testing, A/B testing, social optimization, technical SEO auditing, local SEO checking, ROI calculation, budget optimization, CLV analysis, revenue forecasting, content repurposing, review response drafting, link profile analysis, ad budget pacing, approval workflow, execution tracking, performance monitoring, CRM sync, credential management, team management, report generation, memory management, SEO execution, competitor tracking, GEO tracking, PDF generation, revenue simulation, churn prediction, macro signal tracking, creative fatigue prediction, intelligence graphing, journey engine, growth loop modeling, campaign health monitoring, narrative mapping, audience simulation, hallucination detection, claim verification, output validation, eval running, quality tracking, eval config management, prompt A/B testing, language routing, **engagement state management (v3.0)**, **brand status snapshot (v3.2)**, **opt-in insight capture (v3.2)**)
 - **14 HTTP connectors + 68 npx integrations** for connecting your own marketing accounts AND executing actions (social publishing, email sending, CRM writes, ad campaign creation, SMS, vector databases, knowledge management, CRM platforms, PM/design tools, SEO/monitoring, marketing automation, translation services, and more). Run `/dm:integrations` to see your connector status
 - **Persistent brand memory** that learns across sessions
 - **5-layer memory architecture** — session context → vector DB RAG (Pinecone/Qdrant) → temporal knowledge graphs (Graphiti) → universal agent memory (Supermemory) → knowledge base (Notion/Google Drive)
@@ -205,7 +205,7 @@ Digital Marketing Pro transforms Claude into a full-stack marketing intelligence
 
 The plugin ships with **14 HTTP connectors** that work in both Cowork and Claude Code — including Slack, Canva, Figma, HubSpot, Amplitude, Notion, Ahrefs, Similarweb, Klaviyo, Google Calendar, Gmail, Stripe, Asana, and Webflow. These appear in the Connectors panel and users connect what they need.
 
-**The plugin works fully WITHOUT any connectors** — all 141 skills, 25 agents, frameworks, and knowledge files function immediately. Connectors are only needed for live data and execution on external platforms.
+**The plugin works fully WITHOUT any connectors** — all 149 skills, 25 agents, frameworks, and knowledge files function immediately. Connectors are only needed for live data and execution on external platforms.
 
 **Claude Code users** who want the full 68-server configuration (Google Ads, Meta Ads, analytics, social, and more via npx) can use the advanced setup:
 
@@ -279,7 +279,7 @@ On first use, the plugin will:
 The plugin works fully without any Python installation. All marketing knowledge, frameworks, agent capabilities, and slash commands work out of the box.
 
 **Knowledge-only mode (0 MB, no install)** — Default
-All 16 modules, 25 agents, 141 commands, and 148 reference knowledge files work with zero dependencies.
+All 16 modules, 25 agents, 149 skills, and 170+ reference knowledge files work with zero dependencies. (v3.0 + v3.2 additions: 23 methodology + framework reference docs in `skills/context-engine/` plus the engagement workflow, /dm:check, and /dm:status surfaces.)
 
 **Lite mode (~15 MB)** — Enables scoring scripts
 ```
@@ -404,7 +404,7 @@ See the [Claude Interfaces Guide](docs/claude-interfaces.md) for details, includ
 
 ### Top Commands (visible in Customize panel)
 
-These 7 commands appear in the **Commands** section of the Customize sidebar, providing quick access to the most common marketing workflows:
+These 10 commands appear in the **Commands** section of the Customize sidebar, providing quick access to the most common marketing workflows. The original 7 from v2.5 plus `/dm:engagement` (v3.0), `/dm:check` (v3.2), and `/dm:status` (v3.2):
 
 | Command | What It Does |
 |---------|-------------|
@@ -652,12 +652,12 @@ digital-marketing-pro/
 ├── .mcp.json                     # 14 HTTP connectors (auto-loaded)
 ├── .mcp.json.example             # 68 npx servers (opt-in for Claude Code)
 ├── CONNECTORS.md                 # Connector reference with skill links
-├── commands/                     # 7 top commands (visible in Customize panel)
-├── skills/                       # 141 skill directories (16 modules + 124 commands + context engine)
-├── agents/                       # 25 specialist agents
-├── hooks/hooks.json              # Session lifecycle, compliance gates, guideline checks, and MCP write safety
-├── scripts/                      # 65 Python execution scripts + requirements.txt
-├── docs/                         # 11 documentation guides
+├── commands/                     # 10 top commands (visible in Customize panel; v2.5 original 7 + v3.0 /dm:engagement + v3.2 /dm:check + /dm:status)
+├── skills/                       # 149 skill directories (141 atomic + 6 v3.0 methodology + 2 v3.2 quality-and-status, plus context-engine references)
+├── agents/                       # 25 specialist agents (4 content-producer agents now embed mandatory hallucination check, v3.2+)
+├── hooks/hooks.json              # No active hooks as of v3.1 (multi-plugin hygiene); reference catalog at hooks/hooks-reference.example.json
+├── scripts/                      # 68 Python execution scripts (65 v2.x + engagement-state.py v3.0 + dm-status.py + auto-save-insight.py v3.2) + requirements.txt
+├── docs/                         # 13 documentation guides
 ├── README.md
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
@@ -925,7 +925,7 @@ Digital Marketing Pro is part of the **Neelverse Marketing Suite** — three plu
 
 | Plugin | What It Does | Install |
 |--------|-------------|---------|
-| **Digital Marketing Pro** (this plugin) | Strategy, SEO, paid ads, analytics, email, social, PR — 141 skills, 25 agents | `claude plugin install digital-marketing-pro@neels-plugins` |
+| **Digital Marketing Pro** (this plugin) | Strategy, SEO, paid ads, analytics, email, social, PR — 149 skills, 25 agents, 12-Part engagement methodology, /dm:check pre-publish gate, /dm:status snapshot | `claude plugin install digital-marketing-pro@neels-plugins` |
 | **[ContentForge](https://github.com/indranilbanerjee/contentforge)** | Publication-ready content via 10-phase pipeline — research, draft, fact-check, SEO, humanize | `claude plugin install contentforge@neels-plugins` |
 | **[SocialForge](https://github.com/indranilbanerjee/socialforge)** | Social media calendar automation with AI image + video generation (Vertex AI + Kling v3.0) | `claude plugin install socialforge@neels-plugins` |
 

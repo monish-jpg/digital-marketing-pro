@@ -52,7 +52,7 @@ In practical terms: instead of you manually pulling a GA4 report, pasting it int
 
 The plugin ships with a `.mcp.json` configuration file that defines 68 MCP server connections. Each one maps to a marketing platform or productivity tool. None of them are active by default. They activate only when you set the required environment variables for that service.
 
-This is the key design principle: **the plugin works fully without any integrations enabled.** All 16 skill modules, 148 reference knowledge files, scoring scripts, brand voice analysis, compliance checking, and campaign planning features operate entirely offline using built-in benchmarks and reference data. MCP integrations layer real data on top of that foundation.
+This is the key design principle: **the plugin works fully without any integrations enabled.** All 16 skill modules, 170+ reference knowledge files (148 v2.x + 23 v3.0 methodology + framework refs), scoring scripts, brand voice analysis, compliance checking, campaign planning features, and the v3.0 12-Part engagement methodology + v3.2 quality gates operate entirely offline using built-in benchmarks and reference data. MCP integrations layer real data on top of that foundation.
 
 ### What Happens Under the Hood
 

@@ -69,7 +69,7 @@ rm -rf ~/.claude-marketing/
 **Expected Results:**
 - [ ] Marketplace loads without errors
 - [ ] DM Pro listed with version 2.5.0
-- [ ] Description mentions "25 specialist agents, 7 commands, 141 skills, 14 HTTP connectors"
+- [ ] Description mentions "25 specialist agents, 10 commands, 149 skills, 68 Python scripts, 14 HTTP connectors"
 - [ ] Installation completes without rollback
 - [ ] No "Host key verification failed" error (uses HTTPS, not SSH)
 
@@ -94,8 +94,8 @@ rm -rf ~/.claude-marketing/
 **Expected Results:**
 - [ ] SessionStart hook fires — setup.py runs `--check-deps --summary`
 - [ ] No Python errors or tracebacks
-- [ ] 7 commands visible in Customize panel (brand-setup, campaign-plan, seo-audit, content-engine, performance-report, competitor-analysis, email-sequence)
-- [ ] 141 skills visible in Skills section
+- [ ] 10 top-level commands visible in Customize panel: brand-setup, campaign-plan, seo-audit, content-engine, performance-report, competitor-analysis, email-sequence (v2.5), engagement (v3.0), check + status (v3.2)
+- [ ] 149 skills visible in Skills section (141 atomic + 6 v3.0 methodology + 2 v3.2 quality-and-status)
 - [ ] 25 agents registered (check for no frontmatter errors in logs)
 
 ### 2.4 Plugin Structure Verification
@@ -103,8 +103,8 @@ rm -rf ~/.claude-marketing/
 **Expected file counts:**
 - [ ] `agents/` — 25 agent .md files (all with YAML frontmatter)
 - [ ] `commands/` — 7 command .md files
-- [ ] `skills/` — 141 skill directories, each with SKILL.md
-- [ ] `scripts/` — 65 Python scripts
+- [ ] `skills/` — 149 skill directories, each with SKILL.md (141 atomic + 6 v3.0 methodology + 2 v3.2 quality-and-status)
+- [ ] `scripts/` — 68 Python scripts (65 v2.x + engagement-state.py v3.0 + dm-status.py + auto-save-insight.py v3.2)
 - [ ] `.mcp.json` — 14 HTTP connectors
 - [ ] `.mcp.json.example` — 68 npx servers (opt-in for Claude Code)
 - [ ] `hooks/hooks.json` — 4 hook events
@@ -115,7 +115,7 @@ rm -rf ~/.claude-marketing/
 
 ## 3. Command Tests
 
-Test all 7 commands visible in the Customize panel.
+Test all 10 top-level commands visible in the Customize panel (7 v2.5 commands + /dm:engagement v3.0 + /dm:check + /dm:status v3.2).
 
 ### 3.1 `/brand-setup`
 
@@ -201,7 +201,7 @@ Test all 7 commands visible in the Customize panel.
 
 ## 4. Skill Tests
 
-DM Pro has 141 skills. Test a representative sample from each module.
+DM Pro has 149 skills (141 atomic + 6 v3.0 methodology skills + 2 v3.2 quality-and-status skills). Test a representative sample from each module.
 
 ### Context & Setup Module
 
@@ -361,7 +361,7 @@ DM Pro has 25 specialist agents. Verify they register correctly and respond when
 
 ## 6. Script Tests
 
-DM Pro has 65 Python scripts. Test key scripts that are critical to plugin operation.
+DM Pro has 68 Python scripts (65 v2.x + engagement-state.py v3.0 + dm-status.py + auto-save-insight.py v3.2). Test key scripts that are critical to plugin operation.
 
 ### 6.1 Core Scripts
 
@@ -620,7 +620,7 @@ Run this after any changes to verify nothing is broken.
 
 ### Commands
 
-- [ ] All 7 commands appear in Customize panel
+- [ ] All 10 commands appear in Customize panel (7 v2.5 + /dm:engagement v3.0 + /dm:check + /dm:status v3.2)
 - [ ] `/brand-setup` completes full setup flow
 - [ ] `/campaign-plan` generates multi-channel plan with budget
 - [ ] `/seo-audit` produces comprehensive report
@@ -633,7 +633,7 @@ Run this after any changes to verify nothing is broken.
 
 - [ ] `/dm:help` shows complete, accurate information
 - [ ] `/dm:integrations` shows 14 HTTP connectors with correct status
-- [ ] All 141 skills respond to invocation (spot check at minimum)
+- [ ] All 149 skills respond to invocation (spot check at minimum)
 - [ ] Skills handle missing connectors gracefully
 
 ### Skill Platform Features
@@ -659,9 +659,9 @@ Run this after any changes to verify nothing is broken.
 - [ ] `README.md` version = 2.5.1
 - [ ] Marketplace entry version = 2.5.1
 - [ ] `25 agents` in all descriptions
-- [ ] `141 skills` in all descriptions (not 115, not 117)
-- [ ] `7 commands` in all descriptions
-- [ ] `65 scripts` in all descriptions (not 64)
+- [ ] `149 skills` in all descriptions (141 atomic + 6 v3.0 methodology + 2 v3.2 quality-and-status)
+- [ ] `10 commands` in all descriptions (7 v2.5 + /dm:engagement v3.0 + /dm:check + /dm:status v3.2)
+- [ ] `68 scripts` in all descriptions (65 v2.x + engagement-state.py + dm-status.py + auto-save-insight.py)
 - [ ] `14 HTTP connectors` in all descriptions
 
 ---
