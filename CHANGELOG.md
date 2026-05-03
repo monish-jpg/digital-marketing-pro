@@ -4,6 +4,38 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.1.1] — 2026-05-03
+
+### Added — Cowork-Compatible Connectors Reference Catalog
+
+The v3.1.0 audit confirmed DMP runs in Anthropic Cowork, but surfaced a documentation gap: the `.mcp.json.example` file ships ~60 stdio/npx MCP servers (Google Analytics, Google Search Console, Google Ads, Meta Marketing, Mailchimp, LinkedIn, TikTok, Salesforce, etc.) — none of which work in Cowork. Cowork users had no documented HTTP path to these services. v3.1.1 adds a reference catalog of HTTP MCP equivalents.
+
+#### New file: [.mcp.json.connectors-reference](.mcp.json.connectors-reference)
+
+Sectioned catalog of 25+ HTTP MCPs covering DMP's full integration surface:
+
+- **First-party marketing MCPs** (already in active `.mcp.json`): HubSpot, Stripe, Klaviyo, Amplitude, Ahrefs, Similarweb — all OAuth, all Cowork-compatible
+- **Collaboration & publishing**: Notion, Slack, Asana, Webflow, Canva, Figma, Gmail, Google Calendar
+- **Aggregator MCPs for Cowork** — the critical addition. Pipedream entries for Google Analytics, Google Search Console, Google Ads, Google Sheets, Google Drive, Meta Marketing, Mailchimp, LinkedIn, Salesforce, plus a generic template covering Pipedream's 1000+ services. Composio (`https://connect.composio.dev/mcp`), Zapier (`https://mcp.zapier.com/api/v1/connect`), and Make.com as alternatives
+- **Image/video generation**: fal-ai, Replicate (covers Stability, Gemini Imagen, FLUX, Recraft, etc.)
+
+Per-entry `_auth` notes document the OAuth flow or API key requirement. Bottom-of-file `_cowork_compatibility_summary` makes the CLI-vs-Cowork mapping explicit.
+
+#### What this means for users
+
+- **Claude Code CLI users**: nothing changes. `.mcp.json.example` still documents the 60+ stdio/npx options, and the active `.mcp.json` (gitignored) still ships the 14 HTTP MCPs you've already configured.
+- **Cowork users**: open `.mcp.json.connectors-reference` instead of `.mcp.json.example`. Every category has a Cowork-compatible HTTP path, either via a first-party MCP or via a Pipedream/Composio/Zapier aggregator.
+
+#### Compliance posture
+
+All listed connectors satisfy the [Anthropic Software Directory Policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy): no financial-transaction processing, no advertising delivery, no safety circumvention. All MCPs use OAuth 2.0 or API key auth via the provider's official endpoint.
+
+### Migration
+
+Pure additive release. No breaking changes. Existing connector setups continue to work. Cowork teams gain a documented path for every category previously only available via npx.
+
+---
+
 ## [3.1.0] — 2026-05-03
 
 ### Changed — Multi-Plugin Coexistence (Removed All Global Hooks)
