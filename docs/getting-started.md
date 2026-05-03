@@ -1,6 +1,6 @@
 # Getting Started with Digital Marketing Pro
 
-**Version 3.0.0** | A plugin for Claude Code and Claude Cowork
+**Version 3.2.0** | A plugin for Claude Code and Claude Cowork
 
 Digital Marketing Pro transforms Claude into a marketing command center that knows your brand, understands your industry, and produces strategy and content that sounds like you wrote it. v3.0 adds a **12-Part Engagement Methodology** that orchestrates the plugin into a sequential workflow producing ~50–60 traceable files per engagement. This guide walks you through installation, brand setup, your first marketing task, and your first full engagement.
 
@@ -681,6 +681,18 @@ To check platform-level integrations: Open Claude Desktop → Settings → Integ
 
 Digital Marketing Pro provides 147 slash commands, all prefixed with `/dm:`. You can type these directly in your Claude Code session.
 
+### Pre-Publish Quality + Status (v3.2)
+
+| Command | What it does |
+|---------|-------------|
+| `/dm:check <file-or-content>` | Quick eval (~2s): hallucination + content quality + readability |
+| `/dm:check <file> --full --brand <slug>` | Full 6-dimension eval including brand voice + claims + structure |
+| `/dm:check <file> --compliance --brand <slug> --evidence <facts.json> --schema <name>` | Compliance-focused eval for regulated industries |
+| `/dm:status` | Unified snapshot: brand profile + engagements + insights + compliance + deps |
+| `/dm:status --quiet` | One-line compact summary |
+| `/dm:status --json` | Machine-readable JSON for downstream skills |
+| `/dm:status --section <brand|engagements|insights|compliance|deps>` | Single section only |
+
 ### Engagement Workflow (v3.0)
 
 | Command | What it does |
@@ -915,4 +927,4 @@ If something is not working as expected:
 
 ---
 
-*Digital Marketing Pro v3.0.0 --- Built for marketing professionals who want strategy, execution, and publishing that stays on-brand, every time. v3.0 adds the 12-Part Engagement Methodology with traceable rationale, version-controlled deliverables, and the Two-Views Model. Plan it, approve it, execute it, monitor it --- all from Claude Code and Claude Cowork. Built by [Indranil Banerjee](https://github.com/indranilbanerjee).*
+*Digital Marketing Pro v3.2.0 --- Built for marketing professionals who want strategy, execution, and publishing that stays on-brand, every time. v3.0 added the 12-Part Engagement Methodology with traceable rationale, version-controlled deliverables, and the Two-Views Model. v3.2 adds /dm:check (pre-publish gate), /dm:status (on-demand snapshot), and embedded mandatory hallucination checks in 4 content-producer agents — closing the gaps from the v3.1 multi-plugin hook removal. Plan it, approve it, execute it, monitor it --- all from Claude Code and Claude Cowork. Built by [Indranil Banerjee](https://github.com/indranilbanerjee).*

@@ -1,12 +1,12 @@
 # Digital Marketing Pro — Claude Code & Cowork Plugin
 
-[![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.2.0-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-optional-yellow.svg)](#python-dependencies-optional)
 [![Cowork](https://img.shields.io/badge/cowork-compatible-purple.svg)](docs/claude-interfaces.md#claude-cowork-full-support)
 [![Author](https://img.shields.io/badge/author-Indranil_Banerjee-181717.svg?logo=github)](https://github.com/indranilbanerjee)
 
-The most comprehensive digital marketing plugin for Claude Code and Claude Cowork. **v3.0 introduces the 12-Part Engagement Methodology** — a sequential workflow that produces ~50–60 canonical files per engagement: Stone-vs-Opinion intake, unbiased external research, the Four Core Documents (61 explicit steps), Client Validation Document with Decision Matrix for v2 re-runs, the Update-Back Rule for in-life corrections, the Living Project Instruction File, the Growth Plan + Yearly Planner client deliverables, channel strategy fan-out, execution artefacts, AI creative instructions, and a continuous improvement loop that feeds back into product/offering decisions. Built on top of v2.7's foundation: 25 specialist agents, 141 atomic skills, 65 Python scripts, 14 HTTP MCP connectors, 16 industry profiles, 16 privacy-law jurisdictions, and full execution-layer support.
+The most comprehensive digital marketing plugin for Claude Code and Claude Cowork. **v3.2 closes the v3.1 hook-removal gaps** with `/dm:check` (explicit pre-publish gate replacing the global PreToolUse hook), `/dm:status` (richer on-demand brand snapshot replacing the global SessionStart banner), embedded mandatory hallucination check inside content-creator/email-specialist/social-media-manager/pr-outreach agents, opt-in `auto_save_insights` brand flag for ambient learning capture, and a documented hook re-enable pattern at the user's own settings level. **v3.0 introduced the 12-Part Engagement Methodology** — a sequential workflow that produces ~50–60 canonical files per engagement: Stone-vs-Opinion intake, unbiased external research, the Four Core Documents (61 explicit steps), Client Validation Document with Decision Matrix for v2 re-runs, the Update-Back Rule for in-life corrections, the Living Project Instruction File, the Growth Plan + Yearly Planner client deliverables, channel strategy fan-out, execution artefacts, AI creative instructions, and a continuous improvement loop that feeds back into product/offering decisions. Built on top of v2.7's foundation: 25 specialist agents, 147 skills, 68 Python scripts, 14 HTTP MCP connectors, 16 industry profiles, 16 privacy-law jurisdictions, and full execution-layer support.
 
 ---
 
@@ -82,6 +82,57 @@ The methodology is supported by 15 reference documents in `skills/context-engine
 ```
 
 See [skills/context-engine/engagement-flow-methodology.md](skills/context-engine/engagement-flow-methodology.md) for the full methodology specification.
+
+---
+
+---
+
+## v3.2 — Closing the v3.1 Hook-Removal Gaps
+
+v3.1 removed all four global hooks for multi-plugin coexistence. The fix was correct (the `PreToolUse mcp_.*` matcher was intercepting every MCP call from every installed plugin), but it left real gaps — most notably, the loss of automatic hallucination detection on every Write/Edit operation. v3.2 closes those gaps with explicit on-demand replacements, agent-embedded safety, and opt-in ambient capture — without bringing back the global-scoping problem.
+
+### The four compensations
+
+| Removed hook | v3.2 compensation |
+|---|---|
+| `SessionStart` (brand summary banner) | **`/dm:status`** — on-demand richer snapshot with engagements + insights + compliance + deps |
+| `PreToolUse Write|Edit` (hallucination + brand check) | **`/dm:check`** — explicit pre-publish gate; **plus** mandatory hallucination check embedded inside 4 content-producer agents (content-creator, email-specialist, social-media-manager, pr-outreach) |
+| `PreToolUse mcp_.*` (MCP write gate) | Per-agent decision flows for marketing-side MCP writes; the cross-plugin gate stays removed (correct — it was over-broad) |
+| `SessionEnd` (insight saving) | **`auto_save_insights: true`** opt-in brand flag + `auto-save-insight.py` helper called by agents at meaningful checkpoints |
+
+### Quick examples
+
+```bash
+# Pre-publish quality gate (replaces the global PreToolUse hook)
+/dm:check drafts/q2-blog.md                                      # quick eval (~2s)
+/dm:check drafts/healthcare-ad.md --full --brand healthfirst    # full 6-dimension eval
+/dm:check drafts/press-release.md --compliance --brand acme \
+  --evidence facts.json --schema press_release                  # compliance-focused
+
+# Status snapshot (replaces the global SessionStart banner)
+/dm:status                              # full snapshot for active brand
+/dm:status --quiet                      # one-line: DMP STATUS | brand | engagements: 2 | deps: full
+/dm:status --json                       # machine-readable for scripting
+/dm:status --section engagements        # single section
+```
+
+### Opt in to ambient insight capture
+
+Per brand. Add to `~/.claude-marketing/brands/{your-slug}/profile.json`:
+
+```json
+{
+  "auto_save_insights": true
+}
+```
+
+When enabled, marketing agents call `scripts/auto-save-insight.py` at meaningful checkpoints. When disabled (default), the helper is a clean no-op.
+
+### Re-enable hooks at your own settings level
+
+If you want the v3.0 ambient hook experience back **for your sessions only** (not bundled into the plugin), copy the relevant block from `hooks/hooks-reference.example.json` into your user-level `~/.claude/settings.json` or your project-level `.claude/settings.local.json`. Do NOT re-enable the `PreToolUse mcp_.*` matcher — it intercepts every MCP call from every plugin you have configured.
+
+Full guide: [docs/v3.2-opt-ins.md](docs/v3.2-opt-ins.md).
 
 ---
 

@@ -4,6 +4,116 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.2.0] — 2026-05-03
+
+### Added — Closing the v3.1 Hook-Removal Gaps
+
+v3.1 removed all four global hooks for multi-plugin coexistence (the `PreToolUse mcp_.*` matcher in particular was intercepting every MCP call from every installed plugin). That fix was correct, but it left real gaps — most notably, the loss of automatic hallucination detection on every Write/Edit operation. v3.2 closes those gaps with explicit on-demand replacements, agent-embedded safety, and opt-in ambient capture — without bringing back the global-scoping problem.
+
+#### New: `/dm:check` — explicit pre-publish quality gate
+
+Replaces the `PreToolUse Write|Edit` global hook. Wraps `scripts/eval-runner.py` (the master eval orchestrator) and produces a single PASS / WARN / BLOCKED decision with actionable issues. Three modes:
+
+- `/dm:check <file>` → quick eval (~2s, no external deps): hallucination + content quality + readability
+- `/dm:check <file> --full --brand <slug>` → full 6-dimension eval including brand voice + claims + structure
+- `/dm:check <file> --compliance --brand <slug> --evidence <facts.json> --schema <name>` → compliance-focused for regulated industries
+
+New files:
+- `commands/check.md`
+- `skills/check/SKILL.md`
+
+#### New: `/dm:status` — unified on-demand brand snapshot
+
+Replaces the `SessionStart` global hook (which printed a brand summary banner at every Claude Code launch in every project). Richer than the old banner: brand profile, all engagements with current part + days-since-update + pending decisions + versioned doc count, recent insights with last-save age, recent compliance violations, Python dependency mode. Five subcommand modes:
+
+- `/dm:status` → full snapshot for active brand
+- `/dm:status --quiet` → one-line compact summary
+- `/dm:status --json` → machine-readable JSON for downstream skills
+- `/dm:status --brand <slug>` → snapshot for a specific brand
+- `/dm:status --section <brand|engagements|insights|compliance|deps>` → single section
+
+New files:
+- `commands/status.md`
+- `skills/status/SKILL.md`
+- `scripts/dm-status.py` (560-line script; reads brand profile + engagement state + insights + violations + deps; never modifies state)
+
+#### Embedded mandatory hallucination check in 4 content-producer agents
+
+Replaces the `PreToolUse Write|Edit` global hook with stronger architectural guarantees. Each agent now runs `hallucination-detector.py` on its final draft before delivering content to the user. Severity-based decision rules:
+- `severity: "high"` (placeholder URLs, fabricated stats in headlines, made-up academic citations, unsupported "#1" / "best in industry" / "leading" claims) → DO NOT deliver; return issues + suggested fixes
+- `severity: "medium"` (unverified body stats, missing hedging, entities-to-verify) → deliver but include warnings inline
+- `severity: "low"` → mention; not blocking
+- Overall hallucination_score < 60 → flag for revision (PR content uses stricter < 75 threshold)
+
+This is stronger than the v3.0 hook because (a) the check runs on the actual draft the agent intends to deliver, not on every intermediate Write/Edit; (b) the agent has the context to interpret findings appropriately; (c) the check is part of the agent's deliverable contract, not an external gate.
+
+Agents updated:
+- `agents/content-creator.md` — Behaviour Rule 12 added
+- `agents/email-specialist.md` — Behaviour Rule 11 added
+- `agents/social-media-manager.md` — Behaviour Rule 11 added
+- `agents/pr-outreach.md` — Behaviour Rule 10 added (with stricter PR-specific thresholds)
+
+#### New: `auto_save_insights` opt-in flag for ambient learning capture
+
+Replaces the `SessionEnd` global hook (which auto-prompted insight saving on every session end across every project). Opt-in per brand:
+
+```json
+{
+  "auto_save_insights": true,
+  "...": "...rest of brand profile..."
+}
+```
+
+When enabled, marketing agents call `scripts/auto-save-insight.py` at meaningful checkpoints to persist session learnings. When disabled (default), the helper returns `{"status": "no_op"}` — clean no-op, no surprise side effects, no cross-project noise.
+
+New file: `scripts/auto-save-insight.py` (240-line helper with subcommands: save, save with `--force`, `--dry-run`; falls back to direct `insights.json` write if `campaign-tracker.py` cannot resolve the brand).
+
+Atomic writes; honours `CLAUDE_PLUGIN_DATA` env var; respects the same workspace path as `dm-status.py` and `engagement-state.py`.
+
+#### New: `docs/v3.2-opt-ins.md` — comprehensive opt-in guide
+
+Documents:
+- What was lost when v3.1 removed each of the four global hooks
+- How to re-enable any hook at the user-level (`~/.claude/settings.json`) or project-level (`.claude/settings.local.json`) — this gives users the v3.0 ambient experience without forcing it on the entire plugin user base
+- Why the `PreToolUse mcp_.*` matcher should NOT be re-enabled (it intercepts every MCP call from every plugin)
+- How `auto_save_insights` works and when to enable it
+- How `/dm:status` and `/dm:check` map to the removed hooks
+- How the embedded agent check is stronger than the v3.0 hook
+- Recommended workflow for minimum / opt-in / power-user / project-scoped configurations
+
+#### Plugin manifest
+
+`.claude-plugin/plugin.json` bumped to v3.2.0 with updated description surfacing the new commands, agent updates, opt-in flag, and hook re-enable pattern.
+
+### Compatibility
+
+- All v2.7 + v3.0 + v3.1 capabilities continue to work unchanged
+- New skills and scripts are purely additive
+- The `auto_save_insights` flag defaults to `false` — opt-in only; existing brand profiles without the flag get no behavioural change
+- Hook re-enabling is documented as a user-side action; the plugin still ships zero global hooks
+
+### Migration
+
+No migration needed. To start using the new compensations:
+
+```
+# On-demand status snapshot
+/dm:status
+
+# Pre-publish quality gate
+/dm:check drafts/your-content.md --brand <your-slug>
+
+# Enable ambient insight capture (opt-in per brand)
+# Edit ~/.claude-marketing/brands/<your-slug>/profile.json:
+#   "auto_save_insights": true
+
+# Re-enable v3.0 SessionStart banner at user level (optional)
+# Copy SessionStart block from hooks/hooks-reference.example.json into ~/.claude/settings.json
+# (Do NOT re-enable the PreToolUse mcp_.* matcher — see docs/v3.2-opt-ins.md)
+```
+
+---
+
 ## [3.1.1] — 2026-05-03
 
 ### Added — Cowork-Compatible Connectors Reference Catalog
