@@ -4,6 +4,25 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.2.1] — 2026-05-03
+
+### Fixed — Plugin Manifest Install Format (CRITICAL)
+
+The plugin manifest format that v3.0 inherited (and v3.1.1 / v3.2.0 carried forward) used two fields that Claude Code's plugin schema does not accept, causing `claude plugins install digital-marketing-pro` to fail with "the manifest's `repository` field is an object when Claude Code expects a string." This release fixes both issues so install works.
+
+#### Changes
+
+- **`repository` field**: converted from npm-shorthand object form (`{type: "git", url: "..."}`) to the string URL form Claude Code's plugin schema requires. New value: `"https://github.com/indranilbanerjee/digital-marketing-pro.git"`.
+- **`$schema` field removed**: Claude Code's plugin schema parser rejects this top-level key. Editor validation benefit isn't worth a broken install.
+
+Same fixes shipped same-day to ContentForge v3.9.2, SocialForge v1.5.2, and marketplace v2.8.0.
+
+### Migration
+
+Pure manifest fix. No behavioral changes; the v3.2 12-Part Methodology + opt-in safety nets continue to work identically.
+
+---
+
 ## [3.2.0] — 2026-05-03
 
 ### Added — Closing the v3.1 Hook-Removal Gaps
