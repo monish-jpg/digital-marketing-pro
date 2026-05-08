@@ -3,13 +3,13 @@ name: quality-report
 description: "Generate quality trends report. Use when: reviewing eval scores over time, content type performance, or regression alerts."
 ---
 
-# /dm:quality-report
+# /digital-marketing-pro:quality-report
 
 ## Purpose
 
 Quality intelligence reporting over time. Shows eval score trends across days and weeks, identifies which content types are improving or declining, detects regression alerts where quality has dropped below established baselines, surfaces the brand's best and worst performing content, and provides actionable recommendations for improving content quality across the organization.
 
-This command turns the evaluation data logged by /dm:eval-content into strategic insight. Instead of evaluating a single piece of content, it analyzes the pattern across all evaluations to answer: Is our content quality improving or declining? Which content types are strongest? Which dimensions need the most work? Are there regressions we need to address? What specific changes will have the biggest impact on overall quality?
+This command turns the evaluation data logged by /digital-marketing-pro:eval-content into strategic insight. Instead of evaluating a single piece of content, it analyzes the pattern across all evaluations to answer: Is our content quality improving or declining? Which content types are strongest? Which dimensions need the most work? Are there regressions we need to address? What specific changes will have the biggest impact on overall quality?
 
 ## Input Required
 
@@ -21,7 +21,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand quality standards and industry context for benchmark comparison. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load any quality targets or SLA definitions. Check for agency SOPs at `~/.claude-marketing/sops/` — agency workflows may define minimum quality thresholds for client deliverables. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand quality standards and industry context for benchmark comparison. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load any quality targets or SLA definitions. Check for agency SOPs at `~/.claude-marketing/sops/` — agency workflows may define minimum quality thresholds for client deliverables. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Pull quality trends**: Execute `scripts/quality-tracker.py --brand {slug} --action get-trends --days {period}` to retrieve time-series evaluation data — composite scores and per-dimension scores plotted over the reporting window. If a content type filter is applied, pass `--content-type {content_type}`. This returns daily and weekly aggregates, moving averages, and trend direction indicators.
 3. **Pull quality summary**: Execute `scripts/quality-tracker.py --brand {slug} --action get-summary --days {period}` to retrieve aggregate statistics — total evaluations run, average composite score, grade distribution (how many A's, B's, C's, etc.), pass/fail/review breakdown, and per-dimension averages with standard deviations.
 4. **Check for regressions**: Execute `scripts/quality-tracker.py --brand {slug} --action check-regression --days {period}` to detect statistically significant quality drops. The regression detector compares the most recent 7-day average against the full-period baseline and flags any dimension or content type where quality has declined by more than one standard deviation. Each regression alert includes the severity (minor, moderate, severe), the dimension or content type affected, the baseline value, the current value, and the trend direction.

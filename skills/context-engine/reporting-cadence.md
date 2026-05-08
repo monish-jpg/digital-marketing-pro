@@ -151,7 +151,7 @@ Skipping a cadence is allowed only with explicit reason:
 
 ## How the plugin enforces cadence
 
-The `/dm:performance-report --cadence {daily|weekly|monthly|quarterly|annually}` command produces the appropriate report for each cadence.
+The `/digital-marketing-pro:performance-report --cadence {daily|weekly|monthly|quarterly|annually}` command produces the appropriate report for each cadence.
 
 Background scheduled tasks (when configured) automatically:
 

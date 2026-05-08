@@ -3,7 +3,7 @@ name: eval-config
 description: "Configure content eval settings. Use when: adjusting score thresholds, dimension weights, or auto-reject rules."
 ---
 
-# /dm:eval-config
+# /digital-marketing-pro:eval-config
 
 ## Purpose
 
@@ -24,7 +24,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply industry context for recommendation generation — different industries have different quality priorities. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, note any quality requirements defined in guidelines that should inform threshold recommendations. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply industry context for recommendation generation — different industries have different quality priorities. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, note any quality requirements defined in guidelines that should inform threshold recommendations. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Get current configuration**: Execute `scripts/eval-config-manager.py --brand {slug} --action get-config` to retrieve all current settings — global thresholds, dimension weights, auto-reject threshold, and any content-type-specific overrides. Identify which settings are custom (set by the user) and which are defaults.
 3. **Present current settings**: Display all configuration in a clear, readable format:
    - **Global thresholds**: Each dimension's minimum score with its current value and whether it is custom or default
@@ -58,7 +58,7 @@ A structured configuration report containing:
 - **Industry recommendation** (if requested or relevant): Suggested settings for the brand's industry with rationale for each recommendation, referencing specific quality risks and priorities. Includes a comparison of current settings vs. recommended settings
 - **Configuration validation**: Confirmation that the config is internally consistent — weights sum correctly, thresholds are within valid ranges, no conflicting rules. If any issues are detected, they are flagged with suggested corrections
 - **Effective scoring reference**: A quick-reference table showing the effective config for each content type — global settings plus any content-type overrides — so the user can see at a glance what quality bar applies where
-- **Next steps**: Suggestions for what to do after configuration — run /dm:eval-content on a sample piece to see the new config in action, run /dm:quality-report to see how historical evaluations map to the new standards, or configure additional content-type overrides
+- **Next steps**: Suggestions for what to do after configuration — run /digital-marketing-pro:eval-content on a sample piece to see the new config in action, run /digital-marketing-pro:quality-report to see how historical evaluations map to the new standards, or configure additional content-type overrides
 
 ## Agents Used
 

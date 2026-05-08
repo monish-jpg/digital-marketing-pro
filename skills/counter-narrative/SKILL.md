@@ -3,7 +3,7 @@ name: counter-narrative
 description: "Build counter-narrative playbooks. Use when: competitor rebrand, new category claim, aggressive campaign, price change response."
 ---
 
-# /dm:counter-narrative
+# /digital-marketing-pro:counter-narrative
 
 ## Purpose
 
@@ -20,7 +20,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Focus on current positioning, key differentiators, brand voice, and competitive advantages — these are the assets to leverage in the counter-narrative. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load brand voice and messaging guardrails. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Focus on current positioning, key differentiators, brand voice, and competitive advantages — these are the assets to leverage in the counter-narrative. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load brand voice and messaging guardrails. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Analyze the competitor's move**: Examine the evidence provided to determine what positioning territory the competitor is claiming, how it differs from their previous positioning, what audience they are targeting with the move, what proof points they are using, and what weaknesses or gaps exist in their new claims. Classify the move type and assess its sophistication and likely market impact.
 3. **Assess impact on the brand**: Evaluate how the competitor's move affects the brand's positioning — does it directly encroach on the brand's claimed territory? Does it create a new frame that makes the brand's positioning less relevant? Are shared customers at risk of switching? Does the move change the competitive landscape in ways that affect other competitors too? Does it create an opening the brand can exploit? Score impact severity from low (minimal overlap, limited market effect) to critical (direct positioning threat, immediate customer risk).
 4. **Generate counter-narrative strategy**: Select the optimal counter-narrative approach via `narrative-mapper.py generate-counter` based on the move type and impact assessment. Approaches include — direct counter (challenge their claims with superior proof points), reframe (shift the conversation to a dimension where the brand wins), category counter (reject their category framing and define the category on the brand's terms), social proof (let customers and results speak louder than competitor claims), and zeitgeist (align the brand with a larger industry trend that makes the competitor's move look backward). Justify the approach selection with strategic rationale.

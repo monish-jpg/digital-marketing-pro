@@ -18,7 +18,7 @@ digital-marketing-pro/
 ├── .mcp.json.example                  # 68 npx servers (opt-in for Claude Code)
 ├── hooks/
 │   └── hooks.json                     # 3 lifecycle hooks
-├── commands/                          # 8 top-level commands (7 v2.x + /dm:engagement v3.0)
+├── commands/                          # 8 top-level commands (7 v2.x + /digital-marketing-pro:engagement v3.0)
 ├── agents/                            # 25 specialist agents
 │   ├── marketing-strategist.md
 │   ├── content-creator.md
@@ -186,7 +186,7 @@ Twenty-five specialist agents with distinct expertise areas and behavior rules. 
 7. Persists campaign data and insights via campaign-tracker.py
 8. Recommends handoffs to other agents when work crosses domains
 
-Multiple agents can collaborate on a single task. For example, the `/dm:campaign-plan` command invokes both marketing-strategist and media-buyer agents.
+Multiple agents can collaborate on a single task. For example, the `/digital-marketing-pro:campaign-plan` command invokes both marketing-strategist and media-buyer agents.
 
 ### Tools (scripts/*.py)
 
@@ -255,7 +255,7 @@ argument-hint: "[primary-input --option1 --option2]"
 disable-model-invocation: true  # Only on execution skills (publish, send, launch, import, export)
 ---
 
-# /dm:command-name
+# /digital-marketing-pro:command-name
 
 ## Purpose
 [What this command produces and when to use it]
@@ -832,7 +832,7 @@ The market-intelligence agent uses `macro-signal-tracker.py` to monitor external
 
 ### Creative Intelligence
 
-`creative-fatigue-predictor.py` monitors active ad creatives for fatigue signals: declining CTR, rising frequency, audience saturation curves. It predicts when a creative will exhaust its effectiveness and triggers refresh recommendations before performance degrades. Content decay scanning (`/dm:content-decay-scan`) applies similar logic to organic content, prioritizing refreshes by estimated revenue impact.
+`creative-fatigue-predictor.py` monitors active ad creatives for fatigue signals: declining CTR, rising frequency, audience saturation curves. It predicts when a creative will exhaust its effectiveness and triggers refresh recommendations before performance degrades. Content decay scanning (`/digital-marketing-pro:content-decay-scan`) applies similar logic to organic content, prioritizing refreshes by estimated revenue impact.
 
 ### Self-Healing Operations
 
@@ -950,7 +950,7 @@ Guidelines for new skills:
 
 ### disable-model-invocation
 
-Prevents Claude from auto-triggering a skill. The user must explicitly type `/dm:skill-name`. Required on all 18 execution skills that write to external platforms.
+Prevents Claude from auto-triggering a skill. The user must explicitly type `/digital-marketing-pro:skill-name`. Required on all 18 execution skills that write to external platforms.
 
 ```yaml
 disable-model-invocation: true
@@ -998,7 +998,7 @@ v3.0 introduces a methodology orchestration layer on top of the v2.x foundation.
 ```
 digital-marketing-pro/
 ├── commands/
-│   └── engagement.md                                # NEW: /dm:engagement command
+│   └── engagement.md                                # NEW: /digital-marketing-pro:engagement command
 ├── scripts/
 │   └── engagement-state.py                          # NEW: persistence + Decision Matrix engine
 ├── skills/
@@ -1038,11 +1038,11 @@ digital-marketing-pro/
 
 ### 12.2 Component Architecture
 
-The methodology layer flows from the `/dm:engagement` command (entry point) through the `engagement-workflow` skill (orchestrator), which delegates to part-specific skills. All persistence flows through `scripts/engagement-state.py` to the engagement directory tree.
+The methodology layer flows from the `/digital-marketing-pro:engagement` command (entry point) through the `engagement-workflow` skill (orchestrator), which delegates to part-specific skills. All persistence flows through `scripts/engagement-state.py` to the engagement directory tree.
 
 Components:
 
-- **Entry point:** `commands/engagement.md` — defines the `/dm:engagement` subcommands
+- **Entry point:** `commands/engagement.md` — defines the `/digital-marketing-pro:engagement` subcommands
 - **Orchestrator:** `skills/engagement-workflow/SKILL.md` — reads engagement state, reads Living Project Instruction File, delegates to part-specific producers
 - **Part producers (new in v3.0):** `four-core-documents` (Part 3), `client-validation-document` (Part 5), `growth-plan` (Part 8), `yearly-planner` (Part 8), `continuous-improvement-loop` (Part 12)
 - **Part producers (existing v2.x):** Parts 2, 4, 7, 9, 10, 11 use existing skills (market-intelligence, competitor-analysis, audience-intelligence, campaign-orchestrator, content-engine, channel-specific paid-advertising/aeo-geo skills, etc.)
@@ -1176,7 +1176,7 @@ v3.0 is purely additive. Specifically:
 - The brand profile system at `~/.claude-marketing/brands/{slug}/profile.json` is untouched
 - Existing `setup.py`, `campaign-tracker.py`, `adaptive-scorer.py`, etc. continue to function
 - Engagements are stored under `engagements/` subdirectory of the brand directory — sits alongside existing `campaigns/`, `performance/`, `insights.json`, `guidelines/`, etc.
-- Single-skill invocations (e.g., `/dm:content-engine`) work without an engagement context, just as in v2.7
+- Single-skill invocations (e.g., `/digital-marketing-pro:content-engine`) work without an engagement context, just as in v2.7
 
 A user can adopt the methodology selectively: brand A may use the full engagement workflow; brand B may continue with one-off commands. Both work in the same plugin installation.
 
@@ -1208,4 +1208,4 @@ Pattern for adding a new methodology skill:
 3. If the skill produces persistent output, write it to the canonical location under `engagements/{id}/part-XX-.../`
 4. If the skill changes engagement state, invoke `engagement-state.py` (do not hand-write `_engagement.json`)
 5. If the skill changes source documents, trigger a version bump and an LIF change log entry
-6. Add the skill to `commands/engagement.md` if it should be exposed as a `/dm:engagement <subcommand>` shortcut
+6. Add the skill to `commands/engagement.md` if it should be exposed as a `/digital-marketing-pro:engagement <subcommand>` shortcut

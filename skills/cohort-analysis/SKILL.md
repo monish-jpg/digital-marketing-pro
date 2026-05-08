@@ -3,7 +3,7 @@ name: cohort-analysis
 description: "Analyze customer cohorts. Use when: acquisition cohorts, retention curves, LTV by cohort, behavioral segmentation."
 ---
 
-# /dm:cohort-analysis
+# /digital-marketing-pro:cohort-analysis
 
 ## Purpose
 
@@ -20,7 +20,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Extract business model (SaaS, eCommerce, B2B), typical customer lifecycle length, key retention metrics, and churn definition for the industry. Check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Extract business model (SaaS, eCommerce, B2B), typical customer lifecycle length, key retention metrics, and churn definition for the industry. Check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Define cohorts based on selected type**: Segment the customer base into cohorts. For time-based: group customers by the week, month, or quarter they were first acquired (first purchase, account creation, or first meaningful interaction). For channel-based: group by the acquisition source attributed to their first conversion (UTM source, referral path, or CRM lead source field). For behavioral: group by the first significant action taken (first product category purchased, first feature activated, first content type consumed). For revenue-tier: group by initial transaction value bucketed into tiers (define thresholds based on the business's order value distribution — e.g., bottom 25%, middle 50%, top 25%).
 3. **Pull customer data from CRM and analytics MCPs**: Gather the complete customer dataset — acquisition dates and source from CRM MCP, transaction history with timestamps and values, engagement events (logins, feature usage, email opens, site visits) from analytics MCPs, churn events (cancellation, last activity date, account closure), and any customer attributes needed for cohort segmentation. Merge data from multiple sources on customer identifier, resolving duplicates and filling gaps where possible.
 4. **Build retention matrix**: For each cohort, calculate the retention rate at each subsequent time interval (Week 1, Week 2, Month 1, Month 2, etc. matching the selected granularity). Retention is defined as the percentage of the original cohort that performed a qualifying activity (purchase, login, engagement event — depending on the business model) during that interval. Present as a triangular matrix with cohorts as rows and time intervals as columns, with color-coded cells (green for above-average retention, red for below-average).

@@ -3,7 +3,7 @@ name: team-assign
 description: "Assign tasks to team members. Use when: distributing work by role, expertise, and capacity, or managing workloads."
 ---
 
-# /dm:team-assign
+# /digital-marketing-pro:team-assign
 
 ## Purpose
 
@@ -30,7 +30,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Load team roster**: Run `team-manager.py --action list-team` to retrieve all team members with their roles, channel specializations, regional assignments, seniority level, and current active/inactive status. If no team roster exists, prompt the user to set one up first.
 3. **Route by action type**: Branch based on the requested action — assign (steps 4-10), list-assignments (step 11), or check-workload (steps 12-13).
 4. **Check team capacity**: Run `team-manager.py --action check-capacity` to pull current utilization for each team member. Flag anyone above 85% utilization as at-risk for new assignments. Flag anyone above 95% as unavailable unless priority is urgent. Include hours allocated this week and next two weeks for forward-looking availability.

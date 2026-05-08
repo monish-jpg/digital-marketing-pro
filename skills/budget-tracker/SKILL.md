@@ -3,7 +3,7 @@ name: budget-tracker
 description: "Track budget pacing in real time. Use when: cross-platform spend tracking, overspend alerts, reallocation recommendations."
 ---
 
-# /dm:budget-tracker
+# /digital-marketing-pro:budget-tracker
 
 ## Purpose
 
@@ -28,7 +28,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Extract budget targets**: Pull `budget_range` from `profile.json` and any saved per-platform allocations from
    previous budget-optimizer or media-plan runs. If user provided explicit targets, use those as overrides.
    Calculate the target daily spend rate for each platform (budget / days in period).

@@ -26,7 +26,7 @@ Competitor data lives in two places. The summary is stored in your main `profile
 
 ### Adding competitors during brand setup
 
-When you run `/dm:brand-setup --full`, question 17 asks about your competitive landscape. This is where you provide the initial list:
+When you run `/digital-marketing-pro:brand-setup --full`, question 17 asks about your competitive landscape. This is where you provide the initial list:
 
 ```
 Question 17: Who are your main competitors? (names and URLs)
@@ -63,7 +63,7 @@ Plugin: Added MountainX to your competitor profile:
         - Relationship: direct (new entrant)
         - Strengths: TikTok-first strategy, aggressive launch
         - Primary channels: TikTok
-        Saved to competitors list. Run /dm:competitor-analysis to analyze them.
+        Saved to competitors list. Run /digital-marketing-pro:competitor-analysis to analyze them.
 ```
 
 Other updates work the same way:
@@ -78,12 +78,12 @@ Every update is persisted to both `profile.json` and `competitors.json`, so the 
 
 ## 2. Running a Competitive Analysis
 
-The `/dm:competitor-analysis` command activates a multi-dimensional competitive analysis powered by the competitive-intel agent. Here is what a full session looks like.
+The `/digital-marketing-pro:competitor-analysis` command activates a multi-dimensional competitive analysis powered by the competitive-intel agent. Here is what a full session looks like.
 
 ### Starting the analysis
 
 ```
-You: /dm:competitor-analysis
+You: /digital-marketing-pro:competitor-analysis
 
 Plugin: I see 3 competitors in your profile:
         1. TrailPeak Gear (direct)
@@ -555,7 +555,7 @@ Plugin (checking competitor data automatically):
 ### Example: Competitor data informing a campaign plan
 
 ```
-You: /dm:campaign-plan for our spring hiking boot launch
+You: /digital-marketing-pro:campaign-plan for our spring hiking boot launch
 
 Plugin (incorporating competitor intelligence):
         Competitive context applied:
@@ -576,7 +576,7 @@ Plugin (incorporating competitor intelligence):
 ### Example: Competitive gaps feeding into SEO priorities
 
 ```
-You: /dm:seo-audit
+You: /digital-marketing-pro:seo-audit
 
 Plugin (incorporating competitor intelligence):
         Competitor-informed findings:

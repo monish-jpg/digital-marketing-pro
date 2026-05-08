@@ -5,13 +5,13 @@ disable-model-invocation: true
 argument-hint: "[destination]"
 ---
 
-# /dm:data-export
+# /digital-marketing-pro:data-export
 
 ## Purpose
 
 Export marketing data — metrics, contacts, campaign results, and performance snapshots — to an external data store for analysis, reporting, or integration with other tools. Supports BigQuery for data warehousing and advanced analytics, Google Sheets for sharing and collaboration with stakeholders, and Supabase for custom database use and application integration. Transforms raw marketing data into clean, structured, tabular formats ready for downstream consumption with full schema documentation. Handles PII redaction when exporting contact data to shared destinations, ensuring compliance with privacy regulations.
 
-Use this command to move data out of the marketing system for external analysis, client reporting, or data warehouse integration. For exporting audience segments specifically, use `/dm:segment-audience` to create the segment first, then this command to export the member data.
+Use this command to move data out of the marketing system for external analysis, client reporting, or data warehouse integration. For exporting audience segments specifically, use `/digital-marketing-pro:segment-audience` to create the segment first, then this command to export the member data.
 
 ## Input Required
 
@@ -33,7 +33,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Gather data from available sources**: Collect data from local storage — `~/.claude-marketing/brands/{slug}/campaign-tracker.json`, `~/.claude-marketing/brands/{slug}/execution-tracker.json`, performance snapshots, insights files, and segment exports — and from connected MCPs (Google Analytics, ad platforms, CRM, email platform) based on the requested data type and date range. Merge data from multiple sources where needed, resolving conflicts by source priority.
 3. **Transform data to tabular format**: Normalize all collected data into a flat, tabular structure — resolve nested JSON objects into columns, standardize date formats and timezones, normalize currency values to the requested denomination, apply column naming conventions, calculate derived fields (CTR, ROAS, CPA, conversion rate, period-over-period change), and handle null values consistently (empty string, "N/A", or 0 depending on field type).
 4. **Apply filters and sorting**: Filter records based on user-specified criteria — date range, channels, campaigns, segments, or custom conditions. Sort by the most relevant dimension (date descending by default, or as specified). Remove duplicate rows and validate referential integrity across joined datasets.

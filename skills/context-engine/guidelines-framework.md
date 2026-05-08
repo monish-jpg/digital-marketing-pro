@@ -293,7 +293,7 @@ When guidelines conflict with the brand profile:
 
 ## Converting Unstructured Guidelines
 
-When users paste or describe their guidelines (via `/dm:import-guidelines`), convert to structured markdown:
+When users paste or describe their guidelines (via `/digital-marketing-pro:import-guidelines`), convert to structured markdown:
 
 1. **Identify the category** — which file does this content belong in?
 2. **Extract rules** — convert prose into bullet points with clear dos/don'ts
@@ -311,7 +311,7 @@ When users paste or describe their guidelines (via `/dm:import-guidelines`), con
 
 ## Template Integration
 
-Templates modify the output format of commands. When a command like `/dm:performance-report` runs:
+Templates modify the output format of commands. When a command like `/digital-marketing-pro:performance-report` runs:
 
 1. Check `templates/_manifest.json` for a matching template (e.g., "performance-report")
 2. If found, load the template and structure output to match its format

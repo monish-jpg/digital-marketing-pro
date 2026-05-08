@@ -35,7 +35,7 @@ After switching, confirm:
 
 ## If Brand Not Found
 - Show the list of available brands
-- Offer to create a new brand: "Brand not found. Would you like to create a new profile? Use /dm:brand-setup"
+- Offer to create a new brand: "Brand not found. Would you like to create a new profile? Use /digital-marketing-pro:brand-setup"
 
 ## Multi-Brand Comparison
 If the user asks to compare brands, load both profiles and present a side-by-side comparison of key attributes (voice settings, channels, goals).

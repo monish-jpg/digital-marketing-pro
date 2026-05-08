@@ -126,10 +126,10 @@ All four core documents stitched into a single executive-reference file with a m
 
 ## Producing the Documents
 
-Use the `/dm:engagement` command family:
+Use the `/digital-marketing-pro:engagement` command family:
 
-- `/dm:engagement four-core` — produces all four documents in sequence
-- `/dm:engagement four-core 3.1` — produces just 3.1 (Business & SBU Analysis)
-- `/dm:engagement four-core combined` — also produces 3.C Combined Core Document
+- `/digital-marketing-pro:engagement four-core` — produces all four documents in sequence
+- `/digital-marketing-pro:engagement four-core 3.1` — produces just 3.1 (Business & SBU Analysis)
+- `/digital-marketing-pro:engagement four-core combined` — also produces 3.C Combined Core Document
 
 Each document writes to `engagements/{engagement-id}/part-03-four-core-documents/v1/` (or `v2/` for re-runs).

@@ -3,7 +3,7 @@ name: client-report
 description: "Generate client-facing reports. Use when: white-labeled performance report with KPIs, trends, strategic recommendations."
 ---
 
-# /dm:client-report
+# /digital-marketing-pro:client-report
 
 ## Purpose
 
@@ -29,7 +29,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Pull all metrics for the brand**: Query connected MCP servers and run `campaign-tracker.py --brand {slug} --action metrics` to gather performance data across all active channels for the specified date range
 3. **Gather campaign history and execution log**: Run `execution-tracker.py --brand {slug} --action list --period {date_range}` to compile all deliverables completed, campaigns launched, optimizations made, and tests concluded during the period
 4. **Calculate KPIs vs targets and vs comparison period**: Compute actuals against the brand's stated KPI targets from `profile.json` and against the selected comparison period — calculate deltas, percentage changes, trend direction, and statistical significance where sample sizes allow

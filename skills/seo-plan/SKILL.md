@@ -5,7 +5,7 @@ argument-hint: "[business-type]"
 user-invocable: true
 ---
 
-# /dm:seo-plan
+# /digital-marketing-pro:seo-plan
 
 ## Purpose
 

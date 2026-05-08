@@ -13,7 +13,7 @@ triggers:
   - what patterns have we identified
 ---
 
-# /dm:intelligence-report
+# /digital-marketing-pro:intelligence-report
 
 ## Purpose
 
@@ -28,7 +28,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand positioning, channel mix, campaign history, and strategic objectives. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand positioning, channel mix, campaign history, and strategic objectives. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Get intelligence stats**: Run `intelligence-graph.py get-stats --brand {slug}` to retrieve the intelligence base overview — total learnings captured, learnings by agent and channel, confidence score distribution (high, moderate, low), date range of intelligence, and most recent learning timestamp.
 3. **Get cross-agent patterns**: Run `intelligence-graph.py get-patterns --brand {slug}` for key dimensions — channel performance patterns, audience response patterns, timing and seasonality patterns, creative and messaging patterns, and budget efficiency patterns. If a focus area was specified, weight pattern retrieval toward that dimension. Identify patterns that span multiple agents (e.g., a timing pattern confirmed by both the email specialist and social media manager).
 4. **Generate playbooks**: If a playbook request was provided, run `intelligence-graph.py export-playbook --brand {slug} --scenario {scenario}` to synthesize relevant learnings into a step-by-step actionable playbook. Each playbook step references the specific learnings and confidence levels that support it. If no playbook was requested, generate a summary of the top three available playbooks based on the strongest pattern clusters.

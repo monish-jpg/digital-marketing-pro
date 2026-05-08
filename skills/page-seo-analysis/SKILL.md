@@ -5,7 +5,7 @@ argument-hint: "[URL]"
 user-invocable: true
 ---
 
-# /dm:page-analysis
+# /digital-marketing-pro:page-analysis
 
 ## Purpose
 

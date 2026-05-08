@@ -41,7 +41,7 @@ Each stage in this loop maps to a specific part of the plugin:
 | **KPI Framework** | Decompose goals into a hierarchical metric tree with targets and benchmarks | Analytics & Insights module (`kpi-frameworks.md`) |
 | **Campaign Strategy** | Translate KPI gaps into phased campaign plans with budget allocation | Campaign Orchestrator module (budget-allocation.md, channel-strategy.md) |
 | **Execution** | Produce content, launch ads, send emails, build funnels | Content Engine, Paid Advertising, Email Marketing modules |
-| **Measurement** | Track performance against KPI targets, detect anomalies | `/dm:performance-report` command + `campaign-tracker.py` |
+| **Measurement** | Track performance against KPI targets, detect anomalies | `/digital-marketing-pro:performance-report` command + `campaign-tracker.py` |
 | **Insights** | Extract learnings from what worked and what did not | SessionEnd auto-save hook + `campaign-tracker.py --action save-insight` |
 | **Refined Strategy** | Next planning cycle uses historical insights to improve | Campaign Orchestrator reads past campaign data and insights |
 
@@ -53,7 +53,7 @@ The critical insight is that the **Insights** stage is not optional. Without it,
 
 Strategy starts with the business, not with marketing channels. Before touching KPIs, campaigns, or budgets, the plugin needs to understand what the business is trying to achieve, what model it operates, and what constraints it faces.
 
-This information lives in the brand profile, specifically in the `goals`, `business_model`, and `industry` sections. You set it up through `/dm:brand-setup` and can update it any time.
+This information lives in the brand profile, specifically in the `goals`, `business_model`, and `industry` sections. You set it up through `/digital-marketing-pro:brand-setup` and can update it any time.
 
 ### Worked Example: GreenPeak Outdoors
 
@@ -216,12 +216,12 @@ For GreenPeak, the funnel-weighted model made the most sense because the gap was
 
 ## 5. Step 4: Execute and Measure
 
-With the strategy defined and campaigns in flight, the `/dm:performance-report` command becomes the operating rhythm. It pulls KPI data, compares against targets, flags anomalies, and provides recommendations.
+With the strategy defined and campaigns in flight, the `/digital-marketing-pro:performance-report` command becomes the operating rhythm. It pulls KPI data, compares against targets, flags anomalies, and provides recommendations.
 
 ### A Real Performance Report
 
 ```
-You: /dm:performance-report
+You: /digital-marketing-pro:performance-report
 
 Performance Report: GreenPeak Outdoors -- Q2 Review
 
@@ -478,12 +478,12 @@ The strategy-to-measurement loop is not a theoretical framework. It is the actua
 | Build KPI framework | Review and refine the generated KPI tree | Generates a business-model-specific tree with industry benchmarks |
 | Plan campaigns | Describe the KPI gap you want to close | Produces phased campaign strategy with budget allocation tied to KPIs |
 | Execute | Create content and launch campaigns | Scores content against your adaptive weights; tracks campaigns |
-| Measure | Run `/dm:performance-report` | Compares results to targets, detects anomalies, generates recommendations |
+| Measure | Run `/digital-marketing-pro:performance-report` | Compares results to targets, detects anomalies, generates recommendations |
 | Learn | End your session | Auto-saves insights; next session starts with accumulated knowledge |
 
 The goal is not to automate strategy. Strategy requires human judgment about where to compete, what risks to take, and which trade-offs to accept. The goal is to ensure that judgment is always informed by structured data, and that every decision you make adds to a growing base of institutional knowledge rather than disappearing into a Slack thread.
 
-Start with `/dm:brand-setup`. Define your goals. Let the KPI framework guide your campaign strategy. Measure what matters. Save what you learn. Repeat.
+Start with `/digital-marketing-pro:brand-setup`. Define your goals. Let the KPI framework guide your campaign strategy. Measure what matters. Save what you learn. Repeat.
 
 ---
 

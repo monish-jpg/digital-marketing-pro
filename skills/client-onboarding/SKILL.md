@@ -3,7 +3,7 @@ name: client-onboarding
 description: "Plan client onboarding. Use when: kickoff agenda, discovery questionnaire, account setup checklist, 30-60-90 day plan."
 ---
 
-# /dm:client-onboarding
+# /digital-marketing-pro:client-onboarding
 
 ## Purpose
 
@@ -26,7 +26,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Research client industry onboarding best practices**: Identify industry-specific onboarding considerations — regulatory requirements, seasonal timing, common data sources, and typical ramp-up periods for the client's vertical
 3. **Build kickoff meeting agenda**: Structure a 60-90 minute kickoff covering introductions, engagement overview, goals alignment, process walkthrough, access handoff, communication setup, and immediate next steps
 4. **Create discovery questionnaire**: Draft 20-30 questions covering business context, competitive landscape, past marketing efforts, brand guidelines, content assets, data access, approval workflows, and success definitions

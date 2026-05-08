@@ -1655,7 +1655,7 @@ The `.mcp.json` file supports a single set of credentials per MCP server. If you
 
 ### v2.0.0 Credential Profiles
 
-v2.0.0 introduces `/dm:credential-switch`, which manages per-brand credential profiles stored at `~/.claude-marketing/credentials/`. Each brand maps to its own set of platform environment variable names, so when you switch brands, the plugin knows which credentials belong to which client.
+v2.0.0 introduces `/digital-marketing-pro:credential-switch`, which manages per-brand credential profiles stored at `~/.claude-marketing/credentials/`. Each brand maps to its own set of platform environment variable names, so when you switch brands, the plugin knows which credentials belong to which client.
 
 The credential manager (`credential-manager.py`) stores a JSON mapping for each brand slug:
 
@@ -1670,7 +1670,7 @@ The credential manager (`credential-manager.py`) stores a JSON mapping for each 
 }
 ```
 
-When you run `/dm:credential-switch acme-corp`, the plugin loads the corresponding credential profile and maps the environment variables for that brand's platforms. The actual credential values still need to be set as environment variables on your machine, but the mapping between brand and credential set is now managed automatically.
+When you run `/digital-marketing-pro:credential-switch acme-corp`, the plugin loads the corresponding credential profile and maps the environment variables for that brand's platforms. The actual credential values still need to be set as environment variables on your machine, but the mapping between brand and credential set is now managed automatically.
 
 This eliminates the manual juggling of previous versions. You still have the option of using the patterns below as supplementary approaches for advanced setups.
 
@@ -1773,7 +1773,7 @@ source ./clients/acme-corp/env.sh && claude
 source ./clients/techflow/env.sh && claude
 ```
 
-**Best for:** Agencies that want clean, repeatable separation between client sessions. Each session starts with a known-good credential set. Combine this with `/dm:switch-brand` at session start to load the matching brand profile.
+**Best for:** Agencies that want clean, repeatable separation between client sessions. Each session starts with a known-good credential set. Combine this with `/digital-marketing-pro:switch-brand` at session start to load the matching brand profile.
 
 **Security note:** Store these env files outside of version control. Add `clients/*/env.sh` to your `.gitignore`.
 

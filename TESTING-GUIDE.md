@@ -115,7 +115,7 @@ rm -rf ~/.claude-marketing/
 
 ## 3. Command Tests
 
-Test all 10 top-level commands visible in the Customize panel (7 v2.5 commands + /dm:engagement v3.0 + /dm:check + /dm:status v3.2).
+Test all 10 top-level commands visible in the Customize panel (7 v2.5 commands + /digital-marketing-pro:engagement v3.0 + /digital-marketing-pro:check + /digital-marketing-pro:status v3.2).
 
 ### 3.1 `/brand-setup`
 
@@ -207,110 +207,110 @@ DM Pro has 149 skills (141 atomic + 6 v3.0 methodology skills + 2 v3.2 quality-a
 
 | Skill | Test Prompt | Key Checks |
 |-------|-------------|------------|
-| `/dm:help` | (no args) | Shows getting started guide, commands by category, examples, troubleshooting |
-| `/dm:integrations` | (no args) | Shows all 14 HTTP connectors + available connectors by category |
-| `/dm:connect notion` | "Set up Notion" | Step-by-step OAuth instructions |
-| `/dm:switch-brand` | "Switch to HealthFirst" | Brand context changes, subsequent commands use new brand |
-| `/dm:context-engine` | "Load TestBrand Alpha" | Brand profile loaded, context confirmed |
-| `/dm:add-integration` | "Connect my CRM" | Custom connector setup guide |
+| `/digital-marketing-pro:help` | (no args) | Shows getting started guide, commands by category, examples, troubleshooting |
+| `/digital-marketing-pro:integrations` | (no args) | Shows all 14 HTTP connectors + available connectors by category |
+| `/digital-marketing-pro:connect notion` | "Set up Notion" | Step-by-step OAuth instructions |
+| `/digital-marketing-pro:switch-brand` | "Switch to HealthFirst" | Brand context changes, subsequent commands use new brand |
+| `/digital-marketing-pro:context-engine` | "Load TestBrand Alpha" | Brand profile loaded, context confirmed |
+| `/digital-marketing-pro:add-integration` | "Connect my CRM" | Custom connector setup guide |
 
 ### SEO & Content Module
 
 | Skill | Test Prompt | Key Checks |
 |-------|-------------|------------|
-| `/dm:keyword-research` | "keyword research for 'AI project management'" | Clusters, search volume, difficulty, intent |
-| `/dm:content-brief` | "brief for 'remote team management'" | Keyword data, outline, competitor analysis |
-| `/dm:tech-seo-audit` | "audit testbrandalpha.com" | Core Web Vitals, crawlability, schema markup |
-| `/dm:content-calendar` | "Q2 content calendar" | Monthly plan with topics, types, channels |
-| `/dm:aeo-audit` | "how does our brand appear in AI answers?" | AI visibility assessment across engines |
-| `/dm:content-decay-scan` | "scan our blog for decay" | Identifies outdated content, stale stats |
-| `/dm:entity-audit` | "audit brand entity consistency" | Knowledge graph, structured data review |
-| `/dm:local-seo-audit` | "audit local SEO for HealthFirst" | GBP, NAP consistency, local citations |
-| `/dm:hreflang-check` | "check hreflang for globalcorp.com" | Tag validation, coverage gaps |
+| `/digital-marketing-pro:keyword-research` | "keyword research for 'AI project management'" | Clusters, search volume, difficulty, intent |
+| `/digital-marketing-pro:content-brief` | "brief for 'remote team management'" | Keyword data, outline, competitor analysis |
+| `/digital-marketing-pro:tech-seo-audit` | "audit testbrandalpha.com" | Core Web Vitals, crawlability, schema markup |
+| `/digital-marketing-pro:content-calendar` | "Q2 content calendar" | Monthly plan with topics, types, channels |
+| `/digital-marketing-pro:aeo-audit` | "how does our brand appear in AI answers?" | AI visibility assessment across engines |
+| `/digital-marketing-pro:content-decay-scan` | "scan our blog for decay" | Identifies outdated content, stale stats |
+| `/digital-marketing-pro:entity-audit` | "audit brand entity consistency" | Knowledge graph, structured data review |
+| `/digital-marketing-pro:local-seo-audit` | "audit local SEO for HealthFirst" | GBP, NAP consistency, local citations |
+| `/digital-marketing-pro:hreflang-check` | "check hreflang for globalcorp.com" | Tag validation, coverage gaps |
 
 ### Paid Advertising & Social Module
 
 | Skill | Test Prompt | Key Checks |
 |-------|-------------|------------|
-| `/dm:media-plan` | "media plan for $30K Google+Meta budget" | Budget split, targeting, bid strategy, timeline |
-| `/dm:ad-creative` | "3 LinkedIn ad variations" | Platform-specific specs, scored variants |
-| `/dm:social-strategy` | "social strategy for LinkedIn and Twitter" | Platform-specific playbooks |
-| `/dm:ab-test-plan` | "A/B test for landing page headline" | Sample size, duration, hypothesis, significance |
-| `/dm:launch-ad-campaign` | "launch Google Ads for product launch" | Campaign structure, targeting, creative |
-| `/dm:retargeting-strategy` | "retargeting plan for trial abandoners" | Audience segments, frequency caps |
-| `/dm:creative-health` | "check creative fatigue" | Fatigue prediction, refresh recommendations |
+| `/digital-marketing-pro:media-plan` | "media plan for $30K Google+Meta budget" | Budget split, targeting, bid strategy, timeline |
+| `/digital-marketing-pro:ad-creative` | "3 LinkedIn ad variations" | Platform-specific specs, scored variants |
+| `/digital-marketing-pro:social-strategy` | "social strategy for LinkedIn and Twitter" | Platform-specific playbooks |
+| `/digital-marketing-pro:ab-test-plan` | "A/B test for landing page headline" | Sample size, duration, hypothesis, significance |
+| `/digital-marketing-pro:launch-ad-campaign` | "launch Google Ads for product launch" | Campaign structure, targeting, creative |
+| `/digital-marketing-pro:retargeting-strategy` | "retargeting plan for trial abandoners" | Audience segments, frequency caps |
+| `/digital-marketing-pro:creative-health` | "check creative fatigue" | Fatigue prediction, refresh recommendations |
 
 ### Analytics & Reporting Module
 
 | Skill | Test Prompt | Key Checks |
 |-------|-------------|------------|
-| `/dm:analytics-insights` | "KPI framework for SaaS" | Metrics, targets, dashboard design |
-| `/dm:roi-calculator` | "ROI for $50K campaign with 200 leads" | Math correct, assumptions documented |
-| `/dm:budget-optimizer` | "optimize $100K across 5 channels" | Allocation with reasoning, diminishing returns |
-| `/dm:anomaly-scan` | "check for performance anomalies" | Detection methodology, threshold logic |
-| `/dm:attribution-model` | "set up multi-touch attribution" | Model selection, implementation guidance |
-| `/dm:cohort-analysis` | "analyze Q1 acquisition cohorts" | Cohort tables, retention curves |
-| `/dm:performance-check` | "pull live metrics" | Connector status, data freshness |
+| `/digital-marketing-pro:analytics-insights` | "KPI framework for SaaS" | Metrics, targets, dashboard design |
+| `/digital-marketing-pro:roi-calculator` | "ROI for $50K campaign with 200 leads" | Math correct, assumptions documented |
+| `/digital-marketing-pro:budget-optimizer` | "optimize $100K across 5 channels" | Allocation with reasoning, diminishing returns |
+| `/digital-marketing-pro:anomaly-scan` | "check for performance anomalies" | Detection methodology, threshold logic |
+| `/digital-marketing-pro:attribution-model` | "set up multi-touch attribution" | Model selection, implementation guidance |
+| `/digital-marketing-pro:cohort-analysis` | "analyze Q1 acquisition cohorts" | Cohort tables, retention curves |
+| `/digital-marketing-pro:performance-check` | "pull live metrics" | Connector status, data freshness |
 
 ### Growth & CRO Module
 
 | Skill | Test Prompt | Key Checks |
 |-------|-------------|------------|
-| `/dm:funnel-audit` | "audit our signup funnel" | Drop-off analysis, benchmark comparison |
-| `/dm:landing-page-audit` | "audit our pricing page" | Above-fold, CTA, form, mobile scores |
-| `/dm:growth-engineering` | "design a referral program" | Viral loop, incentives, K-factor |
-| `/dm:cro` | "conversion optimization for checkout" | Hypotheses, test plan, priority score |
-| `/dm:loop-detect` | "find growth loops in our product" | Loop identification, reinforcement analysis |
-| `/dm:pricing-test` | "test pricing strategies" | Willingness-to-pay, conjoint analysis |
+| `/digital-marketing-pro:funnel-audit` | "audit our signup funnel" | Drop-off analysis, benchmark comparison |
+| `/digital-marketing-pro:landing-page-audit` | "audit our pricing page" | Above-fold, CTA, form, mobile scores |
+| `/digital-marketing-pro:growth-engineering` | "design a referral program" | Viral loop, incentives, K-factor |
+| `/digital-marketing-pro:cro` | "conversion optimization for checkout" | Hypotheses, test plan, priority score |
+| `/digital-marketing-pro:loop-detect` | "find growth loops in our product" | Loop identification, reinforcement analysis |
+| `/digital-marketing-pro:pricing-test` | "test pricing strategies" | Willingness-to-pay, conjoint analysis |
 
 ### PR & Influencer Module
 
 | Skill | Test Prompt | Key Checks |
 |-------|-------------|------------|
-| `/dm:pr-pitch` | "pitch for product launch" | Pitch template, journalist targets, timing |
-| `/dm:influencer-brief` | "influencer campaign for SaaS" | Discovery criteria, brief, FTC compliance |
-| `/dm:crisis-response` | "handle negative PR about data breach" | Response framework, messaging, channels |
-| `/dm:digital-pr` | "digital PR for link building" | Outreach strategy, asset creation |
+| `/digital-marketing-pro:pr-pitch` | "pitch for product launch" | Pitch template, journalist targets, timing |
+| `/digital-marketing-pro:influencer-brief` | "influencer campaign for SaaS" | Discovery criteria, brief, FTC compliance |
+| `/digital-marketing-pro:crisis-response` | "handle negative PR about data breach" | Response framework, messaging, channels |
+| `/digital-marketing-pro:digital-pr` | "digital PR for link building" | Outreach strategy, asset creation |
 
 ### Email & Automation Module
 
 | Skill | Test Prompt | Key Checks |
 |-------|-------------|------------|
-| `/dm:email-sequence` | "win-back sequence for churned users" | Timing, copy, segmentation, triggers |
-| `/dm:send-email-campaign` | "send newsletter to subscribers" | MCP connector check, preview, approval |
-| `/dm:marketing-automation` | "automation workflow for lead nurture" | Trigger logic, branching, scoring |
+| `/digital-marketing-pro:email-sequence` | "win-back sequence for churned users" | Timing, copy, segmentation, triggers |
+| `/digital-marketing-pro:send-email-campaign` | "send newsletter to subscribers" | MCP connector check, preview, approval |
+| `/digital-marketing-pro:marketing-automation` | "automation workflow for lead nurture" | Trigger logic, branching, scoring |
 
 ### Agency Operations Module
 
 | Skill | Test Prompt | Key Checks |
 |-------|-------------|------------|
-| `/dm:client-report` | "client report for January" | Client-facing format, branded |
-| `/dm:exec-summary` | "executive summary for Q4" | C-suite ready, strategic insights |
-| `/dm:agency-dashboard` | "portfolio dashboard" | Multi-client view, aggregate metrics |
-| `/dm:client-onboarding` | "onboard new client FitnessCo" | Kickoff checklist, data requirements |
-| `/dm:team-assign` | "assign SEO tasks to team" | Task breakdown, assignments, deadlines |
-| `/dm:qbr-plan` | "prepare QBR for TestBrand" | Agenda, data requirements, insights |
+| `/digital-marketing-pro:client-report` | "client report for January" | Client-facing format, branded |
+| `/digital-marketing-pro:exec-summary` | "executive summary for Q4" | C-suite ready, strategic insights |
+| `/digital-marketing-pro:agency-dashboard` | "portfolio dashboard" | Multi-client view, aggregate metrics |
+| `/digital-marketing-pro:client-onboarding` | "onboard new client FitnessCo" | Kickoff checklist, data requirements |
+| `/digital-marketing-pro:team-assign` | "assign SEO tasks to team" | Task breakdown, assignments, deadlines |
+| `/digital-marketing-pro:qbr-plan` | "prepare QBR for TestBrand" | Agenda, data requirements, insights |
 
 ### Intelligence & Memory Module
 
 | Skill | Test Prompt | Key Checks |
 |-------|-------------|------------|
-| `/dm:save-knowledge` | "save that LinkedIn ads work best for us" | Learning stored persistently |
-| `/dm:recall` | "what worked for our LinkedIn campaigns?" | Relevant learnings retrieved |
-| `/dm:search-knowledge` | "find campaign results from Q1" | Search returns relevant entries |
-| `/dm:intelligence-report` | "full intelligence briefing" | Compound learnings, pattern recognition |
-| `/dm:learn` | "SEO traffic grew 40% after content refresh" | Insight stored with context |
+| `/digital-marketing-pro:save-knowledge` | "save that LinkedIn ads work best for us" | Learning stored persistently |
+| `/digital-marketing-pro:recall` | "what worked for our LinkedIn campaigns?" | Relevant learnings retrieved |
+| `/digital-marketing-pro:search-knowledge` | "find campaign results from Q1" | Search returns relevant entries |
+| `/digital-marketing-pro:intelligence-report` | "full intelligence briefing" | Compound learnings, pattern recognition |
+| `/digital-marketing-pro:learn` | "SEO traffic grew 40% after content refresh" | Insight stored with context |
 
 ### Advanced Skills
 
 | Skill | Test Prompt | Key Checks |
 |-------|-------------|------------|
-| `/dm:simulate` | "simulate revenue impact of doubling ad spend" | Revenue model, assumptions, scenarios |
-| `/dm:what-if` | "what if we cut social media budget by 50%?" | Scenario comparison, trade-offs |
-| `/dm:focus-group` | "test messaging with target audience" | Synthetic personas, feedback, insights |
-| `/dm:journey-design` | "design onboarding journey" | Cross-channel touchpoints, timing |
-| `/dm:market-weather` | "marketing weather report" | Macro signals, timing recommendations |
-| `/dm:dark-funnel` | "map invisible buyer journey" | Unmeasured touchpoints, heuristics |
+| `/digital-marketing-pro:simulate` | "simulate revenue impact of doubling ad spend" | Revenue model, assumptions, scenarios |
+| `/digital-marketing-pro:what-if` | "what if we cut social media budget by 50%?" | Scenario comparison, trade-offs |
+| `/digital-marketing-pro:focus-group` | "test messaging with target audience" | Synthetic personas, feedback, insights |
+| `/digital-marketing-pro:journey-design` | "design onboarding journey" | Cross-channel touchpoints, timing |
+| `/digital-marketing-pro:market-weather` | "marketing weather report" | Macro signals, timing recommendations |
+| `/digital-marketing-pro:dark-funnel` | "map invisible buyer journey" | Unmeasured touchpoints, heuristics |
 
 ---
 
@@ -326,31 +326,31 @@ DM Pro has 25 specialist agents. Verify they register correctly and respond when
 
 | # | Agent | Primary Skills |
 |---|-------|---------------|
-| 1 | agency-operations | `/dm:agency-dashboard`, `/dm:client-report`, `/dm:team-assign` |
-| 2 | analytics-analyst | `/dm:analytics-insights`, `/dm:anomaly-scan`, `/dm:attribution-model` |
-| 3 | brand-guardian | `/dm:eval-content`, brand compliance checks |
-| 4 | competitive-intel | `/dm:competitor-analysis`, `/dm:share-of-voice` |
-| 5 | competitor-intelligence | `/dm:competitor-monitor`, `/dm:competitor-alerts` |
-| 6 | content-creator | `/dm:content-engine`, `/dm:content-brief`, `/dm:content-repurpose` |
-| 7 | crm-manager | `/dm:crm-sync`, `/dm:pipeline-update`, `/dm:lead-import` |
-| 8 | cro-specialist | `/dm:cro`, `/dm:landing-page-audit`, `/dm:funnel-audit` |
-| 9 | email-specialist | `/dm:email-sequence`, `/dm:send-email-campaign` |
-| 10 | execution-coordinator | `/dm:launch-ad-campaign`, `/dm:publish-blog`, `/dm:schedule-social` |
-| 11 | growth-engineer | `/dm:growth-engineering`, `/dm:loop-detect` |
-| 12 | influencer-manager | `/dm:influencer-brief`, `/dm:influencer-creator` |
-| 13 | intelligence-curator | `/dm:intelligence-report`, `/dm:learn` |
-| 14 | journey-orchestrator | `/dm:journey-design`, `/dm:funnel-architect` |
-| 15 | localization-specialist | `/dm:translate-content`, `/dm:localize-campaign` |
-| 16 | market-intelligence | `/dm:market-weather`, `/dm:emerging-channels` |
-| 17 | marketing-scientist | `/dm:simulate`, `/dm:attribution-report` |
-| 18 | marketing-strategist | `/dm:campaign-plan`, `/dm:launch-plan` |
-| 19 | media-buyer | `/dm:media-plan`, `/dm:paid-advertising`, `/dm:budget-tracker` |
-| 20 | memory-manager | `/dm:save-knowledge`, `/dm:recall`, `/dm:sync-memory` |
-| 21 | performance-monitor-agent | `/dm:performance-check`, `/dm:anomaly-scan` |
-| 22 | pr-outreach | `/dm:pr-pitch`, `/dm:digital-pr`, `/dm:crisis-response` |
-| 23 | quality-assurance | `/dm:eval-suite`, `/dm:quality-report` |
-| 24 | seo-specialist | `/dm:seo-audit`, `/dm:keyword-research`, `/dm:tech-seo-audit` |
-| 25 | social-media-manager | `/dm:social-strategy`, `/dm:schedule-social` |
+| 1 | agency-operations | `/digital-marketing-pro:agency-dashboard`, `/digital-marketing-pro:client-report`, `/digital-marketing-pro:team-assign` |
+| 2 | analytics-analyst | `/digital-marketing-pro:analytics-insights`, `/digital-marketing-pro:anomaly-scan`, `/digital-marketing-pro:attribution-model` |
+| 3 | brand-guardian | `/digital-marketing-pro:eval-content`, brand compliance checks |
+| 4 | competitive-intel | `/digital-marketing-pro:competitor-analysis`, `/digital-marketing-pro:share-of-voice` |
+| 5 | competitor-intelligence | `/digital-marketing-pro:competitor-monitor`, `/digital-marketing-pro:competitor-alerts` |
+| 6 | content-creator | `/digital-marketing-pro:content-engine`, `/digital-marketing-pro:content-brief`, `/digital-marketing-pro:content-repurpose` |
+| 7 | crm-manager | `/digital-marketing-pro:crm-sync`, `/digital-marketing-pro:pipeline-update`, `/digital-marketing-pro:lead-import` |
+| 8 | cro-specialist | `/digital-marketing-pro:cro`, `/digital-marketing-pro:landing-page-audit`, `/digital-marketing-pro:funnel-audit` |
+| 9 | email-specialist | `/digital-marketing-pro:email-sequence`, `/digital-marketing-pro:send-email-campaign` |
+| 10 | execution-coordinator | `/digital-marketing-pro:launch-ad-campaign`, `/digital-marketing-pro:publish-blog`, `/digital-marketing-pro:schedule-social` |
+| 11 | growth-engineer | `/digital-marketing-pro:growth-engineering`, `/digital-marketing-pro:loop-detect` |
+| 12 | influencer-manager | `/digital-marketing-pro:influencer-brief`, `/digital-marketing-pro:influencer-creator` |
+| 13 | intelligence-curator | `/digital-marketing-pro:intelligence-report`, `/digital-marketing-pro:learn` |
+| 14 | journey-orchestrator | `/digital-marketing-pro:journey-design`, `/digital-marketing-pro:funnel-architect` |
+| 15 | localization-specialist | `/digital-marketing-pro:translate-content`, `/digital-marketing-pro:localize-campaign` |
+| 16 | market-intelligence | `/digital-marketing-pro:market-weather`, `/digital-marketing-pro:emerging-channels` |
+| 17 | marketing-scientist | `/digital-marketing-pro:simulate`, `/digital-marketing-pro:attribution-report` |
+| 18 | marketing-strategist | `/digital-marketing-pro:campaign-plan`, `/digital-marketing-pro:launch-plan` |
+| 19 | media-buyer | `/digital-marketing-pro:media-plan`, `/digital-marketing-pro:paid-advertising`, `/digital-marketing-pro:budget-tracker` |
+| 20 | memory-manager | `/digital-marketing-pro:save-knowledge`, `/digital-marketing-pro:recall`, `/digital-marketing-pro:sync-memory` |
+| 21 | performance-monitor-agent | `/digital-marketing-pro:performance-check`, `/digital-marketing-pro:anomaly-scan` |
+| 22 | pr-outreach | `/digital-marketing-pro:pr-pitch`, `/digital-marketing-pro:digital-pr`, `/digital-marketing-pro:crisis-response` |
+| 23 | quality-assurance | `/digital-marketing-pro:eval-suite`, `/digital-marketing-pro:quality-report` |
+| 24 | seo-specialist | `/digital-marketing-pro:seo-audit`, `/digital-marketing-pro:keyword-research`, `/digital-marketing-pro:tech-seo-audit` |
+| 25 | social-media-manager | `/digital-marketing-pro:social-strategy`, `/digital-marketing-pro:schedule-social` |
 
 **Checks:**
 - [ ] All 25 agents have valid frontmatter (`name` in kebab-case + `description`)
@@ -368,7 +368,7 @@ DM Pro has 68 Python scripts (65 v2.x + engagement-state.py v3.0 + dm-status.py 
 | Script | Trigger | Test | Expected |
 |--------|---------|------|----------|
 | `setup.py` | SessionStart hook | Start new session | Checks dependencies, prints summary, no errors |
-| `connector-status.py` | `/dm:integrations` | Run integrations command | Lists 14 HTTP + available connectors by category |
+| `connector-status.py` | `/digital-marketing-pro:integrations` | Run integrations command | Lists 14 HTTP + available connectors by category |
 | `campaign-tracker.py` | SessionEnd hook | End a session after marketing work | Session insights saved |
 | `guidelines-manager.py` | Brand compliance | Set up brand with guidelines | Rules stored and enforced |
 
@@ -519,18 +519,18 @@ Verify connectors map to the right workflow categories per CONNECTORS.md:
 
 | Category | Connectors | Skills Affected |
 |----------|------------|----------------|
-| Communication | Slack | `/dm:send-notification` |
-| Design | Canva, Figma | `/dm:ad-creative`, design assets |
-| CRM | HubSpot | `/dm:crm-sync`, `/dm:lead-import`, `/dm:pipeline-update` |
-| Analytics | Amplitude | `/dm:analytics-insights`, `/dm:performance-check` |
-| Knowledge base | Notion | `/dm:save-knowledge`, brand docs |
-| SEO | Ahrefs, Similarweb | `/dm:seo-audit`, `/dm:keyword-research`, `/dm:competitor-analysis` |
-| Email marketing | Klaviyo | `/dm:send-email-campaign` |
-| Calendar | Google Calendar | `/dm:content-calendar` |
-| Email | Gmail | `/dm:send-report`, draft delivery |
-| Payments | Stripe | `/dm:roi-calculator`, revenue data |
-| Project management | Asana | `/dm:team-assign` |
-| CMS | Webflow | `/dm:publish-blog` |
+| Communication | Slack | `/digital-marketing-pro:send-notification` |
+| Design | Canva, Figma | `/digital-marketing-pro:ad-creative`, design assets |
+| CRM | HubSpot | `/digital-marketing-pro:crm-sync`, `/digital-marketing-pro:lead-import`, `/digital-marketing-pro:pipeline-update` |
+| Analytics | Amplitude | `/digital-marketing-pro:analytics-insights`, `/digital-marketing-pro:performance-check` |
+| Knowledge base | Notion | `/digital-marketing-pro:save-knowledge`, brand docs |
+| SEO | Ahrefs, Similarweb | `/digital-marketing-pro:seo-audit`, `/digital-marketing-pro:keyword-research`, `/digital-marketing-pro:competitor-analysis` |
+| Email marketing | Klaviyo | `/digital-marketing-pro:send-email-campaign` |
+| Calendar | Google Calendar | `/digital-marketing-pro:content-calendar` |
+| Email | Gmail | `/digital-marketing-pro:send-report`, draft delivery |
+| Payments | Stripe | `/digital-marketing-pro:roi-calculator`, revenue data |
+| Project management | Asana | `/digital-marketing-pro:team-assign` |
+| CMS | Webflow | `/digital-marketing-pro:publish-blog` |
 
 ### 8.3 Graceful Degradation
 
@@ -539,7 +539,7 @@ Verify connectors map to the right workflow categories per CONNECTORS.md:
 **Expected:**
 - [ ] Skill doesn't crash
 - [ ] Clear message about which connector is needed
-- [ ] Instructions on how to connect it (or suggest `/dm:connect <name>`)
+- [ ] Instructions on how to connect it (or suggest `/digital-marketing-pro:connect <name>`)
 - [ ] Fallback behavior (manual data input, alternative approach, or skip)
 - [ ] Verify-then-guide pattern (never silent failure)
 
@@ -557,11 +557,11 @@ Verify connectors map to the right workflow categories per CONNECTORS.md:
 
 | Test | Expected |
 |------|----------|
-| `/dm:keyword-research` (no keyword) | Asks for keyword/topic |
-| `/dm:campaign-plan` (no details) | Asks for brand, budget, goals |
-| `/dm:seo-audit` (no URL) | Asks for website URL |
-| `/dm:media-plan` (no budget) | Asks for budget and channels |
-| `/dm:email-sequence` (no context) | Asks for goal, audience, trigger |
+| `/digital-marketing-pro:keyword-research` (no keyword) | Asks for keyword/topic |
+| `/digital-marketing-pro:campaign-plan` (no details) | Asks for brand, budget, goals |
+| `/digital-marketing-pro:seo-audit` (no URL) | Asks for website URL |
+| `/digital-marketing-pro:media-plan` (no budget) | Asks for budget and channels |
+| `/digital-marketing-pro:email-sequence` (no context) | Asks for goal, audience, trigger |
 
 ### 9.2 Brand Context
 
@@ -620,7 +620,7 @@ Run this after any changes to verify nothing is broken.
 
 ### Commands
 
-- [ ] All 10 commands appear in Customize panel (7 v2.5 + /dm:engagement v3.0 + /dm:check + /dm:status v3.2)
+- [ ] All 10 commands appear in Customize panel (7 v2.5 + /digital-marketing-pro:engagement v3.0 + /digital-marketing-pro:check + /digital-marketing-pro:status v3.2)
 - [ ] `/brand-setup` completes full setup flow
 - [ ] `/campaign-plan` generates multi-channel plan with budget
 - [ ] `/seo-audit` produces comprehensive report
@@ -631,16 +631,16 @@ Run this after any changes to verify nothing is broken.
 
 ### Skills
 
-- [ ] `/dm:help` shows complete, accurate information
-- [ ] `/dm:integrations` shows 14 HTTP connectors with correct status
+- [ ] `/digital-marketing-pro:help` shows complete, accurate information
+- [ ] `/digital-marketing-pro:integrations` shows 14 HTTP connectors with correct status
 - [ ] All 149 skills respond to invocation (spot check at minimum)
 - [ ] Skills handle missing connectors gracefully
 
 ### Skill Platform Features
 
-- [ ] Argument hints show in Skills UI when typing `/dm:` (spot check 3-5 skills)
-- [ ] Execution skills (e.g., `/dm:publish-blog`, `/dm:send-email-campaign`) cannot be triggered by Claude without explicit user invocation
-- [ ] `/dm:help` has `name: help` in frontmatter (was missing pre-v2.5.1)
+- [ ] Argument hints show in Skills UI when typing `/digital-marketing-pro:` (spot check 3-5 skills)
+- [ ] Execution skills (e.g., `/digital-marketing-pro:publish-blog`, `/digital-marketing-pro:send-email-campaign`) cannot be triggered by Claude without explicit user invocation
+- [ ] `/digital-marketing-pro:help` has `name: help` in frontmatter (was missing pre-v2.5.1)
 - [ ] `skills/campaign-plan/evals/evals.json` exists and is valid JSON with 3 test cases
 - [ ] `skills/seo-audit/evals/evals.json` exists and is valid JSON with 2 test cases
 - [ ] `skills/content-engine/evals/evals.json` exists and is valid JSON with 3 test cases
@@ -660,7 +660,7 @@ Run this after any changes to verify nothing is broken.
 - [ ] Marketplace entry version = 2.5.1
 - [ ] `25 agents` in all descriptions
 - [ ] `149 skills` in all descriptions (141 atomic + 6 v3.0 methodology + 2 v3.2 quality-and-status)
-- [ ] `10 commands` in all descriptions (7 v2.5 + /dm:engagement v3.0 + /dm:check + /dm:status v3.2)
+- [ ] `10 commands` in all descriptions (7 v2.5 + /digital-marketing-pro:engagement v3.0 + /digital-marketing-pro:check + /digital-marketing-pro:status v3.2)
 - [ ] `68 scripts` in all descriptions (65 v2.x + engagement-state.py + dm-status.py + auto-save-insight.py)
 - [ ] `14 HTTP connectors` in all descriptions
 
@@ -676,7 +676,7 @@ If time is limited, test in this order:
 | 2 | `/brand-setup` command | 3.1 | Foundation for all other tests |
 | 3 | `/campaign-plan` command | 3.2 | Validates core strategic skill |
 | 4 | `/seo-audit` command | 3.3 | Validates technical analysis |
-| 5 | `/dm:help` and `/dm:integrations` | 4 | Validates help accuracy and connector status |
+| 5 | `/digital-marketing-pro:help` and `/digital-marketing-pro:integrations` | 4 | Validates help accuracy and connector status |
 | 6 | Hook tests (all 4 events) | 7 | Validates compliance guardrails |
 | 7 | Key skills (one per module) | 4 | Validates breadth of skill coverage |
 | 8 | MCP connectors | 8 | Requires external service accounts |
@@ -751,23 +751,23 @@ Within a Claude session with the plugin installed:
 
 | # | Test | Expected behaviour |
 |---|------|-------------------|
-| 1 | `/dm:engagement start <brand-slug> 2026-test` | Engagement directory created; Stone vs Opinion intake walked |
-| 2 | `/dm:engagement status` | Status table shown; current part = 1 |
-| 3 | `/dm:engagement file-tree <brand-slug> 2026-test` | Directory tree printed with all 12 part subdirs + reports + LIF |
-| 4 | `/dm:engagement lif-show <brand-slug> 2026-test` | Living Project Instruction File printed |
-| 5 | `/dm:engagement list-engagements` | Test engagement listed |
+| 1 | `/digital-marketing-pro:engagement start <brand-slug> 2026-test` | Engagement directory created; Stone vs Opinion intake walked |
+| 2 | `/digital-marketing-pro:engagement status` | Status table shown; current part = 1 |
+| 3 | `/digital-marketing-pro:engagement file-tree <brand-slug> 2026-test` | Directory tree printed with all 12 part subdirs + reports + LIF |
+| 4 | `/digital-marketing-pro:engagement lif-show <brand-slug> 2026-test` | Living Project Instruction File printed |
+| 5 | `/digital-marketing-pro:engagement list-engagements` | Test engagement listed |
 
 ### 12.3 Methodology skill discovery
 
 Verify that the 6 new methodology skills are discovered by Claude:
 
 ```
-/dm:engagement-workflow
-/dm:four-core-documents
-/dm:client-validation-document
-/dm:growth-plan
-/dm:yearly-planner
-/dm:continuous-improvement-loop
+/digital-marketing-pro:engagement-workflow
+/digital-marketing-pro:four-core-documents
+/digital-marketing-pro:client-validation-document
+/digital-marketing-pro:growth-plan
+/digital-marketing-pro:yearly-planner
+/digital-marketing-pro:continuous-improvement-loop
 ```
 
 Each should show its description and not return "command not found."
@@ -803,10 +803,10 @@ After installing v3.0, verify v2.7 still works:
 
 | # | Test | Expected behaviour |
 |---|------|-------------------|
-| 1 | `/dm:brand-setup` (existing brand) | Works as before; profile loaded |
-| 2 | `/dm:campaign-plan` (no engagement context) | Works as before; produces campaign brief |
-| 3 | `/dm:content-engine` (no engagement context) | Works as before |
-| 4 | `/dm:competitor-analysis` (no engagement context) | Works as before |
+| 1 | `/digital-marketing-pro:brand-setup` (existing brand) | Works as before; profile loaded |
+| 2 | `/digital-marketing-pro:campaign-plan` (no engagement context) | Works as before; produces campaign brief |
+| 3 | `/digital-marketing-pro:content-engine` (no engagement context) | Works as before |
+| 4 | `/digital-marketing-pro:competitor-analysis` (no engagement context) | Works as before |
 | 5 | SessionStart hook | Brand summary banner prints normally |
 | 6 | PreToolUse compliance check | Compliance check runs on Write/Edit |
 | 7 | SessionEnd hook | Insights saved to brand profile |

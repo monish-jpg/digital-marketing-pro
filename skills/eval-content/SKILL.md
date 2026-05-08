@@ -4,13 +4,13 @@ description: "Evaluate content quality. Use when: scoring drafts, checking hallu
 argument-hint: "[content-path]"
 ---
 
-# /dm:eval-content
+# /digital-marketing-pro:eval-content
 
 ## Purpose
 
 Comprehensive content evaluation using the full eval pipeline. Runs content through six scoring dimensions — content quality, brand voice, hallucination risk, claim verification, output structure, and readability — to produce a composite score with letter grade, flag specific issues with fix suggestions, and compare against brand quality baselines. This is the go-to command before any content goes to publication, client review, or campaign launch.
 
-Every evaluation is logged to the quality tracker so regression detection, trend analysis, and brand-level quality reporting work continuously. If the brand has custom thresholds or dimension weights configured via /dm:eval-config, those are applied automatically — otherwise industry-standard defaults are used.
+Every evaluation is logged to the quality tracker so regression detection, trend analysis, and brand-level quality reporting work continuously. If the brand has custom thresholds or dimension weights configured via /digital-marketing-pro:eval-config, those are applied automatically — otherwise industry-standard defaults are used.
 
 ## Input Required
 
@@ -23,7 +23,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files (especially `messaging.md` for voice scoring and `visual-identity.md` for format standards). Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files (especially `messaging.md` for voice scoring and `visual-identity.md` for format standards). Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Load eval configuration**: Execute `scripts/eval-config-manager.py --brand {slug} --action get-config` to retrieve brand-specific thresholds, dimension weights, and auto-reject rules. If no custom config exists, use defaults from `skills/context-engine/eval-framework-guide.md`. Note which settings are custom vs. default in the output.
 3. **Run full evaluation**: Execute `scripts/eval-runner.py --brand {slug} --action run-full --text "{content}" --content-type {content_type}` with optional `--evidence {evidence_file}` and `--schema {schema_file}` flags. This runs all six dimensions:
    - **Content quality** (via content-scorer.py): Depth, originality, accuracy, value to reader, strategic alignment

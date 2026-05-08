@@ -13,7 +13,7 @@ triggers:
   - check campaign performance
 ---
 
-# /dm:performance-check
+# /digital-marketing-pro:performance-check
 
 ## Purpose
 
@@ -34,7 +34,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Detect connected analytics MCPs**: Check `.mcp.json` and active MCP connections to identify which platforms are available
    (google-analytics, google-ads, meta-marketing, linkedin-marketing, tiktok-ads, mailchimp, stripe, mixpanel, amplitude, shopify, etc.).
    Log any expected platforms that are not connected so the user knows about gaps in coverage.
@@ -57,7 +57,7 @@ The user must provide (or will be prompted for):
    (underperforming or declining metrics), and any statistically significant changes that warrant deeper investigation.
 9. **Generate recommended actions**: Based on the data, produce 3-5 specific, actionable next steps — e.g., "Pause
    underperforming ad set X", "Increase budget on high-ROAS channel Y", "Investigate traffic drop on Z",
-   "Scale winning creative variant", "Run /dm:anomaly-scan for deeper diagnosis".
+   "Scale winning creative variant", "Run /digital-marketing-pro:anomaly-scan for deeper diagnosis".
 10. **Save performance snapshot**: Execute `scripts/performance-monitor.py --brand {slug} --action save-snapshot`
     to persist the snapshot for historical comparison and trend tracking across future runs.
 11. **Log significant insights**: For any metric with a notable deviation, save via

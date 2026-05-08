@@ -3,7 +3,7 @@ name: loop-detect
 description: "Identify and model growth loops. Use when: detecting viral, content, or paid loops, modeling effectiveness, proposing new loops."
 ---
 
-# /dm:loop-detect
+# /digital-marketing-pro:loop-detect
 
 ## Purpose
 
@@ -21,7 +21,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply business model, industry benchmarks, known channels, and audience characteristics to calibrate loop detection thresholds and benchmark amplification factors. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply business model, industry benchmarks, known channels, and audience characteristics to calibrate loop detection thresholds and benchmark amplification factors. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Detect existing growth loops**: Analyze the provided metrics via `growth-loop-modeler.py detect-loops` to identify active compounding loops. Look for viral loops (referral rate > 0 with consistent invite-to-conversion flow), content loops (organic traffic growth correlated with content production), data loops (product improvement metrics correlated with user growth), paid loops (positive ROAS reinvestment patterns), ecosystem loops (integration or marketplace growth driving user acquisition), and community loops (member growth correlated with community contribution). Each detected loop is assigned a confidence score based on data strength.
 3. **Model each detected loop**: For every identified loop, calculate the key parameters — amplification factor (how much output each cycle produces relative to input, e.g., each user invites 0.3 users who convert = 0.3x viral coefficient), cycle time (how long one complete loop iteration takes, from input to amplified output — days for viral loops, weeks for content loops, months for ecosystem loops), decay rate (how quickly the loop's effectiveness diminishes without maintenance or investment), and sustainability assessment (whether the loop can compound indefinitely, plateau at a natural limit, or decay without continued investment).
 4. **Identify bottlenecks**: For each loop, find the step that most constrains the amplification factor. In a viral loop, the bottleneck might be invite send rate, invite acceptance rate, or activation of referred users. In a content loop, the bottleneck might be content production capacity, SEO ranking velocity, or content-to-signup conversion. Quantify the impact of removing each bottleneck — how much the amplification factor would increase if that step improved by 2x.

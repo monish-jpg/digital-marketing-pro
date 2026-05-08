@@ -4,6 +4,20 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.2.2] — 2026-05-09
+
+### Fixed — Slash Command Namespace Consistency
+
+All `/dm:` references in docs and runtime files swept to the canonical `/digital-marketing-pro:` form that Claude Code auto-namespacing actually produces. The `/dm:` shorthand was used in ~600 places across README, getting-started, TESTING-GUIDE, engagement-methodology, multi-brand-guide, brand-guidelines, architecture, v3.2-opt-ins, all agent files, all 149 skill SKILL.md files, command files, and the CHANGELOG. Users can now copy-paste any command from any doc and have it work.
+
+The replacements include agent files (content-creator, email-specialist, social-media-manager, pr-outreach, quality-assurance, seo-specialist) which emit slash command recommendations during execution. Before this release, agents may have been emitting commands that didn't match the documented namespace.
+
+Skill filenames preserved.
+
+No behavioral changes. If `/dm:` shortcuts work in your environment they'll continue to work; this just makes the docs match the documented Claude Code namespace pattern.
+
+---
+
 ## [3.2.1] — 2026-05-03
 
 ### Fixed — Plugin Manifest Install Format (CRITICAL)
@@ -29,27 +43,27 @@ Pure manifest fix. No behavioral changes; the v3.2 12-Part Methodology + opt-in 
 
 v3.1 removed all four global hooks for multi-plugin coexistence (the `PreToolUse mcp_.*` matcher in particular was intercepting every MCP call from every installed plugin). That fix was correct, but it left real gaps — most notably, the loss of automatic hallucination detection on every Write/Edit operation. v3.2 closes those gaps with explicit on-demand replacements, agent-embedded safety, and opt-in ambient capture — without bringing back the global-scoping problem.
 
-#### New: `/dm:check` — explicit pre-publish quality gate
+#### New: `/digital-marketing-pro:check` — explicit pre-publish quality gate
 
 Replaces the `PreToolUse Write|Edit` global hook. Wraps `scripts/eval-runner.py` (the master eval orchestrator) and produces a single PASS / WARN / BLOCKED decision with actionable issues. Three modes:
 
-- `/dm:check <file>` → quick eval (~2s, no external deps): hallucination + content quality + readability
-- `/dm:check <file> --full --brand <slug>` → full 6-dimension eval including brand voice + claims + structure
-- `/dm:check <file> --compliance --brand <slug> --evidence <facts.json> --schema <name>` → compliance-focused for regulated industries
+- `/digital-marketing-pro:check <file>` → quick eval (~2s, no external deps): hallucination + content quality + readability
+- `/digital-marketing-pro:check <file> --full --brand <slug>` → full 6-dimension eval including brand voice + claims + structure
+- `/digital-marketing-pro:check <file> --compliance --brand <slug> --evidence <facts.json> --schema <name>` → compliance-focused for regulated industries
 
 New files:
 - `commands/check.md`
 - `skills/check/SKILL.md`
 
-#### New: `/dm:status` — unified on-demand brand snapshot
+#### New: `/digital-marketing-pro:status` — unified on-demand brand snapshot
 
 Replaces the `SessionStart` global hook (which printed a brand summary banner at every Claude Code launch in every project). Richer than the old banner: brand profile, all engagements with current part + days-since-update + pending decisions + versioned doc count, recent insights with last-save age, recent compliance violations, Python dependency mode. Five subcommand modes:
 
-- `/dm:status` → full snapshot for active brand
-- `/dm:status --quiet` → one-line compact summary
-- `/dm:status --json` → machine-readable JSON for downstream skills
-- `/dm:status --brand <slug>` → snapshot for a specific brand
-- `/dm:status --section <brand|engagements|insights|compliance|deps>` → single section
+- `/digital-marketing-pro:status` → full snapshot for active brand
+- `/digital-marketing-pro:status --quiet` → one-line compact summary
+- `/digital-marketing-pro:status --json` → machine-readable JSON for downstream skills
+- `/digital-marketing-pro:status --brand <slug>` → snapshot for a specific brand
+- `/digital-marketing-pro:status --section <brand|engagements|insights|compliance|deps>` → single section
 
 New files:
 - `commands/status.md`
@@ -96,7 +110,7 @@ Documents:
 - How to re-enable any hook at the user-level (`~/.claude/settings.json`) or project-level (`.claude/settings.local.json`) — this gives users the v3.0 ambient experience without forcing it on the entire plugin user base
 - Why the `PreToolUse mcp_.*` matcher should NOT be re-enabled (it intercepts every MCP call from every plugin)
 - How `auto_save_insights` works and when to enable it
-- How `/dm:status` and `/dm:check` map to the removed hooks
+- How `/digital-marketing-pro:status` and `/digital-marketing-pro:check` map to the removed hooks
 - How the embedded agent check is stronger than the v3.0 hook
 - Recommended workflow for minimum / opt-in / power-user / project-scoped configurations
 
@@ -117,10 +131,10 @@ No migration needed. To start using the new compensations:
 
 ```
 # On-demand status snapshot
-/dm:status
+/digital-marketing-pro:status
 
 # Pre-publish quality gate
-/dm:check drafts/your-content.md --brand <your-slug>
+/digital-marketing-pro:check drafts/your-content.md --brand <your-slug>
 
 # Enable ambient insight capture (opt-in per brand)
 # Edit ~/.claude-marketing/brands/<your-slug>/profile.json:
@@ -240,7 +254,7 @@ Major release introducing a sequential engagement workflow that transforms the p
 
 #### New Command
 
-- `/dm:engagement` — entry point with subcommands: `start`, `status`, `next`, `validate`, `re-run-decision`, `update-back`, `lif-show`, `file-tree`, `list-engagements`, `four-core`, `growth-plan`, `yearly-planner`, `loop`
+- `/digital-marketing-pro:engagement` — entry point with subcommands: `start`, `status`, `next`, `validate`, `re-run-decision`, `update-back`, `lif-show`, `file-tree`, `list-engagements`, `four-core`, `growth-plan`, `yearly-planner`, `loop`
 
 #### New Persistence Script
 
@@ -267,7 +281,7 @@ With a canonical 12-part directory tree, v1/v2 split for Parts 3 and 4, persiste
 
 - **All existing v2.7.0 skills, agents, scripts, hooks remain functional and unchanged.** v3.0 is purely additive at the methodology layer.
 - The 12-Part workflow uses existing skills as Part-specific producers (e.g., Part 4 uses existing `competitor-analysis`, `audience-intelligence`, `market-intelligence`).
-- Engagements are an opt-in workflow. Single-skill invocations (e.g., `/dm:content-engine` for a one-off blog post) continue to work without an engagement context.
+- Engagements are an opt-in workflow. Single-skill invocations (e.g., `/digital-marketing-pro:content-engine` for a one-off blog post) continue to work without an engagement context.
 
 ### Migration
 
@@ -275,7 +289,7 @@ No migration needed. Existing brand profiles at `~/.claude-marketing/brands/{slu
 
 To start using the new methodology:
 ```
-/dm:engagement start <your-brand-slug> <your-engagement-id>
+/digital-marketing-pro:engagement start <your-brand-slug> <your-engagement-id>
 ```
 
 ---
@@ -315,12 +329,12 @@ Closes the gap with dedicated SEO tools by adding 6 new SEO sub-skills, expanded
 
 #### New Skills (6)
 
-- **`/dm:programmatic-seo`** — Programmatic SEO at scale: data source assessment, template engine planning, URL pattern strategy, internal linking automation, thin content safeguards with quality gates (WARNING at 100 pages, HARD STOP at 500), index bloat prevention, and Google's Scaled Content Abuse policy enforcement (June 2025 / August 2025 escalation context)
-- **`/dm:competitor-pages`** — SEO-optimized competitor comparison page generator: "X vs Y" pages, "alternatives to X" pages, "best tools" roundup pages, feature matrix tables. Includes Product/SoftwareApplication/ItemList schema markup, conversion-optimized CTA layouts, keyword targeting formulas, fairness guidelines, and social proof integration
-- **`/dm:image-seo-audit`** — Dedicated image optimization audit: alt text quality, tiered file size thresholds (thumbnail/content/hero), format analysis (WebP/AVIF/JPEG XL status), responsive images (`srcset`/`sizes`), lazy loading validation (flags `loading="lazy"` on LCP images), `fetchpriority="high"` checks, `decoding="async"`, CLS prevention via dimensions, file naming, CDN usage
-- **`/dm:page-analysis`** — Deep single-page SEO analysis: all ranking dimensions for one URL (title, meta, headings, content depth, E-E-A-T, schema detection with deprecation tracking, images, internal links, technical signals, AI search readiness). More granular than site-wide `/dm:seo-audit`. Use for landing page optimization, content refresh prioritization, or pre-publish quality checks
-- **`/dm:sitemap`** — XML sitemap analysis and generation: parse existing sitemaps for issues (stale lastmod, 404s, noindex conflicts, missing URLs, protocol limit violations), or generate new sitemaps with industry-specific templates (SaaS, ecommerce, local, publisher, agency). Includes sitemap index strategy, robots.txt registration, and compression recommendations
-- **`/dm:seo-plan`** — Comprehensive SEO strategy planning with industry-specific templates: discovery, competitive analysis, architecture design, content strategy, technical foundation, and 4-phase implementation roadmap (Foundation → Expansion → Scale → Authority). Templates for SaaS, ecommerce, local service, publisher/media, and agency business models
+- **`/digital-marketing-pro:programmatic-seo`** — Programmatic SEO at scale: data source assessment, template engine planning, URL pattern strategy, internal linking automation, thin content safeguards with quality gates (WARNING at 100 pages, HARD STOP at 500), index bloat prevention, and Google's Scaled Content Abuse policy enforcement (June 2025 / August 2025 escalation context)
+- **`/digital-marketing-pro:competitor-pages`** — SEO-optimized competitor comparison page generator: "X vs Y" pages, "alternatives to X" pages, "best tools" roundup pages, feature matrix tables. Includes Product/SoftwareApplication/ItemList schema markup, conversion-optimized CTA layouts, keyword targeting formulas, fairness guidelines, and social proof integration
+- **`/digital-marketing-pro:image-seo-audit`** — Dedicated image optimization audit: alt text quality, tiered file size thresholds (thumbnail/content/hero), format analysis (WebP/AVIF/JPEG XL status), responsive images (`srcset`/`sizes`), lazy loading validation (flags `loading="lazy"` on LCP images), `fetchpriority="high"` checks, `decoding="async"`, CLS prevention via dimensions, file naming, CDN usage
+- **`/digital-marketing-pro:page-analysis`** — Deep single-page SEO analysis: all ranking dimensions for one URL (title, meta, headings, content depth, E-E-A-T, schema detection with deprecation tracking, images, internal links, technical signals, AI search readiness). More granular than site-wide `/digital-marketing-pro:seo-audit`. Use for landing page optimization, content refresh prioritization, or pre-publish quality checks
+- **`/digital-marketing-pro:sitemap`** — XML sitemap analysis and generation: parse existing sitemaps for issues (stale lastmod, 404s, noindex conflicts, missing URLs, protocol limit violations), or generate new sitemaps with industry-specific templates (SaaS, ecommerce, local, publisher, agency). Includes sitemap index strategy, robots.txt registration, and compression recommendations
+- **`/digital-marketing-pro:seo-plan`** — Comprehensive SEO strategy planning with industry-specific templates: discovery, competitive analysis, architecture design, content strategy, technical foundation, and 4-phase implementation roadmap (Foundation → Expansion → Scale → Authority). Templates for SaaS, ecommerce, local service, publisher/media, and agency business models
 
 #### New Reference Files (2)
 
@@ -359,15 +373,15 @@ Closes the gap with dedicated SEO tools by adding 6 new SEO sub-skills, expanded
 ### Added — Skill Platform Enhancements
 
 - **`argument-hint`** added to all 55 user-invocable skills — provides autocomplete hints in the Skills UI (e.g., `[URL]`, `[brand-name --full]`, `[competitor1, competitor2, ...]`)
-- **`disable-model-invocation: true`** added to 17 execution skills — prevents Claude from auto-triggering skills that write to external platforms (publish, send, launch, import, export). Users must explicitly invoke these via `/dm:skill-name`
+- **`disable-model-invocation: true`** added to 17 execution skills — prevents Claude from auto-triggering skills that write to external platforms (publish, send, launch, import, export). Users must explicitly invoke these via `/digital-marketing-pro:skill-name`
 - **`evals/evals.json`** added to 3 key skills (campaign-plan, seo-audit, content-engine) — structured test cases with prompts, expected outputs, and quantitative/qualitative assertions for quality benchmarking
-- **Fixed** `/dm:help` skill — added missing `name: help` field in frontmatter (required by Agent Skills spec for skill registration)
+- **Fixed** `/digital-marketing-pro:help` skill — added missing `name: help` field in frontmatter (required by Agent Skills spec for skill registration)
 
 ### How it works
 
-**Argument hints** appear as placeholder text when a user types `/dm:` in the Skills UI, showing what arguments each skill accepts. For example, `/dm:seo-audit` shows `[URL]` and `/dm:campaign-plan` shows `[product/service description --budget=N]`.
+**Argument hints** appear as placeholder text when a user types `/digital-marketing-pro:` in the Skills UI, showing what arguments each skill accepts. For example, `/digital-marketing-pro:seo-audit` shows `[URL]` and `/digital-marketing-pro:campaign-plan` shows `[product/service description --budget=N]`.
 
-**Execution safety** ensures that skills which write to external platforms (like `/dm:publish-blog`, `/dm:send-email-campaign`, `/dm:launch-ad-campaign`) cannot be triggered by Claude autonomously — the user must explicitly type the slash command. This is a critical safety layer on top of the existing MCP write approval hook.
+**Execution safety** ensures that skills which write to external platforms (like `/digital-marketing-pro:publish-blog`, `/digital-marketing-pro:send-email-campaign`, `/digital-marketing-pro:launch-ad-campaign`) cannot be triggered by Claude autonomously — the user must explicitly type the slash command. This is a critical safety layer on top of the existing MCP write approval hook.
 
 **Evals** provide reproducible test cases for key skills. Each eval includes a realistic prompt, expected output description, and assertions that can be verified programmatically. Located at `skills/{skill-name}/evals/evals.json`.
 
@@ -385,7 +399,7 @@ Closes the gap with dedicated SEO tools by adding 6 new SEO sub-skills, expanded
   - `performance-report` — Generate marketing performance reports with KPI tracking and anomaly detection
   - `competitor-analysis` — Multi-dimensional competitive analysis across content, SEO, ads, social, and AI visibility
   - `email-sequence` — Design complete email sequences with subject lines, timing, and deliverability guidance
-- **New `/dm:help` skill** — Quick reference with all commands, examples, and troubleshooting
+- **New `/digital-marketing-pro:help` skill** — Quick reference with all commands, examples, and troubleshooting
 
 ### Fixed
 
@@ -397,17 +411,17 @@ Closes the gap with dedicated SEO tools by adding 6 new SEO sub-skills, expanded
 
 ### Added — Connector Discovery & Onboarding
 
-- **New `/dm:integrations` skill** — Status dashboard showing all connected vs available MCP connectors, grouped by category (CRM, SEO, advertising, email, social, etc.), with which skills each connector unlocks and quick-win recommendations
-- **New `/dm:connect` skill** — Guided setup for connecting specific services (e.g., `/dm:connect google-ads`). Provides platform-specific credential instructions, `.mcp.json` configuration, and post-setup verification. Handles HTTP (OAuth) vs npx (API key) connectors differently
+- **New `/digital-marketing-pro:integrations` skill** — Status dashboard showing all connected vs available MCP connectors, grouped by category (CRM, SEO, advertising, email, social, etc.), with which skills each connector unlocks and quick-win recommendations
+- **New `/digital-marketing-pro:connect` skill** — Guided setup for connecting specific services (e.g., `/digital-marketing-pro:connect google-ads`). Provides platform-specific credential instructions, `.mcp.json` configuration, and post-setup verification. Handles HTTP (OAuth) vs npx (API key) connectors differently
 - **New `connector-status.py` script** — Backend for connector discovery. Maintains a registry of 45+ connectors across 17 categories, checks `.mcp.json` and environment variables to report connection status, and generates setup guides
-- **Updated `CONNECTORS.md`** — Added "Managing connectors" section linking to `/dm:integrations`, `/dm:connect`, `/dm:add-integration`, and `/dm:credential-switch` skills
+- **Updated `CONNECTORS.md`** — Added "Managing connectors" section linking to `/digital-marketing-pro:integrations`, `/digital-marketing-pro:connect`, `/digital-marketing-pro:add-integration`, and `/digital-marketing-pro:credential-switch` skills
 
 ### How it works
 
 Users can now discover and manage integrations interactively:
-- `/dm:integrations` — "What's connected? What can I add?"
-- `/dm:connect salesforce` — "Walk me through connecting Salesforce"
-- `/dm:add-integration` — "I have a custom MCP server to add"
+- `/digital-marketing-pro:integrations` — "What's connected? What can I add?"
+- `/digital-marketing-pro:connect salesforce` — "Walk me through connecting Salesforce"
+- `/digital-marketing-pro:add-integration` — "I have a custom MCP server to add"
 
 All 14 HTTP connectors auto-load on install (Slack, Canva, Figma, HubSpot, etc.) and authenticate via OAuth on first use. The 45+ npx connectors are discoverable through these skills and require API keys.
 
@@ -600,13 +614,13 @@ This release rebuilds the MCP integration layer to follow Anthropic's official p
 
 ### Added — Execution Layer
 - **26 new slash commands** bringing the total from 42 to 68 — adding a complete execution layer:
-  - **Publishing (5)**: `/dm:publish-blog`, `/dm:send-email-campaign`, `/dm:launch-ad-campaign`, `/dm:schedule-social`, `/dm:send-report`
-  - **CRM & Data (5)**: `/dm:crm-sync`, `/dm:lead-import`, `/dm:pipeline-update`, `/dm:segment-audience`, `/dm:data-export`
-  - **Monitoring (4)**: `/dm:performance-check`, `/dm:campaign-status`, `/dm:anomaly-scan`, `/dm:budget-tracker`
-  - **Memory & Knowledge (3)**: `/dm:save-knowledge`, `/dm:search-knowledge`, `/dm:sync-memory`
-  - **Communication (2)**: `/dm:send-sms`, `/dm:send-notification`
-  - **Agency Operations (4)**: `/dm:agency-dashboard`, `/dm:client-report`, `/dm:sop-library`, `/dm:credential-switch`
-  - **Brand Team (3)**: `/dm:team-assign`, `/dm:region-config`, `/dm:exec-summary`
+  - **Publishing (5)**: `/digital-marketing-pro:publish-blog`, `/digital-marketing-pro:send-email-campaign`, `/digital-marketing-pro:launch-ad-campaign`, `/digital-marketing-pro:schedule-social`, `/digital-marketing-pro:send-report`
+  - **CRM & Data (5)**: `/digital-marketing-pro:crm-sync`, `/digital-marketing-pro:lead-import`, `/digital-marketing-pro:pipeline-update`, `/digital-marketing-pro:segment-audience`, `/digital-marketing-pro:data-export`
+  - **Monitoring (4)**: `/digital-marketing-pro:performance-check`, `/digital-marketing-pro:campaign-status`, `/digital-marketing-pro:anomaly-scan`, `/digital-marketing-pro:budget-tracker`
+  - **Memory & Knowledge (3)**: `/digital-marketing-pro:save-knowledge`, `/digital-marketing-pro:search-knowledge`, `/digital-marketing-pro:sync-memory`
+  - **Communication (2)**: `/digital-marketing-pro:send-sms`, `/digital-marketing-pro:send-notification`
+  - **Agency Operations (4)**: `/digital-marketing-pro:agency-dashboard`, `/digital-marketing-pro:client-report`, `/digital-marketing-pro:sop-library`, `/digital-marketing-pro:credential-switch`
+  - **Brand Team (3)**: `/digital-marketing-pro:team-assign`, `/digital-marketing-pro:region-config`, `/digital-marketing-pro:exec-summary`
 - **5 new specialist agents** bringing the total from 13 to 18:
   - `execution-coordinator` — bridges planning and execution with approval workflow
   - `performance-monitor-agent` — live data monitoring, anomaly detection, campaign health
@@ -647,14 +661,14 @@ This release rebuilds the MCP integration layer to follow Anthropic's official p
 
 ### Added
 - **8 new slash commands** bringing the total from 34 to 42 — closing the agency operations gap:
-  - `/dm:client-onboarding` (`skills/client-onboarding/SKILL.md`) — post-sale onboarding workflow with kickoff meeting agenda, discovery questionnaire, stakeholder mapping, access checklist, 30-60-90 day expectations setting
-  - `/dm:qbr-plan` (`skills/qbr-plan/SKILL.md`) — Quarterly Business Review preparation with performance retrospective, strategic recommendations, upsell opportunities, next quarter roadmap
-  - `/dm:media-plan` (`skills/media-plan/SKILL.md`) — holistic paid media planning across channels with flight dates, budget waves, creative rotation, channel allocation, contingency reserves
-  - `/dm:video-script` (`skills/video-script/SKILL.md`) — video marketing script writing for YouTube, TikTok, Instagram Reels, LinkedIn with hook variants, timestamps, visual direction, accessibility
-  - `/dm:executive-dashboard` (`skills/executive-dashboard/SKILL.md`) — C-suite dashboard design with business-outcome north-star metrics, visualization recommendations, alert thresholds, narrative guidance
-  - `/dm:case-study-plan` (`skills/case-study-plan/SKILL.md`) — structured case study creation workflow with CSR framework, interview questions, format variations (PDF/web/slide/video), distribution strategy
-  - `/dm:attribution-model` (`skills/attribution-model/SKILL.md`) — multi-touch attribution setup with model selection (last-touch/first-touch/linear/time-decay/position-based/data-driven/MMM), credit distribution rules, platform implementation guides
-  - `/dm:creative-testing-framework` (`skills/creative-testing-framework/SKILL.md`) — systematic creative testing strategy with testing matrix, holdout controls, sample size per variant, significance thresholds, iteration cadence
+  - `/digital-marketing-pro:client-onboarding` (`skills/client-onboarding/SKILL.md`) — post-sale onboarding workflow with kickoff meeting agenda, discovery questionnaire, stakeholder mapping, access checklist, 30-60-90 day expectations setting
+  - `/digital-marketing-pro:qbr-plan` (`skills/qbr-plan/SKILL.md`) — Quarterly Business Review preparation with performance retrospective, strategic recommendations, upsell opportunities, next quarter roadmap
+  - `/digital-marketing-pro:media-plan` (`skills/media-plan/SKILL.md`) — holistic paid media planning across channels with flight dates, budget waves, creative rotation, channel allocation, contingency reserves
+  - `/digital-marketing-pro:video-script` (`skills/video-script/SKILL.md`) — video marketing script writing for YouTube, TikTok, Instagram Reels, LinkedIn with hook variants, timestamps, visual direction, accessibility
+  - `/digital-marketing-pro:executive-dashboard` (`skills/executive-dashboard/SKILL.md`) — C-suite dashboard design with business-outcome north-star metrics, visualization recommendations, alert thresholds, narrative guidance
+  - `/digital-marketing-pro:case-study-plan` (`skills/case-study-plan/SKILL.md`) — structured case study creation workflow with CSR framework, interview questions, format variations (PDF/web/slide/video), distribution strategy
+  - `/digital-marketing-pro:attribution-model` (`skills/attribution-model/SKILL.md`) — multi-touch attribution setup with model selection (last-touch/first-touch/linear/time-decay/position-based/data-driven/MMM), credit distribution rules, platform implementation guides
+  - `/digital-marketing-pro:creative-testing-framework` (`skills/creative-testing-framework/SKILL.md`) — systematic creative testing strategy with testing matrix, holdout controls, sample size per variant, significance thresholds, iteration cadence
 - **2 new reference knowledge files** bringing the total from 115 to 117:
   - `skills/paid-advertising/media-planning.md` — media planning framework, channel allocation methodology, flighting strategies (continuous/pulsing/fighting), budget waves, creative rotation cadence, cross-channel synergy
   - `skills/content-engine/video-scripting.md` — platform-specific video formats (YouTube/TikTok/Reels/Shorts/LinkedIn), script structures (AIDA/PAS), 12 hook formulas, timestamp annotation, visual direction, accessibility, CTA placement
@@ -716,16 +730,16 @@ This release rebuilds the MCP integration layer to follow Anthropic's official p
 
 ### Added
 - **10 new slash commands** bringing the total from 24 to 34:
-  - `/dm:keyword-research` (`skills/keyword-research/SKILL.md`) — guided keyword research with clustering, intent mapping, and content gap analysis
-  - `/dm:roi-calculator` (`skills/roi-calculator/SKILL.md`) — campaign ROI calculation with 5 attribution models and budget efficiency ranking
-  - `/dm:ab-test-plan` (`skills/ab-test-plan/SKILL.md`) — A/B test planning with hypothesis framework, sample size calculation, and test duration estimation
-  - `/dm:content-repurpose` (`skills/content-repurpose/SKILL.md`) — content repurposing strategy with derivative format matrix, effort estimates, and publishing calendar
-  - `/dm:retargeting-strategy` (`skills/retargeting-strategy/SKILL.md`) — retargeting campaign architecture with audience segmentation, frequency capping, and creative sequencing
-  - `/dm:martech-audit` (`skills/martech-audit/SKILL.md`) — marketing technology stack audit across 11 functions with overlap detection and gap analysis
-  - `/dm:budget-optimizer` (`skills/budget-optimizer/SKILL.md`) — data-driven budget reallocation with diminishing returns modeling and efficiency ranking
-  - `/dm:client-proposal` (`skills/client-proposal/SKILL.md`) — agency client proposal generation with situation analysis, strategy, scope, timeline, and pricing
-  - `/dm:review-response` (`skills/review-response/SKILL.md`) — brand-aligned review response drafting with tone templates, escalation detection, and multi-variant output
-  - `/dm:webinar-plan` (`skills/webinar-plan/SKILL.md`) — end-to-end webinar planning with promotion timeline, email sequences, and post-event nurture strategy
+  - `/digital-marketing-pro:keyword-research` (`skills/keyword-research/SKILL.md`) — guided keyword research with clustering, intent mapping, and content gap analysis
+  - `/digital-marketing-pro:roi-calculator` (`skills/roi-calculator/SKILL.md`) — campaign ROI calculation with 5 attribution models and budget efficiency ranking
+  - `/digital-marketing-pro:ab-test-plan` (`skills/ab-test-plan/SKILL.md`) — A/B test planning with hypothesis framework, sample size calculation, and test duration estimation
+  - `/digital-marketing-pro:content-repurpose` (`skills/content-repurpose/SKILL.md`) — content repurposing strategy with derivative format matrix, effort estimates, and publishing calendar
+  - `/digital-marketing-pro:retargeting-strategy` (`skills/retargeting-strategy/SKILL.md`) — retargeting campaign architecture with audience segmentation, frequency capping, and creative sequencing
+  - `/digital-marketing-pro:martech-audit` (`skills/martech-audit/SKILL.md`) — marketing technology stack audit across 11 functions with overlap detection and gap analysis
+  - `/digital-marketing-pro:budget-optimizer` (`skills/budget-optimizer/SKILL.md`) — data-driven budget reallocation with diminishing returns modeling and efficiency ranking
+  - `/digital-marketing-pro:client-proposal` (`skills/client-proposal/SKILL.md`) — agency client proposal generation with situation analysis, strategy, scope, timeline, and pricing
+  - `/digital-marketing-pro:review-response` (`skills/review-response/SKILL.md`) — brand-aligned review response drafting with tone templates, escalation detection, and multi-variant output
+  - `/digital-marketing-pro:webinar-plan` (`skills/webinar-plan/SKILL.md`) — end-to-end webinar planning with promotion timeline, email sequences, and post-event nurture strategy
 - **8 new Python scripts** (all zero-dependency, stdlib-only), bringing the total from 26 to 34:
   - `scripts/roi-calculator.py` — campaign ROI with 5 attribution models (last_touch, first_touch, linear, time_decay, position_based), LTV:CAC ratio, budget efficiency ranking
   - `scripts/budget-optimizer.py` — budget reallocation using diminishing returns model (square-root scaling), efficiency-proportional allocation, minimum spend thresholds
@@ -765,8 +779,8 @@ This release rebuilds the MCP integration layer to follow Anthropic's official p
   - `skills/local-seo/local-content.md` — local keyword research, location pages, city pages, "near me" optimization, voice search, seasonal content
   - `skills/local-seo/multi-location.md` — multi-location GBP management, store locators, franchise SEO, location opening/closing checklists, hierarchy
 - **2 new slash commands**:
-  - `/dm:tech-seo-audit` (`skills/tech-seo-audit/SKILL.md`) — comprehensive technical SEO audit with Core Web Vitals scorecard, crawlability, indexation, site architecture, security, and prioritized fixes
-  - `/dm:local-seo-audit` (`skills/local-seo-audit/SKILL.md`) — local SEO audit with GBP scorecard, NAP consistency report, citation audit, review analysis, and 90-day action plan
+  - `/digital-marketing-pro:tech-seo-audit` (`skills/tech-seo-audit/SKILL.md`) — comprehensive technical SEO audit with Core Web Vitals scorecard, crawlability, indexation, site architecture, security, and prioritized fixes
+  - `/digital-marketing-pro:local-seo-audit` (`skills/local-seo-audit/SKILL.md`) — local SEO audit with GBP scorecard, NAP consistency report, citation audit, review analysis, and 90-day action plan
 - **2 new Python scripts** (both zero-dependency, stdlib-only):
   - `scripts/tech-seo-auditor.py` — URL-level technical SEO checks using `urllib.request`: HTTP status codes, redirect chain detection, meta tag parsing (title, description, canonical, viewport, robots), security headers (HTTPS, HSTS), TTFB measurement, compression detection, scoring (0-100)
   - `scripts/local-seo-checker.py` — NAP consistency analysis with address normalization (18 abbreviation expansions) and GBP profile completeness scoring across 16 weighted fields with industry-specific recommendations
@@ -849,9 +863,9 @@ This release rebuilds the MCP integration layer to follow Anthropic's official p
 - **Guideline Violation Tracking** — `campaign-tracker.py` now tracks guideline violations with severity, category, and suggestions for pattern analysis
 - `scripts/guidelines-manager.py` — new CLI script for guidelines, templates, and SOP CRUD operations (stdlib-only, no new dependencies)
 - `skills/context-engine/guidelines-framework.md` — reference file for structuring and applying brand guidelines
-- `/dm:import-guidelines` command — interactive import of brand guidelines, restrictions, and channel styles
-- `/dm:import-sop` command — import agency SOPs and workflow definitions
-- `/dm:import-template` command — import deliverable templates for custom output formats
+- `/digital-marketing-pro:import-guidelines` command — interactive import of brand guidelines, restrictions, and channel styles
+- `/digital-marketing-pro:import-sop` command — import agency SOPs and workflow definitions
+- `/digital-marketing-pro:import-template` command — import deliverable templates for custom output formats
 - `docs/brand-guidelines.md` — comprehensive guide for guidelines, templates, and SOPs with worked examples
 - Brand Context point 9 in all 13 module SKILL.md files — automatic guideline checking and enforcement
 - Guidelines summary line in SessionStart brand output (rule counts, restriction counts, template counts)
@@ -915,8 +929,8 @@ This release rebuilds the MCP integration layer to follow Anthropic's official p
 - `campaign-tracker.py` — persistent campaign memory with save/retrieve for campaigns, performance snapshots, and insights (200-entry rolling buffer)
 - `adaptive-scorer.py` — brand-context-aware content scoring with industry, business model, and goal-based weight adjustments
 - `intelligence-layer.md` — documentation of the adaptive learning system architecture
-- `/dm:switch-brand` command for multi-client brand switching
-- Quick setup mode in `/dm:brand-setup` (5 essential questions vs. 17 full questions)
+- `/digital-marketing-pro:switch-brand` command for multi-client brand switching
+- Quick setup mode in `/digital-marketing-pro:brand-setup` (5 essential questions vs. 17 full questions)
 - 12 MCP server integrations (GA4, Google Search Console, Google Ads, Meta, HubSpot, Mailchimp, LinkedIn, SEMrush, Ahrefs, Stripe, Google Sheets, Slack)
 - Threads and Bluesky platform support in `social-post-formatter.py`
 - Cross-platform SessionStart hook (works on Windows, macOS, Linux)
@@ -937,7 +951,7 @@ This release rebuilds the MCP integration layer to follow Anthropic's official p
 ### Added
 - Initial release
 - 13 marketing modules: Content Engine, Campaign Orchestrator, Paid Advertising, Analytics & Insights, AEO/GEO Intelligence, Audience Intelligence, CRO, Digital PR, Funnel Architect, Growth Engineering, Influencer & Creator, Reputation Management, Emerging Channels
-- 19 slash commands (`/dm:campaign-plan`, `/dm:ad-creative`, `/dm:seo-audit`, etc.)
+- 19 slash commands (`/digital-marketing-pro:campaign-plan`, `/digital-marketing-pro:ad-creative`, `/digital-marketing-pro:seo-audit`, etc.)
 - 10 specialist agents (Marketing Strategist, Content Creator, SEO Specialist, Analytics Analyst, Brand Guardian, Media Buyer, Growth Engineer, Influencer Manager, Competitive Intel, PR Outreach)
 - 14 Python execution scripts (setup, scoring, formatting, analysis, generation)
 - Context engine with 5 reference files: industry profiles (22 industries), compliance rules (16 jurisdictions), platform specs (20+ platforms), scoring rubrics (7 frameworks), intelligence layer

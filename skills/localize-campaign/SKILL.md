@@ -4,13 +4,13 @@ description: "Localize campaigns for multiple markets. Use when: translating ass
 argument-hint: "[target-markets]"
 ---
 
-# /dm:localize-campaign
+# /digital-marketing-pro:localize-campaign
 
 ## Purpose
 
 Full campaign localization across multiple target markets. This command takes all campaign assets — emails, ads, social posts, landing pages, video scripts, push notifications — and adapts them for each target market. It goes far beyond translation: cultural references are adjusted, compliance elements are modified per region, SEO is localized, creative recommendations are adapted, and assets are prepared for multilingual publishing.
 
-This is the comprehensive localization workflow for market expansion. Where `/dm:translate-content` handles a single piece of content, `/dm:localize-campaign` orchestrates the localization of an entire campaign across multiple markets simultaneously. It coordinates translation service routing per language, transcreation for emotional content, market-specific compliance additions, cultural adaptation based on Hofstede cultural dimensions, localized SEO, RTL formatting for applicable languages, and produces a deployment-ready package per market with quality scores and publishing checklists.
+This is the comprehensive localization workflow for market expansion. Where `/digital-marketing-pro:translate-content` handles a single piece of content, `/digital-marketing-pro:localize-campaign` orchestrates the localization of an entire campaign across multiple markets simultaneously. It coordinates translation service routing per language, transcreation for emotional content, market-specific compliance additions, cultural adaptation based on Hofstede cultural dimensions, localized SEO, RTL formatting for applicable languages, and produces a deployment-ready package per market with quality scores and publishing checklists.
 
 ## Input Required
 
@@ -29,7 +29,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Extract full language configuration — `do_not_translate` terms, `translation_preferences`, `locale_formatting` rules per market, approved markets list. Load compliance rules for every target market from `skills/context-engine/compliance-rules.md`. Check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load voice-and-tone rules, messaging hierarchy, channel style guides, and any market-specific brand guidelines. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/` — localized templates may already exist for some markets. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Extract full language configuration — `do_not_translate` terms, `translation_preferences`, `locale_formatting` rules per market, approved markets list. Load compliance rules for every target market from `skills/context-engine/compliance-rules.md`. Check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load voice-and-tone rules, messaging hierarchy, channel style guides, and any market-specific brand guidelines. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/` — localized templates may already exist for some markets. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Inventory all campaign assets**: Enumerate every asset from the provided sources. Categorize each by type (email, ad, social post, landing page, video script, push notification, SMS, blog post). For each asset, analyze the content to classify it as:
    - **Factual/informational**: Product descriptions, specifications, terms, pricing — suitable for direct translation
    - **Emotional/creative**: Headlines, CTAs, slogans, hero copy, storytelling — requires transcreation

@@ -179,7 +179,7 @@ The plugin supports differentiated reports by cadence (see [reporting-cadence.md
 Use:
 
 ```
-/dm:performance-report --cadence monthly --period 2026-04
+/digital-marketing-pro:performance-report --cadence monthly --period 2026-04
 ```
 
 The skill reads:

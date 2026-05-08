@@ -14,7 +14,7 @@ triggers:
 allowed-tools: Read Bash Glob Grep
 ---
 
-# /dm:check — Unified Pre-Publish Quality Gate
+# /digital-marketing-pro:check — Unified Pre-Publish Quality Gate
 
 This skill is the canonical pre-publish gate for marketing content. It wraps the evaluation suite (`scripts/eval-runner.py`) and produces a single pass/fail decision with actionable issues.
 
@@ -24,7 +24,7 @@ Use this skill **before publishing any marketing content** — blog posts, ad co
 
 In v3.0 and earlier, a global PreToolUse hook auto-ran a hallucination + brand-compliance check on every Write/Edit operation in every project. v3.1 removed that hook because it fired globally across all plugins and projects (Slack writes, GitHub PRs, code edits — all of it), causing friction in non-marketing work.
 
-`/dm:check` replaces that automatic gate with an **explicit user-invoked gate**. The work is the same; the trigger is intentional.
+`/digital-marketing-pro:check` replaces that automatic gate with an **explicit user-invoked gate**. The work is the same; the trigger is intentional.
 
 ## What the check evaluates
 
@@ -44,7 +44,7 @@ Plus content quality and readability scoring (always run).
 ### Default (run-quick)
 
 ```
-/dm:check <file-path-or-content>
+/digital-marketing-pro:check <file-path-or-content>
 ```
 
 Runs the **quick eval**: hallucination detection + content quality + readability. Fast (~2 seconds), zero external dependencies. Use this for routine checks.
@@ -52,7 +52,7 @@ Runs the **quick eval**: hallucination detection + content quality + readability
 ### Full eval (run-full)
 
 ```
-/dm:check <file-path-or-content> --full
+/digital-marketing-pro:check <file-path-or-content> --full
 ```
 
 Runs all 6 dimensions: hallucination + claims (if evidence provided) + brand voice (if brand provided) + structure (if schema provided) + content quality + readability. Use before publishing anything client-facing or external.
@@ -60,7 +60,7 @@ Runs all 6 dimensions: hallucination + claims (if evidence provided) + brand voi
 ### Compliance-focused (run-compliance)
 
 ```
-/dm:check <file-path-or-content> --compliance --brand <slug> [--evidence <path>] [--schema <name>]
+/digital-marketing-pro:check <file-path-or-content> --compliance --brand <slug> [--evidence <path>] [--schema <name>]
 ```
 
 Runs hallucination + claims + brand voice + structure. Best for regulated industries (healthcare, financial services, alcohol, cannabis, gambling) where claim substantiation and brand-voice fidelity matter most.
@@ -68,7 +68,7 @@ Runs hallucination + claims + brand voice + structure. Best for regulated indust
 ### With evidence file
 
 ```
-/dm:check <file-path> --evidence <evidence-file.json>
+/digital-marketing-pro:check <file-path> --evidence <evidence-file.json>
 ```
 
 When the content makes specific claims you want to substantiate, provide a JSON evidence file:
@@ -97,7 +97,7 @@ The check will extract every claim from the content and flag any that don't matc
 ### With schema validation
 
 ```
-/dm:check <file-path> --schema blog_post
+/digital-marketing-pro:check <file-path> --schema blog_post
 ```
 
 Validates the content matches the structural requirements of the named schema. Available schemas: `blog_post`, `email`, `ad_copy`, `social_post`, `landing_page`, `press_release`, `content_brief`, `campaign_plan`. Use `--schema list` to see all schemas with their requirements.
@@ -105,7 +105,7 @@ Validates the content matches the structural requirements of the named schema. A
 ### With brand voice check
 
 ```
-/dm:check <file-path> --brand acme
+/digital-marketing-pro:check <file-path> --brand acme
 ```
 
 Scores the content against the brand voice profile at `~/.claude-marketing/brands/acme/profile.json`. Reports per-dimension breakdown (formality, energy, humor, authority) plus deviation from prefer/avoid word lists.
@@ -171,7 +171,7 @@ All scripts use stdlib only (except brand-voice-scorer which optionally uses nlt
 ### Example 1: Quick check on a draft
 
 ```
-User: /dm:check drafts/q2-launch-blog.md
+User: /digital-marketing-pro:check drafts/q2-launch-blog.md
 
 Skill:
 1. Read drafts/q2-launch-blog.md
@@ -203,7 +203,7 @@ Decision: PASS — safe to publish; recommend addressing the WARNING first.
 ### Example 2: Full eval with brand + evidence + schema
 
 ```
-User: /dm:check drafts/healthcare-ad.md --full --brand healthfirst --evidence facts/q2-claims.json --schema ad_copy
+User: /digital-marketing-pro:check drafts/healthcare-ad.md --full --brand healthfirst --evidence facts/q2-claims.json --schema ad_copy
 
 Skill:
 1. Read drafts/healthcare-ad.md
@@ -216,7 +216,7 @@ Skill:
 ### Example 3: Compliance check on regulated content
 
 ```
-User: /dm:check drafts/financial-services-landing.md --compliance --brand finadvisor --evidence facts/finra-disclosures.json
+User: /digital-marketing-pro:check drafts/financial-services-landing.md --compliance --brand finadvisor --evidence facts/finra-disclosures.json
 
 Skill:
 1. Read content
@@ -228,7 +228,7 @@ Skill:
 ### Example 4: Quick check on inline content
 
 ```
-User: /dm:check "Our amazing product boosts conversion by 347% — visit example.com today!"
+User: /digital-marketing-pro:check "Our amazing product boosts conversion by 347% — visit example.com today!"
 
 Skill:
 1. Detect inline content (not a file path)
@@ -245,13 +245,13 @@ Skill:
 
 | Scenario | Recommended mode |
 |---|---|
-| Routine content check during drafting | `/dm:check <file>` (quick) |
-| Before publishing any external content | `/dm:check <file> --full --brand <slug>` |
-| Regulated industry content (healthcare / financial / alcohol / cannabis / gambling) | `/dm:check <file> --compliance --brand <slug> --evidence <facts>` |
-| Client-facing deliverable (Growth Plan, Yearly Planner, monthly report) | `/dm:check <file> --full --brand <slug>` |
-| Ad copy specifically | `/dm:check <file> --schema ad_copy --brand <slug>` |
-| Email specifically | `/dm:check <file> --schema email --brand <slug>` |
-| Blog post specifically | `/dm:check <file> --schema blog_post --brand <slug>` |
+| Routine content check during drafting | `/digital-marketing-pro:check <file>` (quick) |
+| Before publishing any external content | `/digital-marketing-pro:check <file> --full --brand <slug>` |
+| Regulated industry content (healthcare / financial / alcohol / cannabis / gambling) | `/digital-marketing-pro:check <file> --compliance --brand <slug> --evidence <facts>` |
+| Client-facing deliverable (Growth Plan, Yearly Planner, monthly report) | `/digital-marketing-pro:check <file> --full --brand <slug>` |
+| Ad copy specifically | `/digital-marketing-pro:check <file> --schema ad_copy --brand <slug>` |
+| Email specifically | `/digital-marketing-pro:check <file> --schema email --brand <slug>` |
+| Blog post specifically | `/digital-marketing-pro:check <file> --schema blog_post --brand <slug>` |
 
 ## Behaviour rules
 
@@ -264,9 +264,9 @@ Skill:
 
 ## Related skills + commands
 
-- `/dm:engagement growth-plan` — produces Part 8 deliverable; should be checked with `/dm:check --full --schema content_brief` before client delivery
-- `/dm:content-engine` — produces marketing content; recommended workflow is `/dm:content-engine` → review → `/dm:check` → publish
-- `/dm:eval-content` — older legacy alias that will route to this skill in v3.2+
+- `/digital-marketing-pro:engagement growth-plan` — produces Part 8 deliverable; should be checked with `/digital-marketing-pro:check --full --schema content_brief` before client delivery
+- `/digital-marketing-pro:content-engine` — produces marketing content; recommended workflow is `/digital-marketing-pro:content-engine` → review → `/digital-marketing-pro:check` → publish
+- `/digital-marketing-pro:eval-content` — older legacy alias that will route to this skill in v3.2+
 
 ## Related references
 

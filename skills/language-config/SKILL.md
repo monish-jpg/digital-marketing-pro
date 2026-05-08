@@ -3,7 +3,7 @@ name: language-config
 description: "Configure language settings. Use when: setting primary languages, do-not-translate terms, or locale formatting."
 ---
 
-# /dm:language-config
+# /digital-marketing-pro:language-config
 
 ## Purpose
 
@@ -23,7 +23,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Read current language configuration**: Extract the `language` object from `profile.json` containing `primary_language`, `secondary_languages`, `content_languages`, `do_not_translate`, `translation_preferences`, and `locale_formatting`. If the language object does not exist yet (new brand or pre-multilingual setup), initialize it with sensible defaults: primary_language set to "en", empty arrays for secondary_languages and do_not_translate, and empty objects for translation_preferences and locale_formatting.
 3. **For view action**: Display all current language settings in a clear, structured format — primary language with full name (e.g., "en-US: English (United States)"), all secondary languages with full names, the complete do-not-translate term list, translation service preferences per language (showing which MCP handles each), locale formatting rules per language-region, and a summary of which translation services are configured versus using auto-routing defaults.
 4. **For set-primary action**: Validate the provided language code against ISO 639-1 (and ISO 3166-1 if region included). Check that the language is supported by at least one configured translation MCP via `language-router.py --action supported-languages`. Update `profile.json` field `language.primary_language` to the new value. If the old primary language is not already in secondary_languages and the user has content in it, suggest adding it as a secondary language to maintain existing translations.

@@ -3,7 +3,7 @@ name: pdf-report
 description: "Generate branded PDF reports. Use when: creating executive summaries, campaign reports, or client deliverables."
 ---
 
-# /dm:pdf-report
+# /digital-marketing-pro:pdf-report
 
 ## Purpose
 
@@ -21,7 +21,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, industry context, and report theme (colors, logo URL, fonts from brand profile or `pdf-generator.py brand-theme`). Check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load visual and tone restrictions. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, industry context, and report theme (colors, logo URL, fonts from brand profile or `pdf-generator.py brand-theme`). Check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load visual and tone restrictions. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Gather report data from relevant sources**: Pull data based on report type — `campaign-tracker.py` for campaign performance data and status, `performance-monitor.py` for performance metrics and threshold comparisons, `competitor-tracker.py` for competitive intelligence data, analytics MCPs (Google Analytics, Google Ads, Meta) for live channel metrics. Cross-reference data freshness timestamps and flag any stale sources (older than the reporting period).
 3. **Structure report by audience**: Apply audience-specific report architecture. For C-suite: 1-page executive summary with 3-5 headline KPIs displayed as metric cards with trend arrows, a strategic narrative paragraph, and 2-3 prioritized recommendations. For Team: full metrics tables with channel-by-channel breakdowns, A/B test results with statistical significance indicators, pacing against targets, and numbered action items with owners. For Client: branded cover page with report title and period, executive summary section, performance by stated objective with goal vs. actual, competitive context section, and next period plan with proposed initiatives and expected impact.
 4. **Generate report content with visualizations**: Write narrative analysis sections connecting data to business outcomes. Describe data visualizations with specifications (chart type, data series, axis labels, colors from brand theme) — bar charts for channel comparisons, line charts for trends over time, pie charts for budget allocation, funnel charts for conversion paths. Format data tables with conditional highlighting (green for above target, red for below). Include methodology notes for any calculated metrics.

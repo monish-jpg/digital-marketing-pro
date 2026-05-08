@@ -4,7 +4,7 @@ argument-hint: "<file-or-content> [--full|--compliance] [--brand <slug>] [--evid
 allowed-tools: Read Bash Glob Grep
 ---
 
-# /dm:check — Pre-Publish Quality Gate
+# /digital-marketing-pro:check — Pre-Publish Quality Gate
 
 Runs the unified evaluation suite on marketing content. Wraps `scripts/eval-runner.py` and produces a single pass / warn / blocked decision with actionable issues.
 
@@ -13,10 +13,10 @@ This is the canonical pre-publish gate for any marketing content (blog posts, ad
 ## Quick examples
 
 ```
-/dm:check drafts/q2-launch-blog.md
-/dm:check drafts/healthcare-ad.md --full --brand healthfirst --evidence facts/q2-claims.json --schema ad_copy
-/dm:check drafts/financial-services-landing.md --compliance --brand finadvisor
-/dm:check "Inline content can also be checked directly."
+/digital-marketing-pro:check drafts/q2-launch-blog.md
+/digital-marketing-pro:check drafts/healthcare-ad.md --full --brand healthfirst --evidence facts/q2-claims.json --schema ad_copy
+/digital-marketing-pro:check drafts/financial-services-landing.md --compliance --brand finadvisor
+/digital-marketing-pro:check "Inline content can also be checked directly."
 ```
 
 ## Modes

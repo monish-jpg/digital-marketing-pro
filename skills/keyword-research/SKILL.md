@@ -4,7 +4,7 @@ description: "Research and cluster keywords. Use when: mapping search intent, fi
 argument-hint: "[topic or seed keywords]"
 ---
 
-# /dm:keyword-research
+# /digital-marketing-pro:keyword-research
 
 ## Purpose
 
@@ -24,7 +24,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply voice, compliance, industry context. Check `guidelines/_manifest.json` for restrictions, messaging, channel styles, voice-and-tone rules, and templates. If a template matching this command exists in `~/.claude-marketing/brands/{slug}/templates/`, apply its format. If no brand exists, prompt for `/dm:brand-setup` or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply voice, compliance, industry context. Check `guidelines/_manifest.json` for restrictions, messaging, channel styles, voice-and-tone rules, and templates. If a template matching this command exists in `~/.claude-marketing/brands/{slug}/templates/`, apply its format. If no brand exists, prompt for `/digital-marketing-pro:brand-setup` or proceed with defaults.
 2. **Check campaign history**: Run `python campaign-tracker.py --brand {slug} --action list-campaigns` to identify previous keyword research and content campaigns to build upon rather than duplicate.
 3. **Load reference files**: Consult `skills/content-engine/` for content strategy context and `skills/context-engine/industry-profiles.md` for industry-specific keyword benchmarks and search behavior patterns.
 4. **Run keyword clustering**: Execute `scripts/keyword-clusterer.py` with seed keywords to generate an expanded keyword list with volume estimates, difficulty scores, and trend signals.

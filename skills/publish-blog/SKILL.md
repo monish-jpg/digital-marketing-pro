@@ -5,7 +5,7 @@ disable-model-invocation: true
 argument-hint: "[--platform=wordpress|webflow]"
 ---
 
-# /dm:publish-blog
+# /digital-marketing-pro:publish-blog
 
 ## Purpose
 
@@ -32,7 +32,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Verify CMS connection**: Check which CMS MCP server is connected (wordpress or webflow) and confirm it matches the user's target platform. If not connected, instruct the user to configure the MCP server first and provide the relevant setup link.
 3. **Score content quality**: Run `content-scorer.py` on the blog draft to evaluate readability (Flesch-Kincaid grade), structure (heading hierarchy, paragraph length, list usage), depth (word count vs topic complexity), and engagement potential. Flag any issues that need fixing before publish.
 4. **Score brand voice alignment**: Run `brand-voice-scorer.py` to verify the content matches the brand's tone, vocabulary, and messaging guidelines. Suggest specific edits if the score falls below the brand's minimum threshold defined in profile.json.

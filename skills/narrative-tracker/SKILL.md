@@ -3,7 +3,7 @@ name: narrative-tracker
 description: "Track AI engine brand narratives. Use when: detecting narrative drift, misrepresentation, or competitor narrative gains over time."
 ---
 
-# /dm:narrative-tracker
+# /digital-marketing-pro:narrative-tracker
 
 ## Purpose
 
@@ -21,7 +21,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Extract brand positioning, key messages, differentiators, value propositions, target audience, and competitive claims — these form the reference narrative against which AI responses are evaluated. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load messaging dos/don'ts and positioning guardrails. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with user-provided positioning statements.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Extract brand positioning, key messages, differentiators, value propositions, target audience, and competitive claims — these form the reference narrative against which AI responses are evaluated. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load messaging dos/don'ts and positioning guardrails. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with user-provided positioning statements.
 2. **Query AI platforms and record narratives**: For each query on each platform, capture the full AI-generated response and extract the narrative — what does the AI say about the brand, how does it position it relative to alternatives, what attributes does it highlight, what does it omit, and what does it get wrong. Record the complete response text, not just scores, because narrative analysis requires the actual language and framing used by the AI engine.
 3. **Score narrative alignment**: Compare each AI response against the desired positioning on key dimensions. For each key brand attribute, mark as present (AI includes it accurately), absent (AI omits it), distorted (AI includes it but frames it incorrectly or negatively), or outdated (AI references an old version of this attribute). Flag misrepresentations where the AI states something factually incorrect about the brand. Flag narrative drift where the AI's positioning of the brand has shifted from the previous check — even if not incorrect, the framing or emphasis has changed. Calculate a narrative alignment score per platform and per query type.
 4. **Track competitor narratives**: Run the same query types for each competitor brand. Record what AI engines say about competitors — their positioning, highlighted attributes, and claimed differentiators. Identify narrative territory shifts — themes or attributes that were previously associated with the user's brand but now appear in competitor descriptions, or neutral territory that a competitor has begun to claim. Map which brand "owns" which narrative themes in AI responses.

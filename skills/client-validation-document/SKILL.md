@@ -14,7 +14,7 @@ engagement-part: "5"
 view-preference: v1-only
 ---
 
-# /dm:client-validation-document — Part 5: The One True Stop
+# /digital-marketing-pro:client-validation-document — Part 5: The One True Stop
 
 This skill produces the Part 5 deliverable: the Client Validation Document. It is the only point in the engagement where unbiased v1 findings are formally presented to the client for accept/reject/edit decisions.
 

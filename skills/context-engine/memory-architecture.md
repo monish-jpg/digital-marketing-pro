@@ -221,7 +221,7 @@ Start simple and add layers as needs grow:
 
 ## Sync Operations
 
-The `/dm:sync-memory` command synchronizes local data with remote memory layers.
+The `/digital-marketing-pro:sync-memory` command synchronizes local data with remote memory layers.
 
 **How it works:**
 1. Reads `insights.json` for the active brand
@@ -241,6 +241,6 @@ The `/dm:sync-memory` command synchronizes local data with remote memory layers.
 }
 ```
 
-**Recommended cadence:** Run `/dm:sync-memory` after every major campaign review, quarterly business review, or when switching between brands after significant work. Minimum recommended frequency: weekly for active brands.
+**Recommended cadence:** Run `/digital-marketing-pro:sync-memory` after every major campaign review, quarterly business review, or when switching between brands after significant work. Minimum recommended frequency: weekly for active brands.
 
 **Conflict resolution:** Remote memory is append-only. The `content_hash` field prevents duplicate entries. If local data is updated (e.g., an insight is revised), the sync creates a new entry with an `updated_from` reference to the original hash.

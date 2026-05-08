@@ -88,7 +88,7 @@ The most common pattern. The plugin is the source of truth for marketing data an
 |---|---|---|
 | Lead import from campaign | Campaign execution or form submission | Create Lead/Contact |
 | Deal update from pipeline analysis | Pipeline review or scoring change | Update Opportunity/Deal |
-| Campaign record creation | Campaign launch via `/dm:launch-campaign` | Create Campaign object |
+| Campaign record creation | Campaign launch via `/digital-marketing-pro:launch-campaign` | Create Campaign object |
 | Activity logging | Email send, ad click, webinar registration | Create Activity/Task |
 
 ```bash
@@ -213,7 +213,7 @@ Agencies managing multiple brands can connect each brand to a different CRM.
 **How it works:**
 - Credential profiles (`credential-manager.py`) map each brand to its CRM and credentials
 - The active CRM is determined by the brand's credential profile via the `default_crm` field
-- Switching brands (via `/dm:switch-brand`) automatically switches CRM context
+- Switching brands (via `/digital-marketing-pro:switch-brand`) automatically switches CRM context
 
 **Credential profile structure:**
 ```json

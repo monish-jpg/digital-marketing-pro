@@ -3,7 +3,7 @@ name: executive-dashboard
 description: "Design executive marketing dashboards. Use when: building CMO reports, board metrics, or leadership views."
 ---
 
-# /dm:executive-dashboard
+# /digital-marketing-pro:executive-dashboard
 
 ## Purpose
 
@@ -24,7 +24,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Identify north-star metrics**: Select 5-7 metrics that directly tie marketing activity to business outcomes — revenue influenced, pipeline generated, customer acquisition cost, lifetime value, market share, brand equity indicators
 3. **Design metric hierarchy**: Organize metrics into three tiers — leading indicators (predict future performance), lagging indicators (confirm past results), and health metrics (signal system stability and sustainability)
 4. **Select visualization type per metric**: Choose the optimal chart type for each metric based on data shape and decision context — trend lines for trajectory, gauges for targets, bar charts for comparisons, sparklines for density

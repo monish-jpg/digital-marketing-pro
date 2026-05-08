@@ -5,7 +5,7 @@ disable-model-invocation: true
 argument-hint: "[platform]"
 ---
 
-# /dm:schedule-social
+# /digital-marketing-pro:schedule-social
 
 ## Purpose
 
@@ -32,7 +32,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Verify connected social MCPs**: Check which social media platform MCP servers are connected and confirm they cover all the user's target platforms. List any missing connections with setup instructions. Verify API permissions include scheduling capability for each platform.
 3. **Format content per platform specs**: Adapt the content for each platform's requirements — consult `platform-publishing-specs.md` for character limits (Twitter/X: 280, LinkedIn: 3,000, Instagram: 2,200, TikTok: 2,200, Pinterest: 500), image dimensions (1:1, 4:5, 9:16, 16:9), video length caps, carousel slide limits, and link preview behavior. Create distinct variations where content cannot be shared identically across platforms.
 4. **Optimize posting times**: Run `posting-time-analyzer.py` with the brand's historical engagement data to determine the best posting window for each platform by day of week and hour. Factor in audience timezone distribution. If no historical data exists, use industry-standard optimal windows by platform, content type, and audience demographic.

@@ -14,7 +14,7 @@ engagement-part: "8"
 view-preference: v2-primary
 ---
 
-# /dm:yearly-planner — Part 8 Operational Companion
+# /digital-marketing-pro:yearly-planner — Part 8 Operational Companion
 
 The Yearly Planner complements the Growth Plan with a 12-month operational calendar that ties strategy to date-by-date execution. If the Growth Plan answers *"How will we grow this business?"*, the Yearly Planner answers *"What will we do, week by week, month by month?"*
 
@@ -140,7 +140,7 @@ Save all to `engagements/{id}/part-08-growth-plan/`.
 1. Save all formats to `part-08-growth-plan/`
 2. Mark Part 8 fully completed via `engagement-state.py mark-part-completed --part 8`
 3. Update LIF: Engagement phase = "Strategy approved; Channel Build (Part 9) ready to begin"
-4. Brief: "Yearly Planner complete. Operational calendar covers 12 months with quarterly themes, monthly initiatives, and channel-specific cadence. Recommend reviewing with the client before kicking off Part 9 channel build. /dm:engagement next to advance."
+4. Brief: "Yearly Planner complete. Operational calendar covers 12 months with quarterly themes, monthly initiatives, and channel-specific cadence. Recommend reviewing with the client before kicking off Part 9 channel build. /digital-marketing-pro:engagement next to advance."
 
 ## Examples
 
@@ -159,7 +159,7 @@ Skill response:
 7. Map content pillars: Pillar A 40%, B 25%, C 20%, D 15% of annual production
 8. Generate markdown + PDF + XLSX
 9. Mark Part 8 complete
-10. Brief: "Yearly Planner complete. 12 months, 6 major campaigns, 48 content pieces planned, 4 quarterly review checkpoints. Festive season Q3 has 2x normal budget pacing per Diwali surge. /dm:engagement next moves to Part 9."
+10. Brief: "Yearly Planner complete. 12 months, 6 major campaigns, 48 content pieces planned, 4 quarterly review checkpoints. Festive season Q3 has 2x normal budget pacing per Diwali surge. /digital-marketing-pro:engagement next moves to Part 9."
 ```
 
 ## Related skills

@@ -5,7 +5,7 @@ disable-model-invocation: true
 argument-hint: "[brand-slug]"
 ---
 
-# /dm:credential-switch
+# /digital-marketing-pro:credential-switch
 
 ## Purpose
 
@@ -27,7 +27,7 @@ The user must provide (or will be prompted for):
 ## Process
 
 1. **Check current context**: Read `~/.claude-marketing/brands/_active-brand.json` to identify the currently active brand, and `~/.claude-marketing/credentials/_active-profile.json` for the current credential profile. Display current state before switching.
-2. **Verify target brand exists**: Confirm the target brand slug has a configured profile at `~/.claude-marketing/brands/{slug}/profile.json`. If not found, list all available brands from `~/.claude-marketing/brands/` and suggest `/dm:brand-setup` for new brands or `/dm:client-onboarding` for new client setup
+2. **Verify target brand exists**: Confirm the target brand slug has a configured profile at `~/.claude-marketing/brands/{slug}/profile.json`. If not found, list all available brands from `~/.claude-marketing/brands/` and suggest `/digital-marketing-pro:brand-setup` for new brands or `/digital-marketing-pro:client-onboarding` for new client setup
 3. **Check credential profile exists**: Run `credential-manager.py --action get-profile --id {slug}` to verify a credential profile exists for the target brand. If missing, explain how to create one with the required platform credentials and abort with setup instructions
 4. **Validate credential profile**: Run `credential-manager.py --action validate-profile --id {slug}` to check each platform's credentials — verify API keys are present and non-empty, OAuth tokens are not expired, and required environment variables are set for all MCP servers configured in `.mcp.json`
 5. **Present validation summary**: Display a platform-by-platform validation report — for each configured service:
@@ -55,7 +55,7 @@ A credential switch confirmation containing:
 - **Expiring credential alerts**: Any tokens or keys approaching expiration within 7 days, with renewal instructions, urgency level (informational/action-needed/critical), and impact if not renewed
 - **Active operations check**: Confirmation that no in-progress operations were disrupted, or detailed warnings listing any operations that may need attention after the switch
 - **Switch log entry**: Timestamp, previous brand, new brand, validation summary, warnings count, and reason — recorded for audit and troubleshooting purposes
-- **Next steps**: Confirmation message — "All operations will now use [brand_name]'s credentials. Configured platforms: [list]. Use `/dm:agency-dashboard` to see this client's status, `/dm:client-report` to generate a performance report, or `/dm:credential-switch` again to return to the previous brand."
+- **Next steps**: Confirmation message — "All operations will now use [brand_name]'s credentials. Configured platforms: [list]. Use `/digital-marketing-pro:agency-dashboard` to see this client's status, `/digital-marketing-pro:client-report` to generate a performance report, or `/digital-marketing-pro:credential-switch` again to return to the previous brand."
 
 ## Agents Used
 

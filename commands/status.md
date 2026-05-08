@@ -4,7 +4,7 @@ argument-hint: "[--brand <slug>] [--json] [--quiet] [--section brand|engagements
 allowed-tools: Read Bash Glob Grep
 ---
 
-# /dm:status — Unified Status Snapshot
+# /digital-marketing-pro:status — Unified Status Snapshot
 
 Prints a complete status snapshot for the active Digital Marketing Pro brand. Wraps `scripts/dm-status.py` and surfaces health indicators that need attention.
 
@@ -13,11 +13,11 @@ In v3.0 and earlier, the SessionStart hook ran `setup.py` automatically at every
 ## Quick examples
 
 ```
-/dm:status                              # Full snapshot for active brand
-/dm:status --brand acme-corp            # Snapshot for a named brand
-/dm:status --quiet                      # One-line compact summary
-/dm:status --json                       # Machine-readable JSON
-/dm:status --section engagements        # Only the engagements section
+/digital-marketing-pro:status                              # Full snapshot for active brand
+/digital-marketing-pro:status --brand acme-corp            # Snapshot for a named brand
+/digital-marketing-pro:status --quiet                      # One-line compact summary
+/digital-marketing-pro:status --json                       # Machine-readable JSON
+/digital-marketing-pro:status --section engagements        # Only the engagements section
 ```
 
 ## Sections
@@ -47,5 +47,5 @@ This command never modifies state. It only reads from existing brand profile, en
 
 - [skills/status/SKILL.md](../skills/status/SKILL.md) — full skill specification
 - [scripts/dm-status.py](../scripts/dm-status.py) — the underlying script
-- [/dm:brand-setup](brand-setup.md) — create or update a brand profile
-- [/dm:engagement status](engagement.md) — engagement-specific deep status
+- [/digital-marketing-pro:brand-setup](brand-setup.md) — create or update a brand profile
+- [/digital-marketing-pro:engagement status](engagement.md) — engagement-specific deep status

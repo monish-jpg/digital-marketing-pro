@@ -3,13 +3,13 @@ name: import-template
 description: "Import deliverable templates. Use when: adding proposal formats, report structures, or brief templates."
 ---
 
-# /dm:import-template
+# /digital-marketing-pro:import-template
 
 ## Purpose
 
 Import deliverable templates that define the output format for plugin commands. Templates specify section structure, content requirements, and formatting rules for proposals, reports, briefs, presentations, and other marketing deliverables.
 
-When a command like `/dm:performance-report` runs, it checks for a custom template first. If one exists, the output follows the template format instead of the default.
+When a command like `/digital-marketing-pro:performance-report` runs, it checks for a custom template first. If one exists, the output follows the template format instead of the default.
 
 ## Input Required
 
@@ -23,7 +23,7 @@ If the user doesn't provide a name, infer it from the content structure.
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for existing guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for existing guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 
 2. **Analyze the template structure**:
    - Identify section headings and hierarchy
@@ -39,9 +39,9 @@ If the user doesn't provide a name, infer it from the content structure.
    - Add placeholder syntax: `{{variable_name}}` for dynamic content
 
 4. **Map to commands** — Identify which plugin commands should use this template:
-   - Template named "performance-report" → `/dm:performance-report`
+   - Template named "performance-report" → `/digital-marketing-pro:performance-report`
    - Template named "proposal" → campaign plan outputs
-   - Template named "content-brief" → `/dm:content-brief`
+   - Template named "content-brief" → `/digital-marketing-pro:content-brief`
    - Custom templates can be referenced by any module
 
 5. **Check for existing templates** — If a template with this name already exists:
@@ -63,7 +63,7 @@ If the user doesn't provide a name, infer it from the content structure.
 - Confirmation with template name and section count
 - Preview of the structured template
 - List of commands that will use this template
-- Suggestion: "Next time you run `/dm:{matching-command}`, the output will follow this template format."
+- Suggestion: "Next time you run `/digital-marketing-pro:{matching-command}`, the output will follow this template format."
 
 ## Examples
 

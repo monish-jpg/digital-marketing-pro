@@ -3,7 +3,7 @@ name: simulate
 description: "Simulate revenue impact via Monte Carlo. Use when: testing channel mix changes, budget shifts, or new channel launches."
 ---
 
-# /dm:simulate
+# /digital-marketing-pro:simulate
 
 ## Purpose
 
@@ -22,7 +22,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply historical performance data, channel benchmarks, known saturation curves, and seasonality patterns from past campaigns. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load any budget or channel constraints. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with industry defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply historical performance data, channel benchmarks, known saturation curves, and seasonality patterns from past campaigns. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load any budget or channel constraints. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with industry defaults.
 2. **Define scenario parameters**: For each scenario, structure the channel-level inputs — budget, ROI mean, ROI standard deviation, saturation point, and any interaction effects between channels (e.g., paid search lifts organic CTR, email amplifies content performance). Where the user hasn't provided standard deviations, calibrate from the brand's historical campaign data or fall back to industry benchmarks from `skills/context-engine/industry-benchmarks.md`. Validate that all scenarios are internally consistent — budgets sum correctly, no negative allocations, saturation points are above current spend.
 3. **Run Monte Carlo simulation**: Execute `revenue-simulator.py` with the structured scenario parameters. For each scenario, run N simulations (default 10,000) where each iteration samples channel ROIs from their probability distributions, applies diminishing returns near saturation points, models channel interaction effects, accounts for time-lag effects (SEO and content ramp over months, paid delivers immediately), and applies seasonal adjustment factors. Aggregate results into probability distributions per scenario.
 4. **Calculate probability-weighted outcomes**: For each scenario, compute expected revenue (mean of all simulations), median revenue (P50), pessimistic case (P10 — 90% chance of exceeding this), optimistic case (P90 — only 10% chance of exceeding this), and probability of hitting the user's revenue target if one was specified. Calculate risk-adjusted return using the Sharpe-like ratio of expected return divided by outcome variance.

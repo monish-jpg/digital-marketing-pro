@@ -3,7 +3,7 @@ name: learn
 description: "Save a marketing learning or insight. Use when: capturing knowledge, recording campaign results, building compound intelligence."
 ---
 
-# /dm:learn
+# /digital-marketing-pro:learn
 
 ## Purpose
 
@@ -21,7 +21,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, industry context, and known audience segments to validate the learning fits the brand's domain. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, industry context, and known audience segments to validate the learning fits the brand's domain. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Structure the learning**: Assemble the learning record with all required metadata — insight text, context conditions (channel, audience, objective, campaign type), confidence score, source agent or workflow, timestamp, and supporting evidence if provided. Normalize the context conditions to match the brand's established taxonomy for consistent querying later.
 3. **Check for related learnings**: Query the intelligence graph via `intelligence-graph.py query-relevant` using the learning's context conditions. Search for existing learnings that overlap in channel, audience, and objective to detect duplicates, supporting evidence, or contradictions.
 4. **Handle related learnings**: If a related learning exists and the new insight supports it, increase the existing learning's confidence by +0.1 (capped at 1.0) and append the new evidence. If the new insight contradicts an existing learning, present both to the user with their respective confidence scores and evidence, and ask which to keep, whether to create a conditional split (e.g., "true for SMB but not enterprise"), or whether to flag for further testing.

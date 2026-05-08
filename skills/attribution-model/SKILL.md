@@ -3,7 +3,7 @@ name: attribution-model
 description: "Set up attribution models. Use when: multi-touch attribution, credit distribution rules, GA4 config, channel contribution."
 ---
 
-# /dm:attribution-model
+# /digital-marketing-pro:attribution-model
 
 ## Purpose
 
@@ -26,7 +26,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Assess data maturity and touchpoint landscape**: Map all active touchpoints across channels, evaluate tracking coverage (what percentage of interactions are captured), identify user identity resolution capabilities (logged-in vs. anonymous, cross-device stitching), and score overall data readiness on a 1-5 scale.
 3. **Evaluate attribution model options**: Analyze seven model types against the business context — last-touch (simple but biased to bottom-funnel), first-touch (biased to top-funnel), linear (equal credit, ignores position importance), time-decay (favors recency), position-based/U-shaped (weights first and last), data-driven (algorithmic, requires volume), and marketing mix modeling (aggregate, handles offline). Score each on data requirements, accuracy, actionability, and implementation complexity.
 4. **Recommend primary model with rationale**: Select the best-fit model based on sales cycle length, data maturity, touchpoint volume, and business questions. Provide a clear explanation of why this model fits and where it will still have blind spots. If data maturity is low, recommend a phased approach starting with a simpler model and graduating to data-driven as tracking matures.

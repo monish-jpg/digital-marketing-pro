@@ -2,11 +2,11 @@
 
 **Plugin version: 3.2.0 | Methodology version: 3.2** | A user-facing guide to running marketing engagements with Digital Marketing Pro
 
-> The 12-Part methodology itself was introduced in v3.0 and remains structurally unchanged through v3.2. v3.2 adds two adjacent commands that pair well with the engagement workflow: **`/dm:check`** (pre-publish quality gate for any deliverable produced inside an engagement) and **`/dm:status`** (engagement progress + brand snapshot). See [docs/v3.2-opt-ins.md](v3.2-opt-ins.md) for the full v3.2 additions.
+> The 12-Part methodology itself was introduced in v3.0 and remains structurally unchanged through v3.2. v3.2 adds two adjacent commands that pair well with the engagement workflow: **`/digital-marketing-pro:check`** (pre-publish quality gate for any deliverable produced inside an engagement) and **`/digital-marketing-pro:status`** (engagement progress + brand snapshot). See [docs/v3.2-opt-ins.md](v3.2-opt-ins.md) for the full v3.2 additions.
 
 This guide explains the 12-Part engagement methodology introduced in v3.0 — what it is, when to use it, and exactly how to run a complete engagement from intake through continuous improvement.
 
-If you have used the plugin only for one-off tasks (`/dm:campaign-plan`, `/dm:content-engine`, etc.), this guide shows you the higher-leverage way to use it: as a methodology that orchestrates the full engagement.
+If you have used the plugin only for one-off tasks (`/digital-marketing-pro:campaign-plan`, `/digital-marketing-pro:content-engine`, etc.), this guide shows you the higher-leverage way to use it: as a methodology that orchestrates the full engagement.
 
 ---
 
@@ -72,10 +72,10 @@ A typical full-suite engagement produces ~50–60 files in this canonical struct
 If you need a single deliverable — a content calendar, an email sequence, a competitor analysis — you can still use the plugin exactly as before:
 
 ```
-/dm:content-engine           # Generate content
-/dm:email-sequence           # Build an email flow
-/dm:competitor-analysis      # Run a competitor audit
-/dm:campaign-plan            # Plan a single campaign
+/digital-marketing-pro:content-engine           # Generate content
+/digital-marketing-pro:email-sequence           # Build an email flow
+/digital-marketing-pro:competitor-analysis      # Run a competitor audit
+/digital-marketing-pro:campaign-plan            # Plan a single campaign
 ```
 
 These commands produce immediate output without requiring an engagement context. Use them when:
@@ -90,7 +90,7 @@ These commands produce immediate output without requiring an engagement context.
 If you are running a real marketing engagement — a quarterly strategy, an annual plan, a new client onboarding, a major repositioning — use the engagement workflow:
 
 ```
-/dm:engagement start <brand-slug> <engagement-id>
+/digital-marketing-pro:engagement start <brand-slug> <engagement-id>
 ```
 
 This kicks off the 12-Part methodology. The plugin walks you through Stone vs Opinion intake, then orchestrates the production of all subsequent parts. Output lands in a structured directory tree under `~/.claude-marketing/brands/{brand-slug}/engagements/{engagement-id}/`.
@@ -114,7 +114,7 @@ Use Path B when:
 Before starting an engagement, you need a brand profile. If you have not created one yet:
 
 ```
-/dm:brand-setup
+/digital-marketing-pro:brand-setup
 ```
 
 Walk through the Quick Setup (5 questions) or Full Setup (17 questions). The brand profile is saved at `~/.claude-marketing/brands/{brand-slug}/profile.json`.
@@ -124,7 +124,7 @@ You only need to do this once per brand. The same brand can have multiple engage
 ### Initialise the engagement
 
 ```
-/dm:engagement start acme-corp 2026-q2
+/digital-marketing-pro:engagement start acme-corp 2026-q2
 ```
 
 This:
@@ -174,14 +174,14 @@ engagements/2026-q2/part-01-client-inputs/
 After Part 1, you advance through the engagement using either:
 
 ```
-/dm:engagement next                           # Confirm current part complete; advance to next
-/dm:engagement status                         # See where you are
-/dm:engagement four-core <brand> <id>         # Produce Part 3 (61 steps across 4 docs)
-/dm:engagement validate <brand> <id>          # Produce Part 5 client validation
-/dm:engagement re-run-decision <brand> <id>   # Apply Decision Matrix for Part 6
-/dm:engagement growth-plan <brand> <id>       # Produce Part 8 flagship deliverable
-/dm:engagement yearly-planner <brand> <id>    # Produce Part 8 operational companion
-/dm:engagement loop <brand> <id>              # Part 12 quarterly or ad-hoc brief
+/digital-marketing-pro:engagement next                           # Confirm current part complete; advance to next
+/digital-marketing-pro:engagement status                         # See where you are
+/digital-marketing-pro:engagement four-core <brand> <id>         # Produce Part 3 (61 steps across 4 docs)
+/digital-marketing-pro:engagement validate <brand> <id>          # Produce Part 5 client validation
+/digital-marketing-pro:engagement re-run-decision <brand> <id>   # Apply Decision Matrix for Part 6
+/digital-marketing-pro:engagement growth-plan <brand> <id>       # Produce Part 8 flagship deliverable
+/digital-marketing-pro:engagement yearly-planner <brand> <id>    # Produce Part 8 operational companion
+/digital-marketing-pro:engagement loop <brand> <id>              # Part 12 quarterly or ad-hoc brief
 ```
 
 Each part has a specific producer. Some parts use the existing v2.x atomic skills; some use the new v3.0 methodology skills.
@@ -213,13 +213,13 @@ The most important part of the engagement. Four documents at strategic depth, 61
 Produce all four with:
 
 ```
-/dm:engagement four-core <brand> <id>
+/digital-marketing-pro:engagement four-core <brand> <id>
 ```
 
 Or produce one specific document:
 
 ```
-/dm:engagement four-core <brand> <id> --doc 3.1
+/digital-marketing-pro:engagement four-core <brand> <id> --doc 3.1
 ```
 
 ### Part 4 — Competitive + Customer + Market Analysis
@@ -238,7 +238,7 @@ Every competitor analysis closes with the [Three-Question Output](../skills/cont
 The single client-facing checkpoint between unbiased research and operating layer.
 
 ```
-/dm:engagement validate <brand> <id>
+/digital-marketing-pro:engagement validate <brand> <id>
 ```
 
 Produces a structured document with every material finding from Parts 2–4. For each finding, the client picks ACCEPT / REJECT / EDIT / DEFER and provides reasoning. The Opinion hypotheses captured in Part 1 are revisited here — the unbiased research either confirmed, contradicted, or left open each one.
@@ -250,7 +250,7 @@ This is the **one true stop** in the engagement. Nothing in Parts 6+ proceeds un
 After client validation, the Decision Matrix determines which v1 documents need to be re-run as v2 versions.
 
 ```
-/dm:engagement re-run-decision <brand> <id>
+/digital-marketing-pro:engagement re-run-decision <brand> <id>
 ```
 
 Common re-run triggers:
@@ -283,7 +283,7 @@ The two client-facing outputs that synthesise everything into actionable narrati
 **Growth Plan** (11 sections, 20–30 pages):
 
 ```
-/dm:engagement growth-plan <brand> <id>
+/digital-marketing-pro:engagement growth-plan <brand> <id>
 ```
 
 Sections: Executive Summary → Business Context → Target Audience → Strategic Positioning → Channel Strategy → Budget & Media Plan → KPI Framework → Implementation Timeline → Team & Resource Plan → Risk & Contingency → Expected Outcomes (three scenarios).
@@ -291,7 +291,7 @@ Sections: Executive Summary → Business Context → Target Audience → Strateg
 **Yearly Planner** (12-month operational calendar):
 
 ```
-/dm:engagement yearly-planner <brand> <id>
+/digital-marketing-pro:engagement yearly-planner <brand> <id>
 ```
 
 Sections: Annual Themes → Monthly Calendar (12 sub-sections) → Seasonal Strategy → Campaign Architecture → Content Pillars Calendar → Channel-Specific Cadence → Resource & Budget Pacing → Quarterly Review Schedule.
@@ -333,7 +333,7 @@ Runs continuously from go-live onwards. Aggregates four signal sources into prod
 - Team-discovered execution patterns
 
 ```
-/dm:engagement loop <brand> <id>
+/digital-marketing-pro:engagement loop <brand> <id>
 ```
 
 Produces structured Part 12 deliverables at each Quarterly Business Review (QBR) and ad-hoc briefs when significant signals warrant.
@@ -367,7 +367,7 @@ The "gap between views" is itself strategic information. When v1 identified Segm
 After Part 5 client validation, the Decision Matrix automatically determines which v1 documents need to be re-run as v2 versions.
 
 ```
-/dm:engagement re-run-decision <brand> <id>
+/digital-marketing-pro:engagement re-run-decision <brand> <id>
 ```
 
 The matrix:
@@ -394,7 +394,7 @@ After Part 7 onwards, the engagement operates on v2. But corrections continue to
 When this happens, the correction is made in the **source document**, not just in the deliverable that caught the error.
 
 ```
-/dm:engagement update-back <brand> <id> --doc 3.1 --reason "Segment X CAC corrected from INR 3,000 to INR 4,800 based on Q2 channel data"
+/digital-marketing-pro:engagement update-back <brand> <id> --doc 3.1 --reason "Segment X CAC corrected from INR 3,000 to INR 4,800 based on Q2 channel data"
 ```
 
 The plugin:
@@ -432,7 +432,7 @@ The LIF contains:
 To view:
 
 ```
-/dm:engagement lif-show <brand> <id>
+/digital-marketing-pro:engagement lif-show <brand> <id>
 ```
 
 The LIF is auto-updated when source documents change. You should never hand-edit it — let the engagement-state script maintain it.
@@ -506,7 +506,7 @@ A typical full-suite engagement produces **~50–60 files**. Out of those, only 
 To see the actual file tree at any time:
 
 ```
-/dm:engagement file-tree <brand> <id>
+/digital-marketing-pro:engagement file-tree <brand> <id>
 ```
 
 ---
@@ -634,7 +634,7 @@ The methodology is defined across 23 reference documents in `skills/context-engi
 
 ### Command
 
-- [`/dm:engagement`](../commands/engagement.md) — the entry point with all subcommands
+- [`/digital-marketing-pro:engagement`](../commands/engagement.md) — the entry point with all subcommands
 
 ### Persistence script
 

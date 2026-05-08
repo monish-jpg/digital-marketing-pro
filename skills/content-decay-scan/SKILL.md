@@ -13,7 +13,7 @@ triggers:
   - prioritize content refreshes
 ---
 
-# /dm:content-decay-scan
+# /digital-marketing-pro:content-decay-scan
 
 ## Purpose
 
@@ -31,7 +31,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply content strategy priorities, target keyword clusters, historical content performance baselines, and industry context for freshness expectations (fast-moving industries like tech need more frequent updates than evergreen niches). Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with industry defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply content strategy priorities, target keyword clusters, historical content performance baselines, and industry context for freshness expectations (fast-moving industries like tech need more frequent updates than evergreen niches). Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with industry defaults.
 2. **Gather content performance data**: Connect to analytics MCPs (Google Analytics, Google Search Console) and pull performance data for the content library — monthly traffic for the past 6 months per URL, keyword position data for primary and secondary keywords, click-through rates from search results, and conversion data if available. For content not covered by MCPs, use any exported data the user provided. Build a performance timeline for each content piece showing the trajectory over the past 6 months.
 3. **Score each content piece for decay**: Execute `creative-fatigue-predictor.py` in decay-scan mode with the performance data. The decay scoring model evaluates multiple signals per content piece — traffic trend (3-month and 6-month decline rates, weighted by the user's priority metrics), keyword position changes (drops on primary keyword, movement direction and velocity), content freshness (months since last substantive update, presence of dated statistics or references), broken links (internal and external link health), and conversion rate trend (declining conversion even with stable traffic indicates content quality decay). Each piece receives a decay score from 0-100 where 0 is healthy and 100 is severely decayed.
 4. **Calculate business impact score**: For each content piece, compute the revenue impact of its decay — current monthly traffic multiplied by conversion rate multiplied by estimated revenue per conversion. Then calculate the recoverable revenue — the difference between peak performance (from the last 12 months) and current performance, multiplied by the probability of recovery based on decay type and refresh feasibility. Content with high recoverable revenue is prioritized regardless of its raw decay score.

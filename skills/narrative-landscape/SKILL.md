@@ -3,7 +3,7 @@ name: narrative-landscape
 description: "Map the competitive narrative landscape. Use when: analyzing positioning territories, gaps, competitor claims, differentiation."
 ---
 
-# /dm:narrative-landscape
+# /digital-marketing-pro:narrative-landscape
 
 ## Purpose
 
@@ -19,7 +19,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Pay special attention to the brand's current positioning, value proposition, target audience, and competitive differentiation claims. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load brand voice and positioning guardrails. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Pay special attention to the brand's current positioning, value proposition, target audience, and competitive differentiation claims. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load brand voice and positioning guardrails. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Define narrative dimensions**: Validate and refine the positioning dimensions for the market — confirm each dimension represents a genuine spectrum where competitors can differentiate, ensure dimensions are independent (not redundant), and add any industry-standard dimensions the user may have missed. Define the poles of each dimension with clear labels and examples.
 3. **Analyze each competitor's positioning**: For every competitor on every dimension, extract positioning signals from the specified messaging sources — homepage headlines and hero copy (what they lead with), pricing page framing (how they present value), ad copy themes (what they emphasize to acquire customers), social content patterns (how they present themselves day-to-day), and PR/media positioning (how they describe themselves to press). Score each competitor's position on each dimension as a value from -5 to +5 representing their placement between the two poles.
 4. **Map positions via narrative-mapper.py**: Execute `narrative-mapper.py map-landscape` with the competitor position data to generate the narrative landscape map — plotting all competitors on each dimension pair, calculating cluster density, and identifying open territories. The script produces structured positioning data with gap analysis.

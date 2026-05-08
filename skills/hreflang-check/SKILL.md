@@ -3,7 +3,7 @@ name: hreflang-check
 description: "Audit hreflang tags. Use when: checking missing tags, incorrect language codes, or x-default configuration."
 ---
 
-# /dm:hreflang-check
+# /digital-marketing-pro:hreflang-check
 
 ## Purpose
 
@@ -21,7 +21,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Load the language configuration to determine expected languages — primary language, secondary languages, and content languages. These form the expected hreflang set that every page should ideally reference. Apply compliance rules for target markets (`skills/context-engine/compliance-rules.md`) and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load any international SEO guidelines. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Load the language configuration to determine expected languages — primary language, secondary languages, and content languages. These form the expected hreflang set that every page should ideally reference. Apply compliance rules for target markets (`skills/context-engine/compliance-rules.md`) and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load any international SEO guidelines. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Obtain hreflang data**: If a URL is provided, note that actual website crawling requires external tooling — the plugin does not perform HTTP requests to arbitrary websites. Guide the user to provide hreflang data in one of these formats: (a) raw HTML source of pages containing `<link rel="alternate" hreflang="..." href="...">` tags, (b) HTTP header hreflang annotations, (c) XML sitemap with `xhtml:link` hreflang entries, (d) a structured export from an SEO tool (Screaming Frog, Sitebulb, Ahrefs) listing hreflang annotations per URL, or (e) a manually compiled list of URL-to-language mappings. If the user has already provided HTML or hreflang data inline, proceed directly to parsing.
 3. **Parse all hreflang annotations**: Extract every hreflang annotation from the provided data. For each page, build a map of: the page's own URL, and every `hreflang` attribute with its associated `href` URL. Track the source of each annotation (HTML `<link>` tag, HTTP header, or XML sitemap) since implementation method affects how fixes should be applied. Build a complete cross-reference matrix: for every page, which other pages does it reference, and in which languages.
 4. **Check each page for hreflang correctness**: For every page with hreflang annotations, run the following checks:

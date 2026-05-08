@@ -14,7 +14,7 @@ engagement-part: "12"
 view-preference: both
 ---
 
-# /dm:continuous-improvement-loop — Part 12 Continuous Loop
+# /digital-marketing-pro:continuous-improvement-loop — Part 12 Continuous Loop
 
 Part 12 is the continuous improvement loop that runs alongside live operations from go-live onwards. It aggregates market signals and operating signals into recommendations that feed back into the brand's product, offering, and service decisions.
 
@@ -55,7 +55,7 @@ Feedback from across customer touchpoints:
 
 ### Source 3: Competitive Intelligence
 
-From the ongoing competitor monitoring (existing `/dm:competitor-monitor` skill):
+From the ongoing competitor monitoring (existing `/digital-marketing-pro:competitor-monitor` skill):
 
 - Product / offering shifts at competitors
 - Pricing changes
@@ -142,7 +142,7 @@ audience: brand business leadership
 
 ## Triggers for v2.x Update-Back
 
-(If any of the signals warrant a source-document version bump per the [update-back-rule.md](../context-engine/update-back-rule.md), list them here. The actual update-back happens via /dm:engagement update-back.)
+(If any of the signals warrant a source-document version bump per the [update-back-rule.md](../context-engine/update-back-rule.md), list them here. The actual update-back happens via /digital-marketing-pro:engagement update-back.)
 
 ## Open Questions Raised This Quarter
 
@@ -191,7 +191,7 @@ engagements/{id}/part-12-continuous-improvement/ad-hoc-briefs/{YYYY-MM-DD}-{slug
 6. **Identify v2.x update-back triggers** if any
 7. **Save** to `quarterly-briefs/`
 8. **Update LIF** with quarter's verdict + recommendations
-9. **Brief:** "Quarterly Improvement Brief produced. {N} signals aggregated. {N} recommendations. {N} update-back triggers identified — review and run /dm:engagement update-back if approved."
+9. **Brief:** "Quarterly Improvement Brief produced. {N} signals aggregated. {N} recommendations. {N} update-back triggers identified — review and run /digital-marketing-pro:engagement update-back if approved."
 
 ### For ad-hoc Part 12 brief
 
@@ -209,7 +209,7 @@ The plugin captures signals continuously via:
 - **Daily performance pulls** (when configured) flag anomalies
 - **Monthly report production** captures "Insights & Learnings" entries
 - **Competitor monitor** flags significant changes
-- **Manual capture** via `/dm:engagement signal --source <source> --signal "<description>"` (custom command — uses the engagement-state.py lif-log-change pattern)
+- **Manual capture** via `/digital-marketing-pro:engagement signal --source <source> --signal "<description>"` (custom command — uses the engagement-state.py lif-log-change pattern)
 
 All signals append to `signals.jsonl`:
 
@@ -224,7 +224,7 @@ All signals append to `signals.jsonl`:
 1. **Signals are evidenced.** No vague "the team feels" — cite the source (which sales rep, which review platform, which monitoring run, which performance metric).
 2. **Recommendations are specific.** "Marketing should optimise" is useless. "Reduce LinkedIn brand-awareness budget by 20%, redeploy to retargeting + email lifecycle" is actionable.
 3. **Product / offering recommendations are framed as suggestions, not demands.** Marketing's vantage point is one of several inputs to product decisions.
-4. **Update-back triggers are flagged but not auto-executed.** The `/dm:engagement update-back` command is invoked separately after explicit approval.
+4. **Update-back triggers are flagged but not auto-executed.** The `/digital-marketing-pro:engagement update-back` command is invoked separately after explicit approval.
 5. **The audience for quarterly briefs is leadership, not marketing alone.** Write for that audience.
 
 ## Examples
@@ -250,7 +250,7 @@ Skill response:
    - Leadership: consider a freemium tier (competitor moved here; 5 sales-rep notes about price-sensitive prospects)
 8. Identify update-back triggers: Core Doc 3.4 (channel mix) needs v2.1 to reflect LinkedIn's higher allocation
 9. Save quarterly-briefs/2026-Q2-quarterly-improvement-brief.md (~8 pages)
-10. Brief: "Q2 Improvement Brief produced. 1 update-back trigger flagged. Run /dm:engagement update-back --doc 3.4 --reason 'Q2 evidence: LinkedIn outperformed; Meta underperformed; recommend channel reweight' after leadership approval."
+10. Brief: "Q2 Improvement Brief produced. 1 update-back trigger flagged. Run /digital-marketing-pro:engagement update-back --doc 3.4 --reason 'Q2 evidence: LinkedIn outperformed; Meta underperformed; recommend channel reweight' after leadership approval."
 ```
 
 ### Example 2: Ad-hoc brief

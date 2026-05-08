@@ -3,7 +3,7 @@ name: serp-tracker
 description: "Track SERP feature changes. Use when: monitoring AI Overviews, featured snippets, PAA, knowledge panels, local packs."
 ---
 
-# /dm:serp-tracker
+# /digital-marketing-pro:serp-tracker
 
 ## Purpose
 
@@ -20,7 +20,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Query current SERP feature landscape**: For each target query, retrieve the current SERP layout via Moz and Google Search Console MCPs. Record every SERP feature present on the results page — feature type, position on page (above or below organic results), the domain that owns the feature (if applicable), and the content displayed within the feature (snippet text, PAA questions, AI Overview summary, local businesses listed, images shown).
 3. **Record feature presence per query**: Build a feature presence matrix — rows are target queries, columns are SERP feature types. Each cell contains: feature present (yes/no), owning domain (brand, specific competitor, or other), position on SERP, and content summary. Store this snapshot at `~/.claude-marketing/brands/{slug}/seo/serp-features-{date}.json` and update the cumulative tracker at `~/.claude-marketing/brands/{slug}/seo/serp-feature-history.json`.
 4. **Compare to previous snapshot**: Detect changes since the last recorded snapshot — new features appearing for a query (e.g., AI Overview added where there was none before), features disappearing (e.g., featured snippet removed), ownership changes (e.g., competitor took over a featured snippet the brand previously held), content changes within features (e.g., AI Overview now cites a different source), and position changes (e.g., PAA moved above organic results).

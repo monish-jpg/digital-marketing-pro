@@ -3,7 +3,7 @@ name: dark-funnel
 description: "Map invisible buyer journeys. Use when: tracking unattributed discovery, Reddit, AI chatbots, or word-of-mouth."
 ---
 
-# /dm:dark-funnel
+# /digital-marketing-pro:dark-funnel
 
 ## Purpose
 
@@ -16,13 +16,13 @@ The user must provide (or will be prompted for):
 - **Brand name and product names**: The brand and specific products or services to track across dark funnel channels — used to define search terms, mention patterns, and signal queries
 - **Known community presence**: Subreddits, Slack communities, Discord servers, industry forums, or niche platforms where the brand has an official or organic presence — these are primary dark funnel listening posts
 - **Podcast appearances**: Episodes, shows, or sponsorships the brand has participated in — used to correlate vanity URL visits, promo code redemptions, and branded search spikes with specific air dates
-- **AI visibility data (optional)**: Output from `/dm:geo-monitor` showing how AI chatbots (ChatGPT, Perplexity, Gemini) reference or recommend the brand — a growing dark funnel channel
+- **AI visibility data (optional)**: Output from `/digital-marketing-pro:geo-monitor` showing how AI chatbots (ChatGPT, Perplexity, Gemini) reference or recommend the brand — a growing dark funnel channel
 - **Branded search volume trends**: Google Search Console or third-party keyword data showing branded search volume over time — the strongest proxy signal for offline and untracked brand exposure
 - **"How did you hear about us" survey data (optional)**: Self-reported attribution from lead forms, onboarding flows, or post-purchase surveys — direct evidence of dark funnel touchpoints that customers themselves identify
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, industry context, and known competitive landscape. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, industry context, and known competitive landscape. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Aggregate dark funnel signals**: Collect and normalize data from all available dark funnel sources — branded search volume trends over time (the primary proxy for untracked exposure), Reddit and community mention frequency and sentiment, AI chatbot citation data from the geo-tracker, direct traffic anomalies that correlate with offline activities, podcast attribution data (vanity URL visits, promo code usage, post-episode traffic spikes), and self-reported survey response data categorized by source.
 3. **Correlate signals with marketing activities**: Cross-reference dark funnel signal spikes against a timeline of known marketing activities — do branded search spikes follow podcast episodes? Do community mentions surge after product launches or PR coverage? Does direct traffic increase after conference appearances? Identify which activities are generating the strongest dark funnel response and which have no measurable dark signal.
 4. **Map the invisible buyer journey**: Construct a dark funnel map identifying each untracked touchpoint, its position in the buyer journey (awareness, consideration, decision), estimated audience size, and growth trajectory. Classify touchpoints by channel type — community (Reddit, forums, Discord), media (podcasts, YouTube mentions), AI (chatbot citations), social (dark social sharing via DMs and private groups), and word-of-mouth (survey-reported).

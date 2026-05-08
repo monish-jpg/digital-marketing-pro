@@ -5,7 +5,7 @@ argument-hint: "[URL]"
 user-invocable: true
 ---
 
-# /dm:image-seo-audit
+# /digital-marketing-pro:image-seo-audit
 
 ## Purpose
 

@@ -112,7 +112,7 @@ Some corrections have downstream implications that need explicit review:
 - A positioning correction may invalidate creative briefs already in production → trigger creative review
 - A persona attribute correction may invalidate audience targeting → trigger Part 9 audience review
 
-The `/dm:engagement update-back` command handles this:
+The `/digital-marketing-pro:engagement update-back` command handles this:
 
 1. Captures the correction
 2. Validates with the user

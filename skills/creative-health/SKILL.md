@@ -3,7 +3,7 @@ name: creative-health
 description: "Assess ad creative fatigue. Use when: ads underperform, need refresh timing, or creative lifecycle review."
 ---
 
-# /dm:creative-health
+# /digital-marketing-pro:creative-health
 
 ## Purpose
 
@@ -20,7 +20,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand creative guidelines, historical creative performance benchmarks, known fatigue patterns from past campaigns, and production capacity constraints. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load visual identity restrictions and messaging guardrails that constrain refresh options. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with industry defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand creative guidelines, historical creative performance benchmarks, known fatigue patterns from past campaigns, and production capacity constraints. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load visual identity restrictions and messaging guardrails that constrain refresh options. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with industry defaults.
 2. **Score each creative's health**: Execute `creative-fatigue-predictor.py` with the performance data for each creative. The scoring model evaluates five fatigue signals — CTR ratio (current vs baseline, weighted 30%), CPM ratio (current vs baseline, weighted 25%), engagement ratio (current vs baseline, weighted 20%), frequency or impression saturation (weighted 15%), and time running relative to channel norms (weighted 10%). Each creative receives a health score from 0-100 where 100 is peak health and 0 is fully fatigued, plus a fatigue stage classification: Fresh (80-100), Mature (60-79), Fatiguing (40-59), Fatigued (20-39), or Exhausted (0-19).
 3. **Predict fatigue timeline**: For each creative not yet in Fatigued or Exhausted stage, project the estimated days until fatigue based on the current trajectory of decline — rate of CTR decay, CPM acceleration, and engagement erosion. Factor in audience size (smaller audiences fatigue faster), frequency rate (higher frequency accelerates fatigue), channel dynamics (social fatigues 2-3x faster than search), and seasonality effects. Output a "days remaining" estimate with confidence range for each creative.
 4. **Generate refresh briefs for fatiguing creatives**: For each creative in Fatiguing, Fatigued, or Exhausted stage, produce a specific refresh brief — what to keep (elements that drove initial performance: hook, value proposition, social proof, CTA that still resonates), what to change (elements contributing to fatigue: visual treatment, headline angle, color scheme, format, opening hook for video), and what to test (new angles or approaches worth experimenting with based on competitor creative trends and brand positioning). Ensure all refresh suggestions comply with brand guidelines.

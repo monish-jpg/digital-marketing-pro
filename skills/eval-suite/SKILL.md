@@ -3,7 +3,7 @@ name: eval-suite
 description: "Batch evaluate multiple content pieces. Use when: scoring a content library, campaign assets, or deliverable set."
 ---
 
-# /dm:eval-suite
+# /digital-marketing-pro:eval-suite
 
 ## Purpose
 
@@ -27,7 +27,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files (voice-and-tone, messaging, channel styles). Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files (voice-and-tone, messaging, channel styles). Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Enumerate all content items**: Resolve the provided sources into a flat list of content items. For directory paths, scan for text-based files (.txt, .md, .html, .csv rows). For inline content, parse labels and content blocks. Assign a label to each item (filename, provided label, or auto-generated index). Report the total item count to the user before proceeding and confirm if the set is larger than 25 items (to set expectations on processing time).
 3. **Evaluate each content item**: For each item in the set, run `python scripts/eval-runner.py --brand {slug} --action run-quick --text "{content_or_path}" --content-type "{type}"` (or `--action run-full` if the user requested comprehensive depth). Pass `--evidence "{evidence_path}"` if an evidence file was provided. Collect the per-dimension scores (clarity, persuasion, brand alignment, readability, compliance, engagement potential) and composite score for each item.
 4. **Log each evaluation**: For every evaluated item, run `python scripts/quality-tracker.py --brand {slug} --action log-eval --content-type "{type}" --data '{"label": "{label}", "scores": {scores_json}, "suite_id": "{suite_run_id}"}'` to persist results for longitudinal tracking. The suite-id groups all items from this batch together.

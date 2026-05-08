@@ -4,7 +4,7 @@ description: "Create case studies and success stories. Use when: client results 
 argument-hint: "[client-name]"
 ---
 
-# /dm:case-study-plan
+# /digital-marketing-pro:case-study-plan
 
 ## Purpose
 
@@ -27,7 +27,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Structure the CSR narrative**: Build the Challenge-Solution-Results framework with sub-sections — situation overview, specific pain points, goals at project start, strategic approach, tactical execution, implementation timeline, quantitative results, qualitative impact, and future outlook. Identify the emotional arc that makes the story compelling, not just informative.
 3. **Develop client interview questions**: Create 15-20 interview questions organized by section — background and context (company size, industry pressures, previous attempts), challenge deep-dive (symptoms, root causes, business impact of inaction), solution experience (selection criteria, onboarding, collaboration quality), results and impact (measurable outcomes, unexpected benefits, team reaction), and forward-looking (ongoing plans, what they would tell peers).
 4. **Plan internal team interview questions**: Draft 10 questions for internal team members who worked on the engagement — strategic rationale, technical approach, challenges encountered during delivery, key turning points, and lessons learned that could inform future engagements.

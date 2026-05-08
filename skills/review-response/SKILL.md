@@ -3,7 +3,7 @@ name: review-response
 description: "Respond to online reviews. Use when: drafting replies for Google, Yelp, G2, or building review response templates."
 ---
 
-# /dm:review-response
+# /digital-marketing-pro:review-response
 
 ## Purpose
 
@@ -25,7 +25,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Apply brand voice settings**: Load voice-and-tone guidelines and any channel-specific style rules for the review platform — review responses often require a warmer, more personal tone than other brand communications
 3. **Classify review sentiment and severity**: Categorize as positive (4-5 stars), neutral (3 stars), or negative (1-2 stars) — further classify negative reviews by severity level: minor complaint, service failure, product defect, or safety/legal issue
 4. **For negative reviews**: Acknowledge the specific concern by name, express genuine empathy without generic platitudes, take responsibility where appropriate, offer a concrete resolution path with specifics, and move the conversation offline with a direct contact method (email or phone)

@@ -3,7 +3,7 @@ name: pricing-test
 description: "Test pricing strategies with synthetic data. Use when: simulating willingness to pay, price sensitivity, or optimal price points."
 ---
 
-# /dm:pricing-test
+# /digital-marketing-pro:pricing-test
 
 ## Purpose
 
@@ -21,7 +21,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand positioning, perceived brand premium or discount, target market income and spending profiles, and competitive landscape. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand positioning, perceived brand premium or discount, target market income and spending profiles, and competitive landscape. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Load audience panel**: Load the specified panel via `audience-simulator.py load-panel --panel-id {id}`, or create a new panel via `audience-simulator.py create-panel` with CRM data grounding if new segment definitions were provided. Ensure segments include spending behavior and price sensitivity indicators from CRM purchase history.
 3. **Test pricing across segments**: Run `audience-simulator.py test-pricing` for each price point against each segment. For every segment-price combination, estimate purchase likelihood, perceived value rating, price-quality inference (too cheap signals low quality, too expensive signals exclusion), and emotional response (excited about value, comfortable, hesitant, or rejected).
 4. **Calculate optimal pricing**: From the segment-level responses, calculate the optimal price point (highest combined score of purchase likelihood and margin), acceptable price range (floor where quality perception drops, ceiling where purchase likelihood collapses), revenue-maximizing price (price times predicted conversion, optimized for total revenue), and volume-maximizing price (highest predicted conversion regardless of margin).

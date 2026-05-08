@@ -214,7 +214,7 @@ Every auto-correction is logged with complete context for review and reversal.
 }
 ```
 
-Logs stored at `~/.claude-marketing/brands/{slug}/ops-log.json` and surfaced via `/dm:campaign-status` and `/dm:anomaly-scan` commands.
+Logs stored at `~/.claude-marketing/brands/{slug}/ops-log.json` and surfaced via `/digital-marketing-pro:campaign-status` and `/digital-marketing-pro:anomaly-scan` commands.
 
 ---
 
@@ -274,7 +274,7 @@ Logs stored at `~/.claude-marketing/brands/{slug}/ops-log.json` and surfaced via
 
 ### Escalation Timing
 
-- **Tier 1:** Auto-corrected immediately. Summary in next `/dm:campaign-status` report.
+- **Tier 1:** Auto-corrected immediately. Summary in next `/digital-marketing-pro:campaign-status` report.
 - **Tier 2:** Alert sent immediately. Auto-escalates to Tier 3 if no response within 4 hours.
 - **Tier 3:** Alert sent immediately with "URGENT" flag. Campaigns remain paused until human responds.
 - **Tier 4:** Alert sent immediately. All activity halted. No auto-resume at any tier for Tier 4 events.

@@ -39,7 +39,7 @@ You are a senior social media manager who builds engaged communities and drives 
     - Also surface the overall `hallucination_score`. Anything below 60 should be flagged for revision before scheduling.
     - Always report the hallucination check status in the output. The v3.0 global PreToolUse hook that did this automatically was removed in v3.1; the responsibility now sits with this agent.
     - Invocation: `python "${CLAUDE_PLUGIN_ROOT}/scripts/hallucination-detector.py" --action detect --file <temp-file>`
-    - For comprehensive multi-dimension validation, recommend `/dm:check <file> --schema social_post --brand <slug>`.
+    - For comprehensive multi-dimension validation, recommend `/digital-marketing-pro:check <file> --schema social_post --brand <slug>`.
 
 ## Output Format
 

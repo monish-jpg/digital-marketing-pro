@@ -51,7 +51,7 @@ Future Sessions (insights inform new strategies)
 | Campaign plans | `~/.claude-marketing/brands/{slug}/campaigns/` | Individual JSON files + `_index.json` |
 | Performance snapshots | `~/.claude-marketing/brands/{slug}/performance/` | Timestamped JSON files |
 | Marketing insights | `~/.claude-marketing/brands/{slug}/insights.json` | Rolling 200-entry JSON array |
-| Brand profile | `~/.claude-marketing/brands/{slug}/profile.json` | JSON (created via `/dm:brand-setup`) |
+| Brand profile | `~/.claude-marketing/brands/{slug}/profile.json` | JSON (created via `/digital-marketing-pro:brand-setup`) |
 
 The key principle: local files serve as the plugin's memory. Anything worth keeping is saved to `~/.claude-marketing/` so it survives between sessions and informs future work.
 
@@ -63,10 +63,10 @@ Campaign data moves through three phases: creation, tracking, and historical ref
 
 ### Phase 1: Creating a Campaign
 
-When you run `/dm:campaign-plan`, the plugin generates a complete campaign plan and saves it automatically:
+When you run `/digital-marketing-pro:campaign-plan`, the plugin generates a complete campaign plan and saves it automatically:
 
 ```
-You: /dm:campaign-plan
+You: /digital-marketing-pro:campaign-plan
 
   Plugin creates a structured campaign plan
   Saved: campaigns/q2-retention-20260415.json
@@ -123,10 +123,10 @@ The campaign index (`_index.json`) provides fast lookup without loading every fi
 
 ### Phase 2: Tracking Performance
 
-When you run `/dm:performance-report` for an active campaign, the plugin saves a timestamped snapshot:
+When you run `/digital-marketing-pro:performance-report` for an active campaign, the plugin saves a timestamped snapshot:
 
 ```
-You: /dm:performance-report for the Q2 retention campaign
+You: /digital-marketing-pro:performance-report for the Q2 retention campaign
 
   Performance snapshot saved: performance/q2-retention-20260415-143022.json
   Compared against original campaign KPIs
@@ -410,7 +410,7 @@ Performance snapshots are not just single data points. When you take multiple sn
 
 ### How Snapshots Build a Picture
 
-Each time you run `/dm:performance-report`, a new timestamped file is saved:
+Each time you run `/digital-marketing-pro:performance-report`, a new timestamped file is saved:
 
 ```
 performance/
@@ -541,7 +541,7 @@ Understanding what the data layer does not do is just as important as knowing wh
 | No cross-brand insight sharing | Cannot auto-apply learning from Brand A to Brand B | Manually reference across brands: "Apply what we learned from Brand A's email strategy" |
 | Performance data not aggregated | Each snapshot is an independent file, not a time-series database | Ask the plugin to compare multiple snapshots; it loads and compares them on the fly |
 | MCP server dependency for live data | Without connected MCP servers, the plugin relies on manually provided metrics | Connect GA4, GSC, and ad platform MCP servers for automated data ingestion |
-| No automatic anomaly alerting | The plugin detects anomalies during analysis but does not push alerts between sessions | Run `/dm:performance-report` regularly to catch issues; the plugin flags anomalies when it sees them |
+| No automatic anomaly alerting | The plugin detects anomalies during analysis but does not push alerts between sessions | Run `/digital-marketing-pro:performance-report` regularly to catch issues; the plugin flags anomalies when it sees them |
 
 ### What This Means in Practice
 
@@ -645,7 +645,7 @@ python scripts/engagement-state.py lif-show --brand acme-corp --id 2026-q2
 python scripts/engagement-state.py file-tree --brand acme-corp --id 2026-q2
 ```
 
-For interactive use, the same operations are exposed through `/dm:engagement` subcommands.
+For interactive use, the same operations are exposed through `/digital-marketing-pro:engagement` subcommands.
 
 ### 8.4 What This Means for Analytics and Insights
 

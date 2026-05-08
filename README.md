@@ -6,7 +6,7 @@
 [![Cowork](https://img.shields.io/badge/cowork-compatible-purple.svg)](docs/claude-interfaces.md#claude-cowork-full-support)
 [![Author](https://img.shields.io/badge/author-Indranil_Banerjee-181717.svg?logo=github)](https://github.com/indranilbanerjee)
 
-The most comprehensive digital marketing plugin for Claude Code and Claude Cowork. **v3.2 closes the v3.1 hook-removal gaps** with `/dm:check` (explicit pre-publish gate replacing the global PreToolUse hook), `/dm:status` (richer on-demand brand snapshot replacing the global SessionStart banner), embedded mandatory hallucination check inside content-creator/email-specialist/social-media-manager/pr-outreach agents, opt-in `auto_save_insights` brand flag for ambient learning capture, and a documented hook re-enable pattern at the user's own settings level. **v3.0 introduced the 12-Part Engagement Methodology** — a sequential workflow that produces ~50–60 canonical files per engagement: Stone-vs-Opinion intake, unbiased external research, the Four Core Documents (61 explicit steps), Client Validation Document with Decision Matrix for v2 re-runs, the Update-Back Rule for in-life corrections, the Living Project Instruction File, the Growth Plan + Yearly Planner client deliverables, channel strategy fan-out, execution artefacts, AI creative instructions, and a continuous improvement loop that feeds back into product/offering decisions. Built on top of v2.7's foundation: 25 specialist agents, 149 skills, 68 Python scripts, 14 HTTP MCP connectors, 16 industry profiles, 16 privacy-law jurisdictions, and full execution-layer support.
+The most comprehensive digital marketing plugin for Claude Code and Claude Cowork. **v3.2 closes the v3.1 hook-removal gaps** with `/digital-marketing-pro:check` (explicit pre-publish gate replacing the global PreToolUse hook), `/digital-marketing-pro:status` (richer on-demand brand snapshot replacing the global SessionStart banner), embedded mandatory hallucination check inside content-creator/email-specialist/social-media-manager/pr-outreach agents, opt-in `auto_save_insights` brand flag for ambient learning capture, and a documented hook re-enable pattern at the user's own settings level. **v3.0 introduced the 12-Part Engagement Methodology** — a sequential workflow that produces ~50–60 canonical files per engagement: Stone-vs-Opinion intake, unbiased external research, the Four Core Documents (61 explicit steps), Client Validation Document with Decision Matrix for v2 re-runs, the Update-Back Rule for in-life corrections, the Living Project Instruction File, the Growth Plan + Yearly Planner client deliverables, channel strategy fan-out, execution artefacts, AI creative instructions, and a continuous improvement loop that feeds back into product/offering decisions. Built on top of v2.7's foundation: 25 specialist agents, 149 skills, 68 Python scripts, 14 HTTP MCP connectors, 16 industry profiles, 16 privacy-law jurisdictions, and full execution-layer support.
 
 ---
 
@@ -67,18 +67,18 @@ The methodology is supported by 15 reference documents in `skills/context-engine
 
 ```bash
 # One-time per brand
-/dm:brand-setup
+/digital-marketing-pro:brand-setup
 
 # Per engagement
-/dm:engagement start <brand-slug> <engagement-id>     # Initialises Part 1
-/dm:engagement next                                    # Advance after part complete
-/dm:engagement four-core                               # Produces Part 3 (61 steps)
-/dm:engagement validate                                # Part 5 client validation
-/dm:engagement re-run-decision                         # Part 6 v2 re-runs per Decision Matrix
-/dm:engagement growth-plan                             # Part 8 flagship deliverable
-/dm:engagement yearly-planner                          # Part 8 operational companion
-/dm:engagement loop                                    # Part 12 continuous improvement
-/dm:engagement status                                  # Check progress at any time
+/digital-marketing-pro:engagement start <brand-slug> <engagement-id>     # Initialises Part 1
+/digital-marketing-pro:engagement next                                    # Advance after part complete
+/digital-marketing-pro:engagement four-core                               # Produces Part 3 (61 steps)
+/digital-marketing-pro:engagement validate                                # Part 5 client validation
+/digital-marketing-pro:engagement re-run-decision                         # Part 6 v2 re-runs per Decision Matrix
+/digital-marketing-pro:engagement growth-plan                             # Part 8 flagship deliverable
+/digital-marketing-pro:engagement yearly-planner                          # Part 8 operational companion
+/digital-marketing-pro:engagement loop                                    # Part 12 continuous improvement
+/digital-marketing-pro:engagement status                                  # Check progress at any time
 ```
 
 See [skills/context-engine/engagement-flow-methodology.md](skills/context-engine/engagement-flow-methodology.md) for the full methodology specification.
@@ -95,8 +95,8 @@ v3.1 removed all four global hooks for multi-plugin coexistence. The fix was cor
 
 | Removed hook | v3.2 compensation |
 |---|---|
-| `SessionStart` (brand summary banner) | **`/dm:status`** — on-demand richer snapshot with engagements + insights + compliance + deps |
-| `PreToolUse Write|Edit` (hallucination + brand check) | **`/dm:check`** — explicit pre-publish gate; **plus** mandatory hallucination check embedded inside 4 content-producer agents (content-creator, email-specialist, social-media-manager, pr-outreach) |
+| `SessionStart` (brand summary banner) | **`/digital-marketing-pro:status`** — on-demand richer snapshot with engagements + insights + compliance + deps |
+| `PreToolUse Write|Edit` (hallucination + brand check) | **`/digital-marketing-pro:check`** — explicit pre-publish gate; **plus** mandatory hallucination check embedded inside 4 content-producer agents (content-creator, email-specialist, social-media-manager, pr-outreach) |
 | `PreToolUse mcp_.*` (MCP write gate) | Per-agent decision flows for marketing-side MCP writes; the cross-plugin gate stays removed (correct — it was over-broad) |
 | `SessionEnd` (insight saving) | **`auto_save_insights: true`** opt-in brand flag + `auto-save-insight.py` helper called by agents at meaningful checkpoints |
 
@@ -104,16 +104,16 @@ v3.1 removed all four global hooks for multi-plugin coexistence. The fix was cor
 
 ```bash
 # Pre-publish quality gate (replaces the global PreToolUse hook)
-/dm:check drafts/q2-blog.md                                      # quick eval (~2s)
-/dm:check drafts/healthcare-ad.md --full --brand healthfirst    # full 6-dimension eval
-/dm:check drafts/press-release.md --compliance --brand acme \
+/digital-marketing-pro:check drafts/q2-blog.md                                      # quick eval (~2s)
+/digital-marketing-pro:check drafts/healthcare-ad.md --full --brand healthfirst    # full 6-dimension eval
+/digital-marketing-pro:check drafts/press-release.md --compliance --brand acme \
   --evidence facts.json --schema press_release                  # compliance-focused
 
 # Status snapshot (replaces the global SessionStart banner)
-/dm:status                              # full snapshot for active brand
-/dm:status --quiet                      # one-line: DMP STATUS | brand | engagements: 2 | deps: full
-/dm:status --json                       # machine-readable for scripting
-/dm:status --section engagements        # single section
+/digital-marketing-pro:status                              # full snapshot for active brand
+/digital-marketing-pro:status --quiet                      # one-line: DMP STATUS | brand | engagements: 2 | deps: full
+/digital-marketing-pro:status --json                       # machine-readable for scripting
+/digital-marketing-pro:status --section engagements        # single section
 ```
 
 ### Opt in to ambient insight capture
@@ -144,7 +144,7 @@ All v2.7 capabilities remain. v3.0 is purely additive at the methodology layer. 
 - **v2.1** added predictive intelligence, GEO monitoring, competitor monitoring, SEO execution, self-healing campaigns, creative intelligence, compound intelligence, synthetic audience testing, journey orchestration.
 - **v2.2** added a comprehensive evaluation/QA layer (hallucination detection, claim verification, output validation, composite scoring, quality regression tracking) and full multilingual support (4 translation MCP servers, automatic language routing, transcreation, cultural adaptation, multilingual SEO).
 - **v2.3** introduced HTTP-only MCP connectors for Cowork compatibility (14 HTTP connectors that work in both Cowork and Claude Code).
-- **v2.4** added connector discovery and onboarding (`/dm:integrations`, `/dm:connect`, `/dm:help`).
+- **v2.4** added connector discovery and onboarding (`/digital-marketing-pro:integrations`, `/digital-marketing-pro:connect`, `/digital-marketing-pro:help`).
 - **v2.5** added 7 top commands visible in the Customize panel.
 - **v2.6** added 6 dedicated SEO sub-skills, expanded schema markup support (18 types with deprecation tracking), Google SEO quick reference, DataForSEO MCP integration.
 - **v2.7** addressed plugin best-practice audit: skill descriptions trimmed for discovery budget, agent maxTurns added, hook timeout wrappers, execution safety improvements.
@@ -184,7 +184,7 @@ Digital Marketing Pro transforms Claude into a full-stack marketing intelligence
 - **Deliverable templates** and **agency SOPs** — custom output formats and workflow definitions
 - **10 top-level commands** + **149 skills** (v3.0 added 6 methodology skills: engagement-workflow, four-core-documents, client-validation-document, growth-plan, yearly-planner, continuous-improvement-loop; v3.2 added 2 quality-and-status skills: check, status) + 141 atomic skills for direct access to all workflows — including execution, monitoring, predictive intelligence, GEO monitoring, competitor monitoring, SEO execution, creative intelligence, compound intelligence, journey orchestration, synthetic audience testing, evaluation/QA, multilingual support, connector discovery, and more
 - **68 Python scripts** for deterministic execution (scoring, analysis, generation, guidelines management, email testing, A/B testing, social optimization, technical SEO auditing, local SEO checking, ROI calculation, budget optimization, CLV analysis, revenue forecasting, content repurposing, review response drafting, link profile analysis, ad budget pacing, approval workflow, execution tracking, performance monitoring, CRM sync, credential management, team management, report generation, memory management, SEO execution, competitor tracking, GEO tracking, PDF generation, revenue simulation, churn prediction, macro signal tracking, creative fatigue prediction, intelligence graphing, journey engine, growth loop modeling, campaign health monitoring, narrative mapping, audience simulation, hallucination detection, claim verification, output validation, eval running, quality tracking, eval config management, prompt A/B testing, language routing, **engagement state management (v3.0)**, **brand status snapshot (v3.2)**, **opt-in insight capture (v3.2)**)
-- **14 HTTP connectors + 68 npx integrations** for connecting your own marketing accounts AND executing actions (social publishing, email sending, CRM writes, ad campaign creation, SMS, vector databases, knowledge management, CRM platforms, PM/design tools, SEO/monitoring, marketing automation, translation services, and more). Run `/dm:integrations` to see your connector status
+- **14 HTTP connectors + 68 npx integrations** for connecting your own marketing accounts AND executing actions (social publishing, email sending, CRM writes, ad campaign creation, SMS, vector databases, knowledge management, CRM platforms, PM/design tools, SEO/monitoring, marketing automation, translation services, and more). Run `/digital-marketing-pro:integrations` to see your connector status
 - **Persistent brand memory** that learns across sessions
 - **5-layer memory architecture** — session context → vector DB RAG (Pinecone/Qdrant) → temporal knowledge graphs (Graphiti) → universal agent memory (Supermemory) → knowledge base (Notion/Google Drive)
 - **Human-in-the-loop execution** — every write action requires explicit approval with risk-level classification (low/medium/high/critical) and industry-specific compliance gates
@@ -279,7 +279,7 @@ On first use, the plugin will:
 The plugin works fully without any Python installation. All marketing knowledge, frameworks, agent capabilities, and slash commands work out of the box.
 
 **Knowledge-only mode (0 MB, no install)** — Default
-All 16 modules, 25 agents, 149 skills, and 170+ reference knowledge files work with zero dependencies. (v3.0 + v3.2 additions: 23 methodology + framework reference docs in `skills/context-engine/` plus the engagement workflow, /dm:check, and /dm:status surfaces.)
+All 16 modules, 25 agents, 149 skills, and 170+ reference knowledge files work with zero dependencies. (v3.0 + v3.2 additions: 23 methodology + framework reference docs in `skills/context-engine/` plus the engagement workflow, /digital-marketing-pro:check, and /digital-marketing-pro:status surfaces.)
 
 **Lite mode (~15 MB)** — Enables scoring scripts
 ```
@@ -297,13 +297,13 @@ Adds everything in lite mode plus: competitor scraping (`beautifulsoup4`, `reque
 
 ### 1. Set Up Your Brand
 ```
-/dm:brand-setup
+/digital-marketing-pro:brand-setup
 ```
 Interactive brand profiling — answers questions about your brand identity, voice, audience, channels, and goals. Choose quick mode (5 questions) or full mode (17 questions).
 
 ### 2. Import Your Guidelines (Optional)
 ```
-/dm:import-guidelines
+/digital-marketing-pro:import-guidelines
 ```
 Import your brand's voice guide, restrictions, channel styles, or messaging framework. These are enforced automatically across all content. See the [Brand Guidelines Guide](docs/brand-guidelines.md).
 
@@ -365,8 +365,8 @@ Session End
 
 ### Multi-Client Workflow (Agencies)
 
-1. Create profiles per client: `/dm:brand-setup`
-2. Switch clients: `/dm:switch-brand` or say "switch to [client name]"
+1. Create profiles per client: `/digital-marketing-pro:brand-setup`
+2. Switch clients: `/digital-marketing-pro:switch-brand` or say "switch to [client name]"
 3. All outputs instantly adapt to the active client's voice, compliance, and context
 4. Each client's campaign data and insights are stored separately
 
@@ -404,7 +404,7 @@ See the [Claude Interfaces Guide](docs/claude-interfaces.md) for details, includ
 
 ### Top Commands (visible in Customize panel)
 
-These 10 commands appear in the **Commands** section of the Customize sidebar, providing quick access to the most common marketing workflows. The original 7 from v2.5 plus `/dm:engagement` (v3.0), `/dm:check` (v3.2), and `/dm:status` (v3.2):
+These 10 commands appear in the **Commands** section of the Customize sidebar, providing quick access to the most common marketing workflows. The original 7 from v2.5 plus `/digital-marketing-pro:engagement` (v3.0), `/digital-marketing-pro:check` (v3.2), and `/digital-marketing-pro:status` (v3.2):
 
 | Command | What It Does |
 |---------|-------------|
@@ -418,183 +418,183 @@ These 10 commands appear in the **Commands** section of the Customize sidebar, p
 
 ### All Skill Commands
 
-All commands use the `/dm:` prefix. If another plugin shares a command name, use the full form `/digital-marketing-pro:command-name`.
+All commands use the `/digital-marketing-pro:` prefix. If another plugin shares a command name, use the full form `/digital-marketing-pro:command-name`.
 
 | Command | What It Does |
 |---------|-------------|
-| `/dm:brand-setup` | Create or update brand profile |
-| `/dm:campaign-plan` | Generate campaign plan |
-| `/dm:content-brief` | Create content brief |
-| `/dm:seo-audit` | SEO audit |
-| `/dm:tech-seo-audit` | Technical SEO audit (Core Web Vitals, crawlability, indexation, redirects, security) |
-| `/dm:local-seo-audit` | Local SEO audit (GBP, NAP consistency, citations, local pack, reviews) |
-| `/dm:aeo-audit` | AI visibility audit |
-| `/dm:attribution-model` | Multi-touch attribution setup with model selection and credit distribution |
-| `/dm:case-study-plan` | Structured case study creation with CSR framework and distribution strategy |
-| `/dm:client-onboarding` | Post-sale onboarding workflow with kickoff agenda and access checklist |
-| `/dm:competitor-analysis` | Competitor deep-dive |
-| `/dm:ad-creative` | Generate ad copy variations |
-| `/dm:email-sequence` | Design email sequence |
-| `/dm:content-calendar` | Build content calendar |
-| `/dm:pr-pitch` | Create media pitch |
-| `/dm:landing-page-audit` | Score landing page |
-| `/dm:performance-report` | Generate performance report |
-| `/dm:funnel-audit` | Analyze customer funnel |
-| `/dm:launch-plan` | Product launch playbook |
-| `/dm:audience-profile` | Build buyer persona |
-| `/dm:influencer-brief` | Create influencer campaign brief |
-| `/dm:crisis-response` | Rapid crisis response plan |
-| `/dm:social-strategy` | Social media strategy |
-| `/dm:import-guidelines` | Import brand guidelines, restrictions, and channel styles |
-| `/dm:import-template` | Import deliverable templates (reports, proposals, briefs) |
-| `/dm:import-sop` | Import agency SOPs and workflow definitions |
-| `/dm:keyword-research` | Guided keyword research with clustering and intent mapping |
-| `/dm:roi-calculator` | Campaign ROI calculation with multi-touch attribution |
-| `/dm:ab-test-plan` | A/B test planning with sample size and hypothesis framework |
-| `/dm:content-repurpose` | Content repurposing strategy with derivative format matrix |
-| `/dm:creative-testing-framework` | Systematic creative testing strategy with testing matrix and holdout controls |
-| `/dm:executive-dashboard` | C-suite dashboard design with business-outcome metrics and alert thresholds |
-| `/dm:retargeting-strategy` | Retargeting campaign architecture with audience segmentation |
-| `/dm:martech-audit` | Marketing technology stack audit with gap analysis |
-| `/dm:media-plan` | Holistic paid media planning with channel allocation and flight scheduling |
-| `/dm:budget-optimizer` | Data-driven budget reallocation with diminishing returns modeling |
-| `/dm:qbr-plan` | Quarterly Business Review preparation with performance retrospective |
-| `/dm:client-proposal` | Agency client proposal with strategy, scope, and pricing |
-| `/dm:review-response` | Brand-aligned review response drafting with tone templates |
-| `/dm:video-script` | Video marketing script writing for YouTube, TikTok, Reels, and LinkedIn |
-| `/dm:webinar-plan` | End-to-end webinar planning with promotion and nurture strategy |
-| `/dm:switch-brand` | Switch active brand (multi-client) |
-| `/dm:publish-blog` | Publish blog post to WordPress/Webflow with SEO, categories, scheduling |
-| `/dm:send-email-campaign` | Send email campaign via SendGrid/Klaviyo/Customer.io/Brevo/Mailgun |
-| `/dm:launch-ad-campaign` | Create paid ad campaign on Google Ads/Meta/LinkedIn/TikTok with budget safeguards |
-| `/dm:schedule-social` | Schedule posts to Twitter/Instagram/LinkedIn/TikTok/YouTube/Pinterest |
-| `/dm:send-report` | Generate and deliver performance report via Slack, email, or Sheets |
-| `/dm:crm-sync` | Sync marketing contacts/deals to Salesforce/HubSpot/Zoho/Pipedrive |
-| `/dm:lead-import` | Import leads from forms/CSV/manual entry into CRM with deduplication |
-| `/dm:pipeline-update` | Update deal stages, values, and notes in CRM pipeline |
-| `/dm:segment-audience` | Create/update audience segments in CRM or email platform |
-| `/dm:data-export` | Export marketing data to BigQuery, Google Sheets, or Supabase |
-| `/dm:performance-check` | Pull live metrics from all connected platforms, instant performance snapshot |
-| `/dm:campaign-status` | Check status of all active campaigns across platforms |
-| `/dm:anomaly-scan` | Detect anomalies — drops, spikes, overspend, deliverability issues |
-| `/dm:budget-tracker` | Real-time budget tracking across all ad platforms with pacing analysis |
-| `/dm:save-knowledge` | Save brand knowledge to vector DB for future RAG retrieval |
-| `/dm:search-knowledge` | Semantic search across all stored brand knowledge |
-| `/dm:sync-memory` | Batch sync session learnings to persistent memory layer |
-| `/dm:send-sms` | Send SMS/WhatsApp marketing message via Twilio or Brevo |
-| `/dm:send-notification` | Send team notification via Slack or Intercom |
-| `/dm:agency-dashboard` | Portfolio-level view across all client brands |
-| `/dm:client-report` | Generate white-labeled client-facing performance report |
-| `/dm:sop-library` | Manage agency SOPs — create, assign, track compliance |
-| `/dm:credential-switch` | Switch active brand credential profile for multi-client management |
-| `/dm:team-assign` | Assign marketing tasks to team members by role and capacity |
-| `/dm:region-config` | Configure regional/market settings — timezone, language, compliance |
-| `/dm:exec-summary` | Generate C-suite-ready executive summary with portfolio ROI |
-| `/dm:seo-implement` | Execute SEO changes — meta tags, schema markup, redirects via CMS MCP |
-| `/dm:rank-monitor` | Track keyword rankings over time with trend analysis and alerts |
-| `/dm:serp-tracker` | Monitor SERP feature ownership (featured snippets, PAA, local pack) |
-| `/dm:redirect-manager` | Plan, validate, and deploy redirect chains with loop detection |
-| `/dm:competitor-monitor` | Start ongoing competitive scanning with change detection and baselines |
-| `/dm:share-of-voice` | Calculate share of voice across organic, paid, and social channels |
-| `/dm:competitor-alerts` | Configure real-time alerts for competitor changes (pricing, ads, content) |
-| `/dm:geo-monitor` | Track brand visibility across AI platforms (ChatGPT, Perplexity, Gemini, Copilot) |
-| `/dm:entity-audit` | Audit brand entity consistency across knowledge graphs and AI models |
-| `/dm:narrative-tracker` | Monitor how AI platforms describe your brand vs competitors |
-| `/dm:pdf-report` | Generate PDF performance reports with charts and executive summary |
-| `/dm:live-dashboard` | Create real-time dashboard with live metric connections |
-| `/dm:attribution-report` | Multi-touch attribution analysis with model comparison |
-| `/dm:cohort-analysis` | Customer cohort analysis with retention curves and LTV trends |
-| `/dm:simulate` | Run revenue simulation with scenario modeling and Monte Carlo analysis |
-| `/dm:what-if` | What-if analysis for budget, channel, and strategy changes |
-| `/dm:churn-risk` | Predict customer churn risk with intervention recommendations |
-| `/dm:creative-health` | Assess creative fatigue across campaigns with refresh recommendations |
-| `/dm:content-decay-scan` | Scan content library for decay — traffic drops, outdated info, broken links |
-| `/dm:learn` | Save cross-agent learnings to compound intelligence graph |
-| `/dm:recall` | Retrieve past learnings with confidence scoring and context |
-| `/dm:autopilot-status` | View self-healing campaign status — auto-corrections, guardrail triggers |
-| `/dm:journey-design` | Design cross-channel customer journey with state machines and triggers |
-| `/dm:loop-detect` | Identify and model growth loops (viral, content, paid, sales) |
-| `/dm:dark-funnel` | Analyze dark funnel touchpoints — communities, DMs, word-of-mouth signals |
-| `/dm:data-import` | Import external data from CSV, APIs, or databases into the plugin |
-| `/dm:add-integration` | Add custom MCP integration for unsupported platforms |
-| `/dm:narrative-landscape` | Map competitive narrative positioning across the market |
-| `/dm:counter-narrative` | Generate counter-narrative strategy against competitor positioning |
-| `/dm:focus-group` | Run synthetic focus group simulation from CRM persona data |
-| `/dm:message-test` | A/B test messaging variants against synthetic audience segments |
-| `/dm:market-weather` | Macro market signal dashboard — economic, seasonal, trend indicators |
-| `/dm:intelligence-report` | Cross-domain intelligence briefing combining all monitoring signals |
-| `/dm:pricing-test` | Price sensitivity testing with Van Westendorp and Gabor-Granger models |
+| `/digital-marketing-pro:brand-setup` | Create or update brand profile |
+| `/digital-marketing-pro:campaign-plan` | Generate campaign plan |
+| `/digital-marketing-pro:content-brief` | Create content brief |
+| `/digital-marketing-pro:seo-audit` | SEO audit |
+| `/digital-marketing-pro:tech-seo-audit` | Technical SEO audit (Core Web Vitals, crawlability, indexation, redirects, security) |
+| `/digital-marketing-pro:local-seo-audit` | Local SEO audit (GBP, NAP consistency, citations, local pack, reviews) |
+| `/digital-marketing-pro:aeo-audit` | AI visibility audit |
+| `/digital-marketing-pro:attribution-model` | Multi-touch attribution setup with model selection and credit distribution |
+| `/digital-marketing-pro:case-study-plan` | Structured case study creation with CSR framework and distribution strategy |
+| `/digital-marketing-pro:client-onboarding` | Post-sale onboarding workflow with kickoff agenda and access checklist |
+| `/digital-marketing-pro:competitor-analysis` | Competitor deep-dive |
+| `/digital-marketing-pro:ad-creative` | Generate ad copy variations |
+| `/digital-marketing-pro:email-sequence` | Design email sequence |
+| `/digital-marketing-pro:content-calendar` | Build content calendar |
+| `/digital-marketing-pro:pr-pitch` | Create media pitch |
+| `/digital-marketing-pro:landing-page-audit` | Score landing page |
+| `/digital-marketing-pro:performance-report` | Generate performance report |
+| `/digital-marketing-pro:funnel-audit` | Analyze customer funnel |
+| `/digital-marketing-pro:launch-plan` | Product launch playbook |
+| `/digital-marketing-pro:audience-profile` | Build buyer persona |
+| `/digital-marketing-pro:influencer-brief` | Create influencer campaign brief |
+| `/digital-marketing-pro:crisis-response` | Rapid crisis response plan |
+| `/digital-marketing-pro:social-strategy` | Social media strategy |
+| `/digital-marketing-pro:import-guidelines` | Import brand guidelines, restrictions, and channel styles |
+| `/digital-marketing-pro:import-template` | Import deliverable templates (reports, proposals, briefs) |
+| `/digital-marketing-pro:import-sop` | Import agency SOPs and workflow definitions |
+| `/digital-marketing-pro:keyword-research` | Guided keyword research with clustering and intent mapping |
+| `/digital-marketing-pro:roi-calculator` | Campaign ROI calculation with multi-touch attribution |
+| `/digital-marketing-pro:ab-test-plan` | A/B test planning with sample size and hypothesis framework |
+| `/digital-marketing-pro:content-repurpose` | Content repurposing strategy with derivative format matrix |
+| `/digital-marketing-pro:creative-testing-framework` | Systematic creative testing strategy with testing matrix and holdout controls |
+| `/digital-marketing-pro:executive-dashboard` | C-suite dashboard design with business-outcome metrics and alert thresholds |
+| `/digital-marketing-pro:retargeting-strategy` | Retargeting campaign architecture with audience segmentation |
+| `/digital-marketing-pro:martech-audit` | Marketing technology stack audit with gap analysis |
+| `/digital-marketing-pro:media-plan` | Holistic paid media planning with channel allocation and flight scheduling |
+| `/digital-marketing-pro:budget-optimizer` | Data-driven budget reallocation with diminishing returns modeling |
+| `/digital-marketing-pro:qbr-plan` | Quarterly Business Review preparation with performance retrospective |
+| `/digital-marketing-pro:client-proposal` | Agency client proposal with strategy, scope, and pricing |
+| `/digital-marketing-pro:review-response` | Brand-aligned review response drafting with tone templates |
+| `/digital-marketing-pro:video-script` | Video marketing script writing for YouTube, TikTok, Reels, and LinkedIn |
+| `/digital-marketing-pro:webinar-plan` | End-to-end webinar planning with promotion and nurture strategy |
+| `/digital-marketing-pro:switch-brand` | Switch active brand (multi-client) |
+| `/digital-marketing-pro:publish-blog` | Publish blog post to WordPress/Webflow with SEO, categories, scheduling |
+| `/digital-marketing-pro:send-email-campaign` | Send email campaign via SendGrid/Klaviyo/Customer.io/Brevo/Mailgun |
+| `/digital-marketing-pro:launch-ad-campaign` | Create paid ad campaign on Google Ads/Meta/LinkedIn/TikTok with budget safeguards |
+| `/digital-marketing-pro:schedule-social` | Schedule posts to Twitter/Instagram/LinkedIn/TikTok/YouTube/Pinterest |
+| `/digital-marketing-pro:send-report` | Generate and deliver performance report via Slack, email, or Sheets |
+| `/digital-marketing-pro:crm-sync` | Sync marketing contacts/deals to Salesforce/HubSpot/Zoho/Pipedrive |
+| `/digital-marketing-pro:lead-import` | Import leads from forms/CSV/manual entry into CRM with deduplication |
+| `/digital-marketing-pro:pipeline-update` | Update deal stages, values, and notes in CRM pipeline |
+| `/digital-marketing-pro:segment-audience` | Create/update audience segments in CRM or email platform |
+| `/digital-marketing-pro:data-export` | Export marketing data to BigQuery, Google Sheets, or Supabase |
+| `/digital-marketing-pro:performance-check` | Pull live metrics from all connected platforms, instant performance snapshot |
+| `/digital-marketing-pro:campaign-status` | Check status of all active campaigns across platforms |
+| `/digital-marketing-pro:anomaly-scan` | Detect anomalies — drops, spikes, overspend, deliverability issues |
+| `/digital-marketing-pro:budget-tracker` | Real-time budget tracking across all ad platforms with pacing analysis |
+| `/digital-marketing-pro:save-knowledge` | Save brand knowledge to vector DB for future RAG retrieval |
+| `/digital-marketing-pro:search-knowledge` | Semantic search across all stored brand knowledge |
+| `/digital-marketing-pro:sync-memory` | Batch sync session learnings to persistent memory layer |
+| `/digital-marketing-pro:send-sms` | Send SMS/WhatsApp marketing message via Twilio or Brevo |
+| `/digital-marketing-pro:send-notification` | Send team notification via Slack or Intercom |
+| `/digital-marketing-pro:agency-dashboard` | Portfolio-level view across all client brands |
+| `/digital-marketing-pro:client-report` | Generate white-labeled client-facing performance report |
+| `/digital-marketing-pro:sop-library` | Manage agency SOPs — create, assign, track compliance |
+| `/digital-marketing-pro:credential-switch` | Switch active brand credential profile for multi-client management |
+| `/digital-marketing-pro:team-assign` | Assign marketing tasks to team members by role and capacity |
+| `/digital-marketing-pro:region-config` | Configure regional/market settings — timezone, language, compliance |
+| `/digital-marketing-pro:exec-summary` | Generate C-suite-ready executive summary with portfolio ROI |
+| `/digital-marketing-pro:seo-implement` | Execute SEO changes — meta tags, schema markup, redirects via CMS MCP |
+| `/digital-marketing-pro:rank-monitor` | Track keyword rankings over time with trend analysis and alerts |
+| `/digital-marketing-pro:serp-tracker` | Monitor SERP feature ownership (featured snippets, PAA, local pack) |
+| `/digital-marketing-pro:redirect-manager` | Plan, validate, and deploy redirect chains with loop detection |
+| `/digital-marketing-pro:competitor-monitor` | Start ongoing competitive scanning with change detection and baselines |
+| `/digital-marketing-pro:share-of-voice` | Calculate share of voice across organic, paid, and social channels |
+| `/digital-marketing-pro:competitor-alerts` | Configure real-time alerts for competitor changes (pricing, ads, content) |
+| `/digital-marketing-pro:geo-monitor` | Track brand visibility across AI platforms (ChatGPT, Perplexity, Gemini, Copilot) |
+| `/digital-marketing-pro:entity-audit` | Audit brand entity consistency across knowledge graphs and AI models |
+| `/digital-marketing-pro:narrative-tracker` | Monitor how AI platforms describe your brand vs competitors |
+| `/digital-marketing-pro:pdf-report` | Generate PDF performance reports with charts and executive summary |
+| `/digital-marketing-pro:live-dashboard` | Create real-time dashboard with live metric connections |
+| `/digital-marketing-pro:attribution-report` | Multi-touch attribution analysis with model comparison |
+| `/digital-marketing-pro:cohort-analysis` | Customer cohort analysis with retention curves and LTV trends |
+| `/digital-marketing-pro:simulate` | Run revenue simulation with scenario modeling and Monte Carlo analysis |
+| `/digital-marketing-pro:what-if` | What-if analysis for budget, channel, and strategy changes |
+| `/digital-marketing-pro:churn-risk` | Predict customer churn risk with intervention recommendations |
+| `/digital-marketing-pro:creative-health` | Assess creative fatigue across campaigns with refresh recommendations |
+| `/digital-marketing-pro:content-decay-scan` | Scan content library for decay — traffic drops, outdated info, broken links |
+| `/digital-marketing-pro:learn` | Save cross-agent learnings to compound intelligence graph |
+| `/digital-marketing-pro:recall` | Retrieve past learnings with confidence scoring and context |
+| `/digital-marketing-pro:autopilot-status` | View self-healing campaign status — auto-corrections, guardrail triggers |
+| `/digital-marketing-pro:journey-design` | Design cross-channel customer journey with state machines and triggers |
+| `/digital-marketing-pro:loop-detect` | Identify and model growth loops (viral, content, paid, sales) |
+| `/digital-marketing-pro:dark-funnel` | Analyze dark funnel touchpoints — communities, DMs, word-of-mouth signals |
+| `/digital-marketing-pro:data-import` | Import external data from CSV, APIs, or databases into the plugin |
+| `/digital-marketing-pro:add-integration` | Add custom MCP integration for unsupported platforms |
+| `/digital-marketing-pro:narrative-landscape` | Map competitive narrative positioning across the market |
+| `/digital-marketing-pro:counter-narrative` | Generate counter-narrative strategy against competitor positioning |
+| `/digital-marketing-pro:focus-group` | Run synthetic focus group simulation from CRM persona data |
+| `/digital-marketing-pro:message-test` | A/B test messaging variants against synthetic audience segments |
+| `/digital-marketing-pro:market-weather` | Macro market signal dashboard — economic, seasonal, trend indicators |
+| `/digital-marketing-pro:intelligence-report` | Cross-domain intelligence briefing combining all monitoring signals |
+| `/digital-marketing-pro:pricing-test` | Price sensitivity testing with Van Westendorp and Gabor-Granger models |
 
 ## Predictive Intelligence
 
 Revenue simulation, churn prediction, and market timing powered by the **marketing-scientist** and **market-intelligence** agents. Run Monte Carlo simulations, model what-if scenarios, track macro signals, and predict customer churn with intervention recommendations.
 
-- `/dm:simulate` — revenue simulation with scenario modeling
-- `/dm:what-if` — what-if analysis for budget and strategy changes
-- `/dm:churn-risk` — churn prediction with intervention playbooks
-- `/dm:market-weather` — macro market signal monitoring
-- `/dm:intelligence-report` — cross-domain intelligence briefing
-- `/dm:pricing-test` — price sensitivity testing
+- `/digital-marketing-pro:simulate` — revenue simulation with scenario modeling
+- `/digital-marketing-pro:what-if` — what-if analysis for budget and strategy changes
+- `/digital-marketing-pro:churn-risk` — churn prediction with intervention playbooks
+- `/digital-marketing-pro:market-weather` — macro market signal monitoring
+- `/digital-marketing-pro:intelligence-report` — cross-domain intelligence briefing
+- `/digital-marketing-pro:pricing-test` — price sensitivity testing
 
 ## GEO Monitoring
 
 Track your brand's visibility across AI platforms — ChatGPT, Perplexity, Gemini, and Copilot. Monitor how AI models describe your brand, audit entity consistency, and track narrative changes over time.
 
-- `/dm:geo-monitor` — AI platform visibility tracking
-- `/dm:entity-audit` — entity consistency across knowledge graphs
-- `/dm:narrative-tracker` — AI narrative monitoring
+- `/digital-marketing-pro:geo-monitor` — AI platform visibility tracking
+- `/digital-marketing-pro:entity-audit` — entity consistency across knowledge graphs
+- `/digital-marketing-pro:narrative-tracker` — AI narrative monitoring
 
 ## Competitor Monitoring
 
 Ongoing competitive scanning with change detection, share of voice tracking, and real-time alerts. The **competitor-intelligence** agent maintains baselines, detects changes in competitor pricing, ads, content, and positioning.
 
-- `/dm:competitor-monitor` — continuous competitive scanning
-- `/dm:share-of-voice` — SOV across organic, paid, and social
-- `/dm:competitor-alerts` — real-time change alerts
+- `/digital-marketing-pro:competitor-monitor` — continuous competitive scanning
+- `/digital-marketing-pro:share-of-voice` — SOV across organic, paid, and social
+- `/digital-marketing-pro:competitor-alerts` — real-time change alerts
 
 ## SEO Execution
 
 Move beyond audits to execution. Deploy meta tag updates, schema markup, and redirects directly through CMS MCP integrations. Track rankings and SERP feature ownership over time.
 
-- `/dm:seo-implement` — execute SEO changes via CMS
-- `/dm:rank-monitor` — keyword ranking tracking
-- `/dm:serp-tracker` — SERP feature monitoring
-- `/dm:redirect-manager` — redirect deployment and validation
+- `/digital-marketing-pro:seo-implement` — execute SEO changes via CMS
+- `/digital-marketing-pro:rank-monitor` — keyword ranking tracking
+- `/digital-marketing-pro:serp-tracker` — SERP feature monitoring
+- `/digital-marketing-pro:redirect-manager` — redirect deployment and validation
 
 ## Self-Healing Campaigns
 
 Campaigns that auto-correct within defined guardrails. The **campaign-health-monitor** script detects budget pacing issues, performance drops, and deliverability problems, then applies corrections automatically with full audit trails.
 
-- `/dm:autopilot-status` — view auto-corrections and guardrail triggers
+- `/digital-marketing-pro:autopilot-status` — view auto-corrections and guardrail triggers
 
 ## Creative Intelligence
 
 Predict creative fatigue before it impacts performance. Scan content libraries for decay — traffic drops, outdated information, and broken links. Proactive refresh recommendations.
 
-- `/dm:creative-health` — creative fatigue assessment
-- `/dm:content-decay-scan` — content library health scan
+- `/digital-marketing-pro:creative-health` — creative fatigue assessment
+- `/digital-marketing-pro:content-decay-scan` — content library health scan
 
 ## Compound Intelligence
 
 Cross-agent learning hub where insights from one agent improve all others. The **intelligence-curator** agent maintains a confidence-scored intelligence graph that grows smarter with every interaction.
 
-- `/dm:learn` — save learnings to intelligence graph
-- `/dm:recall` — retrieve past learnings with confidence scoring
+- `/digital-marketing-pro:learn` — save learnings to intelligence graph
+- `/digital-marketing-pro:recall` — retrieve past learnings with confidence scoring
 
 ## Synthetic Audience Testing
 
 Simulate focus groups and message tests using synthetic audiences built from your CRM data and persona profiles. Test messaging, positioning, and creative before spending budget.
 
-- `/dm:focus-group` — synthetic focus group simulation
-- `/dm:message-test` — message A/B testing against synthetic segments
+- `/digital-marketing-pro:focus-group` — synthetic focus group simulation
+- `/digital-marketing-pro:message-test` — message A/B testing against synthetic segments
 
 ## Journey Orchestration
 
 Design and manage cross-channel customer journeys with state machines, triggers, and growth loop modeling. The **journey-orchestrator** agent manages journey state across email, social, ads, and web. Detect growth loops and analyze dark funnel touchpoints.
 
-- `/dm:journey-design` — cross-channel journey design
-- `/dm:loop-detect` — growth loop identification and modeling
-- `/dm:dark-funnel` — dark funnel analysis
+- `/digital-marketing-pro:journey-design` — cross-channel journey design
+- `/digital-marketing-pro:loop-detect` — growth loop identification and modeling
+- `/digital-marketing-pro:dark-funnel` — dark funnel analysis
 
 ### Evaluation & Quality Assurance
 - **Hallucination detection** — Pattern-based detection of fabricated statistics, fake URLs, unsubstantiated claims, and made-up entities
@@ -604,7 +604,7 @@ Design and manage cross-channel customer journeys with state machines, triggers,
 - **Quality regression tracking** — 30-day rolling baselines with automatic regression detection
 - **Prompt A/B testing** — Compare quality scores across content variations
 - **Eval-before-publish gates** — Automatic quality checks before content enters approval workflow
-- **7 eval commands**: /dm:eval-content, /dm:verify-claims, /dm:validate-output, /dm:quality-report, /dm:eval-config, /dm:prompt-test, /dm:eval-suite
+- **7 eval commands**: /digital-marketing-pro:eval-content, /digital-marketing-pro:verify-claims, /digital-marketing-pro:validate-output, /digital-marketing-pro:quality-report, /digital-marketing-pro:eval-config, /digital-marketing-pro:prompt-test, /digital-marketing-pro:eval-suite
 
 ### Multilingual Support
 - **4 translation MCP servers** — DeepL (European/CJK), Sarvam AI (22 Indic languages), Google Cloud Translation (100+ languages), Lara Translate (marketing-context)
@@ -615,7 +615,7 @@ Design and manage cross-channel customer journeys with state machines, triggers,
 - **Multilingual SEO** — hreflang auditing, international sitemaps, Baidu/Yandex/Naver optimization
 - **RTL support** — Arabic, Hebrew, Farsi, Urdu layout guidance
 - **Indic language expertise** — Hindi, Tamil, Telugu, Bengali + 5 more via Sarvam AI with transliteration support
-- **6 multilingual commands**: /dm:translate-content, /dm:localize-campaign, /dm:language-audit, /dm:language-config, /dm:multilingual-score, /dm:hreflang-check
+- **6 multilingual commands**: /digital-marketing-pro:translate-content, /digital-marketing-pro:localize-campaign, /digital-marketing-pro:language-audit, /digital-marketing-pro:language-config, /digital-marketing-pro:multilingual-score, /digital-marketing-pro:hreflang-check
 
 ## Persistent Memory
 
@@ -652,7 +652,7 @@ digital-marketing-pro/
 ├── .mcp.json                     # 14 HTTP connectors (auto-loaded)
 ├── .mcp.json.example             # 68 npx servers (opt-in for Claude Code)
 ├── CONNECTORS.md                 # Connector reference with skill links
-├── commands/                     # 10 top commands (visible in Customize panel; v2.5 original 7 + v3.0 /dm:engagement + v3.2 /dm:check + /dm:status)
+├── commands/                     # 10 top commands (visible in Customize panel; v2.5 original 7 + v3.0 /digital-marketing-pro:engagement + v3.2 /digital-marketing-pro:check + /digital-marketing-pro:status)
 ├── skills/                       # 149 skill directories (141 atomic + 6 v3.0 methodology + 2 v3.2 quality-and-status, plus context-engine references)
 ├── agents/                       # 25 specialist agents (4 content-producer agents now embed mandatory hallucination check, v3.2+)
 ├── hooks/hooks.json              # No active hooks as of v3.1 (multi-plugin hygiene); reference catalog at hooks/hooks-reference.example.json
@@ -674,7 +674,7 @@ See [Architecture Reference](docs/architecture.md) for the full technical deep-d
 | `disable-model-invocation` | 18 execution skills | Prevents Claude from auto-triggering publish, send, launch, import, and export skills — user must invoke explicitly |
 | `evals/evals.json` | 3 key skills | Structured test cases with prompts, expected outputs, and quantitative/qualitative assertions |
 
-**Execution safety**: Skills that write to external platforms (publish-blog, send-email-campaign, launch-ad-campaign, schedule-social, send-report, send-sms, send-notification, data-export, data-import, crm-sync, lead-import, pipeline-update, segment-audience, seo-implement, launch-plan, publish-blog, live-dashboard) have `disable-model-invocation: true`. Claude cannot trigger these autonomously — you must type the `/dm:skill-name` command. This works alongside the MCP write approval hook for defense-in-depth.
+**Execution safety**: Skills that write to external platforms (publish-blog, send-email-campaign, launch-ad-campaign, schedule-social, send-report, send-sms, send-notification, data-export, data-import, crm-sync, lead-import, pipeline-update, segment-audience, seo-implement, launch-plan, publish-blog, live-dashboard) have `disable-model-invocation: true`. Claude cannot trigger these autonomously — you must type the `/digital-marketing-pro:skill-name` command. This works alongside the MCP write approval hook for defense-in-depth.
 
 **Evals**: The `campaign-plan`, `seo-audit`, and `content-engine` skills include `evals/evals.json` files with reproducible test cases. Each eval has a realistic prompt, expected output description, and assertions (quantitative checks like "budget totals $50,000" and qualitative checks like "uses ABM tactics for enterprise targeting").
 
@@ -925,7 +925,7 @@ Digital Marketing Pro is part of the **Neelverse Marketing Suite** — three plu
 
 | Plugin | What It Does | Install |
 |--------|-------------|---------|
-| **Digital Marketing Pro** (this plugin) | Strategy, SEO, paid ads, analytics, email, social, PR — 149 skills, 25 agents, 12-Part engagement methodology, /dm:check pre-publish gate, /dm:status snapshot | `claude plugin install digital-marketing-pro@neels-plugins` |
+| **Digital Marketing Pro** (this plugin) | Strategy, SEO, paid ads, analytics, email, social, PR — 149 skills, 25 agents, 12-Part engagement methodology, /digital-marketing-pro:check pre-publish gate, /digital-marketing-pro:status snapshot | `claude plugin install digital-marketing-pro@neels-plugins` |
 | **[ContentForge](https://github.com/indranilbanerjee/contentforge)** | Publication-ready content via 10-phase pipeline — research, draft, fact-check, SEO, humanize | `claude plugin install contentforge@neels-plugins` |
 | **[SocialForge](https://github.com/indranilbanerjee/socialforge)** | Social media calendar automation with AI image + video generation (Vertex AI + Kling v3.0) | `claude plugin install socialforge@neels-plugins` |
 

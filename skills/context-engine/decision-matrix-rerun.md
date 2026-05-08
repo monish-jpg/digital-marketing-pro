@@ -28,7 +28,7 @@ The Decision Matrix then triggers v2 re-runs based on which categories of findin
 
 ## Trigger detection
 
-The `/dm:engagement re-run-decision` command:
+The `/digital-marketing-pro:engagement re-run-decision` command:
 
 1. Reads the Client Validation Document responses
 2. Categorises each REJECTED or EDITED finding by type (competitor / market / audience / positioning / budget / pricing / unit-economics / minor)
@@ -50,7 +50,7 @@ The `/dm:engagement re-run-decision` command:
 The matrix is a guideline, not a hard rule. The user can override:
 
 ```
-/dm:engagement re-run-decision --override "rerun 3.3"
+/digital-marketing-pro:engagement re-run-decision --override "rerun 3.3"
 ```
 
 This forces a re-run even if the matrix didn't trigger it. Useful when the user has external context that justifies a refresh (e.g., a major industry event since v1 was produced).
@@ -58,7 +58,7 @@ This forces a re-run even if the matrix didn't trigger it. Useful when the user 
 ## When the matrix triggers re-runs but the user wants to skip
 
 ```
-/dm:engagement re-run-decision --skip "rerun 4.4"
+/digital-marketing-pro:engagement re-run-decision --skip "rerun 4.4"
 ```
 
 This skips a triggered re-run. Useful when the changed information is minor and the user judges v1 is still good enough. The skipped re-run is logged so future audits can understand why v1 wasn't refreshed.

@@ -21,7 +21,7 @@ Everything works. Claude Code is the original target platform, and every feature
 ### What works
 
 - **Hooks**: SessionStart runs `setup.py --summary` and injects a rich brand context block (name, industry, voice settings, compliance flags, channels, goals, competitors, campaign history) at the start of every session. PreToolUse intercepts Write/Edit calls to check marketing content for brand voice alignment and compliance violations. SessionEnd auto-saves key marketing insights to your brand profile via `campaign-tracker.py`.
-- **Skills and Commands**: All 42 `/dm:` slash commands are available. See the full list of 42 commands in the README. All 16 module skills and the context engine skill are loaded and active.
+- **Skills and Commands**: All 42 `/digital-marketing-pro:` slash commands are available. See the full list of 42 commands in the README. All 16 module skills and the context engine skill are loaded and active.
 - **Agents**: All 13 specialist agents (Marketing Strategist, Content Creator, SEO Specialist, Media Buyer, Analytics Analyst, Brand Guardian, Competitive Intel, PR Outreach, Growth Engineer, Influencer Manager, Email Specialist, CRO Specialist, Social Media Manager) activate based on conversation context.
 - **Scripts**: All 34 Python scripts run natively — covering brand management, content scoring, campaign tracking, email testing, A/B testing, social optimization, technical SEO auditing, local SEO checking, ROI calculation, budget optimization, CLV analysis, revenue forecasting, and more. Requires Python 3.8+ with optional dependencies.
 - **MCP**: All 18 integrations available when env vars are configured (Google Analytics 4, Google Search Console, Google Ads, Meta Business Suite, HubSpot, Mailchimp, LinkedIn Marketing, SEMrush, Ahrefs, Stripe, Google Sheets, Slack, TikTok Ads, Shopify, WordPress, Salesforce, Looker Studio, ActiveCampaign).
@@ -66,7 +66,7 @@ Claude Cowork is Anthropic's agentic desktop assistant, available as part of Cla
 Every feature listed in the Claude Code section above also works in Cowork:
 
 - **Hooks**: SessionStart, PreToolUse, and SessionEnd all fire in Cowork. Your brand context is auto-injected, content compliance is checked, and insights are auto-saved.
-- **Skills and Commands**: All 42 `/dm:` slash commands and all 16 module skills work. Invoke commands by typing `/` in Cowork and navigating to the plugin's commands.
+- **Skills and Commands**: All 42 `/digital-marketing-pro:` slash commands and all 16 module skills work. Invoke commands by typing `/` in Cowork and navigating to the plugin's commands.
 - **Agents**: All 13 specialist agents activate based on conversation context.
 - **Scripts**: Python scripts run in Cowork's execution environment. If Python or optional dependencies are missing, scripts fall back gracefully (structured JSON with `"fallback": true` and exit code 0) --- the plugin never crashes.
 - **MCP**: All 18 integrations work when configured with your API credentials.
@@ -118,7 +118,7 @@ This installs the plugin for both Claude Code and Cowork on the same machine.
 After installing, you need to authorize folder access for persistent brand memory:
 
 1. **Authorize the data folder**: When Cowork first tries to access `~/.claude-marketing/`, it will request folder permission. Grant it. This folder stores your brand profiles, campaign data, and marketing insights.
-2. **Set up your brand**: Type `/dm:brand-setup` in a Cowork conversation to create your first brand profile.
+2. **Set up your brand**: Type `/digital-marketing-pro:brand-setup` in a Cowork conversation to create your first brand profile.
 3. **Configure MCP integrations (optional)**: If you want live data from Google Analytics, HubSpot, or other platforms, set the required environment variables. See the [Integrations Guide](integrations-guide.md).
 
 ### What a Cowork session looks like
@@ -264,7 +264,7 @@ If multiple team members use Digital Marketing Pro:
 
 | Feature | Claude Code | Claude Cowork | Claude Desktop (no Cowork) | Claude.ai Web |
 |---|:---:|:---:|:---:|:---:|
-| Slash commands (/dm:) | Yes | Yes | Depends on plugin support | No |
+| Slash commands (/digital-marketing-pro:) | Yes | Yes | Depends on plugin support | No |
 | Brand memory (persistent) | Yes | Yes | No | No |
 | SessionStart hook (auto brand context) | Yes | Yes | No | No |
 | PreToolUse hook (compliance checking) | Yes | Yes | No | No |

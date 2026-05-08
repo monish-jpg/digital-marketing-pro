@@ -5,13 +5,13 @@ disable-model-invocation: true
 argument-hint: "[source-file or URL]"
 ---
 
-# /dm:lead-import
+# /digital-marketing-pro:lead-import
 
 ## Purpose
 
 Import leads into the brand's CRM with data validation, deduplication, lead scoring, and proper consent tracking. Supports CSV files, JSON arrays, and manual entry with automatic source attribution. Ensures every imported lead is clean, scored, deduplicated, and compliant before it reaches the sales team — eliminating the manual data hygiene work that slows down lead-to-opportunity conversion. Integrates with the marketing-automation lead scoring framework to classify leads on import, so high-value prospects are routed to sales immediately while lower-scoring leads enter nurture sequences automatically.
 
-Use this command for leads specifically — it applies scoring, lifecycle staging, and nurture enrollment. For general CRM data syncing (contacts, deals, campaigns) without lead scoring, use `/dm:crm-sync` instead.
+Use this command for leads specifically — it applies scoring, lifecycle staging, and nurture enrollment. For general CRM data syncing (contacts, deals, campaigns) without lead scoring, use `/digital-marketing-pro:crm-sync` instead.
 
 ## Input Required
 
@@ -34,7 +34,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Parse and validate lead data**: Read the input data source and validate every record — check email format (RFC 5322), normalize phone numbers to E.164, verify required fields are present, detect encoding issues, identify obviously fake entries (test@test.com, role-based emails like info@), and flag malformed or incomplete records with specific error reasons.
 3. **Normalize and enrich fields**: Standardize company names, job titles, and geographic data. Apply consistent formatting — title case for names, lowercase for emails, standardized country and state codes. Where possible, infer missing fields from available data (e.g., company domain from email, country from phone prefix).
 4. **Check for duplicates per lead**: Query the target CRM for existing records matching each lead on email, phone, or composite key. Categorize results as new (no match), exact duplicate (same email and name), fuzzy match (similar name or domain), or enrichment opportunity (existing record with missing fields this lead can fill).

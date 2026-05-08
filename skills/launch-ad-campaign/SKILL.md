@@ -5,7 +5,7 @@ disable-model-invocation: true
 argument-hint: "[platform]"
 ---
 
-# /dm:launch-ad-campaign
+# /digital-marketing-pro:launch-ad-campaign
 
 ## Purpose
 
@@ -32,7 +32,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Verify budget against brand thresholds**: Check the campaign budget against `budget_range` in `profile.json`. If the daily or lifetime budget exceeds the brand's defined maximum, halt and require explicit re-confirmation from the user with the exact dollar amount displayed prominently. This safeguard cannot be bypassed — it protects against accidental overspend.
 3. **Verify ad platform connection**: Check which ad platform MCP server is connected and confirm it matches the user's target platform. Verify conversion tracking pixel or tag is active on the brand's website. If not connected, instruct the user to configure the MCP server and tracking first.
 4. **Build campaign structure**: Design the campaign hierarchy per platform conventions — campaign level (objective, budget, schedule), ad group or ad set level (audience, placement, bid), and ad level (creative). Apply naming conventions from brand profile or agency SOPs for clean reporting. Structure ad groups by audience segment, keyword theme, or funnel stage.

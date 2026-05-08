@@ -4,7 +4,7 @@ argument-hint: "<subcommand> [args]"
 allowed-tools: Read Write Edit Bash Glob Grep
 ---
 
-# /dm:engagement — 12-Part Engagement Workflow
+# /digital-marketing-pro:engagement — 12-Part Engagement Workflow
 
 The engagement command family runs a complete marketing engagement using the 12-Part methodology. Every brand engagement runs through 12 parts in sequence, producing a canonical set of files at each stage.
 
@@ -12,74 +12,74 @@ This command is the entry point. It invokes the [engagement-workflow](../skills/
 
 ## Subcommands
 
-### `/dm:engagement start <brand-slug> <engagement-id>`
+### `/digital-marketing-pro:engagement start <brand-slug> <engagement-id>`
 
 Initialise a new engagement. Creates the directory tree, writes `_engagement.json`, walks the user through Part 1 Stone vs Opinion intake.
 
 **Example:**
 ```
-/dm:engagement start acme-corp 2026-q2
+/digital-marketing-pro:engagement start acme-corp 2026-q2
 ```
 
-**Pre-condition:** Brand profile must exist at `~/.claude-marketing/brands/{brand-slug}/profile.json`. If not, run `/dm:brand-setup` first.
+**Pre-condition:** Brand profile must exist at `~/.claude-marketing/brands/{brand-slug}/profile.json`. If not, run `/digital-marketing-pro:brand-setup` first.
 
-### `/dm:engagement status [brand-slug] [engagement-id]`
+### `/digital-marketing-pro:engagement status [brand-slug] [engagement-id]`
 
 Show the current engagement status. If brand and id are omitted, shows all active engagements.
 
 **Example:**
 ```
-/dm:engagement status acme-corp 2026-q2
+/digital-marketing-pro:engagement status acme-corp 2026-q2
 ```
 
-### `/dm:engagement next [brand-slug] [engagement-id]`
+### `/digital-marketing-pro:engagement next [brand-slug] [engagement-id]`
 
 Advance to the next part after confirming current is complete. Will not auto-advance — asks for confirmation.
 
-### `/dm:engagement validate <brand-slug> <engagement-id>`
+### `/digital-marketing-pro:engagement validate <brand-slug> <engagement-id>`
 
 Run Part 5 Client Validation. Invokes the `client-validation-document` skill to produce the deliverable. Pre-condition: Parts 2, 3, 4 must be complete.
 
-### `/dm:engagement re-run-decision <brand-slug> <engagement-id>`
+### `/digital-marketing-pro:engagement re-run-decision <brand-slug> <engagement-id>`
 
 Apply the Decision Matrix to determine which v2 re-runs are needed. Reads the Part 5 Client Validation responses and computes the re-run plan.
 
 **Pre-condition:** Part 5 Client Validation responses must be saved at `engagements/{id}/part-05-client-validation/client-validation-responses.json`.
 
-### `/dm:engagement update-back <brand-slug> <engagement-id> --doc <doc-id> --reason "<reason>"`
+### `/digital-marketing-pro:engagement update-back <brand-slug> <engagement-id> --doc <doc-id> --reason "<reason>"`
 
 Apply the Update-Back Rule (Part 7+ corrections). Bumps a source document version, saves new file, updates the Living Project Instruction File.
 
 **Example:**
 ```
-/dm:engagement update-back acme-corp 2026-q2 --doc 3.1 --reason "Segment X CAC corrected from INR 3,000 to INR 4,800 based on Q2 channel data"
+/digital-marketing-pro:engagement update-back acme-corp 2026-q2 --doc 3.1 --reason "Segment X CAC corrected from INR 3,000 to INR 4,800 based on Q2 channel data"
 ```
 
-### `/dm:engagement lif-show <brand-slug> <engagement-id>`
+### `/digital-marketing-pro:engagement lif-show <brand-slug> <engagement-id>`
 
 Display the Living Project Instruction File (the engagement's "currently true" record).
 
-### `/dm:engagement file-tree <brand-slug> <engagement-id>`
+### `/digital-marketing-pro:engagement file-tree <brand-slug> <engagement-id>`
 
 Show the engagement directory file tree.
 
-### `/dm:engagement list-engagements [brand-slug]`
+### `/digital-marketing-pro:engagement list-engagements [brand-slug]`
 
 List all engagements (optionally filtered by brand).
 
-### `/dm:engagement four-core <brand-slug> <engagement-id> [--doc 3.X] [--view v2]`
+### `/digital-marketing-pro:engagement four-core <brand-slug> <engagement-id> [--doc 3.X] [--view v2]`
 
 Produce the Four Core Documents (Part 3). Shorthand for invoking the `four-core-documents` skill.
 
-### `/dm:engagement growth-plan <brand-slug> <engagement-id>`
+### `/digital-marketing-pro:engagement growth-plan <brand-slug> <engagement-id>`
 
 Produce the Growth Plan (Part 8). Shorthand for invoking the `growth-plan` skill.
 
-### `/dm:engagement yearly-planner <brand-slug> <engagement-id>`
+### `/digital-marketing-pro:engagement yearly-planner <brand-slug> <engagement-id>`
 
 Produce the Yearly Planner (Part 8 companion). Shorthand for invoking the `yearly-planner` skill.
 
-### `/dm:engagement loop <brand-slug> <engagement-id>`
+### `/digital-marketing-pro:engagement loop <brand-slug> <engagement-id>`
 
 Produce a Part 12 Continuous Improvement deliverable (quarterly brief or ad-hoc). Shorthand for invoking the `continuous-improvement-loop` skill.
 
@@ -89,40 +89,40 @@ A complete engagement runs through these commands over weeks to months:
 
 ```
 # Day 1: Setup
-/dm:brand-setup acme-corp                              # Creates brand profile (one-time per brand)
-/dm:engagement start acme-corp 2026-q2                 # Initialises engagement; walks Part 1 intake
+/digital-marketing-pro:brand-setup acme-corp                              # Creates brand profile (one-time per brand)
+/digital-marketing-pro:engagement start acme-corp 2026-q2                 # Initialises engagement; walks Part 1 intake
 
 # Days 2-7: Unbiased research (Parts 2-4)
 # (delegated to existing skills: market-intelligence, competitor-analysis, audience-intelligence)
-/dm:engagement next acme-corp 2026-q2                  # Advance to Part 2 after Part 1 complete
+/digital-marketing-pro:engagement next acme-corp 2026-q2                  # Advance to Part 2 after Part 1 complete
 # ... repeat advancement after each part
 
 # Day 8: Strategic core (Part 3)
-/dm:engagement four-core acme-corp 2026-q2             # Produces all 4 core documents (61 steps)
+/digital-marketing-pro:engagement four-core acme-corp 2026-q2             # Produces all 4 core documents (61 steps)
 
 # Day 14: Client validation (Part 5)
-/dm:engagement validate acme-corp 2026-q2              # Produces client validation document
+/digital-marketing-pro:engagement validate acme-corp 2026-q2              # Produces client validation document
 # ... client reviews; responses captured in client-validation-responses.json
 
 # Day 17: V2 re-runs (Part 6)
-/dm:engagement re-run-decision acme-corp 2026-q2       # Computes re-run plan
-/dm:engagement four-core acme-corp 2026-q2 --view v2 --doc 3.3   # Re-run specific docs as v2
+/digital-marketing-pro:engagement re-run-decision acme-corp 2026-q2       # Computes re-run plan
+/digital-marketing-pro:engagement four-core acme-corp 2026-q2 --view v2 --doc 3.3   # Re-run specific docs as v2
 
 # Days 18-21: Preparation + flagship deliverables (Parts 7-8)
-/dm:engagement next acme-corp 2026-q2                  # Advance to Part 7
+/digital-marketing-pro:engagement next acme-corp 2026-q2                  # Advance to Part 7
 # (Part 7 prep docs produced via campaign-orchestrator + content-engine + analytics-insights)
-/dm:engagement growth-plan acme-corp 2026-q2           # Part 8 flagship
-/dm:engagement yearly-planner acme-corp 2026-q2        # Part 8 operational companion
+/digital-marketing-pro:engagement growth-plan acme-corp 2026-q2           # Part 8 flagship
+/digital-marketing-pro:engagement yearly-planner acme-corp 2026-q2        # Part 8 operational companion
 
 # Days 22-30: Channel execution (Parts 9-11)
-/dm:engagement next acme-corp 2026-q2                  # Advance to Part 9
+/digital-marketing-pro:engagement next acme-corp 2026-q2                  # Advance to Part 9
 # (Part 9 channel docs produced via per-channel skills in paid-advertising/aeo-geo/etc.)
 # (Parts 10-11 produced via content-engine in execution mode)
 
 # Day 31 onwards: Continuous improvement (Part 12)
-/dm:engagement next acme-corp 2026-q2                  # Activate Part 12 — runs continuously
+/digital-marketing-pro:engagement next acme-corp 2026-q2                  # Activate Part 12 — runs continuously
 # Quarterly briefs at QBR; ad-hoc briefs as significant signals warrant:
-/dm:engagement loop acme-corp 2026-q2
+/digital-marketing-pro:engagement loop acme-corp 2026-q2
 ```
 
 ## What the workflow produces

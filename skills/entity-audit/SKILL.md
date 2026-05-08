@@ -3,7 +3,7 @@ name: entity-audit
 description: "Audit brand entity consistency. Use when: checking Wikidata, Knowledge Panel, or directory discrepancies."
 ---
 
-# /dm:entity-audit
+# /digital-marketing-pro:entity-audit
 
 ## Purpose
 
@@ -20,7 +20,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Extract the authoritative values for all entity properties — official name, website, founding date, headquarters, social profiles, industry, key people, and description. These become the source of truth against which all platforms are compared. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with user-provided values.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Extract the authoritative values for all entity properties — official name, website, founding date, headquarters, social profiles, industry, key people, and description. These become the source of truth against which all platforms are compared. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with user-provided values.
 2. **Check Wikidata**: Search for the entity on Wikidata by name and aliases. If found, verify each property — official website (P856), social media profiles (P2002, P2003, P2013, P4264), founding date (P571), headquarters (P159), industry (P452), key people (P169, P112), instance of (P31), and description. Record each property as matching, mismatched (with both values), outdated, or missing. If no Wikidata entry exists, record as absent and assess whether the entity meets notability criteria for creation.
 3. **Check Google Knowledge Panel**: Verify Knowledge Panel existence for the brand name query. If present, check whether the panel is claimed or unclaimed, whether displayed information (website, address, social links, description, category) matches the brand profile, and whether images and logos are current. Record each element as accurate, inaccurate (with discrepancy details), outdated, or missing. Note the panel source attribution.
 4. **Assess Wikipedia presence**: Search for the entity on Wikipedia. If an article exists, verify accuracy of key facts — founding date, headquarters, description, key people, products/services, and any claims that could be outdated or incorrect. Check for citation quality and recency. If no article exists, assess notability criteria — significant coverage in reliable independent sources, demonstrated importance in the field, and verifiable claims. Record as present-and-accurate, present-with-issues (list issues), or absent with notability assessment (likely notable, borderline, or unlikely notable).

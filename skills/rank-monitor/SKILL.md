@@ -3,7 +3,7 @@ name: rank-monitor
 description: "Monitor keyword rankings. Use when: tracking keyword positions, detecting ranking drops, or alerting on position changes."
 ---
 
-# /dm:rank-monitor
+# /digital-marketing-pro:rank-monitor
 
 ## Purpose
 
@@ -22,7 +22,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Capture current rankings baseline**: Query Moz MCP and Google Search Console MCP for the current ranking position of each target keyword. Record position, ranking URL, SERP features present (featured snippet, People Also Ask, AI Overview, local pack, image pack, video carousel, sitelinks), click-through rate from GSC where available, and impressions. For competitor domains, capture their positions for the same keywords.
 3. **Configure monitoring schedule**: Save the keyword list, monitoring frequency, alert thresholds, competitor domains, device type, and target country to the brand's SEO directory at `~/.claude-marketing/brands/{slug}/seo/rank-monitor-config.json`. Create or update the baseline snapshot at `~/.claude-marketing/brands/{slug}/seo/rank-baseline.json` with the current positions as the reference point.
 4. **On each monitoring check: query and compare**: Pull current positions for all tracked keywords via Moz and GSC MCPs. Compare each keyword's current position to both the baseline (original position when monitoring started) and the previous check (last recorded position). Calculate absolute change from baseline, change since last check, rolling 7-day and 30-day trend direction, and average position across all tracked keywords.

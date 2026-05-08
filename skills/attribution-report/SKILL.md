@@ -3,7 +3,7 @@ name: attribution-report
 description: "Run multi-touch attribution analysis. Use when: first/last-touch, linear, time-decay, position-based revenue allocation."
 ---
 
-# /dm:attribution-report
+# /digital-marketing-pro:attribution-report
 
 ## Purpose
 
@@ -21,7 +21,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply business model context (SaaS, eCommerce, B2B) to set appropriate default conversion window and model recommendations. Check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply business model context (SaaS, eCommerce, B2B) to set appropriate default conversion window and model recommendations. Check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Gather conversion path data from analytics MCPs**: Pull multi-touch journey data from connected sources — Google Analytics MCP for conversion paths, multi-channel funnel reports, and assisted conversion data; Google Ads MCP for search attribution reports and cross-network attribution; Meta MCP for view-through and click-through attribution data; CRM MCP for deal stage progression with marketing touchpoint timestamps. Merge touchpoints into unified customer journeys, deduplicating cross-platform overlap where the same interaction is recorded by multiple sources.
 3. **Apply each selected attribution model to the data**: Run every requested model against the unified conversion path dataset. First-touch: assign 100% of conversion value to the first recorded touchpoint in each journey. Last-touch: assign 100% to the final touchpoint before conversion. Linear: divide conversion value equally among all touchpoints (n touchpoints each receive 1/n credit). Time-decay: apply exponential decay from conversion backward with the configured half-life — a touchpoint at one half-life distance receives 50% of the credit of the converting touchpoint, two half-lives receives 25%, and so on, then normalize to 100%. Position-based: assign 40% to first, 40% to last, distribute remaining 20% equally across middle touchpoints. Data-driven: analyze conversion path patterns to identify which channel sequences have statistically higher conversion rates, then allocate credit proportional to each channel's incremental contribution.
 4. **Calculate per-channel revenue attribution under each model**: For every channel and every model, compute: total attributed revenue (sum of credited conversion values), number of attributed conversions (fractional — a conversion credited 40% counts as 0.4), cost per attributed conversion (channel spend divided by attributed conversions), and attributed ROAS (attributed revenue divided by channel spend). Present as a matrix with channels as rows and models as columns for direct comparison.

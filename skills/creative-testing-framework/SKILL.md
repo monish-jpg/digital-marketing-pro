@@ -13,7 +13,7 @@ triggers:
   - creative optimization testing
 ---
 
-# /dm:creative-testing-framework
+# /digital-marketing-pro:creative-testing-framework
 
 ## Purpose
 
@@ -36,7 +36,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Define testing variables**: Catalog all testable creative elements — headline copy, body copy length, CTA text and color, hero image subject, image style (photo vs. illustration vs. UGC), video hook (first 3 seconds), video length, ad format (static vs. carousel vs. video), color palette, offer framing (discount vs. value vs. urgency), social proof type (testimonial vs. stat vs. badge), and layout composition.
 3. **Prioritize variables by expected impact and ease**: Score each variable on a 2x2 matrix of expected performance impact (high/low) and production effort (high/low). Rank variables so the team tests high-impact, low-effort elements first. Use historical data and platform benchmarks to inform impact estimates where available.
 4. **Design testing matrix**: Build the variable-by-variant grid — for each priority variable, define 2-4 variants to test against the current control. Ensure tests are isolated (one variable per test) unless running deliberate multivariate experiments. Map each test to the appropriate audience segment and platform.

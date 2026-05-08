@@ -3,7 +3,7 @@ name: recall
 description: "Recall marketing learnings. Use when: querying what we know about a channel, audience, objective, or past campaign."
 ---
 
-# /dm:recall
+# /digital-marketing-pro:recall
 
 ## Purpose
 
@@ -20,7 +20,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand industry, audience segments, and active channels to contextualize the query and boost relevance of matching learnings. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand industry, audience segments, and active channels to contextualize the query and boost relevance of matching learnings. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Query the intelligence graph**: Execute `intelligence-graph.py query-relevant` with the provided context dimensions. The query matches against all indexed conditions — channel, audience, objective, campaign type — and also performs semantic matching for freeform situation descriptions. Apply confidence threshold and time range filters.
 3. **Rank results**: Score each returned learning by a composite of relevance (how closely the learning's conditions match the query context), confidence (how validated the insight is based on accumulated evidence), and recency (how recently the learning was recorded or last updated, with a decay curve that weights recent learnings higher for volatile channels). Return the top results by composite score.
 4. **Group into actionable themes**: Cluster the ranked learnings into coherent themes — e.g., "Content & Messaging" (what to say), "Timing & Frequency" (when to say it), "Audience Behavior" (how they respond), "Channel Tactics" (platform-specific techniques), and "Things to Avoid" (validated anti-patterns). Each theme gets a summary sentence synthesizing the grouped insights.

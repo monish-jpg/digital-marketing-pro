@@ -3,13 +3,13 @@ name: validate-output
 description: "Validate content structure. Use when: checking schema compliance, required sections, word count, or placeholders."
 ---
 
-# /dm:validate-output
+# /digital-marketing-pro:validate-output
 
 ## Purpose
 
 Validate marketing content against expected structural schemas to ensure completeness, formatting consistency, and production-readiness. Checks required sections, word count ranges, markdown formatting compliance, placeholder text detection (unfilled template variables, lorem ipsum, TBD markers), and content-CTA consistency. Supports eight built-in schemas for common marketing content types plus custom schemas for brand-specific templates.
 
-This command catches the structural and formatting issues that quality evaluation misses — the missing H2 that breaks SEO, the placeholder "[INSERT COMPANY NAME]" that slipped through, the blog post that is 300 words short of the brief requirement, or the email that has a CTA promising a demo but the body talks about a whitepaper. It is designed to be run as a final pre-publication check after content quality has been evaluated via /dm:eval-content.
+This command catches the structural and formatting issues that quality evaluation misses — the missing H2 that breaks SEO, the placeholder "[INSERT COMPANY NAME]" that slipped through, the blog post that is 300 words short of the brief requirement, or the email that has a CTA promising a demo but the body talks about a whitepaper. It is designed to be run as a final pre-publication check after content quality has been evaluated via /digital-marketing-pro:eval-content.
 
 ## Input Required
 
@@ -20,7 +20,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand formatting standards and content requirements. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load template definitions from `templates/` that may define brand-specific required sections, word count ranges, and formatting rules. Check for custom schemas at `~/.claude-marketing/brands/{slug}/schemas/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand formatting standards and content requirements. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load template definitions from `templates/` that may define brand-specific required sections, word count ranges, and formatting rules. Check for custom schemas at `~/.claude-marketing/brands/{slug}/schemas/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Determine schema**: If a schema name or file was provided, use it directly. If not, execute `scripts/output-validator.py --action list-schemas` to get all available schemas, then select the most appropriate one based on content characteristics (length, structure, formatting patterns). Report which schema was selected and why, so the user can override if the selection was wrong.
 3. **Run structural validation**: Execute `scripts/output-validator.py --action validate --text "{content}" --schema {schema_name_or_path}`. The validator checks:
    - **Required sections**: All sections defined in the schema are present with appropriate headings. For each missing section, identify what is expected and where it should appear in the content structure

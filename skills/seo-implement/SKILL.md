@@ -5,7 +5,7 @@ disable-model-invocation: true
 argument-hint: "[URL or change-type]"
 ---
 
-# /dm:seo-implement
+# /digital-marketing-pro:seo-implement
 
 ## Purpose
 
@@ -22,7 +22,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Validate proposed changes against current page state**: Capture a pre-change snapshot of the existing meta tags, schema markup, canonical settings, and redirect rules for each target URL via the CMS MCP. Compare proposed changes against SEO best practices — title tag length (50-60 characters), meta description length (150-160 characters), schema validity against Google's structured data requirements, canonical URL accessibility, and redirect target status codes.
 3. **Generate the change specification for each URL**: Map proposed changes to CMS API fields — for WordPress: Yoast meta fields (`_yoast_wpseo_title`, `_yoast_wpseo_metadesc`), RankMath equivalents, or AIOSEO fields; for Webflow: page SEO settings object. For schema deployment, generate valid JSON-LD from the specified type using page content and brand data, or validate user-provided JSON-LD against schema.org specifications and Google's rich result requirements.
 4. **Create approval gate**: Present all changes as a diff (before/after) for user review — old title tag vs. new title tag, old schema vs. new schema, current canonical vs. proposed canonical. Assess risk level: `medium` for single-page changes with straightforward updates, `high` for bulk updates affecting more than 5 pages, redirect creation, or canonical changes that could affect indexation. Display estimated impact and any warnings (e.g., title too long, schema missing required fields).

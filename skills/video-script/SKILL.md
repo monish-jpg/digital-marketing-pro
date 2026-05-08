@@ -4,7 +4,7 @@ description: "Write video scripts. Use when: creating YouTube, TikTok, Reels, Li
 argument-hint: "[topic or format]"
 ---
 
-# /dm:video-script
+# /digital-marketing-pro:video-script
 
 ## Purpose
 
@@ -27,7 +27,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Determine platform specs and format constraints**: Reference platform-specific requirements — aspect ratio (16:9, 9:16, 1:1), max duration, safe zones for text overlays, caption placement areas, and native content conventions. Apply platform algorithm preferences (e.g., TikTok favors native-feeling content, LinkedIn rewards professional storytelling, YouTube prioritizes watch time).
 3. **Select script structure**: Choose the optimal narrative framework based on video type and goals — AIDA (Attention-Interest-Desire-Action), PAS (Problem-Agitate-Solution), problem-solve-CTA, storytelling arc (setup-tension-resolution), listicle, before/after, or direct response. Justify the choice based on audience awareness level and platform norms.
 4. **Write 3 hook variants**: Craft three distinct opening hooks for the first 3 seconds — each using a different hook technique (bold claim, question, visual shock, pattern interrupt, relatable pain point, or curiosity gap). Provide rationale for why each hook works for the target audience and platform.

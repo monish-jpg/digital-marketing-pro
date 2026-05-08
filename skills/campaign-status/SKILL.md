@@ -3,7 +3,7 @@ name: campaign-status
 description: "Check active campaign status. Use when: cross-platform execution history, performance metrics, pending approvals."
 ---
 
-# /dm:campaign-status
+# /digital-marketing-pro:campaign-status
 
 ## Purpose
 
@@ -25,7 +25,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **List all tracked campaigns**: Execute `scripts/campaign-tracker.py --brand {slug} --action list-campaigns`
    to get the campaign registry with names, platforms, statuses, creation dates, and assigned KPI targets.
 3. **Pull execution history**: Execute `scripts/execution-tracker.py --brand {slug} --action get-history --days {time_window}`

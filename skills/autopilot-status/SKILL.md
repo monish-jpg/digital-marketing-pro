@@ -3,7 +3,7 @@ name: autopilot-status
 description: "Check campaign autopilot status. Use when: health scores, auto-corrections, guardrail review, campaigns needing attention."
 ---
 
-# /dm:autopilot-status
+# /digital-marketing-pro:autopilot-status
 
 ## Purpose
 
@@ -19,7 +19,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand-specific campaign naming conventions, KPI targets, and budget constraints to contextualize health scores and savings calculations. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand-specific campaign naming conventions, KPI targets, and budget constraints to contextualize health scores and savings calculations. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Gather campaign health scores**: Execute `campaign-health-monitor.py health-score` for each active campaign (or filtered subset). Each campaign receives a composite health score (0-100) based on performance vs. KPI targets, budget pacing accuracy, audience delivery, creative fatigue indicators, and anomaly detection. Campaigns are classified as healthy (80-100), attention-needed (50-79), or critical (below 50).
 3. **Retrieve recent auto-corrections**: Query `campaign-health-monitor.py corrections-history` for the specified time period. Each correction record includes the campaign affected, what was detected (the trigger condition), what action was taken (bid adjustment, budget reallocation, audience modification, creative rotation, pause), the before and after metric values, and the timestamp of the intervention.
 4. **Load current guardrails configuration**: Read the active guardrail rules — maximum budget deviation percentage, minimum ROAS threshold before pause, click-through rate floor, cost-per-acquisition ceiling, frequency cap limits, creative fatigue rotation triggers, and any custom brand-specific rules. Display which guardrails are active, their threshold values, and what automated action each triggers when breached.

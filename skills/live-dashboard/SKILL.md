@@ -5,7 +5,7 @@ disable-model-invocation: true
 argument-hint: "[data-source or dashboard-type]"
 ---
 
-# /dm:live-dashboard
+# /digital-marketing-pro:live-dashboard
 
 ## Purpose
 
@@ -23,7 +23,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Extract business model, key metrics, industry vertical, brand colors for dashboard theming, and connected platform credentials. Check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Extract business model, key metrics, industry vertical, brand colors for dashboard theming, and connected platform credentials. Check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Design dashboard layout based on business model template**: Select the appropriate metric hierarchy and page structure. For SaaS: page 1 overview (MRR scorecard, churn rate, CAC, LTV, CAC:LTV ratio), page 2 acquisition funnel (traffic to trial to activation to paid, by channel), page 3 retention (cohort retention curves, expansion revenue, net revenue retention). For eCommerce: page 1 overview (revenue, AOV, conversion rate, ROAS), page 2 product performance (top products, category breakdown, inventory velocity), page 3 channel mix (attributed revenue by channel, campaign-level ROAS). For B2B: page 1 overview (MQLs, SQLs, pipeline value, win rate), page 2 funnel (lead to MQL to SQL to opportunity to closed, conversion rates per stage), page 3 channel efficiency (CPL, cost per SQL, cost per opportunity by channel). For Agency: page 1 portfolio overview (client health scores, total managed spend, utilization), page 2 per-client drill-down (selectable client filter with full KPI set), page 3 cross-client benchmarks.
 3. **Map data sources to dashboard widgets**: For each widget in the layout, identify which connected MCP provides the required data — Google Analytics MCP for traffic and behavior metrics, Google Ads MCP for paid search data, Meta MCP for paid social data, CRM MCP for pipeline and deal metrics, email MCP for campaign performance. Flag any widgets that require data sources not yet connected and provide connection guidance.
 4. **Generate Looker Studio configuration**: Produce the complete dashboard specification — data source connection parameters (account IDs, property IDs, date ranges), calculated field formulas (blended ROAS across platforms, weighted conversion rates, custom KPI calculations), chart specifications (chart type, dimensions, metrics, sort order, conditional formatting), filter controls (date range selector, channel filter, campaign filter, audience segment filter), and page layout with widget positioning and sizing.

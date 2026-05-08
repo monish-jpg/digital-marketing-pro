@@ -5,7 +5,7 @@ argument-hint: "[URL or plan]"
 user-invocable: true
 ---
 
-# /dm:programmatic-seo
+# /digital-marketing-pro:programmatic-seo
 
 ## Purpose
 

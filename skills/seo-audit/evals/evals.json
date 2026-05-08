@@ -3,7 +3,7 @@
   "evals": [
     {
       "id": 0,
-      "prompt": "/dm:seo-audit https://example.com",
+      "prompt": "/digital-marketing-pro:seo-audit https://example.com",
       "expected_output": "A comprehensive SEO audit covering technical health, on-page optimization, content quality, E-E-A-T signals, and prioritized action items",
       "files": [],
       "assertions": [

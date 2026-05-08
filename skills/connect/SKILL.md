@@ -4,11 +4,11 @@ description: "Set up an MCP connector. Use when: connecting Google Ads, Salesfor
 argument-hint: "[connector-name]"
 ---
 
-# /dm:connect
+# /digital-marketing-pro:connect
 
 ## Purpose
 
-Guide users through connecting a specific MCP integration to the Digital Marketing Pro plugin. Provides platform-specific setup instructions, credential requirements, configuration steps, and verification. This is the user-friendly entry point for adding integrations — it handles the common cases (known connectors with established setup paths) while `/dm:add-integration` handles custom or unknown MCP servers.
+Guide users through connecting a specific MCP integration to the Digital Marketing Pro plugin. Provides platform-specific setup instructions, credential requirements, configuration steps, and verification. This is the user-friendly entry point for adding integrations — it handles the common cases (known connectors with established setup paths) while `/digital-marketing-pro:add-integration` handles custom or unknown MCP servers.
 
 ## Input Required
 
@@ -29,7 +29,7 @@ The user must provide (or will be prompted for):
    - Explain that the connector is already pre-configured in `.mcp.json`
    - No API keys or manual configuration needed
    - The user just needs to use a skill that requires it — Claude will prompt for OAuth authorization
-   - Example: "Your Slack connector is already configured. Just run `/dm:send-notification` and you'll be prompted to authorize Slack access."
+   - Example: "Your Slack connector is already configured. Just run `/digital-marketing-pro:send-notification` and you'll be prompted to authorize Slack access."
    - List the skills this connector enables
 
    **For npx connectors** (Google Ads, Meta, Salesforce, Twilio, etc.):
@@ -40,13 +40,13 @@ The user must provide (or will be prompted for):
      - Any prerequisites (developer accounts, app creation, etc.)
    - Show the exact `.mcp.json` entry to add (from the setup guide)
    - Offer two setup paths:
-     1. **Quick**: "Set the environment variables and run `/dm:add-integration <name>` to configure automatically"
+     1. **Quick**: "Set the environment variables and run `/digital-marketing-pro:add-integration <name>` to configure automatically"
      2. **Manual**: Show the JSON block to add to `.mcp.json` directly
    - Note that npx connectors work in Claude Code only, not Cowork
 
 4. **Handle unknown connectors**: If the connector name isn't in the registry:
    - Search for close matches and suggest them
-   - If no match found, explain that it's a custom integration and guide them to `/dm:add-integration` which handles npm package discovery and custom MCP server setup
+   - If no match found, explain that it's a custom integration and guide them to `/digital-marketing-pro:add-integration` which handles npm package discovery and custom MCP server setup
    - List the categories of connectors available so they can explore alternatives
 
 5. **Verify after setup** (for npx connectors): After the user confirms they've set up credentials, offer to verify connectivity:
@@ -64,8 +64,8 @@ A connector setup guide containing:
 - **Credential requirements** (npx only): Exact environment variable names, where to obtain them, and required permissions
 - **Configuration entry** (npx only): The exact JSON block to add to `.mcp.json`, ready to copy
 - **Verification steps**: How to confirm the connector is working after setup
-- **Alternative connectors**: Other connectors in the same category that the user might consider (e.g., "If you prefer Salesforce over HubSpot for CRM, run `/dm:connect salesforce`")
-- **Next steps**: "Run `/dm:integrations` to see your updated integration dashboard" and relevant skills to try
+- **Alternative connectors**: Other connectors in the same category that the user might consider (e.g., "If you prefer Salesforce over HubSpot for CRM, run `/digital-marketing-pro:connect salesforce`")
+- **Next steps**: "Run `/digital-marketing-pro:integrations` to see your updated integration dashboard" and relevant skills to try
 
 ## Agents Used
 

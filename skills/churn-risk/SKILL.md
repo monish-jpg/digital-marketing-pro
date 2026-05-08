@@ -3,7 +3,7 @@ name: churn-risk
 description: "Assess customer churn risk. Use when: churn scoring, at-risk segment identification, intervention playbook generation."
 ---
 
-# /dm:churn-risk
+# /digital-marketing-pro:churn-risk
 
 ## Purpose
 
@@ -21,7 +21,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply customer lifecycle data, historical churn rates, known retention patterns, and industry benchmarks. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load any communication frequency limits or channel restrictions that constrain intervention options. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with industry defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply customer lifecycle data, historical churn rates, known retention patterns, and industry benchmarks. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load any communication frequency limits or channel restrictions that constrain intervention options. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with industry defaults.
 2. **Gather customer behavioral data**: Connect to the CRM MCP (Salesforce or HubSpot) and pull behavioral signal data for each segment — email engagement metrics over the lookback period, purchase history with frequency and recency calculations, product usage or login patterns, support interactions with sentiment indicators, and any custom churn signals the user specified. If CRM MCP is not connected, prompt the user to provide exported segment data or configure the integration.
 3. **Score each segment for churn risk**: Execute `churn-predictor.py` with the behavioral signal data. The scoring model applies weighted signals — recent engagement decline is weighted more heavily than historical patterns, and signals are combined using a composite risk score. Each signal contributes based on its predictive strength: purchase recency (highest weight), engagement trend direction and velocity, support sentiment trajectory, and usage pattern breaks. Scores are normalized to 0-100 for comparability across segments.
 4. **Categorize into risk tiers**: Map composite scores to four risk tiers — Low (0-25, stable engagement, no intervention needed beyond standard nurture), Medium (26-50, early warning signals present, proactive engagement recommended), High (51-75, multiple deteriorating signals, targeted intervention required within 2 weeks), and Critical (76-100, imminent churn risk, immediate high-touch intervention needed within 48 hours). Apply brand-specific thresholds if historical data suggests different cutoffs.

@@ -4,7 +4,7 @@ description: "Design A/B and multivariate tests. Use when: sample size calculati
 argument-hint: "[element-to-test]"
 ---
 
-# /dm:ab-test-plan
+# /digital-marketing-pro:ab-test-plan
 
 ## Purpose
 
@@ -25,7 +25,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply voice, compliance, industry context. Check `guidelines/_manifest.json` for restrictions, messaging, channel styles, voice-and-tone rules, and templates. If a template matching this command exists in `~/.claude-marketing/brands/{slug}/templates/`, apply its format. If no brand exists, prompt for `/dm:brand-setup` or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply voice, compliance, industry context. Check `guidelines/_manifest.json` for restrictions, messaging, channel styles, voice-and-tone rules, and templates. If a template matching this command exists in `~/.claude-marketing/brands/{slug}/templates/`, apply its format. If no brand exists, prompt for `/digital-marketing-pro:brand-setup` or proceed with defaults.
 2. **Check campaign history**: Run `python campaign-tracker.py --brand {slug} --action list-campaigns` to review past test results and avoid re-testing already-validated hypotheses.
 3. **Run sample size calculator**: Execute `scripts/sample-size-calculator.py` with baseline conversion rate, minimum detectable effect, significance level, and power to determine required sample size per variant.
 4. **Build hypothesis statement**: Structure the hypothesis in the format: "If [specific change], then [primary metric] will [direction and magnitude] because [rationale grounded in data, user research, or established UX principle]."

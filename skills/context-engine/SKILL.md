@@ -28,7 +28,7 @@ This skill loads and manages:
 
 1. Check `~/.claude-marketing/brands/_active-brand.json` for the currently active brand
 2. If active brand exists, load `~/.claude-marketing/brands/{slug}/profile.json`
-3. If no active brand, prompt: "No active brand configured. Run /dm:brand-setup to create one, or tell me about your brand and I'll help set it up."
+3. If no active brand, prompt: "No active brand configured. Run /digital-marketing-pro:brand-setup to create one, or tell me about your brand and I'll help set it up."
 
 ### Brand Profile Schema
 
@@ -98,7 +98,7 @@ When user says "switch to [brand name]":
 2. The script handles fuzzy matching, validation, and updates `_active-brand.json`
 3. Confirm: "Switched to [brand_name]. All marketing outputs will now use this brand's voice, compliance rules, and context."
 
-Or use: `/dm:switch-brand`
+Or use: `/digital-marketing-pro:switch-brand`
 
 ## How Other Modules Use This Skill
 

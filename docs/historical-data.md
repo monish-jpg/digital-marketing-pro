@@ -25,7 +25,7 @@ Every marketing session generates persistent data. You do not need to remember t
 
 ### Campaign Plans
 
-When you create a campaign through `/dm:campaign-plan`, the Campaign Orchestrator agent, or any workflow that produces a structured campaign, the full plan is saved automatically.
+When you create a campaign through `/digital-marketing-pro:campaign-plan`, the Campaign Orchestrator agent, or any workflow that produces a structured campaign, the full plan is saved automatically.
 
 What gets stored:
 
@@ -42,7 +42,7 @@ Campaign plans never expire. Every campaign you create is preserved indefinitely
 
 ### Performance Snapshots
 
-When you run `/dm:performance-report` or any analysis that produces campaign metrics, a timestamped performance snapshot is saved.
+When you run `/digital-marketing-pro:performance-report` or any analysis that produces campaign metrics, a timestamped performance snapshot is saved.
 
 What gets stored:
 
@@ -386,7 +386,7 @@ Delete `insights.json`. The file will be recreated automatically the next time t
 Delete `campaigns/_index.json` and all campaign JSON files in the `campaigns/` directory. Performance snapshots in `performance/` can be deleted separately or kept.
 
 **Reset everything for a brand** (complete fresh start):
-Delete the entire brand slug directory. Run `/dm:brand-setup` to create a new profile from scratch.
+Delete the entire brand slug directory. Run `/digital-marketing-pro:brand-setup` to create a new profile from scratch.
 
 ### Preserving Insights Beyond the 200-Entry Buffer
 

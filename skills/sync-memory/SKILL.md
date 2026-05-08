@@ -3,11 +3,11 @@ name: sync-memory
 description: "Batch sync session learnings to memory. Use when: persisting campaign insights and performance history across sessions."
 ---
 
-# /dm:sync-memory
+# /digital-marketing-pro:sync-memory
 
 ## Purpose
 
-Batch sync current session learnings, insights.json entries, and campaign history to the persistent memory layer. Ensures valuable knowledge from this session is preserved for future sessions without requiring the user to manually save each item via `/dm:save-knowledge`. Syncs incrementally — only new items since the last sync checkpoint — so repeated syncs are fast, idempotent, and safe. Handles the full pipeline from diff detection through storage to checkpoint update, with detailed reporting on what was synced, skipped, or failed. Run this before ending a productive session to capture everything worth remembering.
+Batch sync current session learnings, insights.json entries, and campaign history to the persistent memory layer. Ensures valuable knowledge from this session is preserved for future sessions without requiring the user to manually save each item via `/digital-marketing-pro:save-knowledge`. Syncs incrementally — only new items since the last sync checkpoint — so repeated syncs are fast, idempotent, and safe. Handles the full pipeline from diff detection through storage to checkpoint update, with detailed reporting on what was synced, skipped, or failed. Run this before ending a productive session to capture everything worth remembering.
 
 ## Input Required
 
@@ -22,7 +22,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Load sync state**: Run `memory-manager.py --action sync-insights` to load the last sync checkpoint from `~/.claude-marketing/brands/{slug}/memory/sync-state.json`. Identify the last sync timestamp, items previously synced (by content hash), and any partial sync that needs resuming from its failure point. If force sync is requested, reset the checkpoint to epoch zero.
 3. **Gather syncable items**: Load insights.json entries, campaign data from `campaigns/`, and session learnings accumulated in the current working context. Apply sync scope filter (all, insights-only, campaigns-only) and exclude patterns to build the candidate set.
 4. **Identify new and modified items**: Diff the candidate set against the sync checkpoint. Generate content hashes (SHA-256) for each candidate and compare against the local content hash registry. Separate items into: new (not previously synced), modified (content changed since last sync — hash mismatch), and unchanged (already synced — skip). Report the diff summary before proceeding.
@@ -43,7 +43,7 @@ A structured sync report containing:
 - **Sync state update**: New checkpoint timestamp, cumulative items in persistent memory (total across all syncs), delta since last sync (net new items), and estimated next sync size based on current session activity rate
 - **Per-layer status**: Which memory layers received data — vector DB items stored (with namespace), knowledge graph entities created (if Graphiti connected), cross-session entries updated (if Supermemory connected), and local index entries registered
 - **Storage capacity**: Current utilization of the connected vector database — total items stored, estimated capacity remaining, utilization percentage, and alert if approaching provider plan limits
-- **Next sync recommendation**: Suggested timing for next sync based on session activity volume and storage capacity — with a reminder that running `/dm:sync-memory` before ending a session ensures no learnings are lost
+- **Next sync recommendation**: Suggested timing for next sync based on session activity volume and storage capacity — with a reminder that running `/digital-marketing-pro:sync-memory` before ending a session ensures no learnings are lost
 
 ## Agents Used
 

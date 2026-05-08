@@ -5,7 +5,7 @@ disable-model-invocation: true
 argument-hint: "[URL or action]"
 ---
 
-# /dm:redirect-manager
+# /digital-marketing-pro:redirect-manager
 
 ## Purpose
 
@@ -23,7 +23,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **For create: validate source and target URLs**: Confirm the source URL exists or was previously indexed (check GSC for historical data), verify the target URL is live and returns a 200 status code, check for any existing redirect already set for the source URL to avoid duplicates, and check whether the proposed redirect would create a chain (source redirects to an intermediate URL that itself redirects elsewhere). For bulk-import, validate every source-target pair in the import file and flag any issues before proceeding.
 3. **For audit: crawl all existing redirects**: Query the CMS API to retrieve every configured redirect rule. For each redirect, test the full redirect path by following it to its final destination. Detect chains (more than 1 hop — e.g., A redirects to B redirects to C), loops (A redirects to B redirects to A, or longer circular paths), redirects pointing to 4xx or 5xx error pages, redirect-to-redirect patterns that waste crawl budget, mixed protocol redirects (HTTP to HTTPS to HTTP), and redirects with excessive query parameter handling.
 4. **For fix: resolve detected issues**: For chains — update the first redirect to point directly to the final destination URL, eliminating intermediate hops. For loops — break the cycle by identifying the correct final destination and updating or removing the looping rule. For broken targets — identify the correct live destination (check for URL changes, archived content, or replacement pages) and update the redirect, or flag for manual review if no clear target exists. For duplicates — remove redundant rules, keeping the most recently created or most specific match.

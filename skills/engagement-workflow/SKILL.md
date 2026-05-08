@@ -16,7 +16,7 @@ engagement-part: orchestrator
 view-preference: both
 ---
 
-# /dm:engagement-workflow — 12-Part Engagement Orchestrator
+# /digital-marketing-pro:engagement-workflow — 12-Part Engagement Orchestrator
 
 This skill orchestrates the full marketing engagement using the 12-Part sequential methodology. Every brand engagement runs through the same 12 parts in sequence, producing a canonical set of files at each stage.
 
@@ -30,17 +30,17 @@ Read these references before producing output:
 
 ## Operating Mode
 
-This skill is invoked via the `/dm:engagement` command family. Each subcommand maps to a specific lifecycle action. The skill calls `scripts/engagement-state.py` for persistence; you should never hand-edit `_engagement.json`.
+This skill is invoked via the `/digital-marketing-pro:engagement` command family. Each subcommand maps to a specific lifecycle action. The skill calls `scripts/engagement-state.py` for persistence; you should never hand-edit `_engagement.json`.
 
 ## Subcommands
 
-### `/dm:engagement start <brand-slug> <engagement-id>`
+### `/digital-marketing-pro:engagement start <brand-slug> <engagement-id>`
 
 **Purpose:** Initialise a new engagement.
 
 **Steps:**
 
-1. Validate that the brand profile exists at `~/.claude-marketing/brands/{brand-slug}/profile.json`. If not, instruct the user to run `/dm:brand-setup` first.
+1. Validate that the brand profile exists at `~/.claude-marketing/brands/{brand-slug}/profile.json`. If not, instruct the user to run `/digital-marketing-pro:brand-setup` first.
 2. Run `python ${CLAUDE_PLUGIN_ROOT}/scripts/engagement-state.py init --brand {brand-slug} --id {engagement-id}`.
 3. Confirm the directory tree was created and report the next required action (Part 1 intake).
 4. Walk the user through Part 1 Stone vs Opinion intake by asking the questions one batch at a time.
@@ -85,7 +85,7 @@ python ${CLAUDE_PLUGIN_ROOT}/scripts/engagement-state.py add-opinion --brand {sl
 
 **On completion of Part 1:** mark Part 1 as completed via `mark-part-completed --part 1`, advise the user to proceed to Part 2 (External Research).
 
-### `/dm:engagement next [brand] [id]`
+### `/digital-marketing-pro:engagement next [brand] [id]`
 
 **Purpose:** Advance to the next part.
 
@@ -97,7 +97,7 @@ python ${CLAUDE_PLUGIN_ROOT}/scripts/engagement-state.py add-opinion --brand {sl
 4. On confirmation, mark current as completed, advance current_part pointer
 5. Brief the user on what the new part requires
 
-### `/dm:engagement status [brand] [id]`
+### `/digital-marketing-pro:engagement status [brand] [id]`
 
 **Purpose:** Show engagement status.
 
@@ -114,7 +114,7 @@ python ${CLAUDE_PLUGIN_ROOT}/scripts/engagement-state.py add-opinion --brand {sl
    - LIF last updated: date
 4. If the engagement has open items needing resolution, list them
 
-### `/dm:engagement file-tree [brand] [id]`
+### `/digital-marketing-pro:engagement file-tree [brand] [id]`
 
 **Purpose:** Show the engagement directory file tree.
 
@@ -124,7 +124,7 @@ python ${CLAUDE_PLUGIN_ROOT}/scripts/engagement-state.py add-opinion --brand {sl
 2. Format as an indented tree
 3. Highlight files that are missing per the canonical structure (e.g., if Part 3 is marked completed but `3.1-business-and-sbu-analysis.md` is missing, flag it)
 
-### `/dm:engagement validate [brand] [id]`
+### `/digital-marketing-pro:engagement validate [brand] [id]`
 
 **Purpose:** Run the Part 5 Client Validation flow.
 
@@ -139,7 +139,7 @@ python ${CLAUDE_PLUGIN_ROOT}/scripts/engagement-state.py add-opinion --brand {sl
 5. Present the re-run plan to the user
 6. Mark Part 5 completed; on user approval of the re-run plan, advance to Part 6
 
-### `/dm:engagement re-run-decision [brand] [id]`
+### `/digital-marketing-pro:engagement re-run-decision [brand] [id]`
 
 **Purpose:** Apply the Decision Matrix to compute v2 re-runs.
 
@@ -152,7 +152,7 @@ python ${CLAUDE_PLUGIN_ROOT}/scripts/engagement-state.py add-opinion --brand {sl
 5. Await user approval — they can accept, modify (skip some, add others), or reject
 6. Record the executed plan via `engagement-state.py record-rerun-execution`
 
-### `/dm:engagement update-back [brand] [id] --doc <doc-id> --reason <reason>`
+### `/digital-marketing-pro:engagement update-back [brand] [id] --doc <doc-id> --reason <reason>`
 
 **Purpose:** Apply the Update-Back Rule to bump a source document version after Part 7+.
 
@@ -167,13 +167,13 @@ python ${CLAUDE_PLUGIN_ROOT}/scripts/engagement-state.py add-opinion --brand {sl
 5. Update the Living Project Instruction File via `lif-log-change`
 6. Identify downstream documents that may need review and add to the engagement's review queue
 
-### `/dm:engagement lif-show [brand] [id]`
+### `/digital-marketing-pro:engagement lif-show [brand] [id]`
 
 **Purpose:** Display the Living Project Instruction File.
 
 **Steps:** Run `engagement-state.py lif-show` and format the markdown output for readability.
 
-### `/dm:engagement list-engagements [brand]`
+### `/digital-marketing-pro:engagement list-engagements [brand]`
 
 **Purpose:** List all engagements (optionally filtered by brand).
 

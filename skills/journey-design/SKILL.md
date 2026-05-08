@@ -3,7 +3,7 @@ name: journey-design
 description: "Design cross-channel customer journeys. Use when: mapping touchpoints, branching logic, or stage transitions."
 ---
 
-# /dm:journey-design
+# /digital-marketing-pro:journey-design
 
 ## Purpose
 
@@ -23,7 +23,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, tone, compliance rules (`skills/context-engine/compliance-rules.md`), industry context, and audience personas to inform journey design. Load guidelines from `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` if present — apply channel restrictions, frequency caps, and content standards. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, tone, compliance rules (`skills/context-engine/compliance-rules.md`), industry context, and audience personas to inform journey design. Load guidelines from `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` if present — apply channel restrictions, frequency caps, and content standards. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Design journey state machine**: Define the journey states based on the objective. Each state represents a distinct phase the customer passes through — e.g., for onboarding: Welcome (day 0-1), Activation (day 1-3), First Value (day 3-7), Habit Formation (day 7-14), Advocate (day 14+). For acquisition: Awareness, Interest, Consideration, Intent, Evaluation, Purchase. Each state has entry criteria, exit criteria, and a maximum dwell time before escalation or alternative path triggers.
 3. **Define transitions**: For each state-to-state transition, specify the trigger event (what the customer does or doesn't do that causes movement), transition probability (estimated likelihood based on industry benchmarks and brand data), timing window (how long the customer typically stays in the current state before transitioning), and fallback behavior (what happens if the customer doesn't transition within the expected window — escalate, retry, or move to an alternative path).
 4. **Map touchpoints**: For each transition, design the specific touchpoint — which channel delivers the message, the content brief (what the message communicates and what action it drives), timing relative to the trigger event (immediate, 1 hour delay, next morning, etc.), and success criteria (what constitutes engagement with this touchpoint). Each touchpoint references available content assets or flags a content gap requiring new creation.

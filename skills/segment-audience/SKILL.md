@@ -5,14 +5,14 @@ disable-model-invocation: true
 argument-hint: "[segment-name or criteria]"
 ---
 
-# /dm:segment-audience
+# /digital-marketing-pro:segment-audience
 
 ## Purpose
 
 Create or update audience segments in the brand's CRM or email platform based on behavioral, demographic, or engagement criteria. Segments can be used for ad targeting, email campaigns, retargeting, or personalization. Ensures segments are well-defined, properly sized, actionable across platforms, and documented with clear criteria for reproducibility — so the team can understand exactly who is in a segment and why. Supports RFM (recency, frequency, monetary) modeling, lifecycle-based segmentation, and predictive scoring criteria for advanced audience strategies.
 
-Use this command to build targeting audiences before campaign launches. For importing new contacts into the CRM first, use `/dm:lead-import`.
-For exporting segment member data to external tools, use `/dm:data-export` after segment creation.
+Use this command to build targeting audiences before campaign launches. For importing new contacts into the CRM first, use `/digital-marketing-pro:lead-import`.
+For exporting segment member data to external tools, use `/digital-marketing-pro:data-export` after segment creation.
 
 ## Input Required
 
@@ -33,7 +33,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Determine available data sources**: Query connected platforms to identify what data is available for segmentation — CRM contact fields and custom properties, email engagement metrics (opens, clicks, bounces), ad platform audience data, website behavioral data (if analytics MCP connected), and purchase/transaction records. Map which criteria can be evaluated from which source and flag any criteria that cannot be supported by available data.
 3. **Build segment criteria logic**: Translate the user's criteria into platform-specific filter logic — AND/OR conditions, nested groups, date ranges, relative date windows (e.g., "last 30 days" recalculated dynamically), numeric thresholds, string matching rules, and list membership checks. Validate that all referenced fields exist in the target platform's schema.
 4. **Estimate segment size from available data**: Run a count query or estimate against the target platform to project segment membership. Flag if the segment is too small for its intended purpose (e.g., under 1,000 for ad targeting, under 100 for email A/B testing) or too broad (e.g., over 80% of total database — likely under-filtered and lacking targeting precision).

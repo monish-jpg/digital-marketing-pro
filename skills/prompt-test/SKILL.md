@@ -3,7 +3,7 @@ name: prompt-test
 description: "A/B test content variations. Use when: comparing quality scores across prompt approaches, headline styles, or content versions."
 ---
 
-# /dm:prompt-test
+# /digital-marketing-pro:prompt-test
 
 ## Purpose
 
@@ -25,8 +25,8 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files (voice-and-tone rules, messaging hierarchy, channel style guides). Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
-2. **For `create` action**: Set up a new test by running `python scripts/prompt-ab-tester.py --brand {slug} --action create-test --test-name "{name}"`. This initializes the test record with metadata (creation date, brand, content type) and prepares it for variant logging. Confirm the test was created and remind the user to log variants with `/dm:prompt-test` using the `log` action.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files (voice-and-tone rules, messaging hierarchy, channel style guides). Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
+2. **For `create` action**: Set up a new test by running `python scripts/prompt-ab-tester.py --brand {slug} --action create-test --test-name "{name}"`. This initializes the test record with metadata (creation date, brand, content type) and prepares it for variant logging. Confirm the test was created and remind the user to log variants with `/digital-marketing-pro:prompt-test` using the `log` action.
 3. **For `log` action**: First evaluate the variant content for quality by running `python scripts/eval-runner.py --brand {slug} --action run-quick --text "{content_or_path}" --content-type "{type}"` (pass `--evidence "{evidence_path}"` if provided). This produces per-dimension scores (clarity, persuasion, brand alignment, readability, compliance, etc.) and a composite score. Then log the variant with its scores by running `python scripts/prompt-ab-tester.py --brand {slug} --action log-variant --test-name "{name}" --variant-label "{label}" --variant-description "{description}" --scores "{scores_json}"`. Present the individual variant scores to the user immediately so they can see how this variant performed before logging additional variants.
 4. **For `results` action**: Pull the full comparison by running `python scripts/prompt-ab-tester.py --brand {slug} --action get-results --test-name "{name}"`. Analyze the results:
    - Identify the winning variant by highest composite score

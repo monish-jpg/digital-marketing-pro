@@ -3,7 +3,7 @@ name: competitor-alerts
 description: "Configure competitor alerts. Use when: tracking content changes, pricing shifts, ad launches, SERP changes, social spikes."
 ---
 
-# /dm:competitor-alerts
+# /digital-marketing-pro:competitor-alerts
 
 ## Purpose
 

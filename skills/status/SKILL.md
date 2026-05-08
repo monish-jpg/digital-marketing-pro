@@ -14,11 +14,11 @@ triggers:
 allowed-tools: Read Bash Glob Grep
 ---
 
-# /dm:status — Unified Status Snapshot
+# /digital-marketing-pro:status — Unified Status Snapshot
 
 This skill prints a complete status snapshot for the active Digital Marketing Pro brand: profile summary, all engagements with their current part and update age, recent insights, recent compliance violations, and Python dependency mode.
 
-In v3.0 and earlier, the SessionStart hook ran `setup.py` automatically at every Claude Code session start to print a 15-line brand summary banner. v3.1 removed that hook because it fired globally across every project regardless of whether the user was doing marketing work. v3.2 introduces `/dm:status` as the explicit replacement — a richer view, on demand.
+In v3.0 and earlier, the SessionStart hook ran `setup.py` automatically at every Claude Code session start to print a 15-line brand summary banner. v3.1 removed that hook because it fired globally across every project regardless of whether the user was doing marketing work. v3.2 introduces `/digital-marketing-pro:status` as the explicit replacement — a richer view, on demand.
 
 ## What it shows
 
@@ -37,7 +37,7 @@ The status snapshot has 5 sections:
 ### Default
 
 ```
-/dm:status
+/digital-marketing-pro:status
 ```
 
 Full snapshot for the active brand. Reads from `~/.claude-marketing/brands/_active-brand.json` to find the active slug.
@@ -45,7 +45,7 @@ Full snapshot for the active brand. Reads from `~/.claude-marketing/brands/_acti
 ### Specific brand
 
 ```
-/dm:status --brand acme-corp
+/digital-marketing-pro:status --brand acme-corp
 ```
 
 Snapshot for a named brand (does not change the active brand pointer).
@@ -53,7 +53,7 @@ Snapshot for a named brand (does not change the active brand pointer).
 ### Compact one-liner
 
 ```
-/dm:status --quiet
+/digital-marketing-pro:status --quiet
 ```
 
 Output:
@@ -65,7 +65,7 @@ DMP STATUS | Acme Corp | engagements: 2 active / 3 total | deps: lite
 ### JSON output
 
 ```
-/dm:status --json
+/digital-marketing-pro:status --json
 ```
 
 Machine-readable JSON for downstream skill consumption or scripting.
@@ -73,18 +73,18 @@ Machine-readable JSON for downstream skill consumption or scripting.
 ### Single section
 
 ```
-/dm:status --section brand
-/dm:status --section engagements
-/dm:status --section insights
-/dm:status --section compliance
-/dm:status --section deps
+/digital-marketing-pro:status --section brand
+/digital-marketing-pro:status --section engagements
+/digital-marketing-pro:status --section insights
+/digital-marketing-pro:status --section compliance
+/digital-marketing-pro:status --section deps
 ```
 
 Print only the requested section. Useful when you only need one piece of state.
 
 ## How the skill operates
 
-1. **Resolve target brand.** If `--brand` provided, use it. Otherwise read `~/.claude-marketing/brands/_active-brand.json` for the active slug. If no active brand, instruct the user to run `/dm:brand-setup` first.
+1. **Resolve target brand.** If `--brand` provided, use it. Otherwise read `~/.claude-marketing/brands/_active-brand.json` for the active slug. If no active brand, instruct the user to run `/digital-marketing-pro:brand-setup` first.
 
 2. **Execute the script.**
    ```
@@ -100,7 +100,7 @@ Print only the requested section. Useful when you only need one piece of state.
 ### Example 1: Default snapshot
 
 ```
-User: /dm:status
+User: /digital-marketing-pro:status
 
 Skill runs: python scripts/dm-status.py
 Output:
@@ -162,8 +162,8 @@ PYTHON DEPENDENCIES
   Available:    nltk, textstat, requests, beautifulsoup4, qrcode, Pillow
 
 ============================================================
-Tip: /dm:status --json for machine-readable output
-Tip: /dm:status --quiet for one-line summary
+Tip: /digital-marketing-pro:status --json for machine-readable output
+Tip: /digital-marketing-pro:status --quiet for one-line summary
 ============================================================
 
 Skill highlights:
@@ -174,7 +174,7 @@ Skill highlights:
 ### Example 2: Quick check during a session
 
 ```
-User: /dm:status --quiet
+User: /digital-marketing-pro:status --quiet
 
 Output: DMP STATUS | Acme Corp | engagements: 2 active / 2 total | deps: full
 ```
@@ -182,7 +182,7 @@ Output: DMP STATUS | Acme Corp | engagements: 2 active / 2 total | deps: full
 ### Example 3: JSON for scripting
 
 ```
-User: /dm:status --json
+User: /digital-marketing-pro:status --json
 
 Output: {valid JSON snapshot — pipeable to jq, parseable by other skills}
 ```
@@ -190,11 +190,11 @@ Output: {valid JSON snapshot — pipeable to jq, parseable by other skills}
 ### Example 4: When no brand is set up
 
 ```
-User: /dm:status
+User: /digital-marketing-pro:status
 
 Output:
 No active brand found.
-Pass --brand <slug> explicitly, or run /dm:brand-setup to create one.
+Pass --brand <slug> explicitly, or run /digital-marketing-pro:brand-setup to create one.
 Workspace: /Users/indra/.claude-marketing
 ```
 
@@ -210,19 +210,19 @@ Workspace: /Users/indra/.claude-marketing
 
 - Does not modify brand profile, engagement state, or any persistent file
 - Does not save insights, compliance violations, or any data
-- Does not trigger eval scripts (use `/dm:check` for that)
-- Does not advance engagement parts (use `/dm:engagement next` for that)
-- Does not switch active brand (use `/dm:switch-brand` for that)
+- Does not trigger eval scripts (use `/digital-marketing-pro:check` for that)
+- Does not advance engagement parts (use `/digital-marketing-pro:engagement next` for that)
+- Does not switch active brand (use `/digital-marketing-pro:switch-brand` for that)
 
 ## Related skills + commands
 
-- `/dm:brand-setup` — create or update a brand profile
-- `/dm:switch-brand` — change the active brand
-- `/dm:engagement status` — engagement-specific deep status
-- `/dm:check` — pre-publish quality gate on content
-- `/dm:integrations` — connector status (separate from /dm:status)
+- `/digital-marketing-pro:brand-setup` — create or update a brand profile
+- `/digital-marketing-pro:switch-brand` — change the active brand
+- `/digital-marketing-pro:engagement status` — engagement-specific deep status
+- `/digital-marketing-pro:check` — pre-publish quality gate on content
+- `/digital-marketing-pro:integrations` — connector status (separate from /digital-marketing-pro:status)
 
 ## Related references
 
 - `scripts/dm-status.py` — the underlying script
-- `docs/getting-started.md` — context on what was lost when the SessionStart hook was removed in v3.1 and why /dm:status was added in v3.2
+- `docs/getting-started.md` — context on what was lost when the SessionStart hook was removed in v3.1 and why /digital-marketing-pro:status was added in v3.2

@@ -4,7 +4,7 @@ description: "Add MCP server integrations. Use when: connecting a custom tool, A
 argument-hint: "[service-name]"
 ---
 
-# /dm:add-integration
+# /digital-marketing-pro:add-integration
 
 ## Purpose
 
@@ -20,7 +20,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Check for agency credential profiles at `~/.claude-marketing/credentials/` — if agency mode is active, the new integration may need to be mapped to specific client credential sets. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Check for agency credential profiles at `~/.claude-marketing/credentials/` — if agency mode is active, the new integration may need to be mapped to specific client credential sets. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Search for existing MCP package**: Query npm registry and known MCP server directories for packages matching the requested service — search by service name, API name, and common variations. Evaluate candidates by download count, last update date, GitHub stars, and compatibility with the plugin's MCP configuration format. Present the best match (or top 3 if multiple viable options) with package name, description, supported tools, and any known limitations.
 3. **Generate configuration for pre-built package**: If a suitable package is found, generate the complete `.mcp.json` entry — server name (following the plugin's naming convention: lowercase with hyphens), command (`npx` for npm packages), args array with the package name and any required flags, env object mapping environment variable names to credential references, and a description field summarizing what the integration provides. Show the user the exact JSON block to add.
 4. **Provide custom MCP guidance if needed**: If no suitable pre-built package exists, provide a custom MCP server development template based on `docs/custom-mcp-guide.md` — project structure, required tool definitions, input/output schemas, authentication handling, and error response patterns. Include a starter implementation skeleton for the specific API the user wants to connect, with placeholder endpoints and authentication flow.

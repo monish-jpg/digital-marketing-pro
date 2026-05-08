@@ -5,7 +5,7 @@ argument-hint: "[URL or generate]"
 user-invocable: true
 ---
 
-# /dm:sitemap
+# /digital-marketing-pro:sitemap
 
 ## Purpose
 
@@ -13,7 +13,7 @@ Analyze existing XML sitemaps for issues and opportunities, or generate new site
 
 ## Modes
 
-### Mode 1: Analyze Existing Sitemap (`/dm:sitemap [URL]`)
+### Mode 1: Analyze Existing Sitemap (`/digital-marketing-pro:sitemap [URL]`)
 
 Provide a sitemap URL (e.g., `https://example.com/sitemap.xml`) to audit:
 
@@ -28,7 +28,7 @@ Provide a sitemap URL (e.g., `https://example.com/sitemap.xml`) to audit:
 9. **Compression**: Check if sitemap is gzip compressed (recommended for large sitemaps)
 10. **robots.txt registration**: Verify sitemap is declared in robots.txt
 
-### Mode 2: Generate New Sitemap (`/dm:sitemap generate`)
+### Mode 2: Generate New Sitemap (`/digital-marketing-pro:sitemap generate`)
 
 Generate a sitemap plan or actual XML:
 

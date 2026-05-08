@@ -120,7 +120,7 @@ The Yearly Planner is produced **after the Growth Plan** because it operationali
 Use:
 
 ```
-/dm:engagement yearly-planner
+/digital-marketing-pro:engagement yearly-planner
 ```
 
 The output lands at `engagements/{engagement-id}/part-08-growth-plan/yearly-planner.md` (with PDF + XLSX exports alongside).

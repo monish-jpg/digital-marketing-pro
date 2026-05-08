@@ -5,14 +5,14 @@ disable-model-invocation: true
 argument-hint: "[deal-name or stage]"
 ---
 
-# /dm:pipeline-update
+# /digital-marketing-pro:pipeline-update
 
 ## Purpose
 
 Update deal and opportunity records in the CRM pipeline — move deals between stages, update values, add notes, and track pipeline velocity. Provides a clear before-and-after view of every change and calculates the downstream impact on pipeline metrics, giving both marketing and sales teams visibility into deal progression, forecast accuracy, and revenue pacing against targets. Designed for both individual deal updates and batch stage transitions, with built-in validation to prevent invalid stage skips and mandatory field gaps.
 
-Use this command for pipeline changes that affect deal stage, value, or forecast. For creating new deals from leads, use `/dm:lead-import` to bring leads into the CRM first, then use this command to manage their pipeline progression.
-For bulk pipeline reporting without individual updates, use `/dm:executive-dashboard` instead.
+Use this command for pipeline changes that affect deal stage, value, or forecast. For creating new deals from leads, use `/digital-marketing-pro:lead-import` to bring leads into the CRM first, then use this command to manage their pipeline progression.
+For bulk pipeline reporting without individual updates, use `/digital-marketing-pro:executive-dashboard` instead.
 
 ## Input Required
 
@@ -33,7 +33,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Check connected CRM and pipeline configuration**: Verify CRM connection status, retrieve available pipelines and their stage definitions (including required fields per stage, stage ordering, and probability defaults), and confirm the user has write access to the target pipeline. If multiple pipelines exist, present options for selection.
 3. **Look up existing deal record**: Search the CRM for the deal using the provided identifier — by name, email, company, or ID. If multiple matches are found, present the candidates with key details (deal name, stage, value, owner, last activity date, days in current stage) for the user to select the correct record.
 4. **Present current deal state**: Display the full current record — deal name, pipeline, current stage, value, probability, close date, owner, associated contacts and company, recent activity timeline (last 5 activities), custom field values, and days in current stage. This serves as the "before" snapshot for the change audit.

@@ -3,7 +3,7 @@ name: focus-group
 description: "Run synthetic focus groups. Use when: testing messaging, pricing, or positioning before live research spend."
 ---
 
-# /dm:focus-group
+# /digital-marketing-pro:focus-group
 
 ## Purpose
 
@@ -14,13 +14,13 @@ Run a simulated focus group using synthetic audience panels built from real CRM 
 The user must provide (or will be prompted for):
 
 - **Stimulus to test**: The messaging variant, pricing proposal, creative concept, or positioning statement to present to the panel. Can be a single stimulus for reaction analysis or multiple stimuli for comparative evaluation. Plain text, structured copy blocks, or a brief describing the concept. If testing multiple stimuli, label each clearly (Variant A, Variant B, etc.)
-- **Audience panel**: An existing panel ID from a previous `/dm:focus-group` or `/dm:message-test` session, or new segment definitions to build a panel from CRM data. New panels require segment criteria — demographic, behavioral, psychographic, or value-based attributes. Specify 2-6 segments for meaningful cross-segment comparison
+- **Audience panel**: An existing panel ID from a previous `/digital-marketing-pro:focus-group` or `/digital-marketing-pro:message-test` session, or new segment definitions to build a panel from CRM data. New panels require segment criteria — demographic, behavioral, psychographic, or value-based attributes. Specify 2-6 segments for meaningful cross-segment comparison
 - **Questions to ask the panel**: Specific questions to pose to the simulated personas — open-ended reaction questions ("What is your first impression?"), scaled evaluation questions ("Rate clarity from 1-10"), objection-surfacing questions ("What would stop you from buying?"), or comparative preference questions ("Which option do you prefer and why?"). If omitted, a default question set covering first impression, clarity, credibility, relevance, and purchase intent is used
 - **Number of segments to represent**: How many distinct audience segments to include in the panel (2-6). More segments give richer cross-segment analysis but increase output length. If using an existing panel, this is inherited from the panel definition
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, positioning, competitive context, and target audience definitions. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, positioning, competitive context, and target audience definitions. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Load or create synthetic panel from CRM data**: If an existing panel ID was provided, load it via `audience-simulator.py load-panel --panel-id {id}`. If new segment definitions were given, create the panel via `audience-simulator.py create-panel` with CRM data grounding — pulling behavioral patterns, purchase history distributions, engagement profiles, and demographic attributes from the CRM to build realistic persona archetypes for each segment.
 3. **Present stimulus to each segment persona**: For each segment in the panel, present the stimulus material along with the user's questions. Frame the presentation in the context of each persona's behavioral profile, preferences, pain points, and communication style derived from the CRM data grounding.
 4. **Generate predicted responses per segment**: Based on behavioral profiles, generate structured responses for each segment — sentiment (positive, neutral, negative with intensity), key concerns raised, enthusiasm level (1-10), specific objections, improvement suggestions, and verbatim-style quotes that represent how each segment would likely articulate their reaction.

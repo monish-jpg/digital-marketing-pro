@@ -4,7 +4,7 @@ description: "Calculate marketing ROI. Use when: measuring campaign ROAS, CAC, C
 argument-hint: "[campaign-name]"
 ---
 
-# /dm:roi-calculator
+# /digital-marketing-pro:roi-calculator
 
 ## Purpose
 
@@ -25,7 +25,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply voice, compliance, industry context. Check `guidelines/_manifest.json` for restrictions, messaging, channel styles, voice-and-tone rules, and templates. If a template matching this command exists in `~/.claude-marketing/brands/{slug}/templates/`, apply its format. If no brand exists, prompt for `/dm:brand-setup` or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply voice, compliance, industry context. Check `guidelines/_manifest.json` for restrictions, messaging, channel styles, voice-and-tone rules, and templates. If a template matching this command exists in `~/.claude-marketing/brands/{slug}/templates/`, apply its format. If no brand exists, prompt for `/digital-marketing-pro:brand-setup` or proceed with defaults.
 2. **Check campaign history**: Run `python campaign-tracker.py --brand {slug} --action list-campaigns` to pull historical campaign data for trend comparison and period-over-period analysis.
 3. **Run ROI calculator**: Execute `scripts/roi-calculator.py` with spend, revenue, and conversion data to compute channel-level and blended metrics.
 4. **Calculate channel-level ROI and ROAS**: For each channel, compute ROI ((revenue - cost) / cost), ROAS (revenue / cost), CPA (cost / conversions), CPL (cost / leads), and contribution margin percentage.

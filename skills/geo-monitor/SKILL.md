@@ -3,7 +3,7 @@ name: geo-monitor
 description: "Monitor brand AI visibility. Use when: tracking mentions in ChatGPT, Perplexity, Gemini, or AI Overviews."
 ---
 
-# /dm:geo-monitor
+# /digital-marketing-pro:geo-monitor
 
 ## Purpose
 
@@ -20,14 +20,14 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Extract brand name, product names, category, key differentiators, and desired positioning to inform query portfolio and narrative alignment scoring. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load brand voice and messaging constraints. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Extract brand name, product names, category, key differentiators, and desired positioning to inform query portfolio and narrative alignment scoring. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load brand voice and messaging constraints. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Define query portfolio**: Organize target queries by intent type — informational (what is, how does), navigational (brand-specific), transactional (buy, pricing, sign up), and comparison (vs, alternatives, best). If the user provided queries, classify them into these buckets. If not, generate a balanced portfolio of 10-20 queries from the brand profile covering all four intent types. Each query is tagged with its type for segmented scoring.
 3. **Test each query on each platform**: For every query-platform combination, record the AI response and score brand visibility using the rubric — cited with link (10 points: brand is mentioned by name and a direct link to the brand's website or content is provided), mentioned by name (7 points: brand is explicitly named in the response but no link), concept referenced without attribution (3 points: brand's product, feature, or approach is described but the brand itself is not named), absent (0 points: brand does not appear in any form), misrepresented (-5 points: brand is mentioned but with incorrect, outdated, or damaging information). Record the full response text for narrative analysis.
 4. **Record results**: Store all query-platform-score data via `geo-tracker.py audit-visibility` with timestamp, brand slug, query text, platform, score, response excerpt, and any flags for misrepresentation or drift.
 5. **Compare to baseline**: If previous monitoring data exists, run `geo-tracker.py diff` to compare current scores against the most recent previous check and the original baseline. Identify per-query and per-platform improvements (score increases), declines (score decreases), new appearances (went from absent to visible), lost appearances (went from visible to absent), and new opportunities (queries where competitors appear but the brand does not).
 6. **Calculate visibility scores**: Compute per-platform visibility scores (average of all query scores on that platform, scaled 0-100), per-intent-type scores (how visible is the brand for informational vs transactional queries), and an overall GEO health score (weighted average across all platforms and query types). If competitors were provided, calculate the same scores for each competitor to enable ranking.
 7. **Assess narrative alignment**: For queries where the brand appears, compare what the AI says against the desired brand positioning from the brand profile. Flag narrative drift (AI describes the brand differently than intended positioning), outdated information (AI cites old features, pricing, or leadership), missing key attributes (AI omits core differentiators), and misrepresentation (AI states something factually incorrect about the brand).
-8. **Generate recommendations**: Based on weak spots, produce a prioritized list of actions to improve AI visibility — content to create or update for better citation, structured data to add, entity consistency to fix (cross-reference with `/dm:entity-audit`), narrative corrections needed, and platforms where investment in visibility would have the highest impact.
+8. **Generate recommendations**: Based on weak spots, produce a prioritized list of actions to improve AI visibility — content to create or update for better citation, structured data to add, entity consistency to fix (cross-reference with `/digital-marketing-pro:entity-audit`), narrative corrections needed, and platforms where investment in visibility would have the highest impact.
 
 ## Output
 

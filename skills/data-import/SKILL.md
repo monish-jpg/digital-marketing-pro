@@ -5,7 +5,7 @@ disable-model-invocation: true
 argument-hint: "[source-file or URL]"
 ---
 
-# /dm:data-import
+# /digital-marketing-pro:data-import
 
 ## Purpose
 
@@ -22,7 +22,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply compliance rules for target markets (`skills/context-engine/compliance-rules.md`) — especially GDPR, CAN-SPAM, and CCPA requirements for contact data imports. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply compliance rules for target markets (`skills/context-engine/compliance-rules.md`) — especially GDPR, CAN-SPAM, and CCPA requirements for contact data imports. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Read and parse source data**: Load the data from the specified source — parse CSV with header detection and delimiter handling, parse JSON with schema inference, or fetch from Google Sheets via the Google Sheets MCP. Validate basic format integrity — consistent column count across rows, parseable data types, no completely empty rows or columns. Report source statistics: total records, columns detected, data types inferred.
 3. **Field mapping wizard**: Auto-suggest mappings based on column name similarity to destination field names (fuzzy matching on common patterns like "email", "first_name", "phone", "company"). Present the suggested mapping for user confirmation. Flag any unmapped source columns (data that will be ignored) and any unmapped required destination fields (blockers that must be resolved before import). Allow the user to adjust, add, or remove mappings.
 4. **Validate data quality**: Run validation checks on every record — email format validation (RFC 5322), phone number format detection, required fields present and non-empty, data type conformance (dates, numbers, strings), field length limits per destination platform. Detect duplicates within the import file itself. If CRM is connected, check for duplicates against existing records using email or phone as match keys. For email and SMS imports, verify consent fields — check for explicit opt-in timestamps, unsubscribe flags, and compliance with the brand's market regulations.

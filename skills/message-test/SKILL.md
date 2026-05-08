@@ -3,7 +3,7 @@ name: message-test
 description: "Test message variants on synthetic audiences. Use when: predicting response rates, sentiment, or objections before live tests."
 ---
 
-# /dm:message-test
+# /digital-marketing-pro:message-test
 
 ## Purpose
 
@@ -14,12 +14,12 @@ Test message variants against synthetic audience panels before real-world deploy
 The user must provide (or will be prompted for):
 
 - **Message variants**: 2-6 variants to test, each containing a headline, body copy, and call-to-action. Variants can be full ad creatives, email subject lines with preview text, landing page hero sections, social media posts, or any message format. Label each variant clearly (Variant A, B, C, etc.). Variants should test meaningfully different approaches — different value propositions, emotional appeals, proof points, or framing — rather than minor word swaps that synthetic testing cannot reliably distinguish
-- **Target audience panel**: An existing panel ID from a previous `/dm:focus-group` or `/dm:message-test` session, or new segment definitions to build from CRM data. New panels require segment criteria — demographic, behavioral, psychographic, or value-based attributes. Panels with 3-5 segments give the best balance of cross-segment insight and output manageability
+- **Target audience panel**: An existing panel ID from a previous `/digital-marketing-pro:focus-group` or `/digital-marketing-pro:message-test` session, or new segment definitions to build from CRM data. New panels require segment criteria — demographic, behavioral, psychographic, or value-based attributes. Panels with 3-5 segments give the best balance of cross-segment insight and output manageability
 - **Evaluation criteria**: The dimensions to score each variant on. Default criteria are resonance (emotional connection and relevance), clarity (ease of understanding the message and desired action), credibility (believability of claims and proof points), urgency (motivation to act now rather than later), and differentiation (distinctiveness from competitor messaging). Custom criteria can be added or defaults can be narrowed to focus the analysis
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, positioning, competitive context, and messaging guidelines. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, positioning, competitive context, and messaging guidelines. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Load audience panel**: Load the specified panel via `audience-simulator.py load-panel --panel-id {id}`, or create a new panel via `audience-simulator.py create-panel` with CRM data grounding if new segment definitions were provided. Verify the panel has sufficient segment diversity for meaningful cross-segment comparison.
 3. **Test each variant against each segment**: Run `audience-simulator.py test-message` for each variant-segment combination. Score each variant on every evaluation criterion (resonance, clarity, credibility, urgency, differentiation) from the perspective of each segment's behavioral profile. Generate predicted response sentiment, key reactions, and specific objections for each combination.
 4. **Aggregate scores**: Calculate overall variant rankings by averaging scores across all segments weighted by segment size. Identify the overall winner and per-segment winners. Flag cases where the overall winner is not the per-segment winner — these represent personalization opportunities.

@@ -307,7 +307,7 @@ Stored at `~/.claude-marketing/credentials/{profile-name}.json`:
 
 ### How Profile Switching Works
 
-1. User runs `/dm:credential-switch --profile acme-corp`
+1. User runs `/digital-marketing-pro:credential-switch --profile acme-corp`
 2. `credential-manager.py` loads the profile JSON
 3. Environment variables are injected for the session
 4. MCP servers restart with the new credentials

@@ -3,7 +3,7 @@ name: market-weather
 description: "Assess current market conditions. Use when: checking economic indicators, cultural moments, or competitive activity."
 ---
 
-# /dm:market-weather
+# /digital-marketing-pro:market-weather
 
 ## Purpose
 
@@ -19,7 +19,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply industry classification, target markets, competitive set, and channel mix to focus the weather assessment on relevant signals. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply industry classification, target markets, competitive set, and channel mix to focus the weather assessment on relevant signals. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Generate weather report**: Run `macro-signal-tracker.py weather-report --industry {industry} --horizon {horizon}` to pull the latest signal data across all five dimensions. If specific concerns were provided, pass them as priority focus areas.
 3. **Review and categorize signals**: Review all signals recorded in the last 30 days. Categorize each by dimension — economic (consumer confidence, ad market pricing, industry spending trends), cultural (holidays, awareness months, viral moments, social movements), industry (competitor launches, M&A, market shifts), platform (algorithm updates, new ad formats, policy changes, outages), and regulatory (privacy laws, advertising regulations, compliance deadlines). Weight recency and impact severity.
 4. **Score each category and overall conditions**: Assign a condition score to each dimension — green (favorable for marketing action, no headwinds), yellow (proceed with caution, monitor specific risks, adjust tactics), or red (significant headwinds, delay non-essential launches, shift to defensive positioning). Calculate an overall marketing weather score as the weighted combination of all five dimensions, with weights adjusted by the brand's channel mix and market exposure.

@@ -13,7 +13,7 @@ triggers:
   - overview of all client accounts
 ---
 
-# /dm:agency-dashboard
+# /digital-marketing-pro:agency-dashboard
 
 ## Purpose
 
@@ -34,7 +34,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Enumerate all brands**: Scan `~/.claude-marketing/brands/` for all configured brand directories (excluding `_active-brand.json`). For each brand, load `profile.json` to get client name, industry, engagement type, contract dates, assigned team members, and KPI targets
 3. **Pull campaign data per brand**: For each brand in scope, run `campaign-tracker.py --brand {slug} --action list` to retrieve active campaigns, statuses, budgets, objectives, and recent performance snapshots
 4. **Pull execution status per brand**: For each brand, run `execution-tracker.py --brand {slug} --action list` to get pending deliverables, in-progress tasks, completed items this period, and overdue items with age in days
@@ -66,7 +66,7 @@ A structured portfolio dashboard containing:
 - **Content pipeline status**: Aggregate view of content in draft, review, approved, and scheduled stages across all brands with stage-by-stage counts and bottleneck identification
 - **Alerts and anomalies panel**: Performance drops, pacing issues, stalled campaigns, MCP connection failures, expiring credentials, or overdue items requiring immediate attention — sorted by severity
 - **Contract and renewal tracker**: Upcoming contract renewals, engagement milestones, and retention risk indicators for clients approaching renewal windows
-- **Drill-down guidance**: Instructions for investigating any individual client in detail using `/dm:performance-report`, `/dm:client-report`, or `/dm:credential-switch` to activate that brand's context
+- **Drill-down guidance**: Instructions for investigating any individual client in detail using `/digital-marketing-pro:performance-report`, `/digital-marketing-pro:client-report`, or `/digital-marketing-pro:credential-switch` to activate that brand's context
 
 ## Agents Used
 

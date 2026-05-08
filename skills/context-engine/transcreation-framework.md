@@ -278,8 +278,8 @@ Score each option against these criteria:
 
 ### Step 5: Test and Validate
 
-- Use `/dm:multilingual-score` to get automated quality scoring
-- Use `/dm:prompt-test` to A/B test variants with audience descriptions
+- Use `/digital-marketing-pro:multilingual-score` to get automated quality scoring
+- Use `/digital-marketing-pro:prompt-test` to A/B test variants with audience descriptions
 - Have a native speaker from the target market review the shortlisted option
 - Test in context (mockup with actual layout, imagery, and surrounding content)
 
@@ -429,4 +429,4 @@ Does the transcreation meet all technical and legal requirements?
 2. Apply weights: (Intent x 0.30) + (Cultural x 0.25) + (Voice x 0.20) + (Creativity x 0.15) + (Constraints x 0.10)
 3. Compare against thresholds
 4. Document scores and feedback for the transcreation team to improve over time
-5. Use `/dm:multilingual-score` for automated pre-screening before human rubric evaluation
+5. Use `/digital-marketing-pro:multilingual-score` for automated pre-screening before human rubric evaluation

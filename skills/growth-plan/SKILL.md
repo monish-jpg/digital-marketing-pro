@@ -14,7 +14,7 @@ engagement-part: "8"
 view-preference: v2-primary
 ---
 
-# /dm:growth-plan — Part 8 Flagship Deliverable
+# /digital-marketing-pro:growth-plan — Part 8 Flagship Deliverable
 
 The Growth Plan is the flagship client-facing deliverable. It synthesises every internal document produced in Parts 1–7 into a single 11-section narrative answering: *"How will we grow this business digitally, and what will it cost?"*
 
@@ -194,7 +194,7 @@ Set the stage for why the strategy is what it is.
 3. **Plain language** — the CEO is not a marketing specialist
 4. **Visual evidence where it helps** — charts, scenario tables, timeline diagrams
 5. **20-30 page target** — beyond 30, clients stop reading
-6. **Consistency with Yearly Planner** — the operational calendar from `/dm:yearly-planner` must align with this Growth Plan
+6. **Consistency with Yearly Planner** — the operational calendar from `/digital-marketing-pro:yearly-planner` must align with this Growth Plan
 
 ## After production
 
@@ -202,7 +202,7 @@ Set the stage for why the strategy is what it is.
 2. Generate PDF + DOCX exports
 3. Mark Part 8 sub-complete (Growth Plan); Yearly Planner completion finishes Part 8
 4. Update LIF: Engagement phase = "Strategy approved; Channel Build pending"
-5. Brief: "Growth Plan complete. {N} pages. Run /dm:yearly-planner to produce the operational companion. After client approval, /dm:engagement next advances to Part 9 Channel Strategy."
+5. Brief: "Growth Plan complete. {N} pages. Run /digital-marketing-pro:yearly-planner to produce the operational companion. After client approval, /digital-marketing-pro:engagement next advances to Part 9 Channel Strategy."
 
 ## Examples
 
@@ -219,7 +219,7 @@ Skill response:
 5. Apply 30/60/90 phasing in Section 8
 6. Save markdown + generate PDF + DOCX
 7. Mark Growth Plan complete (Yearly Planner pending)
-8. Brief: "Growth Plan v1.0 produced. 24 pages. Conservative Q1 forecast: INR 1.8 Cr new ARR; Moderate: INR 2.6 Cr; Aggressive: INR 3.4 Cr. Run /dm:yearly-planner next."
+8. Brief: "Growth Plan v1.0 produced. 24 pages. Conservative Q1 forecast: INR 1.8 Cr new ARR; Moderate: INR 2.6 Cr; Aggressive: INR 3.4 Cr. Run /digital-marketing-pro:yearly-planner next."
 ```
 
 ## Related skills

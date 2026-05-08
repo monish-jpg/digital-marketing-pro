@@ -72,7 +72,7 @@ A complete competitive strategy uses all three. Relying only on Question 1 produ
 
 ## How skills enforce this
 
-Every skill that produces competitive analysis output (`/dm:competitor-analysis`, `/dm:competitor-monitor`, `/dm:share-of-voice`, the four-core-documents skill at Section 4 of Core Doc 3.1) must close with a Three-Question Output section.
+Every skill that produces competitive analysis output (`/digital-marketing-pro:competitor-analysis`, `/digital-marketing-pro:competitor-monitor`, `/digital-marketing-pro:share-of-voice`, the four-core-documents skill at Section 4 of Core Doc 3.1) must close with a Three-Question Output section.
 
 Skills that fail to produce this section are flagged as incomplete. The output is not considered shipped until the three questions are answered.
 
@@ -115,8 +115,8 @@ The output for an analysis covering 3-5 competitors typically runs 3–6 pages. 
 - **Core Doc 3.1 Step 16 (Risk profile):** competitive risks identified
 - **Part 4.1 Competitor Ad Analysis:** Three-Question Output for each competitor's ad strategy
 - **Part 4.2 Competitor Positioning:** Three-Question Output for each competitor's positioning
-- **`/dm:competitor-analysis` skill output:** always closes with Three-Question Output
-- **`/dm:competitor-monitor` ongoing monitoring:** changes detected get a mini Three-Question framing
+- **`/digital-marketing-pro:competitor-analysis` skill output:** always closes with Three-Question Output
+- **`/digital-marketing-pro:competitor-monitor` ongoing monitoring:** changes detected get a mini Three-Question framing
 
 ## Related references
 

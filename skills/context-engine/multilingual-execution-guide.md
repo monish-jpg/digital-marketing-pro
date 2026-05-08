@@ -10,7 +10,7 @@ Every multilingual campaign follows this eight-step pipeline. Each step maps to 
 
 ### Step 1: Language Configuration
 
-**Command:** `/dm:language-config`
+**Command:** `/digital-marketing-pro:language-config`
 
 Define the languages your brand operates in, set primary and secondary languages, and configure translation preferences in the brand profile.
 
@@ -35,7 +35,7 @@ Author content in the primary language following brand voice guidelines. Tag eac
 
 ### Step 3: Evaluate Source Content
 
-**Command:** `/dm:eval-content`
+**Command:** `/digital-marketing-pro:eval-content`
 
 Score the source content for clarity, brand voice alignment, and translatability before spending money on translation. Ambiguous source text produces bad translations in every language.
 
@@ -48,19 +48,19 @@ Translatability checklist:
 
 ### Step 4: Translate
 
-**Command:** `/dm:translate-content`
+**Command:** `/digital-marketing-pro:translate-content`
 
 The `language-router.py` script automatically selects the best translation service based on the target language family. Content tagged as requiring transcreation is routed to the transcreation workflow instead (see Section 4 and `transcreation-framework.md`).
 
 ### Step 5: Score Translation Quality
 
-**Command:** `/dm:multilingual-score`
+**Command:** `/digital-marketing-pro:multilingual-score`
 
 Automated quality scoring across five dimensions: meaning accuracy, fluency, terminology consistency, brand voice, and formatting. Scores below 70 are flagged for human review. Scores below 50 trigger re-translation with a different service.
 
 ### Step 6: Localize Campaign Assets
 
-**Command:** `/dm:localize-campaign`
+**Command:** `/digital-marketing-pro:localize-campaign`
 
 Beyond text translation, this step adapts:
 - Date and time formats
@@ -72,7 +72,7 @@ Beyond text translation, this step adapts:
 
 ### Step 7: Language Audit
 
-**Command:** `/dm:language-audit`
+**Command:** `/digital-marketing-pro:language-audit`
 
 Final quality gate before publishing. Checks:
 - All target languages have complete translations (no missing strings)
@@ -175,7 +175,7 @@ translation_preferences:
 Or per-request via the translate command:
 
 ```
-/dm:translate-content --service=sarvam-ai --target=hi-IN
+/digital-marketing-pro:translate-content --service=sarvam-ai --target=hi-IN
 ```
 
 ---
@@ -208,7 +208,7 @@ Transcreation is creative translation where the output may share no words with t
 2. Generate 3-5 options in the target language (not translations, but original creations)
 3. Score each option against the brief
 4. Select and refine the winner
-5. Validate with `/dm:multilingual-score` and `/dm:prompt-test`
+5. Validate with `/digital-marketing-pro:multilingual-score` and `/digital-marketing-pro:prompt-test`
 
 ---
 
@@ -370,7 +370,7 @@ Guidelines:
 - Match code-switching level to audience: Metro urban (heavy Hinglish) vs Tier 2-3 cities (more Hindi) vs rural (pure regional language)
 - Keep brand names and technical terms in English
 - Use Devanagari script for Hindi-heavy Hinglish, Latin script for English-heavy Hinglish
-- Test both approaches with `/dm:prompt-test`
+- Test both approaches with `/digital-marketing-pro:prompt-test`
 
 ### Regional Festival Calendar (Campaign Timing)
 
@@ -519,7 +519,7 @@ language:
 
 - Review glossary quarterly or when entering new markets
 - When a new product or feature launches, add terms to the glossary before translation begins
-- The `/dm:multilingual-score` command checks glossary adherence and flags inconsistencies
+- The `/digital-marketing-pro:multilingual-score` command checks glossary adherence and flags inconsistencies
 - Export glossary in TBX format for use with external translation tools
 
 ---
@@ -562,7 +562,7 @@ Rules:
 - `x-default` points to the fallback page (usually en-US or a language-selector page)
 - Use language-region codes where relevant (en-US vs en-GB, zh-CN vs zh-TW, pt-BR vs pt-PT)
 - hreflang must be reciprocal: if page A references page B, page B must reference page A
-- Use `/dm:hreflang-check` to audit implementation and detect orphaned or broken references
+- Use `/digital-marketing-pro:hreflang-check` to audit implementation and detect orphaned or broken references
 
 ### International Sitemaps
 
@@ -645,7 +645,7 @@ For every translated piece before publication:
 3. **Reuse Translation Memory**: Lara Translate's TM means repeated or similar content gets cheaper over time. Prioritize consistency to maximize TM leverage.
 4. **Batch translations**: Sending content in batches rather than one-off requests reduces per-unit cost across all services.
 5. **Source content quality**: Spend time making source content clear and translatable. Ambiguous source text causes expensive corrections downstream.
-6. **Automate quality scoring**: Use `/dm:multilingual-score` to catch issues before human review, reducing reviewer time.
+6. **Automate quality scoring**: Use `/digital-marketing-pro:multilingual-score` to catch issues before human review, reducing reviewer time.
 
 ### ROI Tracking
 

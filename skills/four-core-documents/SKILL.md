@@ -16,7 +16,7 @@ engagement-part: "3"
 view-preference: v2-primary
 ---
 
-# /dm:four-core-documents — The Strategic Spine (61 Steps)
+# /digital-marketing-pro:four-core-documents — The Strategic Spine (61 Steps)
 
 This skill produces Part 3 of the engagement methodology: the four documents that together define the brand at strategic depth. Every channel strategy, every creative brief, every piece of copy reads back to these.
 
@@ -28,8 +28,8 @@ This skill produces Part 3 of the engagement methodology: the four documents tha
 
 Before running this skill, verify:
 
-1. **Brand profile exists** at `~/.claude-marketing/brands/{brand-slug}/profile.json`. If not, run `/dm:brand-setup` first.
-2. **Engagement is initialised** with state file `_engagement.json` present. If not, run `/dm:engagement start` first.
+1. **Brand profile exists** at `~/.claude-marketing/brands/{brand-slug}/profile.json`. If not, run `/digital-marketing-pro:brand-setup` first.
+2. **Engagement is initialised** with state file `_engagement.json` present. If not, run `/digital-marketing-pro:engagement start` first.
 3. **Part 1 (Client Inputs) is completed**. Stone facts and Opinion hypotheses must be captured before Part 3 can begin.
 4. **Part 2 (External Research) is at least started**. Some Part 2 research may continue in parallel with Part 3, but the kickoff must have happened.
 
@@ -40,7 +40,7 @@ If any pre-condition fails, do NOT produce output. Instead, instruct the user on
 ### Produce all four documents
 
 ```
-/dm:four-core-documents <brand-slug> <engagement-id>
+/digital-marketing-pro:four-core-documents <brand-slug> <engagement-id>
 ```
 
 Produces 3.1, 3.2, 3.3, 3.4 in sequence. Total time: 30–90 minutes depending on engagement complexity.
@@ -48,7 +48,7 @@ Produces 3.1, 3.2, 3.3, 3.4 in sequence. Total time: 30–90 minutes depending o
 ### Produce a single document
 
 ```
-/dm:four-core-documents <brand-slug> <engagement-id> --doc 3.1
+/digital-marketing-pro:four-core-documents <brand-slug> <engagement-id> --doc 3.1
 ```
 
 Produces just the specified document. Useful for re-runs (Part 6) or when one doc needs to be redone independently.
@@ -56,7 +56,7 @@ Produces just the specified document. Useful for re-runs (Part 6) or when one do
 ### Produce v2 re-runs
 
 ```
-/dm:four-core-documents <brand-slug> <engagement-id> --view v2 --docs "3.1,3.3"
+/digital-marketing-pro:four-core-documents <brand-slug> <engagement-id> --view v2 --docs "3.1,3.3"
 ```
 
 Produces v2 versions of the specified documents. Used during Part 6 after the Decision Matrix has triggered re-runs.
@@ -64,7 +64,7 @@ Produces v2 versions of the specified documents. Used during Part 6 after the De
 ### Produce the Combined Core Document (3.C)
 
 ```
-/dm:four-core-documents <brand-slug> <engagement-id> --combined
+/digital-marketing-pro:four-core-documents <brand-slug> <engagement-id> --combined
 ```
 
 Stitches all four canonical core documents (latest version of each) into a single executive-reference file with master TOC, master assumptions table, and master source index. Produced only when an executive audience needs a single-file read.

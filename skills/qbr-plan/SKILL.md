@@ -3,7 +3,7 @@ name: qbr-plan
 description: "Prepare a Quarterly Business Review. Use when: building QBR presentations, client performance reviews, or strategy updates."
 ---
 
-# /dm:qbr-plan
+# /digital-marketing-pro:qbr-plan
 
 ## Purpose
 
@@ -26,7 +26,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Apply brand voice, compliance rules for target markets (`skills/context-engine/compliance-rules.md`), and industry context. **Also check for guidelines** at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json` — if present, load restrictions and relevant category files. Check for custom templates at `~/.claude-marketing/brands/{slug}/templates/`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with defaults.
 2. **Aggregate campaign performance data**: Organize all campaign metrics by channel and objective — impressions, clicks, conversions, spend, revenue, and derived metrics (CTR, CPC, CPA, ROAS, conversion rate)
 3. **Compare results against goals and benchmarks**: Map actual performance to quarterly targets, prior quarter results, and industry benchmarks to show progress, regression, or breakthrough performance
 4. **Identify top wins with attribution**: Select the 3 most impactful wins from the quarter and build attribution stories — what was done, why it worked, and how it connects to business outcomes

@@ -32,7 +32,7 @@ Some services are connected at the **Claude platform level** rather than through
 | Google Drive | Yes — connect in Settings → Integrations | Also available via npx (`mcp-google-drive`) |
 | Google Docs | Yes — connect in Settings → Integrations | Also available via npx (`mcp-google-docs`) |
 
-Platform-level integrations work even if they don't appear in the `/dm:integrations` connector dashboard.
+Platform-level integrations work even if they don't appear in the `/digital-marketing-pro:integrations` connector dashboard.
 
 ## Categories without HTTP connectors (Claude Code only)
 
@@ -54,10 +54,10 @@ Use these skills to discover and manage your integrations:
 
 | Skill | What it does |
 |-------|-------------|
-| `/dm:integrations` | Status dashboard — see what's connected, what's available, which skills each connector unlocks |
-| `/dm:connect <name>` | Guided setup — step-by-step instructions for connecting a specific service (e.g., `/dm:connect google-ads`) |
-| `/dm:add-integration` | Custom setup — add any MCP server not in the registry (npm packages or custom APIs) |
-| `/dm:credential-switch` | Agency mode — switch active credentials when managing multiple client accounts |
+| `/digital-marketing-pro:integrations` | Status dashboard — see what's connected, what's available, which skills each connector unlocks |
+| `/digital-marketing-pro:connect <name>` | Guided setup — step-by-step instructions for connecting a specific service (e.g., `/digital-marketing-pro:connect google-ads`) |
+| `/digital-marketing-pro:add-integration` | Custom setup — add any MCP server not in the registry (npm packages or custom APIs) |
+| `/digital-marketing-pro:credential-switch` | Agency mode — switch active credentials when managing multiple client accounts |
 
 ## Advanced configuration (Claude Code)
 

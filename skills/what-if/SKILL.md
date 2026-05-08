@@ -3,11 +3,11 @@ name: what-if
 description: "Compare budget scenarios side-by-side. Use when: testing 2-4 allocation variants with projected outcomes."
 ---
 
-# /dm:what-if
+# /digital-marketing-pro:what-if
 
 ## Purpose
 
-Quick scenario comparison tool. Test 2-4 marketing scenarios against each other — different budget allocations, channel mixes, or strategic approaches — and see projected outcomes side-by-side. This is the lighter, faster alternative to full Monte Carlo simulation (`/dm:simulate`). Where simulate runs thousands of iterations with full probability distributions, what-if uses point estimates with simple variance bands to give directional answers in minutes. Use it for rapid decision-making when you need a quick read on "should we do A or B?" without the statistical depth of a full simulation — team meetings, Slack discussions, quick planning calls, or narrowing down options before running a deeper analysis.
+Quick scenario comparison tool. Test 2-4 marketing scenarios against each other — different budget allocations, channel mixes, or strategic approaches — and see projected outcomes side-by-side. This is the lighter, faster alternative to full Monte Carlo simulation (`/digital-marketing-pro:simulate`). Where simulate runs thousands of iterations with full probability distributions, what-if uses point estimates with simple variance bands to give directional answers in minutes. Use it for rapid decision-making when you need a quick read on "should we do A or B?" without the statistical depth of a full simulation — team meetings, Slack discussions, quick planning calls, or narrowing down options before running a deeper analysis.
 
 ## Input Required
 
@@ -20,7 +20,7 @@ The user must provide (or will be prompted for):
 
 ## Process
 
-1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Pull historical channel performance, recent ROI data, and known benchmarks to calibrate scenario projections. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/dm:brand-setup)?" — or proceed with industry defaults.
+1. **Load brand context**: Read `~/.claude-marketing/brands/_active-brand.json` for the active slug, then load `~/.claude-marketing/brands/{slug}/profile.json`. Pull historical channel performance, recent ROI data, and known benchmarks to calibrate scenario projections. Also check for guidelines at `~/.claude-marketing/brands/{slug}/guidelines/_manifest.json`. Check for agency SOPs at `~/.claude-marketing/sops/`. If no brand exists, ask: "Set up a brand first (/digital-marketing-pro:brand-setup)?" — or proceed with industry defaults.
 2. **Define current baseline and alternative scenarios**: Structure the current state as Scenario 0 (baseline) with actual recent performance data. Then define each user scenario with channel budgets and ROI assumptions — using brand historical data where available, industry benchmarks where not. Flag any assumptions that differ significantly from historical performance so the user can validate them.
 3. **Run quick simulation**: Execute `revenue-simulator.py` in what-if mode — a simplified projection that calculates expected revenue per scenario using point estimates with variance bands (not full Monte Carlo), applies basic diminishing returns for channels near saturation, and accounts for channel ramp time (SEO and content take months to deliver, paid is immediate). Faster execution, directional accuracy.
 4. **Compare projected outcomes**: Build a side-by-side comparison table showing each scenario's projected revenue, total ROI, delta versus baseline (both absolute dollars and percentage), channel-level contribution, and a simple risk indicator (low/medium/high based on concentration and assumption sensitivity). Rank scenarios by the user's evaluation criteria.

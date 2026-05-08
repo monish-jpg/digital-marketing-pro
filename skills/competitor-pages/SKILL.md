@@ -5,7 +5,7 @@ argument-hint: "[URL or generate] [competitor]"
 user-invocable: true
 ---
 
-# /dm:competitor-pages
+# /digital-marketing-pro:competitor-pages
 
 ## Purpose
 

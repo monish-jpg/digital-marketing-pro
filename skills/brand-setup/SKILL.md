@@ -28,12 +28,12 @@ From these 5 answers, intelligently populate the full profile:
 - Infer industry, business model type, and compliance requirements
 - Map voice descriptors to the 1-10 scales (e.g., "professional" → formality: 8, "fun" → humor: 7)
 - Set sensible defaults for everything else
-- Tell the user: "Quick profile created! You can refine it anytime with /dm:brand-setup --full"
+- Tell the user: "Quick profile created! You can refine it anytime with /digital-marketing-pro:brand-setup --full"
 
 ### Full Setup (17 questions — comprehensive profiling)
 Use the full setup when:
 - User explicitly asks for detailed/full/comprehensive setup
-- User says "/dm:brand-setup --full"
+- User says "/digital-marketing-pro:brand-setup --full"
 - User wants to update specific sections of an existing profile
 
 ## Process (Full Setup)

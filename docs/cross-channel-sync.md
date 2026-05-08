@@ -308,14 +308,14 @@ Without the standardized taxonomy, this table does not exist. With it, you can s
 
 ## 6. Mid-Campaign Strategy Adjustments
 
-Campaigns rarely run perfectly from day one. The plugin supports mid-campaign analysis and reallocation through the `/dm:performance-report` command, which compares current results against the targets set in the campaign plan.
+Campaigns rarely run perfectly from day one. The plugin supports mid-campaign analysis and reallocation through the `/digital-marketing-pro:performance-report` command, which compares current results against the targets set in the campaign plan.
 
 ### Reading a Mid-Campaign Report
 
 ```
 (Week 2 of the UltraLight launch)
 
-You: /dm:performance-report for the UltraLight launch
+You: /digital-marketing-pro:performance-report for the UltraLight launch
 
 Plugin:
 
@@ -456,14 +456,14 @@ The plugin prevents this by enforcing a shared architecture:
 | Campaign Orchestrator | Coordinates timing, budget, and KPIs across channels | Channels work together, not in parallel |
 | Content Engine + Platform Specs | Adapts one message to each platform's format | Consistency without copy-paste |
 | UTM Taxonomy | Standardized tracking across all channels | Every conversion is attributed correctly |
-| `/dm:content-calendar` | Synchronized editorial calendar | Timing is coordinated, not accidental |
-| `/dm:campaign-plan` | Phased multi-channel campaign plans | Each channel knows its role in each phase |
-| `/dm:performance-report` | Cross-channel performance comparison | Reallocation decisions based on data |
+| `/digital-marketing-pro:content-calendar` | Synchronized editorial calendar | Timing is coordinated, not accidental |
+| `/digital-marketing-pro:campaign-plan` | Phased multi-channel campaign plans | Each channel knows its role in each phase |
+| `/digital-marketing-pro:performance-report` | Cross-channel performance comparison | Reallocation decisions based on data |
 | SessionEnd Auto-Save | Insights preserved for future planning | Next campaign is smarter than the last |
 
 The goal is not to make every channel say the same thing in the same way. It is to make every channel say the right thing in the right way for that platform, while staying connected to the same strategy, the same brand, and the same measurement system.
 
-Start with `/dm:campaign-plan` to build your next cross-channel campaign. Use `/dm:content-calendar` to coordinate the timing. Let the Content Engine adapt your message to each platform. Track everything with standardized UTMs. Review with `/dm:performance-report`. Learn, adjust, and repeat.
+Start with `/digital-marketing-pro:campaign-plan` to build your next cross-channel campaign. Use `/digital-marketing-pro:content-calendar` to coordinate the timing. Let the Content Engine adapt your message to each platform. Track everything with standardized UTMs. Review with `/digital-marketing-pro:performance-report`. Learn, adjust, and repeat.
 
 ---
 

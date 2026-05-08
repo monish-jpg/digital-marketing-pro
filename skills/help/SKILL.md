@@ -4,7 +4,7 @@ description: "Show the getting started guide, available commands, examples, and 
 argument-hint: "[--commands | --examples | --troubleshoot]"
 ---
 
-# /dm:help
+# /digital-marketing-pro:help
 
 Show the Digital Marketing Pro getting started guide with setup instructions, available commands, usage examples, and troubleshooting.
 
@@ -21,15 +21,15 @@ Display this quick orientation:
 
 Version: 2.7.0
 Agents: 25 specialist agents
-Skills: 141 slash commands (/dm:*) — all with argument-hint autocomplete
+Skills: 141 slash commands (/digital-marketing-pro:*) — all with argument-hint autocomplete
 Modules: 16 marketing knowledge domains
 Connectors: 14 HTTP + 68 npx integrations
 
 Getting Started:
-  1. /dm:brand-setup        — Create your brand profile (start here)
-  2. /dm:import-guidelines   — Import voice guides, restrictions, templates
-  3. /dm:integrations        — See which connectors are active
-  4. /dm:connect <name>      — Set up a new connector
+  1. /digital-marketing-pro:brand-setup        — Create your brand profile (start here)
+  2. /digital-marketing-pro:import-guidelines   — Import voice guides, restrictions, templates
+  3. /digital-marketing-pro:integrations        — See which connectors are active
+  4. /digital-marketing-pro:connect <name>      — Set up a new connector
   5. Just ask!               — Describe what you need in natural language
 ```
 
@@ -39,7 +39,7 @@ Getting Started:
 |----------|--------|
 | (none) | Show the full help overview |
 | `--commands` | List all 117 slash commands grouped by category |
-| `--connectors` | Show connector status (shortcut for /dm:integrations) |
+| `--connectors` | Show connector status (shortcut for /digital-marketing-pro:integrations) |
 | `--brand` | Show current brand profile summary |
 | `--examples` | Show 10 example prompts across different marketing tasks |
 | `--troubleshoot` | Show common issues and solutions |
@@ -50,26 +50,26 @@ When `--commands` is specified, group all commands into these categories:
 
 | Category | Example Commands |
 |----------|-----------------|
-| **Brand Management** | `/dm:brand-setup`, `/dm:switch-brand`, `/dm:import-guidelines` |
-| **Strategy & Planning** | `/dm:campaign-plan`, `/dm:launch-plan`, `/dm:social-strategy`, `/dm:media-plan` |
-| **Content Creation** | `/dm:content-brief`, `/dm:email-sequence`, `/dm:ad-creative`, `/dm:video-script` |
-| **SEO & Technical** | `/dm:seo-audit`, `/dm:tech-seo-audit`, `/dm:keyword-research`, `/dm:aeo-audit` |
-| **Analytics & Reporting** | `/dm:performance-report`, `/dm:roi-calculator`, `/dm:attribution-model` |
-| **Paid Advertising** | `/dm:media-plan`, `/dm:launch-ad-campaign`, `/dm:budget-optimizer` |
-| **Social Media** | `/dm:social-strategy`, `/dm:schedule-social`, `/dm:content-calendar` |
-| **Email Marketing** | `/dm:email-sequence`, `/dm:send-email-campaign` |
-| **CRM & Data** | `/dm:crm-sync`, `/dm:lead-import`, `/dm:pipeline-update`, `/dm:data-export` |
-| **Competitive Intelligence** | `/dm:competitor-analysis`, `/dm:competitor-monitor`, `/dm:share-of-voice` |
-| **PR & Outreach** | `/dm:pr-pitch`, `/dm:influencer-brief`, `/dm:crisis-response` |
-| **Audience** | `/dm:audience-profile`, `/dm:focus-group`, `/dm:segment-audience` |
-| **CRO & Growth** | `/dm:landing-page-audit`, `/dm:funnel-audit`, `/dm:ab-test-plan` |
-| **Quality & Evaluation** | `/dm:eval-content`, `/dm:verify-claims`, `/dm:quality-report` |
-| **Multilingual** | `/dm:translate-content`, `/dm:localize-campaign`, `/dm:language-config` |
-| **Execution & Publishing** | `/dm:publish-blog`, `/dm:send-email-campaign`, `/dm:launch-ad-campaign` |
-| **Monitoring** | `/dm:performance-check`, `/dm:anomaly-scan`, `/dm:budget-tracker` |
-| **Connector Discovery** | `/dm:integrations`, `/dm:connect`, `/dm:add-integration` |
-| **Agency Operations** | `/dm:agency-dashboard`, `/dm:client-report`, `/dm:sop-library` |
-| **Memory & Knowledge** | `/dm:save-knowledge`, `/dm:search-knowledge`, `/dm:sync-memory` |
+| **Brand Management** | `/digital-marketing-pro:brand-setup`, `/digital-marketing-pro:switch-brand`, `/digital-marketing-pro:import-guidelines` |
+| **Strategy & Planning** | `/digital-marketing-pro:campaign-plan`, `/digital-marketing-pro:launch-plan`, `/digital-marketing-pro:social-strategy`, `/digital-marketing-pro:media-plan` |
+| **Content Creation** | `/digital-marketing-pro:content-brief`, `/digital-marketing-pro:email-sequence`, `/digital-marketing-pro:ad-creative`, `/digital-marketing-pro:video-script` |
+| **SEO & Technical** | `/digital-marketing-pro:seo-audit`, `/digital-marketing-pro:tech-seo-audit`, `/digital-marketing-pro:keyword-research`, `/digital-marketing-pro:aeo-audit` |
+| **Analytics & Reporting** | `/digital-marketing-pro:performance-report`, `/digital-marketing-pro:roi-calculator`, `/digital-marketing-pro:attribution-model` |
+| **Paid Advertising** | `/digital-marketing-pro:media-plan`, `/digital-marketing-pro:launch-ad-campaign`, `/digital-marketing-pro:budget-optimizer` |
+| **Social Media** | `/digital-marketing-pro:social-strategy`, `/digital-marketing-pro:schedule-social`, `/digital-marketing-pro:content-calendar` |
+| **Email Marketing** | `/digital-marketing-pro:email-sequence`, `/digital-marketing-pro:send-email-campaign` |
+| **CRM & Data** | `/digital-marketing-pro:crm-sync`, `/digital-marketing-pro:lead-import`, `/digital-marketing-pro:pipeline-update`, `/digital-marketing-pro:data-export` |
+| **Competitive Intelligence** | `/digital-marketing-pro:competitor-analysis`, `/digital-marketing-pro:competitor-monitor`, `/digital-marketing-pro:share-of-voice` |
+| **PR & Outreach** | `/digital-marketing-pro:pr-pitch`, `/digital-marketing-pro:influencer-brief`, `/digital-marketing-pro:crisis-response` |
+| **Audience** | `/digital-marketing-pro:audience-profile`, `/digital-marketing-pro:focus-group`, `/digital-marketing-pro:segment-audience` |
+| **CRO & Growth** | `/digital-marketing-pro:landing-page-audit`, `/digital-marketing-pro:funnel-audit`, `/digital-marketing-pro:ab-test-plan` |
+| **Quality & Evaluation** | `/digital-marketing-pro:eval-content`, `/digital-marketing-pro:verify-claims`, `/digital-marketing-pro:quality-report` |
+| **Multilingual** | `/digital-marketing-pro:translate-content`, `/digital-marketing-pro:localize-campaign`, `/digital-marketing-pro:language-config` |
+| **Execution & Publishing** | `/digital-marketing-pro:publish-blog`, `/digital-marketing-pro:send-email-campaign`, `/digital-marketing-pro:launch-ad-campaign` |
+| **Monitoring** | `/digital-marketing-pro:performance-check`, `/digital-marketing-pro:anomaly-scan`, `/digital-marketing-pro:budget-tracker` |
+| **Connector Discovery** | `/digital-marketing-pro:integrations`, `/digital-marketing-pro:connect`, `/digital-marketing-pro:add-integration` |
+| **Agency Operations** | `/digital-marketing-pro:agency-dashboard`, `/digital-marketing-pro:client-report`, `/digital-marketing-pro:sop-library` |
+| **Memory & Knowledge** | `/digital-marketing-pro:save-knowledge`, `/digital-marketing-pro:search-knowledge`, `/digital-marketing-pro:sync-memory` |
 
 ### 4. Example Prompts
 
@@ -77,7 +77,7 @@ When `--examples` is specified, show these real-world examples:
 
 ```
 Getting Started:
-  /dm:brand-setup
+  /digital-marketing-pro:brand-setup
   → Create your brand profile interactively (5 quick questions or 17 detailed)
 
 Strategy:
@@ -89,31 +89,31 @@ Content:
   → Creates emails in your brand voice with compliance rules applied
 
 SEO:
-  /dm:seo-audit https://example.com
+  /digital-marketing-pro:seo-audit https://example.com
   → Full technical + content + E-E-A-T audit with action items
 
 Competitive:
-  /dm:competitor-analysis "Blue Bottle, Counter Culture, Stumptown"
+  /digital-marketing-pro:competitor-analysis "Blue Bottle, Counter Culture, Stumptown"
   → Multi-dimensional analysis: content, SEO, ads, social, positioning
 
 Paid Ads:
-  /dm:media-plan --budget=50000 --channels="google,meta,linkedin"
+  /digital-marketing-pro:media-plan --budget=50000 --channels="google,meta,linkedin"
   → Channel allocation, flight schedule, creative rotation plan
 
 Analytics:
-  /dm:performance-check
+  /digital-marketing-pro:performance-check
   → Pull live metrics from all connected platforms
 
 Execution:
-  /dm:publish-blog --platform=wordpress --status=draft
+  /digital-marketing-pro:publish-blog --platform=wordpress --status=draft
   → Publish with SEO metadata, or export HTML for manual upload
 
 AI Visibility:
-  /dm:aeo-audit
+  /digital-marketing-pro:aeo-audit
   → Check how your brand appears in ChatGPT, Perplexity, Google AI Overviews
 
 Connectors:
-  /dm:connect hubspot
+  /digital-marketing-pro:connect hubspot
   → Step-by-step OAuth setup for HubSpot CRM connector
 ```
 
@@ -123,10 +123,10 @@ When `--troubleshoot` is specified, show common issues:
 
 | Issue | Solution |
 |-------|----------|
-| "No active brand" message | Run `/dm:brand-setup` to create your first brand profile |
+| "No active brand" message | Run `/digital-marketing-pro:brand-setup` to create your first brand profile |
 | Python features unavailable | Install: `pip install nltk textstat` (lite mode) or full requirements.txt |
-| MCP connector not working | Run `/dm:integrations` to check status, `/dm:connect <name>` for setup |
-| Brand voice seems off | Run `/dm:brand-setup --full` for detailed 17-question profiling |
+| MCP connector not working | Run `/digital-marketing-pro:integrations` to check status, `/digital-marketing-pro:connect <name>` for setup |
+| Brand voice seems off | Run `/digital-marketing-pro:brand-setup --full` for detailed 17-question profiling |
 | Commands not recognized | Ensure plugin is installed: check "Manage Plugin" in Cowork or `claude plugin list` |
 | Session context missing | Brand context loads on SessionStart — start a fresh session |
 | Google Drive not showing | Google Drive is a platform-level integration — check Claude Desktop → Settings → Integrations |
@@ -140,8 +140,8 @@ When `--platform` argument is used or when showing the full help, include this s
 
 Argument Hints (55 skills):
   All user-invocable skills show autocomplete hints in the Skills UI.
-  Example: /dm:seo-audit shows [URL]
-  Example: /dm:campaign-plan shows [product/service --budget=N]
+  Example: /digital-marketing-pro:seo-audit shows [URL]
+  Example: /digital-marketing-pro:campaign-plan shows [product/service --budget=N]
 
 Execution Safety (17 skills):
   Skills that write to external platforms require explicit user invocation.
