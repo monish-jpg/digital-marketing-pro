@@ -126,7 +126,7 @@ These are directional. Always validate with current data.
 - **LinkedIn CPL (B2B):** INR 1,500–5,000
 - **Meta Ads CPM:** INR 80–250 for general; INR 200–500 for narrow targeting
 - **Meta CPL (B2C):** INR 50–500 depending on offer and category
-- **WhatsApp Business API conversation cost:** INR 0.30–0.80 per conversation (varies by category and volume)
+- **WhatsApp Business Platform (per-message pricing since 1 July 2025):** India marketing template ≈ USD 0.0118 per message (~INR 1.0 at current FX); utility templates lower; authentication templates lower still. Conversation-based pricing is deprecated. Click-to-WhatsApp ads and Facebook Page CTAs open a 72-hour free service window. Service messages inside the 24-hour customer-care window are free.
 - **Influencer rates (per post):** Nano (INR 2K–10K), Micro (INR 10K–80K), Macro (INR 1L–10L), Mega (INR 10L+)
 - **Email service costs:** Mailchimp / Brevo / Klaviyo / Customer.io scale with list size; INR 1,500–50,000+/month for typical SMB
 

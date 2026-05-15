@@ -230,7 +230,7 @@ Use for: promotional SMS, transactional SMS with marketing elements, WhatsApp ma
 7. **Test send** — Send to internal test numbers first. Verify delivery and rendering.
 8. **Send** — Execute send. Monitor delivery rate in real-time.
 9. **Delivery tracking** — Track: delivery rate (target >95%), response rate, opt-out rate (flag if >1% per send). Log undeliverable numbers for list cleanup.
-10. **Cost tracking** — Record per-message cost. SMS costs vary by country and carrier. WhatsApp charges per conversation (24h window). Alert if campaign cost exceeds budget by >10%.
+10. **Cost tracking** — Record per-message cost. SMS costs vary by country and carrier. **WhatsApp Business Platform switched to per-message pricing on 1 July 2025** (was per-conversation). India marketing-template messages are roughly USD 0.0118 each (cheapest globally; Germany ~11×). Click-to-WhatsApp ads and Facebook Page CTAs open a 72-hour free service window; service messages inside the 24-hour customer-care window remain free. Alert if campaign cost exceeds budget by >10%.
 
 ---
 

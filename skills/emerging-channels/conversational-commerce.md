@@ -26,7 +26,7 @@
 | Tier | WhatsApp Business App | WhatsApp Business Platform (API) |
 |------|----------------------|--------------------------------|
 | Best for | Small businesses (<5 agents) | Mid-market and enterprise |
-| Cost | Free | Per-conversation pricing (varies by country) |
+| Cost | Free | Per-message pricing since 1 July 2025 (varies by country and template type — India marketing template ≈ USD 0.0118; service messages in the 24-hr customer-care window and 72-hr free window from CTWA/Page CTAs are free) |
 | Automation | Basic quick replies, labels | Full chatbot, CRM integration, workflows |
 | Broadcasting | Broadcast lists (256 contacts) | Unlimited template messages (pre-approved) |
 | Commerce | Product catalog in-app | Full catalog + cart + payment integration |

@@ -4,6 +4,55 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.3.0] — 2026-05-15
+
+### Added — May 2026 Modernization Sweep
+
+Comprehensive refresh against current marketing/regulatory/AI-search reality. **Content + documentation release** — no breaking changes to skills, agents, or scripts.
+
+#### Privacy & Compliance updates (16-jurisdiction matrix)
+
+- **EU AI Act Article 50 (applicable 2 Aug 2026)** — generative-AI marketing content must carry machine-readable C2PA-style watermarks; deepfakes must be visibly disclosed; AI-generated text on matters of public interest must be disclosed. Penalty up to €15M or 3% global turnover.
+- **DPDP Phase II preparation (effective 13 Nov 2026)** — consent-manager framework registration window opens. Phase III hard enforcement 13 May 2027 with INR 2.5B max penalty.
+- **NY synthetic-performer disclosure law (live June 2026)** — $1K–$5K per violation, $10K repeat. Synthetic influencers and AI-generated endorsements flagged.
+- **FTC May 2026 endorsement guidance** — covers synthetic influencers, AI testimonials, AI-edited creator content.
+- **CJEU March 2026 ruling** — pseudonymized cookie IDs are personal data when re-identification is feasible.
+- **CCPA/CPRA Jan 2026 amendments** — neural networks and AI-derived personal data classified as sensitive. ADMT compliance (Jan 1 2027) flagged.
+
+#### Channel guidance updates
+
+- **LinkedIn (March 2026 algorithm shift)** — external links and engagement bait penalized ~60%; new Depth Score measures dwell time. `social-strategy` and content-engine LinkedIn guidance updated.
+- **Email** — Apple MPP affects ~64% of B2C opens; open rate dropped as primary KPI. **DMARC + RFC 8058 one-click POST unsubscribe** mandatory; non-compliant bulk mail to Gmail/Yahoo/Microsoft gets permanent 550 rejections. Spam threshold tightened to <0.10%.
+- **TikTok (post Jan 22 2026 USDS Joint Venture closing)** — US data and algorithm under USDS LLC. AI-generated creators allowed only with disclosure; AI content excluded from Creator Rewards Program. Daily shoppable-post limits effective May 11 2026.
+- **WhatsApp (per-message pricing since 1 July 2025)** — corrected from deprecated conversation-based model in 3 skill files: `skills/context-engine/execution-workflows.md`, `skills/context-engine/india-market-context.md`, `skills/emerging-channels/conversational-commerce.md`. India marketing template ≈ USD 0.0118 per message. 72-hour free service window from CTWA ads or Page CTAs.
+- **Schema strategy refresh** — Google's March 2026 core update demoted FAQ/Review/HowTo schema on non-primary pages. Skills now emphasize entity-rich JSON-LD and produce an LLMs.txt companion file.
+- **Sora deprecation note** — OpenAI's consumer Sora app discontinues April 26 2026; Sora API September 24 2026. AI creative briefs default to Runway Gen-4 / Veo 3.x / Kling 3.0.
+- **Third-party cookies — deprecation cancelled** — Chrome formally abandoned the timeline. The `attribution-model` skill defaults to first-party + MMM + incrementality stack.
+
+#### AEO / GEO modernization
+
+- Google AI Overviews now appear on ~55% of all Google searches. Organic CTR on AI Overview queries dropped ~61%. ~58% of searches are zero-click.
+- Citation-tracking guidance updated for ChatGPT, Perplexity, Google AI Overviews, Claude, Bing Copilot, Gemini.
+- For ongoing measurement, integrate with **Profound / Otterly / Conductor AgentStack** via the connectors layer.
+- **Share of AI Voice** as a first-class metric in `/digital-marketing-pro:performance-report`.
+
+#### README + Top Commands fixes
+
+- **README fully restructured** to ContentForge v3.9.5 pattern: Quick Start at top with install + auto-update toggle as steps 1-2; "Where your files go" section showing the 12-part engagement directory layout; version histories collapsed at the bottom.
+- **Top Commands table corrected** — was using bare `/brand-setup` form that conflicts with other plugins. Now uses canonical `/digital-marketing-pro:brand-setup`.
+- **Duplicate "Option C" install heading fixed** (was Option C twice instead of A/B/C/D).
+- **Top version badge bumped** from 3.2.0 → 3.3.0 (was two patches stale).
+- **Auto-update guidance** — explicit two-option flow (toggle vs manual uninstall+reinstall) since third-party marketplaces have auto-update OFF by default.
+- **Cowork install correctness** — Cowork is the Anthropic Desktop computer-use product with local filesystem access; full DM Pro pipeline including all 70 Python scripts runs natively. Only Cowork-specific limitation is HTTP MCPs only.
+- **Script count corrected** from "68 Python scripts" to actual file count of 70.
+- **Two PDF references at repo root** documented (`DM_Strategy_Complete_Learning_Guide.pdf` and `DM_Strategy_Flow_v3_2_Visualization_v1_23Apr26.pdf`).
+
+### Rationale
+
+Marketing tech moves quarterly. A plugin that documents WhatsApp's per-conversation pricing (deprecated July 2025) or treats email open rate as a primary KPI (Apple MPP affects 64% of B2C opens) erodes user trust. v3.3 brings DM Pro's content surface up to the May 2026 reality.
+
+---
+
 ## [3.2.2] — 2026-05-09
 
 ### Fixed — Slash Command Namespace Consistency
