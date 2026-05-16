@@ -127,6 +127,7 @@ These are directional. Always validate with current data.
 - **Meta Ads CPM:** INR 80–250 for general; INR 200–500 for narrow targeting
 - **Meta CPL (B2C):** INR 50–500 depending on offer and category
 - **WhatsApp Business Platform (per-message pricing since 1 July 2025):** India marketing template ≈ USD 0.0118 per message (~INR 1.0 at current FX); utility templates lower; authentication templates lower still. Conversation-based pricing is deprecated. Click-to-WhatsApp ads and Facebook Page CTAs open a 72-hour free service window. Service messages inside the 24-hour customer-care window are free.
+- **WhatsApp Business voice calling (May 2026 launch):** WhatsApp Business now supports brand-to-customer voice calls in/out of WhatsApp. Use cases: high-AOV consult (real estate, automotive, financial services), post-purchase support, B2B account management. Pricing model still settling in May 2026 — check Meta's WhatsApp Business pricing page for the current tier. Practical guidance: pilot with a single use case (e.g. "post-purchase escalation" or "qualified-lead callback") rather than treating it as a broadcast channel; voice calls preserve the WhatsApp customer-care window for the next 24 hours after the call ends.
 - **Influencer rates (per post):** Nano (INR 2K–10K), Micro (INR 10K–80K), Macro (INR 1L–10L), Mega (INR 10L+)
 - **Email service costs:** Mailchimp / Brevo / Klaviyo / Customer.io scale with list size; INR 1,500–50,000+/month for typical SMB
 

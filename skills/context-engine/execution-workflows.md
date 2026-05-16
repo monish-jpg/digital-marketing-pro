@@ -92,6 +92,14 @@ Use for: marketing emails, newsletters, drip sequences, promotional blasts, even
 
 Use for: Google Ads, Meta Ads, LinkedIn Ads, TikTok Ads, Pinterest Ads, Amazon Ads.
 
+### May 2026 platform updates (read before configuring)
+
+- **Google Performance Max (PMax) 2026 updates** — brand exclusion lists are now first-class (use them to keep PMax from spending on competitor brand terms or off-strategy categories); per-network placement reporting now exposed (use this to verify YouTube vs Display vs Search distribution matches the campaign objective); first-party audience exclusions supported; **15 videos per asset group** (was 5); **PMax experiments** for testing creative or audience changes against a control. Combined effect: PMax is now reasonable to run if you instrument it; the old "black box" criticism is mostly addressed by the exclusion + reporting features.
+- **Meta Advantage+ shopping campaigns 2026** — in-app checkout, AI product overlays (price/reviews on product hover), retailer integrations standard. Creative should be designed at the product-tile scale, not full-frame. Catalog quality dominates performance — invest in clean product feed (high-res images, accurate stock status, full attributes) before tuning bids.
+- **LinkedIn Ads** — March 2026 algorithm shift on the organic side also affects ad relevance scoring; ads carrying external links get lower distribution than ads with in-platform content (lead gen forms, document ads, conversation ads). Lead gen forms remain the highest-converting LinkedIn ad format.
+- **TikTok Ads (post-USDS Jan 2026)** — US-served ads now run through USDS LLC infrastructure; ad-account migration was automatic for existing US advertisers. AI-generated creative requires AI disclosure label.
+- **Retail media (Amazon, Walmart, Instacart)** — combined retail-media ad spend now ~$60B+/year (US 2026). Worth a campaign track for any DTC or CPG brand selling on these platforms.
+
 ### Campaign Structure
 
 1. **Campaign hierarchy** — Set up: Campaign (objective, budget, schedule) → Ad Group/Ad Set (targeting, bid) → Ad (creative, copy, CTA, destination URL).

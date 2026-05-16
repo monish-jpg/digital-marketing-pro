@@ -225,6 +225,22 @@ Several parts of the engagement contain **independent sub-tasks** that should be
 **Cross-cutting rules:**
 
 1. Never dispatch parallel agents that need to write to the same file simultaneously — chunk by output file.
+
+## Opus 4.7 1M context — single-conversation 12-part engagements (May 2026)
+
+As of May 2026, Claude Opus 4.7 with the 1M-token context window is generally available to Max, Team, and Enterprise users. The full 12-part engagement — Stone-vs-Opinion intake, external research, Four Core Documents (61 explicit steps), competitive/customer/market analysis, Client Validation Document, selective v2 re-runs, preparation docs, Growth Plan + Yearly Planner, channel fan-out, execution artefacts, AI creative briefs, continuous improvement loop — typically produces 50–60 canonical documents totaling 250K–600K tokens depending on engagement depth.
+
+**This now fits in a single conversation context.** Cross-conversation continuity tricks (writing intermediate state to disk + re-loading it on the next conversation) that v3.0–v3.3 relied on are no longer strictly necessary for engagements that complete within one working session.
+
+When 1M context is available:
+- Skip the LIF re-load between parts — the Living Project Instruction File and all earlier-part outputs are already in context
+- Run Parts 1–8 sequentially in a single conversation, dispatch Part 9 channel families in parallel, complete Parts 10–12 in the same conversation
+- Engagement-state.py is still useful for audit trail + cross-conversation resume + multi-user team scenarios, but not required for the active engagement
+
+When 1M context is NOT available (Pro tier, third-party API access, batch mode):
+- Use the existing engagement-state.py persistence pattern; chunk by Part; re-load the LIF at each Part transition
+
+Keep using the persistence pattern by default — it's correct in both worlds and the only one that works for multi-day / multi-author engagements.
 2. Each parallel subagent gets the engagement slug and the LIF path so it can read shared context but writes to its own numbered subdirectory (01-… 12-…).
 3. After a parallel batch completes, ALWAYS re-read the LIF before the next step in case a parallel subagent updated it (use `engagement-state.py lif-log-change` from inside each subagent).
 4. If a parallel batch fails partway, the failed subagent's outputs are NOT auto-rolled-back — re-dispatch only the failed ones, the successful peers stay valid.

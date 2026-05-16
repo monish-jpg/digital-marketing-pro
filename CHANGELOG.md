@@ -4,6 +4,40 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.4.2] — 2026-05-17
+
+### Added — Three documentation expansions (no code changes; no breaking changes)
+
+#### 1. Opus 4.7 1M-context guidance in `skills/engagement-workflow/SKILL.md`
+
+The full 12-part engagement (50–60 documents, 250K–600K tokens) now fits in a single conversation when running on Opus 4.7 with the 1M context window (generally available to Max, Team, and Enterprise users as of May 2026). New section documents:
+
+- When 1M context is available: skip LIF re-load between parts, run Parts 1–8 sequentially in one conversation, dispatch Part 9 channel families in parallel, complete Parts 10–12 in the same conversation
+- When 1M context is NOT available (Pro tier, third-party API access, batch mode): use the existing engagement-state.py persistence pattern; chunk by Part; re-load LIF at each transition
+- The local persistence pattern stays the default — it's correct in both worlds and the only one that works for multi-day / multi-author engagements
+
+#### 2. WhatsApp Business voice calling in `skills/context-engine/india-market-context.md`
+
+WhatsApp Business now supports brand-to-customer voice calls in/out of WhatsApp (May 2026 launch). Use cases: high-AOV consult (real estate, automotive, financial services), post-purchase support, B2B account management. Practical guidance: pilot with a single use case rather than treating it as a broadcast channel; voice calls preserve the 24-hour customer-care window for the next 24 hours after the call ends.
+
+#### 3. May 2026 platform updates in `skills/context-engine/execution-workflows.md` Section 3 (Ad Campaign Workflow)
+
+- **Google Performance Max 2026:** brand exclusion lists first-class, per-network placement reporting exposed, first-party audience exclusions, 15 videos per asset group (was 5), PMax experiments. The old "black box" criticism is mostly addressed.
+- **Meta Advantage+ shopping 2026:** in-app checkout, AI product overlays on hover, retailer integrations standard. Creative at product-tile scale, not full-frame. Catalog quality dominates performance.
+- **LinkedIn Ads:** March 2026 algorithm shift carries into ad relevance — ads with external links score lower than in-platform formats (lead gen forms, document ads, conversation ads).
+- **TikTok Ads (post-USDS Jan 2026):** US-served ads run through USDS LLC infrastructure; AI-generated creative requires AI disclosure label.
+- **Retail media (Amazon, Walmart, Instacart):** combined US spend ~$60B+/year in 2026. Worth a campaign track for DTC + CPG brands.
+
+#### 4. New `docs/roadmap-multiagent-sessions-api.md`
+
+Planning document for v3.5 / v4.0 — how DMP would adopt Anthropic's Multiagent Sessions API + Memory for Managed Agents API (both in public beta under the `managed-agents-2026-04-01` Messages API beta header). Three-phase plan: (A) v3.5 dual-write opt-in path, (B) v4.0 flip default to managed-agents with local-file fallback, (C) v4.1+ long-running engagements as managed sessions. Open questions documented: pricing, Cowork compatibility, cross-API-provider availability, migration story. No code in v3.4.2 implements any of this — it's a planning artifact.
+
+### Rationale
+
+User asked what's worth doing next from the May 2026 reality. These three documentation expansions are the small, low-risk content adds; the multi-agent roadmap is the longer-term direction setter. Bundled into one patch release rather than three separate ones because none of them ship code.
+
+---
+
 ## [3.4.1] — 2026-05-17
 
 ### Fixed — Audit & corrections pass on v3.4.0
