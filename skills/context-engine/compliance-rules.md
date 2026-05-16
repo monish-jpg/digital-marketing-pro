@@ -19,6 +19,19 @@ This file is the canonical compliance ruleset for the Digital Marketing Pro plug
 | **Penalty Range** | Up to EUR 20 million or 4% of global annual turnover, whichever is higher. Supervisory authorities may also issue warnings, bans on processing, and orders to erase data. |
 | **Key Marketing Impact** | Double opt-in is industry standard. All lead forms need clear consent checkboxes (not bundled). Data Processing Agreements required with every martech vendor. Privacy policy must disclose all data recipients. Cross-border data transfers require adequacy decisions, SCCs, or BCRs. Right to erasure means suppression lists must be maintained. Profiling for ad targeting requires explicit consent or legitimate interest with opt-out. |
 
+### 1.1b EU/EEA — AI Act Article 50 (Generative AI Disclosure)
+
+| Field | Detail |
+|---|---|
+| **Region** | European Union / European Economic Area |
+| **Law** | Regulation (EU) 2024/1689 — Artificial Intelligence Act, Article 50 (Transparency obligations for providers and deployers of certain AI systems) |
+| **Applicable** | **2 August 2026** (transparency obligations); general-purpose AI obligations applied 2 Aug 2025; high-risk system obligations 2 Aug 2027 |
+| **Scope** | All generative-AI outputs distributed in EU markets — no minimum spend threshold, advertising not exempted. Both providers (AI developers) and deployers (advertisers, brands) bear obligations. |
+| **Disclosure Requirements** | (a) AI-generated or AI-manipulated content **must be marked in a machine-readable format** using open, interoperable standards. **C2PA (Coalition for Content Provenance and Authenticity) is the emerging backbone.** Marking must be technically robust and survive routine processing. (b) Deepfakes (synthetic audio/image/video resembling real persons, objects, places, or events) must be **visibly disclosed**. (c) AI-generated text on matters of public interest must be disclosed unless human-reviewed and the brand assumes editorial responsibility. |
+| **Carve-outs** | Genuine artistic, satirical, or fictional works are narrowly exempt — applies in limited cases and does not blanket-exempt marketing. |
+| **Penalty Range** | Up to **EUR 15 million or 3% of global annual turnover**, whichever is higher (transparency obligations). High-risk system breaches up to EUR 35M or 7%. |
+| **Key Marketing Impact** | Any AI-generated ad creative, social image, AI-narrated video, or AI-written long-form copy distributed in the EU must carry machine-readable provenance metadata. Use `/digital-marketing-pro:c2pa-metadata` to embed a C2PA manifest in any AI-generated image / video / audio / PDF before EU publication. Deepfakes need an additional visible disclosure overlay or audio cue. AI-written editorial pieces need an "AI-assisted" byline unless the human editor assumes full editorial accountability. The pre-publish gate (`/digital-marketing-pro:check`) verifies C2PA presence on AI-flagged assets in EU-targeted campaigns. |
+
 ### 1.2 United States Federal — CAN-SPAM Act
 
 | Field | Detail |

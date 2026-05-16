@@ -131,3 +131,11 @@ Ask: "Would you like me to:
 - Build the media plan with budget pacing? (`/media-plan`)
 - Set up competitor monitoring for the campaign period? (`/competitor-monitor`)
 - Design the landing page copy? (`/content-engine`)"
+
+## Execution discipline — parallel dispatch (v3.4)
+
+Campaign planning has a strict dependency order at the top (objectives → audience → channel mix) but **fans out to independent per-channel work** once the channel mix is approved. After channel selection, dispatch per-channel briefs in **one message with parallel `Task` calls** — paid ads, email, social, content, PR, partnerships each get their own subagent.
+
+Same pattern for the measurement layer: KPI tree, attribution model, anomaly detection thresholds, and reporting cadence are independent — dispatch in parallel after the channel briefs are scoped.
+
+The **budget allocation step must be sequential** — it consumes per-channel ROI estimates and produces a single allocation that the per-channel briefs then reference.

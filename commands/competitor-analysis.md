@@ -131,3 +131,11 @@ Ask: "Would you like me to:
 - Build a share-of-voice tracking dashboard? (`/share-of-voice`)
 - Analyze competitor ad creative in detail? (`/paid-advertising`)
 - Map the full narrative landscape? (`/narrative-landscape`)"
+
+## Execution discipline — parallel dispatch (v3.4)
+
+A full competitor analysis covers **7 independent dimensions** per competitor: content, SEO, paid ads, social, AI visibility, pricing, positioning. These have no cross-dependencies — they read different data sources and produce different sections of the final report.
+
+Dispatch them via **one message with seven parallel `Task` tool calls** rather than seven sequential calls. With 4–8 minutes per dimension sequentially → ~35 min total; parallel → ~6 min wall-clock thanks to Claude Code's April 2026 parallel-subagent initialization.
+
+For multi-competitor analyses (the common case), parallelize per-dimension within each competitor, but **sequence the competitors** unless you have headroom on rate limits — running 3 competitors × 7 dimensions = 21 parallel subagents at once can hit API concurrency ceilings.

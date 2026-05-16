@@ -152,3 +152,11 @@ Ask: "Would you like me to:
 - Set up keyword ranking monitoring? (`/rank-monitor`)
 - Check AI answer engine visibility? (`/aeo-audit`)
 - Compare SEO performance against specific competitors? (`/competitor-analysis`)"
+
+## Execution discipline — parallel dispatch (v3.4)
+
+An SEO audit covers **6 independent dimensions**: technical infrastructure (Core Web Vitals + crawlability + indexation + redirects + security), on-page optimization, content quality + gaps, E-E-A-T signals, link profile, AI answer engine visibility. None of these depend on the others' findings to produce their own.
+
+Dispatch via **one message with six parallel `Task` calls**: `tech-seo-audit` + `on-page-audit` + `content-engine`(audit mode) + `eeat-evaluator` + `link-profile-analyzer` + `aeo-audit`. Sequential dispatch takes ~25 min; parallel ~5 min wall-clock.
+
+The **action plan and prioritization step at the end must be sequential** — it consumes the merged output of all six parallel dimensions and produces a single ranked impact-to-effort matrix.

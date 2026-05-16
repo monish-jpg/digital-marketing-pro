@@ -2,14 +2,14 @@
 
 **End-to-end engagement methodology for marketing teams running on Claude Code & Cowork.**
 
-[![Version](https://img.shields.io/badge/version-3.3.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.4.0-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-optional-yellow.svg)](#python-dependencies-optional)
 [![Cowork](https://img.shields.io/badge/cowork-compatible-purple.svg)](docs/claude-interfaces.md#claude-cowork-full-support)
 
-DM Pro is the most ambitious marketing plugin in the Neelverse suite. It runs every brand engagement through a canonical **12-Part Strategy Flow** producing the **Four Core Documents** (61 explicit steps), the Two-Views Model (v1 unbiased + v2 client-validated), the Decision Matrix for selective re-runs, and the Living Project Instruction File. 25 specialist agents, 149 skills, 70 Python scripts, 14 HTTP MCP connectors, 16 industry profiles, 16 privacy-law jurisdictions. Designed for digital marketing agencies, in-house teams running 50–200 brands, and consultancies who want consistent depth and auditable handoffs.
+DM Pro is the most ambitious marketing plugin in the Neelverse suite. It runs every brand engagement through a canonical **12-Part Strategy Flow** producing the **Four Core Documents** (61 explicit steps), the Two-Views Model (v1 unbiased + v2 client-validated), the Decision Matrix for selective re-runs, and the Living Project Instruction File. 25 specialist agents, 150 skills, 71 Python scripts, 14 HTTP MCP connectors, 16 industry profiles, 16 privacy-law jurisdictions. **v3.4** adds C2PA content provenance for EU AI Act Article 50 compliance, unified ads-platform MCPs, explicit parallel subagent dispatch (~6× wall-clock speedup), and an Anthropic Software Directory submission packet. Designed for digital marketing agencies, in-house teams running 50–200 brands, and consultancies who want consistent depth and auditable handoffs.
 
-> **Current version:** 3.3.0 — see [Release notes](#release-notes) at the bottom of this README.
+> **Current version:** 3.4.0 — see [Release notes](#release-notes) at the bottom of this README.
 
 ---
 
@@ -407,6 +407,8 @@ DM Pro is part of a three-plugin suite that share the same brand profiles:
 ---
 
 ## Release notes
+
+**v3.4.0 (2026-05-16)** — Four deferred items from the v3.3 audit, now shipped: **(1)** C2PA content-provenance for EU AI Act Article 50 compliance — new `scripts/embed-c2pa.py` wrapping `c2pa-python`, new `/digital-marketing-pro:c2pa-metadata` skill, pre-publish gate integration so `/check` treats missing C2PA manifest on AI-flagged assets in EU campaigns as CRITICAL (BLOCKED), new `Section 1.1b` in `compliance-rules.md` documenting Article 50. **(2)** Unified ads-platform MCPs added to connectors catalog — Synter (14 platforms), Ryze AI (Google + Meta + GA4), Northbeam (self-hosted, BYO OAuth) as HTTP/Cowork-compatible alternatives to per-platform stdio servers. **(3)** Explicit parallel subagent dispatch in `engagement-workflow` (Parts 2, 4, 9, 10, 11 dispatch independent sub-tasks via multiple Task calls in one message; Parts 1→2, 3→4, 5→6, 7→8, 8→9 remain sequential due to real data dependencies) + `competitor-analysis` (7 dimensions parallel, ~35 min → ~6 min) + `seo-audit` (6 dimensions parallel, ~25 min → ~5 min) + `content-engine` (per-format drafting parallel) + `campaign-plan` (per-channel briefs parallel). Leverages Claude Code's April 2026 parallel-subagent initialization. **(4)** Anthropic Software Directory submission packet at `SUBMISSION.md` pre-stages every input the form requires. Skill count 149 → **150**, script count 70 → **71**.
 
 **v3.3.0 (2026-05-15)** — May 2026 modernization sweep. Privacy & compliance updates: EU AI Act Article 50 (Aug 2 2026 enforcement, C2PA metadata for AI marketing content), DPDP Phase II timeline (Nov 2026), NY synthetic-performer disclosure law (June 2026), FTC May 2026 endorsement guidance, CCPA ADMT amendments (Jan 2026), CJEU pseudonymized-cookie ruling (March 2026). Channel guidance updates: LinkedIn algorithm shift (external-link penalty, Depth Score), email DMARC + RFC 8058 one-click POST baseline (open rate dropped as KPI), TikTok USDS Joint Venture mechanics + AI creator labeling, WhatsApp per-message pricing (corrected from deprecated conversation-based model in 3 skill files), schema refresh (LLMs.txt, entity-rich JSON-LD, deprecate FAQ/Review/HowTo on non-primary pages), Sora deprecation note for AI creative briefs. AEO/GEO modernization: Google AI Overviews + zero-click reality, Profound/Otterly/Conductor measurement integration. README fully restructured — Quick Start at top with install + auto-update toggle as steps 1-2, "Where your files go" section, version histories collapsed at the bottom. Top Commands table corrected to use `/digital-marketing-pro:` prefix (was bare `/brand-setup` form that conflicted with other plugins). Duplicate "Option C" install heading fixed. Top version badge bumped 3.2.0 → 3.3.0.
 

@@ -132,3 +132,15 @@ Ask: "Would you like me to:
 - Adapt this content for other channels? (`/content-repurpose`)
 - Create an email sequence from this content? (`/email-sequence`)
 - Generate social media posts to promote this? (`/social-strategy`)"
+
+## Execution discipline — parallel dispatch (v3.4)
+
+When `/content-engine` is invoked to produce **multiple content formats from a single brief** (e.g. "draft a launch blog post + 3 social posts + email teaser + ad copy"), dispatch the per-format generations in **one message with parallel `Task` calls**. Each format reads the same brief, applies the same brand voice, but produces an independent draft — there is no cross-dependency between, say, the LinkedIn post and the email teaser.
+
+Sequence the steps that DO have dependencies:
+1. SME calibration + brief refinement (sequential — single pass)
+2. **Per-format drafting in parallel** (multiple `Task` calls in one message — one per format)
+3. `/digital-marketing-pro:check` quality gate on each draft (parallel by file)
+4. Aggregation + handoff (sequential)
+
+Single-format requests can skip parallelization — there's nothing to parallelize.

@@ -198,6 +198,37 @@ Each part has a dedicated skill that produces its outputs. This orchestrator del
 | 11 | `ai-creative-instructions` |
 | 12 | `continuous-improvement-loop` |
 
+## Parallel Dispatch (added v3.4)
+
+Several parts of the engagement contain **independent sub-tasks** that should be dispatched **in parallel via multiple `Task` tool calls in a single message** — not sequentially. Claude Code's April 2026 parallel-subagent initialization makes this a real time saving (a 4-document Part 4 that took ~16 min sequentially completes in ~5 min when dispatched as four parallel subagent calls).
+
+**Parts that benefit from parallel dispatch:**
+
+| Part | Parallel-eligible work | How to dispatch |
+|---|---|---|
+| **Part 2 — External Research** | Market sizing, competitor landscape, customer signals, regulatory landscape — none depend on each other | One `Task` call per dimension (market-intelligence + competitive-intelligence + audience-intelligence + compliance-rules) in a single message |
+| **Part 4 — Competitive + Customer + Market** | Four documents (4.1, 4.2, 4.3, 4.4) are independent — they reference Part 2 only | Dispatch all four in a single message with the four respective subagents |
+| **Part 9 — Channel Strategy Fan-out** | Up to 17 channel docs in 7 families. Families 2 (Paid platforms), 3 (Organic & Influencer), 4 (Marketplace & CRM), 5 (Content/ATL/BTL/PR) are independent after Families 1 (Search & Campaign) and 6 (Web + Measurement) complete | Sequence: F1 → (F2 ∥ F3 ∥ F4 ∥ F5 in parallel) → F6 → F7. The middle batch is four parallel `Task` calls in one message. |
+| **Part 10 — Execution Artefacts** | Ad copy, post copy, headlines, CTAs across channels — independent per channel | Dispatch one subagent per channel in parallel |
+| **Part 11 — AI Creative Instructions** | Visual asset briefs — independent per asset | Dispatch in parallel per asset |
+
+**Parts that MUST stay sequential** (have hard data dependencies):
+
+- Part 1 → Part 2 (intake feeds research scope)
+- Part 3 → Part 4 (Four Core Documents feed competitive/customer/market analysis)
+- Part 5 → Part 6 (Client Validation drives which docs need v2 re-runs)
+- Part 7 → Part 8 (prep docs feed the Growth Plan)
+- Part 8 → Part 9 (Growth Plan drives channel fan-out)
+
+**Cross-cutting rules:**
+
+1. Never dispatch parallel agents that need to write to the same file simultaneously — chunk by output file.
+2. Each parallel subagent gets the engagement slug and the LIF path so it can read shared context but writes to its own numbered subdirectory (01-… 12-…).
+3. After a parallel batch completes, ALWAYS re-read the LIF before the next step in case a parallel subagent updated it (use `engagement-state.py lif-log-change` from inside each subagent).
+4. If a parallel batch fails partway, the failed subagent's outputs are NOT auto-rolled-back — re-dispatch only the failed ones, the successful peers stay valid.
+
+For multi-dimensional commands outside the 12-part flow (e.g. `/digital-marketing-pro:competitor-analysis`, `/digital-marketing-pro:seo-audit`, `/digital-marketing-pro:content-engine`), the same pattern applies — dispatch independent dimensions in parallel via multiple `Task` calls in a single message.
+
 ## Quality Discipline
 
 1. **Never hand-edit `_engagement.json`.** Always go through `engagement-state.py`.
@@ -205,6 +236,7 @@ Each part has a dedicated skill that produces its outputs. This orchestrator del
 3. **Always update the LIF when source docs change.** Use `lif-log-change`.
 4. **Always cite source per fact.** Stone facts cite the validation source; Opinion hypotheses cite the client's evidence.
 5. **Never auto-advance parts.** The user confirms part completion explicitly.
+6. **Always parallelize independent work.** When a Part has 2+ independent sub-tasks (see Parallel Dispatch above), dispatch them in a single message with multiple Task calls. Sequential dispatch of independent work wastes wall-clock time and API turns.
 6. **Never auto-execute v2 re-runs without user approval.** Show the plan, get approval, then run.
 
 ## Examples

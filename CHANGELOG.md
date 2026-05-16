@@ -4,6 +4,58 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.4.0] — 2026-05-16
+
+### Added — The Four Deferred Items from v3.3 audit
+
+User asked why these were deferred. Answer: sequencing — content/regulatory drift was bleeding trust and shipped first. They're now in.
+
+#### 1. C2PA content provenance (EU AI Act Article 50 compliance)
+
+- **New script** `scripts/embed-c2pa.py` (~250 lines) wrapping `c2pa-python>=0.5.0`. Embeds machine-readable provenance manifests into AI-generated images / video / audio / PDF. Supports `.png .jpg .jpeg .webp .gif .tiff .mp4 .mov .webm .mp3 .wav .pdf`.
+- **New skill** `/digital-marketing-pro:c2pa-metadata` at `skills/c2pa-metadata/SKILL.md`. Full doc with usage examples, IPTC digital-source-type vocabulary mapping (ai-generated-content / ai-assisted-edits / ai-no-substantive-changes), signing-certificate guidance (CAI-recognized authority for prod; auto-generated 90-day self-signed cert for dev).
+- **Pre-publish gate integration** — `/digital-marketing-pro:check` now treats missing/invalid C2PA manifest on AI-flagged assets in EU-targeted campaigns as a CRITICAL issue (BLOCKED decision). Wired through `commands/check.md`.
+- **Compliance rule binding** — new `Section 1.1b EU/EEA — AI Act Article 50 (Generative AI Disclosure)` in `skills/context-engine/compliance-rules.md` documents the regulatory basis, applicability date (2 Aug 2026), penalty (€15M or 3% global turnover), and how the c2pa-metadata skill satisfies the marking requirement.
+- **requirements.txt updated** with optional `c2pa-python>=0.5.0` and `cryptography>=42.0` (commented; install only when needed).
+- Output is verifiable at https://contentcredentials.org/verify and any C2PA-aware viewer (Photoshop, Lightroom, Truepic).
+
+#### 2. Unified ads-platform MCPs
+
+- **New `_section_unified_ads_mcps` in `.mcp.json.connectors-reference`** documenting three purpose-built MCPs:
+  - **Synter** — 14 platforms in one (Google, Meta, LinkedIn, TikTok, Reddit, Pinterest, Snapchat, X, Microsoft, Taboola, Outbrain, Quora, Spotify, Amazon Ads)
+  - **Ryze AI** — Google + Meta + GA4 with confirmation patterns
+  - **Northbeam (self-hosted)** — Google + Meta + LinkedIn + TikTok, open-source, BYO OAuth
+- **CONNECTORS.md updated** with a new "Unified ads MCPs (added v3.4)" section and a callout on the Advertising row in the npx-only table directing users to the unified options.
+- All three are HTTP — fully Cowork-compatible. Replaces the per-platform stdio servers in `.mcp.json.example` for teams who want one ads tool surface instead of four.
+
+#### 3. Parallel subagent dispatch
+
+Leverages Claude Code's **April 2026 parallel-subagent initialization** for ~6× wall-clock speedup on independent work.
+
+- **`skills/engagement-workflow/SKILL.md`** — new "Parallel Dispatch" section identifies Parts 2 (External Research), 4 (Competitive + Customer + Market), 9 (Channel Strategy Fan-out), 10 (Execution Artefacts), 11 (AI Creative Instructions) as parallel-eligible, with explicit subagent-dispatch instructions. Parts 1→2, 3→4, 5→6, 7→8, 8→9 remain sequential (real data dependencies). New Quality Discipline rule #6: "Always parallelize independent work."
+- **`commands/competitor-analysis.md`** — 7 dimensions (content, SEO, paid ads, social, AI visibility, pricing, positioning) dispatched in one message with 7 parallel Task calls. ~35 min sequential → ~6 min parallel. Multi-competitor analyses sequence competitors but parallelize dimensions within each.
+- **`commands/seo-audit.md`** — 6 dimensions (technical, on-page, content, E-E-A-T, link profile, AEO) parallel; aggregation + impact-to-effort prioritization sequential. ~25 min sequential → ~5 min parallel.
+- **`commands/content-engine.md`** — per-format drafting parallel when multiple formats requested from one brief (blog + 3 socials + email + ad copy → 6 parallel Task calls); SME calibration + quality gate + aggregation sequential.
+- **`commands/campaign-plan.md`** — per-channel briefs parallel after channel-mix approval; KPI tree + attribution + reporting cadence parallel in the measurement layer; budget allocation sequential.
+
+#### 4. Anthropic Software Directory submission packet
+
+- **New `SUBMISSION.md` at repo root** pre-stages every input the directory form requires: one-line + long description, category, target audience, 4 working use cases, testing-account/sample-data declaration, ownership verification, compliance-with-policy checklist, Cowork compatibility statement, Verified-badge candidacy assessment, screenshot checklist, step-by-step submission instructions.
+- Reduces actual submission at https://claude.ai/settings/plugins/submit from a multi-hour task to ~5 minutes.
+- Maintained in the repo so it can be refreshed each release before re-submission.
+
+### Changed
+
+- Skill count bumped from 149 → **150** (new c2pa-metadata skill).
+- Script count bumped from 70 → **71** (new embed-c2pa.py script).
+- Plugin description in plugin.json + marketplace.json updated to lead with the four v3.4 additions.
+
+### Rationale
+
+The four deferred items from the v3.3 audit aren't optional polish — C2PA is a hard regulatory requirement for EU markets in 81 days (2 Aug 2026); unified ads MCPs eliminate connector sprawl that's been the #2 user complaint; parallel dispatch makes the 12-part engagement viable inside a single conversation rather than an hour-long wait; the directory submission packet is the path to discoverability beyond word-of-mouth.
+
+---
+
 ## [3.3.0] — 2026-05-15
 
 ### Added — May 2026 Modernization Sweep

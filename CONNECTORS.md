@@ -41,12 +41,24 @@ The following categories require local npx/stdio MCP servers. They work in Claud
 | Category | Available via npx | When HTTP becomes available |
 |----------|------------------|---------------------------|
 | Productivity | Google Drive, Google Sheets, Google Docs | Google Drive/Docs also available as platform integration |
-| Advertising | Google Ads, Meta Ads, LinkedIn Ads, TikTok Ads | Connect via Connectors panel when available |
+| Advertising | Google Ads, Meta Ads, LinkedIn Ads, TikTok Ads | **Recommended: use a unified ads MCP** (see "Unified ads MCPs" section below) instead of one stdio server per platform. Synter covers 14 platforms in one endpoint; Ryze covers Google + Meta + GA4 with confirmation patterns; Northbeam is self-hosted. All three are HTTP and Cowork-compatible. Per-platform OAuth still applies. |
 | Analytics | Google Analytics, Google Search Console | Connect via Connectors panel when available |
 | Social media | Buffer, Twitter/X, LinkedIn | Connect via Connectors panel when available |
 | SMS/Messaging | Twilio | Connect via Connectors panel when available |
 | Translation | DeepL, Sarvam AI | Connect via Connectors panel when available |
 | Database | Supabase, PostgreSQL | Connect via Connectors panel when available |
+
+## Unified ads MCPs (added v3.4)
+
+As of May 2026, three purpose-built ads-platform MCPs unify Google Ads + Meta Ads + LinkedIn Ads + TikTok Ads (and more) under a single endpoint. Pick ONE — overlap creates duplicate tools. Configuration lives in `.mcp.json.connectors-reference` under `_section_unified_ads_mcps`; copy the entry you want into `.mcp.json` to activate.
+
+| Option | Platforms covered | Auth | When to pick |
+|---|---|---|---|
+| **synter** | Google, Meta, LinkedIn, TikTok, Reddit, Pinterest, Snapchat, X, Microsoft, Taboola, Outbrain, Quora, Spotify, Amazon Ads (14 total) | OAuth or x-api-key | Agencies running 5+ ad platforms |
+| **ryze-ai** | Google Ads + Meta Ads + GA4 | OAuth | Lighter — Google + Meta only + bundled GA4 for attribution queries |
+| **northbeam-selfhosted** | Google, Meta, LinkedIn, TikTok | BYO per-platform | Org policy forbids sending OAuth tokens to a third-party SaaS |
+
+All three are HTTP — fully Cowork-compatible. They replace the per-platform stdio servers in `.mcp.json.example` for teams who want one ads tool surface instead of four.
 
 ## Managing connectors
 

@@ -186,6 +186,26 @@
       "url": "https://mcp.replicate.com/sse",
       "_auth": "REPLICATE_API_TOKEN env var (free Replicate account required)",
       "_purpose": "Image/video generation — 1000+ models. Equivalent multi-provider coverage to fal-ai."
+    },
+
+    "_section_unified_ads_mcps": "Purpose-built ads-platform MCPs that unify Google Ads + Meta Ads + LinkedIn Ads + TikTok Ads under a single endpoint with read/write + confirmation patterns. Choose ONE — overlap between aggregators creates duplicate tools. As of May 2026 these are the maturing options; the generic pipedream-* / composio-* entries above remain a valid fallback if you prefer single-vendor ads exposure or want every other SaaS in the same gateway.",
+    "synter": {
+      "type": "http",
+      "url": "https://mcp.synter.com/sse",
+      "_auth": "OAuth on first connect (Synter account required) or x-api-key header for service accounts",
+      "_purpose": "Unified ads MCP covering 14 platforms: Google Ads, Meta Ads, LinkedIn Ads, TikTok Ads, Reddit, Pinterest, Snapchat, X/Twitter, Microsoft (Bing), Taboola, Outbrain, Quora, Spotify, Amazon Ads. Single OAuth surface, single tool namespace. Best fit for agencies with 5+ ad platforms in active rotation. Read-mostly with explicit confirmation on writes."
+    },
+    "ryze-ai": {
+      "type": "http",
+      "url": "https://mcp.ryze.ai/mcp",
+      "_auth": "OAuth on first connect (free Ryze account required)",
+      "_purpose": "Unified Google Ads + Meta Ads + GA4 MCP focused on read/write with confirmation steps. Lighter-weight than Synter — pick this if you only run Google + Meta. GA4 read access is bundled so attribution-style queries (which campaign drove which conversion) work in one tool."
+    },
+    "northbeam-selfhosted": {
+      "type": "http",
+      "url": "https://<your-self-hosted-host>/mcp",
+      "_auth": "Self-hosted; bring your own OAuth or API keys per platform. Compose file at github.com/northbeam/mcp",
+      "_purpose": "Open-source self-hosted ads MCP — Google + Meta + LinkedIn + TikTok. Pick this if your org's policy forbids sending OAuth tokens to a third-party SaaS aggregator. Higher operational cost (you run the container) but no vendor lock-in and audit trail stays on your infra."
     }
   },
 

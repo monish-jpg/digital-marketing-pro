@@ -49,7 +49,11 @@ The command returns a unified report with:
 
 - **PASS** → no CRITICAL issues, composite score above auto-reject threshold (default 40)
 - **WARN** → no CRITICAL issues but at least one WARNING; user should address before publishing
-- **BLOCKED** → at least one CRITICAL issue (e.g., placeholder URL, fabricated statistic in headline, missing required disclaimer for regulated industry); content cannot publish until fixed
+- **BLOCKED** → at least one CRITICAL issue (e.g., placeholder URL, fabricated statistic in headline, missing required disclaimer for regulated industry, **missing C2PA provenance manifest on an AI-generated asset in an EU-targeted campaign**); content cannot publish until fixed
+
+## EU AI Act Article 50 — C2PA verification (added v3.4)
+
+For assets flagged as AI-generated (file metadata or accompanying `--evidence` JSON declares `ai_generated: true`) AND brand profile `target_markets` include any EU/EEA jurisdiction, the gate runs C2PA verification on the asset and treats a missing or invalid manifest as a CRITICAL issue. Article 50 applies from **2 Aug 2026** — penalty up to EUR 15M or 3% global turnover. To embed a manifest, use `/digital-marketing-pro:c2pa-metadata`.
 
 ## See also
 
