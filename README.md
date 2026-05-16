@@ -2,14 +2,14 @@
 
 **End-to-end engagement methodology for marketing teams running on Claude Code & Cowork.**
 
-[![Version](https://img.shields.io/badge/version-3.4.1-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.4.2-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-optional-yellow.svg)](#python-dependencies-optional)
 [![Cowork](https://img.shields.io/badge/cowork-compatible-purple.svg)](docs/claude-interfaces.md#claude-cowork-full-support)
 
 DM Pro is the most ambitious marketing plugin in the Neelverse suite. It runs every brand engagement through a canonical **12-Part Strategy Flow** producing the **Four Core Documents** (61 explicit steps), the Two-Views Model (v1 unbiased + v2 client-validated), the Decision Matrix for selective re-runs, and the Living Project Instruction File. 25 specialist agents, 150 skills, 71 Python scripts, 14 HTTP MCP connectors, 16 industry profiles, 16 privacy-law jurisdictions. **v3.4** adds end-to-end-tested C2PA content provenance for EU AI Act Article 50 compliance, unified ads-platform MCPs (Synter Media AI / Ryze AI / Northbeam community), explicit parallel subagent dispatch (4–6× parallelism, ~50–80% wall-clock reduction), and an Anthropic Software Directory submission packet. Designed for digital marketing agencies, in-house teams running 50–200 brands, and consultancies who want consistent depth and auditable handoffs.
 
-> **Current version:** 3.4.1 — see [Release notes](#release-notes) at the bottom of this README.
+> **Current version:** 3.4.2 — see [Release notes](#release-notes) at the bottom of this README.
 
 ---
 
