@@ -7,7 +7,9 @@
 **Marketplace:** https://github.com/indranilbanerjee/neels-plugins
 **Last updated:** 2026-05-16
 
-This file is the **submission packet** for the Anthropic Software Directory. It is **not** the directory listing — that is submitted via the form at https://claude.ai/settings/plugins/submit (consumer surface) or https://platform.claude.com/plugins/submit (Console surface). This packet pre-stages every input the form will ask for so the actual submission takes 5 minutes, not 5 hours.
+This file is the **submission packet** for the Anthropic Software Directory. It is **not** the directory listing — that is submitted via the form at https://platform.claude.com/plugins/submit. This packet pre-stages every input the form will ask for so the actual submission takes 5 minutes, not 5 hours.
+
+(A prior version of this file referenced `https://claude.ai/settings/plugins/submit` as a consumer-surface submission URL; that URL was not verifiable in Anthropic's published docs as of May 2026 and has been removed. Use the platform.claude.com URL.)
 
 ## 1. One-line description (for the directory card)
 
@@ -140,7 +142,7 @@ Capture before submitting:
 
 ## 12. Submission steps (for the submitter to execute)
 
-1. Open https://claude.ai/settings/plugins/submit
+1. Open https://platform.claude.com/plugins/submit
 2. Plugin name: `digital-marketing-pro`
 3. Marketplace source: `github.com/indranilbanerjee/neels-plugins` (custom marketplace) OR `github.com/indranilbanerjee/digital-marketing-pro` (direct repo)
 4. Paste section 1 (one-line) into "Short description"

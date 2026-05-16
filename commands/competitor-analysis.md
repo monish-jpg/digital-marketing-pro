@@ -136,6 +136,6 @@ Ask: "Would you like me to:
 
 A full competitor analysis covers **7 independent dimensions** per competitor: content, SEO, paid ads, social, AI visibility, pricing, positioning. These have no cross-dependencies — they read different data sources and produce different sections of the final report.
 
-Dispatch them via **one message with seven parallel `Task` tool calls** rather than seven sequential calls. With 4–8 minutes per dimension sequentially → ~35 min total; parallel → ~6 min wall-clock thanks to Claude Code's April 2026 parallel-subagent initialization.
+Dispatch them via **one message with seven parallel `Task` tool calls** rather than seven sequential calls. With 4–8 minutes per dimension sequentially → ~35 min total; parallel dispatch reduces this by **50–80% wall-clock** per Claude Code's April 2026 parallel-subagent initialization — typical run lands at **~7–17 min** (rate-limit dependent). Past 8 concurrent subagents, you queue and the wall-clock win drops.
 
-For multi-competitor analyses (the common case), parallelize per-dimension within each competitor, but **sequence the competitors** unless you have headroom on rate limits — running 3 competitors × 7 dimensions = 21 parallel subagents at once can hit API concurrency ceilings.
+For multi-competitor analyses (the common case), parallelize per-dimension within each competitor, but **sequence the competitors** — running 3 competitors × 7 dimensions = 21 parallel subagents at once hits API concurrency ceilings on most tiers.

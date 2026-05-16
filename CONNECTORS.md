@@ -48,17 +48,17 @@ The following categories require local npx/stdio MCP servers. They work in Claud
 | Translation | DeepL, Sarvam AI | Connect via Connectors panel when available |
 | Database | Supabase, PostgreSQL | Connect via Connectors panel when available |
 
-## Unified ads MCPs (added v3.4)
+## Unified ads MCPs (added v3.4, corrected v3.4.1)
 
-As of May 2026, three purpose-built ads-platform MCPs unify Google Ads + Meta Ads + LinkedIn Ads + TikTok Ads (and more) under a single endpoint. Pick ONE — overlap creates duplicate tools. Configuration lives in `.mcp.json.connectors-reference` under `_section_unified_ads_mcps`; copy the entry you want into `.mcp.json` to activate.
+As of May 2026, three options exist for unifying multiple ad-platform connectors. Pick ONE — overlap creates duplicate tools. Configuration lives in `.mcp.json.connectors-reference` under `_section_unified_ads_mcps`; copy the entry you want into `.mcp.json` to activate. **All endpoint URLs and platform-coverage claims below were verified May 2026 — re-verify before production use as these are early-stage services and endpoints may move.**
 
-| Option | Platforms covered | Auth | When to pick |
-|---|---|---|---|
-| **synter** | Google, Meta, LinkedIn, TikTok, Reddit, Pinterest, Snapchat, X, Microsoft, Taboola, Outbrain, Quora, Spotify, Amazon Ads (14 total) | OAuth or x-api-key | Agencies running 5+ ad platforms |
-| **ryze-ai** | Google Ads + Meta Ads + GA4 | OAuth | Lighter — Google + Meta only + bundled GA4 for attribution queries |
-| **northbeam-selfhosted** | Google, Meta, LinkedIn, TikTok | BYO per-platform | Org policy forbids sending OAuth tokens to a third-party SaaS |
+| Option | Platforms covered | Auth | Source | When to pick |
+|---|---|---|---|---|
+| **synter-media-ai** | 7 platforms — Google, Meta, LinkedIn, Microsoft, Reddit, TikTok, X | `X-Synter-Key` header | [github.com/Synter-Media-AI/mcp-server](https://github.com/Synter-Media-AI/mcp-server) | Agencies running 3+ of these platforms |
+| **ryze-ai-google-ads** | Google Ads (primary); separate per-platform connectors for Meta + GA4 via app.get-ryze.ai/mcp-connector | OAuth on first connect (managed service) | [get-ryze.ai](https://www.get-ryze.ai) | Google-Ads-heavy teams that want a vendor-managed connector |
+| **northbeam-mcp-selfhosted** | Google + Meta + LinkedIn + TikTok | BYO per-platform OAuth or API keys (self-hosted) | [github.com/mattcoatsworth/Northbeam-MCP-Server](https://github.com/mattcoatsworth/Northbeam-MCP-Server) (community-maintained) | Org policy forbids sending OAuth tokens to a third-party SaaS |
 
-All three are HTTP — fully Cowork-compatible. They replace the per-platform stdio servers in `.mcp.json.example` for teams who want one ads tool surface instead of four.
+All three are HTTP — fully Cowork-compatible. They replace the per-platform stdio servers in `.mcp.json.example` for teams who want one ads tool surface instead of one per platform.
 
 ## Managing connectors
 

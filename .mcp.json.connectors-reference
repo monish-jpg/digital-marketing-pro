@@ -188,23 +188,23 @@
       "_purpose": "Image/video generation — 1000+ models. Equivalent multi-provider coverage to fal-ai."
     },
 
-    "_section_unified_ads_mcps": "Purpose-built ads-platform MCPs that unify Google Ads + Meta Ads + LinkedIn Ads + TikTok Ads under a single endpoint with read/write + confirmation patterns. Choose ONE — overlap between aggregators creates duplicate tools. As of May 2026 these are the maturing options; the generic pipedream-* / composio-* entries above remain a valid fallback if you prefer single-vendor ads exposure or want every other SaaS in the same gateway.",
-    "synter": {
+    "_section_unified_ads_mcps": "Purpose-built ads-platform MCPs that unify multiple ad platforms under a single endpoint. Choose ONE — overlap creates duplicate tools. As of May 2026 these are the maturing options; the generic pipedream-* / composio-* entries above remain a valid fallback if you prefer single-vendor ads exposure or want every other SaaS in the same gateway. Endpoint URLs and platform-coverage claims below were verified May 2026 — re-verify before production use as these are early-stage services.",
+    "synter-media-ai": {
       "type": "http",
-      "url": "https://mcp.synter.com/sse",
-      "_auth": "OAuth on first connect (Synter account required) or x-api-key header for service accounts",
-      "_purpose": "Unified ads MCP covering 14 platforms: Google Ads, Meta Ads, LinkedIn Ads, TikTok Ads, Reddit, Pinterest, Snapchat, X/Twitter, Microsoft (Bing), Taboola, Outbrain, Quora, Spotify, Amazon Ads. Single OAuth surface, single tool namespace. Best fit for agencies with 5+ ad platforms in active rotation. Read-mostly with explicit confirmation on writes."
+      "url": "https://mcp.syntermedia.ai/mcp/",
+      "_auth": "X-Synter-Key header (Synter Media AI account required)",
+      "_purpose": "Unified ads MCP covering 7 platforms: Google Ads, Meta Ads, LinkedIn Ads, Microsoft (Bing), Reddit, TikTok Ads, X. Single API-key surface, single tool namespace. Best fit for agencies running 3+ of these platforms. Read-mostly with confirmation on writes. Source: github.com/Synter-Media-AI/mcp-server"
     },
-    "ryze-ai": {
+    "ryze-ai-google-ads": {
       "type": "http",
-      "url": "https://mcp.ryze.ai/mcp",
-      "_auth": "OAuth on first connect (free Ryze account required)",
-      "_purpose": "Unified Google Ads + Meta Ads + GA4 MCP focused on read/write with confirmation steps. Lighter-weight than Synter — pick this if you only run Google + Meta. GA4 read access is bundled so attribution-style queries (which campaign drove which conversion) work in one tool."
+      "url": "https://ryze-google-ads-mcp-kyfjuf4chq-uc.a.run.app/mcp",
+      "_auth": "OAuth on first connect (Ryze account at get-ryze.ai required) — primarily a managed OAuth service, not a fully self-serve HTTP MCP",
+      "_purpose": "Ryze AI's per-platform MCP focused on Google Ads campaign performance, keyword data, bid optimization. Meta Ads and Google Analytics integrations exist as separate connectors via app.get-ryze.ai/mcp-connector (managed OAuth). Pick this when you only need Google Ads + want a vendor-managed connector rather than self-hosting."
     },
-    "northbeam-selfhosted": {
+    "northbeam-mcp-selfhosted": {
       "type": "http",
       "url": "https://<your-self-hosted-host>/mcp",
-      "_auth": "Self-hosted; bring your own OAuth or API keys per platform. Compose file at github.com/northbeam/mcp",
+      "_auth": "Self-hosted; bring your own OAuth or API keys per platform. Source: github.com/mattcoatsworth/Northbeam-MCP-Server (community-maintained, not affiliated with Northbeam Inc)",
       "_purpose": "Open-source self-hosted ads MCP — Google + Meta + LinkedIn + TikTok. Pick this if your org's policy forbids sending OAuth tokens to a third-party SaaS aggregator. Higher operational cost (you run the container) but no vendor lock-in and audit trail stays on your infra."
     }
   },

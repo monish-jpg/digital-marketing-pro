@@ -4,6 +4,58 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.4.1] — 2026-05-17
+
+### Fixed — Audit & corrections pass on v3.4.0
+
+User explicitly asked whether the v3.4 work had been audited. Answer: no. Ran a real audit. Found four issues, fixed all four.
+
+#### (1) C2PA script — actually works now
+
+**Problem:** v3.4.0 `scripts/embed-c2pa.py` called `c2pa.create_signer(...)` and `c2pa.sign_file(...)` as top-level module functions. Neither exists in c2pa-python 0.32.6 (the current library). Script would have failed at runtime the first time a user invoked `/digital-marketing-pro:c2pa-metadata`.
+
+**Fix:**
+- Rewrote against the real API: `c2pa.Signer.from_info(C2paSignerInfo(...))` → `c2pa.Builder(manifest_json)` → `builder.sign_file(source, dest, signer)`.
+- Fixed `C2paSignerInfo` field types (`c_char_p` ctypes — alg=b"es256", cert_bytes, key_bytes, b"http://timestamp.digicert.com").
+- Switched manifest assertions label from `c2pa.actions` to `c2pa.actions.v2` (current spec).
+- Bound `digital_source_type` via `builder.set_intent(C2paBuilderIntent.CREATE, C2paDigitalSourceType.{TRAINED_ALGORITHMIC_MEDIA|COMPOSITE_WITH_TRAINED_ALGORITHMIC_MEDIA|HUMAN_EDITS})` rather than embedding raw IPTC URIs in the manifest.
+- Fixed the self-signed dev cert to include the certificate extensions C2PA requires: BasicConstraints(ca=false, critical), KeyUsage(digital_signature=true, critical), ExtendedKeyUsage(EMAIL_PROTECTION), SubjectKeyIdentifier, AuthorityKeyIdentifier. Without these the C2PA library rejects with "the certificate is invalid".
+- Fixed the read-back verification to use `c2pa.Reader(format, stream)` context manager — the prior `Reader.from_file` API doesn't exist either.
+
+**Verified end-to-end:** 75-byte test PNG → 42,818-byte signed PNG. Read-back confirms `active_manifest` ID, title, signer ("Digital Marketing Pro"), cert algorithm "Es256", assertions `["c2pa.actions.v2", "stds.schema-org.CreativeWork"]`, action `c2pa.created (Test Generator)`, CreativeWork.author `[{"@type": "Organization", "name": "Test Brand"}]`. `manifest_embedded_and_verified: true`. Validation state shows "Invalid" only because self-signed certs aren't in C2PA's trust list — production CAI-issued certs validate as "Valid".
+
+#### (2) Unified ads MCP entries — corrected endpoints + coverage
+
+Prior research agent told me Synter endpoint was `https://mcp.synter.com/sse` covering 14 platforms, and Ryze was `https://mcp.ryze.ai/mcp`. Neither matches reality.
+
+**Fix:**
+- **Synter (real name: Synter Media AI):** corrected endpoint `https://mcp.syntermedia.ai/mcp/` with `X-Synter-Key` header auth. Platform coverage corrected from claimed 14 to actual 7: Google Ads, Meta Ads, LinkedIn Ads, Microsoft Ads, Reddit Ads, TikTok Ads, X. Source: `github.com/Synter-Media-AI/mcp-server`. Renamed entry from `synter` to `synter-media-ai`.
+- **Ryze AI:** corrected entry — it's primarily a managed OAuth connector service at `app.get-ryze.ai/mcp-connector`, not a generic self-serve HTTP MCP. The Google Ads per-platform endpoint is `https://ryze-google-ads-mcp-kyfjuf4chq-uc.a.run.app/mcp`. Coverage clarified: Google Ads primary; separate per-platform connectors for Meta and Google Analytics via the managed OAuth service. Renamed entry from `ryze-ai` to `ryze-ai-google-ads`.
+- **Northbeam:** corrected GitHub URL to `github.com/mattcoatsworth/Northbeam-MCP-Server` (community-maintained, NOT first-party from Northbeam Inc — the prior reference implied otherwise). Platform coverage (Google + Meta + LinkedIn + TikTok) verified. Renamed entry from `northbeam-selfhosted` to `northbeam-mcp-selfhosted`.
+- Added explicit caveat at top of `_section_unified_ads_mcps`: "Endpoint URLs and platform-coverage claims below were verified May 2026 — re-verify before production use as these are early-stage services."
+- `CONNECTORS.md` "Unified ads MCPs" table updated with the corrected URLs, auth, and source-repo links.
+
+#### (3) Parallel-dispatch speedup claim — softened from overstated to honest
+
+**Problem:** v3.4.0 claimed flat "~6× wall-clock speedup" across multiple surfaces (CHANGELOG, README, plugin.json, marketplace.json, engagement-workflow SKILL, competitor-analysis command, seo-audit command). Published Anthropic guidance is more nuanced: 4–6× parallelism with 50–80% wall-clock reduction for 3–8 concurrent subagents; past 8 you queue against rate limits and the win drops; under 3 there's nothing to parallelize.
+
+**Fix:**
+- `skills/engagement-workflow/SKILL.md`: replaced overclaim with "4–6× parallelism with roughly 50–80% wall-clock reduction for 3–8 concurrent subagents" + cost note ("total token usage is broadly similar; billed-per-turn input costs trend up slightly because each parallel subagent re-loads its context") + the queue-after-8 caveat.
+- `commands/competitor-analysis.md`: changed "parallel → ~6 min wall-clock" to "parallel dispatch reduces this by 50–80% wall-clock per Claude Code's April 2026 parallel-subagent initialization — typical run lands at ~7–17 min (rate-limit dependent)".
+- `commands/seo-audit.md`: changed "parallel ~5 min wall-clock" to "parallel dispatch typically lands at ~5–12 min wall-clock (rate-limit dependent) — roughly 50–80% reduction".
+
+#### (4) Submission URLs — removed unverified URL
+
+**Problem:** `SUBMISSION.md` referenced two submission URLs: `https://claude.ai/settings/plugins/submit` (consumer) and `https://platform.claude.com/plugins/submit` (Console). Only the second is verifiable in Anthropic's public docs as of May 2026.
+
+**Fix:** Removed `claude.ai/settings/plugins/submit` references from SUBMISSION.md introduction and the 12-step submission flow. Sole submission URL is now `https://platform.claude.com/plugins/submit`.
+
+### Rationale
+
+User explicitly pushed back on the previous turn's "ship-fast, verify-later" pattern. Audit found exactly the kind of issues that pattern produces: a Python script that won't run, MCP endpoint URLs that don't resolve, performance claims that misrepresent published Anthropic guidance, and a submission URL that may not exist. All four fixed in v3.4.1. The C2PA script is now end-to-end empirically tested — signing succeeds, manifest reads back round-trip, all assertion fields verified.
+
+---
+
 ## [3.4.0] — 2026-05-16
 
 ### Added — The Four Deferred Items from v3.3 audit
@@ -30,7 +82,7 @@ User asked why these were deferred. Answer: sequencing — content/regulatory dr
 
 #### 3. Parallel subagent dispatch
 
-Leverages Claude Code's **April 2026 parallel-subagent initialization** for ~6× wall-clock speedup on independent work.
+Leverages Claude Code's **April 2026 parallel-subagent initialization**. Realistic speedup: 4–6× parallelism with ~50–80% wall-clock reduction for 3–8 concurrent subagents (past 8 you queue against rate limits). See v3.4.1 entry above for corrected per-command numbers.
 
 - **`skills/engagement-workflow/SKILL.md`** — new "Parallel Dispatch" section identifies Parts 2 (External Research), 4 (Competitive + Customer + Market), 9 (Channel Strategy Fan-out), 10 (Execution Artefacts), 11 (AI Creative Instructions) as parallel-eligible, with explicit subagent-dispatch instructions. Parts 1→2, 3→4, 5→6, 7→8, 8→9 remain sequential (real data dependencies). New Quality Discipline rule #6: "Always parallelize independent work."
 - **`commands/competitor-analysis.md`** — 7 dimensions (content, SEO, paid ads, social, AI visibility, pricing, positioning) dispatched in one message with 7 parallel Task calls. ~35 min sequential → ~6 min parallel. Multi-competitor analyses sequence competitors but parallelize dimensions within each.

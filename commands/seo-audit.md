@@ -157,6 +157,6 @@ Ask: "Would you like me to:
 
 An SEO audit covers **6 independent dimensions**: technical infrastructure (Core Web Vitals + crawlability + indexation + redirects + security), on-page optimization, content quality + gaps, E-E-A-T signals, link profile, AI answer engine visibility. None of these depend on the others' findings to produce their own.
 
-Dispatch via **one message with six parallel `Task` calls**: `tech-seo-audit` + `on-page-audit` + `content-engine`(audit mode) + `eeat-evaluator` + `link-profile-analyzer` + `aeo-audit`. Sequential dispatch takes ~25 min; parallel ~5 min wall-clock.
+Dispatch via **one message with six parallel `Task` calls**: `tech-seo-audit` + `on-page-audit` + `content-engine`(audit mode) + `eeat-evaluator` + `link-profile-analyzer` + `aeo-audit`. Sequential dispatch takes ~25 min; parallel dispatch typically lands at **~5–12 min** wall-clock (rate-limit dependent) per Claude Code's April 2026 parallel-subagent initialization — roughly 50–80% reduction.
 
 The **action plan and prioritization step at the end must be sequential** — it consumes the merged output of all six parallel dimensions and produces a single ranked impact-to-effort matrix.

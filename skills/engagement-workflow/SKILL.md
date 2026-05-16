@@ -200,7 +200,9 @@ Each part has a dedicated skill that produces its outputs. This orchestrator del
 
 ## Parallel Dispatch (added v3.4)
 
-Several parts of the engagement contain **independent sub-tasks** that should be dispatched **in parallel via multiple `Task` tool calls in a single message** — not sequentially. Claude Code's April 2026 parallel-subagent initialization makes this a real time saving (a 4-document Part 4 that took ~16 min sequentially completes in ~5 min when dispatched as four parallel subagent calls).
+Several parts of the engagement contain **independent sub-tasks** that should be dispatched **in parallel via multiple `Task` tool calls in a single message** — not sequentially. Claude Code's April 2026 parallel-subagent initialization makes this a real time saving — published guidance reports **4–6× parallelism** with roughly **50–80% wall-clock reduction** for 3–8 concurrent subagents. A 4-document Part 4 that took ~16 min sequentially typically completes in ~4–6 min when dispatched as four parallel subagent calls. Past 8 concurrent subagents you start queueing against API rate limits and the win drops; under 3 there's nothing to parallelize.
+
+**Cost note:** total token usage is broadly similar (you're doing the same work) but billed-per-turn input costs trend up slightly because each parallel subagent re-loads its context.
 
 **Parts that benefit from parallel dispatch:**
 
