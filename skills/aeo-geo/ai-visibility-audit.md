@@ -2,7 +2,9 @@
 
 ## Overview
 
-A systematic process for auditing how a brand appears across AI-generated answers on ChatGPT, Perplexity, Google AI Overviews, Gemini, and Microsoft Copilot.
+A systematic process for auditing how a brand appears across AI-generated answers on **6 platforms**: ChatGPT, Perplexity, **Google AI Mode**, Google AI Overviews, Gemini, and Microsoft Copilot.
+
+> **Why 6, not 5 (changed May 2026):** Google split its AI search surfaces. AI Mode (Gemini 3.5 Flash, conversational, default for opted-in users since I/O 2026) and AI Overviews (classic SERP summary block) now select different citations for the same query 40–60% of the time. Audit both independently — a brand cited in AI Overviews is not necessarily cited in AI Mode.
 
 ---
 
@@ -33,11 +35,11 @@ Select 15-25 queries across four categories:
 
 ### Testing Protocol
 
-For each query, test on all 5 platforms and record:
+For each query, test on all 6 platforms and record:
 
 | Field | What to Capture |
 |-------|----------------|
-| Platform | ChatGPT / Perplexity / Google AI Overview / Gemini / Copilot |
+| Platform | ChatGPT / Perplexity / **Google AI Mode** / Google AI Overview / Gemini / Copilot |
 | Query | Exact query text |
 | Date tested | For tracking changes over time |
 | Model version | e.g., GPT-4, Gemini Pro |
@@ -51,11 +53,12 @@ For each query, test on all 5 platforms and record:
 
 ### Platform-Specific Notes
 
-- **ChatGPT**: Test with latest model. Note that responses vary by session — test 2-3 times
-- **Perplexity**: Check both the answer AND the cited sources list
-- **Google AI Overviews**: Not all queries trigger AI Overviews — document which do
-- **Gemini**: Test via gemini.google.com, note any "I don't have enough info" responses
-- **Copilot**: Test in Bing chat mode for web-grounded responses
+- **ChatGPT**: Test with latest model. Note that responses vary by session — test 2-3 times. Web-search mode on.
+- **Perplexity**: Check both the answer AND the cited sources list.
+- **Google AI Mode (May 2026, default)**: Test from the AI Mode tab (or directly via the conversational entry point that appears for opted-in users). Gemini 3.5 Flash backbone. Capture the full conversational thread including any follow-up clarifiers — citations evolve across turns. AI Mode often selects different sources than AI Overviews for the same query.
+- **Google AI Overviews**: Not all queries trigger AI Overviews — document which do. This is the SERP summary block, separate from AI Mode.
+- **Gemini**: Test via gemini.google.com, note any "I don't have enough info" responses.
+- **Copilot**: Test in Bing chat mode for web-grounded responses.
 
 ---
 
@@ -76,8 +79,10 @@ For each query, test on all 5 platforms and record:
 
 **AI Visibility Score** = (Sum of per-query scores across all platforms) / (Max possible score) × 100
 
-- **Max possible per query**: 5 points × 5 platforms = 25
-- **Max possible total**: 25 × number of queries
+- **Max possible per query**: 5 points × 6 platforms = 30
+- **Max possible total**: 30 × number of queries
+
+> When comparing scores against pre–May 2026 baselines (which used 5 platforms / max 25 per query), normalise by scaling the older baseline ×1.2 — or rerun the historical query set in AI Mode and reuse the original baseline. Don't compare 5-platform totals to 6-platform totals directly.
 
 ### Score Interpretation
 
@@ -120,9 +125,9 @@ Identify patterns:
 
 | Priority Level | Audit Frequency | Scope |
 |---------------|----------------|-------|
-| Priority queries (top 5) | Weekly | All 5 platforms |
-| Full query set | Monthly | All 5 platforms |
-| Expanded audit (new queries) | Quarterly | All 5 platforms + new query discovery |
+| Priority queries (top 5) | Weekly | All 6 platforms |
+| Full query set | Monthly | All 6 platforms |
+| Expanded audit (new queries) | Quarterly | All 6 platforms + new query discovery |
 | Post-major update | Within 48 hours | Priority queries on affected platform |
 
 ### Triggers for Immediate Re-Audit

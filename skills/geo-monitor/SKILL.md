@@ -14,7 +14,7 @@ Monitor and track brand visibility across generative AI engines. Systematically 
 The user must provide (or will be prompted for):
 
 - **Target queries to test**: Organized by intent type — brand queries ("What is [brand]?"), product queries ("[brand] [product] features"), comparison queries ("[brand] vs [competitor]"), and category queries ("best [category] tools"). Minimum 5 queries recommended for meaningful scoring. If not provided, the command will generate a default query portfolio based on the brand profile
-- **AI platforms to monitor**: ChatGPT, Perplexity, Gemini, AI Overviews, and Copilot — default is all five. The user can narrow to specific platforms if they only care about certain engines or have limited testing capacity
+- **AI platforms to monitor**: ChatGPT, Perplexity, Gemini, **Google AI Mode**, AI Overviews, and Copilot — default is all six (AI Mode added May 2026 — it is a distinct surface from AI Overviews and frequently selects different citations for the same query). The user can narrow to specific platforms if they only care about certain engines or have limited testing capacity
 - **Monitoring frequency**: `weekly` or `monthly` — determines how often the brand should be re-tested and how trend data is bucketed. Weekly is recommended for active optimization campaigns, monthly for steady-state monitoring
 - **Competitor brands to benchmark against (optional)**: One or more competitor brand names to test with the same query portfolio — enables side-by-side visibility scoring to understand relative AI presence. If omitted, the report focuses solely on the user's brand without competitive context
 
@@ -33,7 +33,7 @@ The user must provide (or will be prompted for):
 
 A comprehensive AI visibility monitoring report containing:
 
-- **AI visibility scorecard**: Per-platform scores (ChatGPT, Perplexity, Gemini, AI Overviews, Copilot) and overall GEO health score, scaled 0-100, with letter grade (A-F) and trend indicator vs previous check
+- **AI visibility scorecard**: Per-platform scores (ChatGPT, Perplexity, Gemini, **Google AI Mode**, AI Overviews, Copilot — 6 surfaces as of May 2026) and overall GEO health score, scaled 0-100, with letter grade (A-F) and trend indicator vs previous check
 - **Query-level results matrix**: Every query-platform combination with score, response excerpt, and flags — sortable by platform, intent type, or score
 - **Trend report**: Score changes vs baseline and vs previous check — per-platform and overall, with sparkline indicators for directional trends and specific queries that improved or declined
 - **Narrative alignment assessment**: Per-platform summary of how well AI responses match desired brand positioning, with specific drift flags, outdated information callouts, and missing attribute gaps

@@ -9,7 +9,7 @@ description: "Optimize AI engine visibility. Use when: AEO/GEO strategy, citatio
 
 Activate this module when the user's request involves any of the following:
 
-- **AI Visibility**: Questions about how a brand, product, or person appears in AI-generated answers (ChatGPT, Perplexity, Google AI Overviews, Copilot, Gemini, Claude)
+- **AI Visibility**: Questions about how a brand, product, or person appears in AI-generated answers (ChatGPT, Perplexity, **Google AI Mode**, Google AI Overviews, Copilot, Gemini, Claude)
 - **Answer Engine Optimization (AEO)**: Optimizing content so it gets selected as a source for AI-generated answers
 - **Generative Engine Optimization (GEO)**: Structuring content and entities so generative AI platforms accurately represent a brand
 - **Citation Tracking**: Monitoring which sources AI models cite when answering queries related to a brand or industry
@@ -17,7 +17,9 @@ Activate this module when the user's request involves any of the following:
 - **Knowledge Graph Optimization**: Improving how a brand is represented in Google Knowledge Graph, Wikidata, and other structured knowledge bases
 - **Structured Data for AI**: Implementing schema markup and structured data specifically to improve AI comprehension and citation likelihood
 
-**Trigger phrases**: "AI visibility," "how does ChatGPT describe my brand," "Perplexity results," "AI Overview optimization," "answer engine," "generative engine," "LLM optimization," "AI citations," "entity consistency," "Knowledge Graph"
+**Trigger phrases**: "AI visibility," "how does ChatGPT describe my brand," "Perplexity results," "AI Mode optimization," "AI Overview optimization," "answer engine," "generative engine," "LLM optimization," "AI citations," "entity consistency," "Knowledge Graph"
+
+**Google AI Mode (May 2026 — treat as a distinct surface)**: At Google I/O on 19 May 2026 AI Mode became the default search experience for opted-in users, crossed ~1B MAUs, and switched to Gemini 3.5 Flash as the base model. AI Mode is **not** the same as AI Overviews — it is a separate conversational tab with deeper reasoning, multi-turn follow-ups, and a citation pattern that frequently diverges from AI Overviews for the same query. Brands must audit AI Mode independently. Practical implication: an AEO program that only tests AI Overviews + ChatGPT + Perplexity now has a measurable blind spot.
 
 ## Brand Context (Auto-Applied)
 
@@ -76,10 +78,11 @@ If the user cannot provide all context, proceed with what is available and flag 
 
 2. **AI Platform Testing**
    - For each target query, document how the brand appears (or fails to appear) on:
-     - Google AI Overviews
-     - ChatGPT (latest model)
+     - **Google AI Mode** (default conversational surface, Gemini 3.5 Flash backbone — May 2026)
+     - Google AI Overviews (classic SERP summary block)
+     - ChatGPT (latest model, web-search mode on)
      - Perplexity
-     - Gemini
+     - Gemini (gemini.google.com)
      - Microsoft Copilot
    - Score each result: Cited (direct mention with link), Referenced (mentioned without link), Absent, Misrepresented
    - Capture exact AI-generated text for each query as a baseline

@@ -8,7 +8,9 @@ argument-hint: "[brand-name or URL]"
 
 ## Purpose
 
-Evaluate the brand's visibility and accuracy across AI answer engines. Analyze how the brand is cited, described, and recommended by ChatGPT, Perplexity, Google AI Overviews, and similar platforms. Produce optimization recommendations to improve AI visibility.
+Evaluate the brand's visibility and accuracy across AI answer engines. Analyze how the brand is cited, described, and recommended by ChatGPT, Perplexity, **Google AI Mode** (the conversational search surface that became Google's default at I/O 2026 — ~1B MAUs as of May 2026), Google AI Overviews, Gemini, and Microsoft Copilot. Produce optimization recommendations to improve AI visibility.
+
+**AI Mode vs AI Overviews — why both matter:** AI Overviews are the summary block at the top of a classic Google SERP and trigger on a subset of queries. AI Mode is a conversational tab (and now the default search experience for opted-in users) backed by Gemini 3.5 Flash with deeper reasoning, follow-ups, and a different citation pattern. The two surfaces select different sources for the same query in 40–60% of cases observed since May 2026. Audit both.
 
 ## Input Required
 
@@ -36,7 +38,7 @@ The user must provide (or will be prompted for):
 
 A structured AEO audit report containing:
 
-- AI visibility scorecard across platforms (ChatGPT, Perplexity, Google AI Overviews)
+- AI visibility scorecard across platforms (ChatGPT, Perplexity, Google AI Mode, Google AI Overviews, Gemini, Microsoft Copilot)
 - Query-by-query results showing where the brand appears, how it is described, and citation sources
 - Competitor comparison matrix for AI visibility
 - Citation accuracy assessment with corrections needed

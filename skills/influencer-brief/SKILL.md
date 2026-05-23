@@ -41,12 +41,20 @@ A structured influencer campaign brief containing:
 - Campaign overview with objectives and success metrics
 - Creator discovery criteria and ideal profile description
 - Creator brief document (shareable with influencers)
-- Key messaging framework with creative guardrails
+- Key messaging framework with creative guardrails (including any AI-tool restrictions — see below)
 - Compensation structure and negotiation guidelines
 - Content approval and revision process
 - FTC/ASA compliance checklist with required disclosures
 - Usage rights and licensing terms
 - Measurement dashboard with KPIs and reporting cadence
+
+### AI-tool clauses for creator briefs (May 2026)
+
+Creators increasingly use AI image/video tools (Nano Banana Pro, Gemini Omni, Veo, Sora, Midjourney) inside sponsored content. The brief must spell out three things to keep the brand safe:
+
+1. **Permitted AI use**: Allowed for B-roll, mood, and stylised visuals. **Not permitted for** synthetic depictions of real people (including the creator themselves in altered form), synthetic product imagery that misrepresents the brand's actual product, or AI-generated voiceover impersonating a real person without explicit release.
+2. **Required disclosures**: Any AI-generated visual or audio in the sponsored content must (a) be flagged in the creator's platform-native AI disclosure (TikTok AI label, Meta AI Content label, YouTube "altered or synthetic content" toggle) AND (b) carry C2PA Content Credentials if the creator ships the file to the brand for paid amplification — provide `/digital-marketing-pro:c2pa-metadata` workflow link in the brief.
+3. **EU deepfake clause** (mandatory for EU-distributed campaigns): Synthetic-human content (face swaps, AI voices resembling real people, AI-cloned likeness) must carry a visible deepfake disclosure perceivable at normal viewing distance. See `skills/context-engine/compliance-rules.md` §1.1b.i (Article 50 draft guidelines, May 2026). Creators who refuse this clause should not be cleared for EU placements.
 
 ## Agents Used
 

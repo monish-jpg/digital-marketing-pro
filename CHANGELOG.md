@@ -4,6 +4,74 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.5.0] — 2026-05-24
+
+A May-2026-ecosystem modernisation pass covering Google I/O 2026, the active broad core algorithm update, EU AI Act draft implementing guidelines, Meta platform expansions, and Claude Code's new cost-attribution capability. No breaking changes. No new commands or skills — six discrete content updates applied across 14 existing files + 1 script.
+
+### Changed — Six discrete content updates
+
+#### 1. Google AI Mode added as a first-class AEO/GEO surface (5 files)
+
+Google AI Mode (default conversational search since Google I/O on 19 May 2026, ~1B MAUs, Gemini 3.5 Flash backbone) is now tracked as a distinct platform separate from AI Overviews. The 5-platform AEO/GEO testing protocol is now 6-platform. Files updated:
+
+- `skills/aeo-audit/SKILL.md` — Purpose section now explains the AI Mode vs AI Overviews distinction (citations diverge 40–60% for the same query)
+- `skills/aeo-geo/SKILL.md` — Module trigger phrases + testing protocol updated to 6 platforms; AI Mode treated as a distinct surface in process steps
+- `skills/aeo-geo/ai-visibility-audit.md` — Scoring rubric updated (max per query = 30, not 25), platform-specific notes added for AI Mode (Gemini 3.5 Flash, captures conversational follow-ups), monitoring cadence updated, baseline-normalisation guidance for pre-vs-post May 2026 score comparisons
+- `skills/geo-monitor/SKILL.md` — Input "platforms to monitor" now includes AI Mode by default; output scorecard exposes the 6th surface
+- `scripts/geo-tracker.py` — `PLATFORMS` list updated to include `ai-mode`; docstring clarifies the AI Mode vs AI Overviews separation. Smoke-tested via `--help`.
+
+#### 2. May 2026 broad core algorithm update triage guidance (2 files)
+
+Google began a broad core update on 21 May 2026 (still in the typical ~2-week deployment window when this ships). Reactive changes during/immediately after a Core Update tend to make things worse — both SEO audit skills now lead with explicit triage guidance:
+
+- `skills/seo-audit/SKILL.md` — Purpose section adds "May 2026 Core Update context" subsection: wait for the rollout + 7–14 days settling before drawing conclusions; segment Search Console data pre/in/post rollout; Core Updates re-weight existing signals (E-E-A-T, content quality) rather than introducing new ones
+- `skills/tech-seo-audit/SKILL.md` — Adds the parallel note: run the technical audit anyway (Core Updates surface pre-existing technical debt), but technical "fixes" sold as Core Update remedies won't undo a quality-driven hit
+
+#### 3. EU AI Act Article 50 draft implementing guidelines (1 file, major addition)
+
+The European Commission published draft Article 50 implementing guidelines on **8 May 2026**; public consultation closes **3 June 2026**; final guidelines expected July 2026 ahead of the **2 August 2026** enforcement date. Added as new sub-section §1.1b.i in `skills/context-engine/compliance-rules.md`:
+
+- Six-row clarification table covering: "substantial AI manipulation" definition, "matters of public interest" scope, machine-readable marking (C2PA = presumption of compliance), deepfake visible-disclosure requirements (perceivable at normal viewing distance), editorial-responsibility carve-out conditions, and enforcement priorities
+- Five-point action list: audit EU AI-asset inventory now, file consultation comment by 3 June if materially affected, lock in C2PA signing-cert procurement (Adobe approval = 2–4 weeks; start by 1 July), update Definition of Done so creative is C2PA-signed at production time, treat the human-review carve-out as conditional (named accountability required)
+
+#### 4. Meta platform updates — Advantage+ Leads global, Threads ads global, brand-safety controls (1 file)
+
+Three May 2026 Meta updates added to `skills/context-engine/execution-workflows.md` Section 3 (Ad Campaign Workflow):
+
+- **Advantage+ Leads** — now globally available; only works well with Conversions API + CRM-quality feedback; not compatible with Special Ad Categories (housing/credit/employment)
+- **Threads ads** — global rollout completing May 2026; image-only formats only; cheap-to-moderate inventory; best for younger / news-adjacent / B2B-thought-leadership; cap at <10% of Meta budget until account-level CPA proves out
+- **Brand-safety inventory filters** — three tiers (Expanded/Moderate/Limited); default Moderate; move to Limited only for regulated industries or after a documented incident (Limited costs ~30% reach); Brand Suitability dashboard now exposes Reels topic adjacencies
+
+#### 5. Gemini Omni + Nano Banana Pro + Veo 3.1 in AI creative briefs (4 files)
+
+Added an "AI image & video generation guidance (May 2026)" sub-section to four creative-production skills, with consistent C2PA-by-default and Article 50 disclosure clauses:
+
+- `skills/ad-creative/SKILL.md` — Asset-type-to-model table (Nano Banana Pro for stills with on-image text, Veo 3.1 for short-form video, Gemini Omni for connected multimodal packages); workflow recommendation to hand visual spec to SocialForge `/sf:image` and `/sf:video`
+- `skills/content-brief/SKILL.md` — Visual/media spec requires explicit model, provenance marking, deepfake flag, and editorial-responsibility owner for YMYL topics
+- `skills/creative-testing-framework/SKILL.md` — AI creative variant production note: cost-per-variant becomes the new floor for minimum-budget math; EU-targeted ad sets blocked unless C2PA-signed
+- `skills/influencer-brief/SKILL.md` — Three explicit AI-tool clauses for creator contracts: permitted AI use, required platform disclosures, EU deepfake clause (mandatory for EU placements)
+
+#### 6. Claude Code v2.1.149+ `/usage` per-model breakdown (2 files)
+
+Claude Code v2.1.149 (May 2026) exposes per-model token consumption and projected USD cost via `/usage`. For agencies, this is the cleanest brand-attributable AI-cost source.
+
+- `docs/claude-interfaces.md` — New "Cost tracking" section under Claude Code (Full Support) documenting `/usage`, `/usage --since 7d`, per-directory scoping, and the operational implications for 12-Part engagement billing and Opus-1M context tradeoffs
+- `skills/agency-dashboard/SKILL.md` — Process step 8 (team utilization) now pulls `/usage --since 7d` per brand directory; output adds "Claude Code consumption (per brand)" line flagging brands at >2× portfolio median for retainer-tier rate review
+
+### Compatibility
+
+- No breaking changes. All previous v3.4.x commands, skills, agents, scripts, and MCP connectors continue to work unchanged.
+- `geo-tracker.py` now accepts `ai-mode` as a platform argument (previously: rejected with argparse error).
+- Historical GEO scores baselined pre–May 2026 should be normalised ×1.2 OR rerun against the 6-platform set before comparison. See `skills/aeo-geo/ai-visibility-audit.md`.
+
+### Auditor notes
+
+- Plugin version: 3.4.2 → 3.5.0 (minor bump — new feature surface for AI Mode + Article 50 draft + Gemini Omni; no breaking changes)
+- Files modified: 15 (14 SKILL/docs + 1 script)
+- Skills count, agents count, commands count: unchanged from v3.4.2
+
+---
+
 ## [3.4.2] — 2026-05-17
 
 ### Added — Three documentation expansions (no code changes; no breaking changes)

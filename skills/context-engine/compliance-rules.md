@@ -32,6 +32,27 @@ This file is the canonical compliance ruleset for the Digital Marketing Pro plug
 | **Penalty Range** | Up to **EUR 15 million or 3% of global annual turnover**, whichever is higher (transparency obligations). High-risk system breaches up to EUR 35M or 7%. |
 | **Key Marketing Impact** | Any AI-generated ad creative, social image, AI-narrated video, or AI-written long-form copy distributed in the EU must carry machine-readable provenance metadata. Use `/digital-marketing-pro:c2pa-metadata` to embed a C2PA manifest in any AI-generated image / video / audio / PDF before EU publication. Deepfakes need an additional visible disclosure overlay or audio cue. AI-written editorial pieces need an "AI-assisted" byline unless the human editor assumes full editorial accountability. The pre-publish gate (`/digital-marketing-pro:check`) verifies C2PA presence on AI-flagged assets in EU-targeted campaigns. |
 
+#### 1.1b.i — Article 50 draft implementing guidelines (May 2026)
+
+The European Commission published **draft implementing guidelines for Article 50 on 8 May 2026**. The draft is open for public consultation until **3 June 2026**; final guidelines are expected July 2026, ahead of the 2 August 2026 enforcement date. The draft clarifies the following points that brands should treat as the working interpretation today:
+
+| Topic | Draft guidance (May 2026) | What this means for marketing |
+|---|---|---|
+| **"Substantial AI manipulation"** | Defined as any AI-driven change that alters meaning, identity, or factual claims of a real person, object, place, or event. Routine colour correction, framing, denoising are NOT in scope. | A subject-replacement image swap = substantial manipulation (disclosure). A Lightroom-style retouch = not. |
+| **"Matters of public interest"** | Includes health, elections, finance, government services, public safety, and any topic where a reasonable consumer expects journalistic accuracy. Marketing copy itself is generally not in scope UNLESS it crosses into one of those topics (e.g., health claims, financial product claims). | Generic product copy = no AI disclosure required. AI-generated copy making health, financial, or political claims = disclosure required unless a human editor signs off. |
+| **Machine-readable marking** | C2PA Content Credentials are explicitly named as a "presumption of compliance" pathway. Alternative open-standard markings allowed if technically equivalent. | Continue using C2PA via `/digital-marketing-pro:c2pa-metadata`. Brands that ship without C2PA must show equivalent provenance — substantially more work. |
+| **Deepfake visible disclosure** | Visible label, watermark, or audio cue must be perceivable at normal viewing/listening distance. Hidden corner overlays in a tiny font are explicitly insufficient. | If you produce a synthetic-talent ad or AI-cloned voice ad for the EU market, the disclosure must be visible from any normal viewing distance. |
+| **Editorial-responsibility carve-out** | Human reviewer must (a) be identifiable, (b) have authority to alter or reject the AI output, (c) have a documented review record. A pure rubber-stamp does not satisfy the carve-out. | ContentForge's Phase 7 reviewer scorecard satisfies (c) but a named human editor must still sign off and that name must be on the published piece (byline, masthead, or accessible "About this article" link). |
+| **Enforcement priority** | National regulators are expected to prioritise (1) deepfakes, (2) AI-generated political/health content, (3) AI-generated content marketed without any provenance metadata at all. Routine commercial creative with C2PA is low priority. | Brands using C2PA across EU-distributed AI assets are in a strong defensive posture even before final guidelines land. |
+
+**Action items for brands with EU exposure before 2 August 2026:**
+
+1. **Audit your EU AI-asset inventory now.** Catalogue any AI-generated image, video, audio, deepfake-style synthetic content, and AI-written long-form copy distributed to EU users in the last 12 months. Identify which carry C2PA and which don't.
+2. **File a consultation comment by 3 June 2026 if Article 50 will materially affect your operations.** The Commission has explicitly asked for industry input on the "substantial manipulation" boundary and the carve-out scope. Brands in regulated sectors (health, finance, automotive, political adjacencies) should weigh in.
+3. **Lock in your C2PA signing-cert procurement.** See `docs/c2pa-production-cert-guide.md` for the four recognised authorities. Allow 2–4 weeks for Adobe Content Credentials approval — start no later than 1 July 2026.
+4. **Update your Definition of Done.** Any creative produced after 1 July 2026 for EU distribution should be C2PA-signed at production time, not retrofitted at publish time. The pre-publish gate (`/digital-marketing-pro:check`) blocks unsigned AI assets for EU-targeted campaigns.
+5. **Treat the carve-out as conditional, not a free pass.** "Human-reviewed" requires named accountability. Don't claim editorial responsibility unless a named editor is willing to be on the record.
+
 ### 1.2 United States Federal — CAN-SPAM Act
 
 | Field | Detail |

@@ -41,7 +41,24 @@ Per platform, a set of ad copy variations including:
 - Policy compliance check with flagged issues
 - A/B testing recommendation with hypothesis for each test
 - Message match assessment (if landing page provided)
-- Creative direction notes for visual/video assets
+- Creative direction notes for visual/video assets (see AI image/video generation guidance below)
+
+### AI image & video generation guidance (May 2026)
+
+When the brief includes static visuals or short-form video, recommend the model that fits the use case and call out the compliance overhead:
+
+| Asset type | Recommended model (May 2026) | When to use | Compliance note |
+|---|---|---|---|
+| Product hero stills, lifestyle photography, e-commerce tiles | **Google Nano Banana Pro** (Gemini 2.5 Image, multi-image composition, character/object consistency) | Strong text rendering inside images (logos, on-pack copy), brand-character consistency across a campaign, high-fidelity product realism. | Outputs ship with SynthID watermarking by default; ALSO sign with C2PA via `/digital-marketing-pro:c2pa-metadata` before any EU distribution. |
+| Short-form social video (≤8s reels, organic vertical) | **Gemini Veo 3.1** (synchronized native audio, longer/more coherent clips than Veo 3.0) | Reels, TikTok, Shorts cut-downs, ad-creative experimentation. | Synthetic-voice / synthetic-human content must carry a visible deepfake disclosure under EU Article 50 — see `skills/context-engine/compliance-rules.md` §1.1b. |
+| Long-form video with native audio / multi-modal storytelling | **Gemini Omni** (multimodal generation, May 2026 I/O launch — text + image + audio + video unified) | Connected-content campaigns where a single brief produces a hero film, social cut-downs, audio version, and stills consistently. Best for brands with disciplined creative governance — Omni's range outpaces most brand-safety review processes. | Default Omni outputs carry SynthID + Gemini provenance markers. Add C2PA before EU publish. Run synthetic-person outputs past Legal — Omni's photoreal humans frequently hit "substantial AI manipulation" thresholds under Article 50. |
+| Static image — fast iteration / mood-boarding | OpenAI gpt-image-1, Midjourney v7, Adobe Firefly | Internal mood boards, concept exploration. Not for shipped EU creative without C2PA. | None of these auto-embed C2PA — manually sign with `/digital-marketing-pro:c2pa-metadata` before EU publish. |
+
+**Workflow recommendation:**
+
+1. Brief the visual concept in this skill's output (subject, composition, brand-character constraints, on-pack text if any).
+2. Hand the visual spec to whichever production track owns image/video — typically **SocialForge** (`/sf:image` for stills, `/sf:video` for short-form, with Vertex AI / Nano Banana / Veo wired up via `/sf:setup`) or an external creative team.
+3. Treat all AI-generated visuals as **Article 50 in-scope** until proven otherwise. The pre-publish gate (`/digital-marketing-pro:check`) blocks unsigned AI assets for EU-targeted campaigns.
 
 ## Agents Used
 

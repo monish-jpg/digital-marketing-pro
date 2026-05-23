@@ -4,10 +4,14 @@ geo-tracker.py
 ==============
 GEO Tracker — Monitor brand visibility across AI engines.
 
-Tracks how AI platforms (ChatGPT, Perplexity, Gemini, Copilot, AI Overviews)
-represent a brand in their responses. Records visibility audits, baselines,
-competitive benchmarks, narrative alignment, and entity consistency to produce
-an overall GEO health score.
+Tracks how AI platforms (ChatGPT, Perplexity, Gemini, Copilot, Google AI Mode,
+AI Overviews — 6 surfaces as of May 2026) represent a brand in their responses.
+Records visibility audits, baselines, competitive benchmarks, narrative
+alignment, and entity consistency to produce an overall GEO health score.
+
+Note: 'ai-mode' is Google's conversational search default (Gemini 3.5 Flash,
+launched I/O 2026) and is a SEPARATE surface from 'ai-overviews' (the SERP
+summary block) — both should be tracked independently.
 
 Storage: ~/.claude-marketing/brands/{slug}/geo/
 
@@ -30,7 +34,7 @@ from pathlib import Path
 
 BRANDS_DIR = Path.home() / ".claude-marketing" / "brands"
 
-PLATFORMS = ["chatgpt", "perplexity", "gemini", "copilot", "ai-overviews"]
+PLATFORMS = ["chatgpt", "perplexity", "gemini", "copilot", "ai-mode", "ai-overviews"]
 RESULTS = ["cited", "mentioned", "concept-only", "absent", "misrepresented"]
 RESULT_SCORES = {
     "cited": 10,

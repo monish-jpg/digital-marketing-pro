@@ -10,6 +10,14 @@ argument-hint: "[URL]"
 
 Run a comprehensive technical SEO audit that covers the infrastructure and code-level factors that affect search engine crawling, indexation, and ranking. This audit focuses on the technical foundation rather than content or backlinks. Produces a prioritized report with specific fixes, expected impact, and implementation guidance.
 
+### Important — technical SEO during the May 2026 Core Update
+
+The Google **broad core update that started 21 May 2026** is primarily a quality/relevance reweighting, not a technical signal change. If a brand contacts you about ranking volatility in May/June 2026:
+
+- **Run this audit anyway** — Core Updates frequently surface pre-existing technical debt because relative quality matters more during reweighting. Crawl-budget waste on low-quality pages, broken canonical chains, soft-404s, and orphaned JS-rendered routes all amplify Core Update damage.
+- **Resist crawler/rendering "fixes" pitched as Core Update remedies.** No technical change will undo a Core Update hit if the underlying content quality issue isn't addressed. Pair this audit with `/digital-marketing-pro:seo-audit` (content/E-E-A-T side) — both are needed.
+- **Hreflang, structured data, and Core Web Vitals carry their normal weight** — the update did not change technical priorities, only how much E-E-A-T deficits hurt.
+
 ## Input Required
 
 The user must provide (or will be prompted for):
