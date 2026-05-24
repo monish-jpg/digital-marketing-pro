@@ -4,6 +4,38 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.6.0] — 2026-05-24
+
+**Cross-platform compatibility pack.** Digital Marketing Pro now installs cleanly on three coding-agent surfaces from a single source repository — Claude Code (canonical), OpenAI Codex, and Cursor — by adding platform-native manifest files alongside the existing Claude Code manifest. No skill duplication: all three platforms read the same `skills/` directory, the same `scripts/`, the same `.mcp.json`, and the same `hooks/hooks.json`.
+
+### Added
+
+- **`.codex-plugin/plugin.json`** — OpenAI Codex plugin manifest. Includes the `interface` block (displayName, shortDescription, longDescription, category, capabilities, defaultPrompt) Codex uses to render the plugin in its install surfaces. Points at `./skills/`, `./.mcp.json`, `./hooks/hooks.json` — same directories Claude Code reads.
+- **`.cursor-plugin/plugin.json`** — Cursor plugin manifest. Minimal manifest (Cursor only requires `name`) plus author, repository, license, keywords, and skills path. Cursor auto-discovers `skills/` via the open SKILL.md frontmatter standard.
+- **`docs/cross-platform-install.md`** — Full install guide covering all three platforms with: install commands per platform, what works natively vs what requires platform-specific configuration (notably Cursor's global mcp.json paste step), portability matrix, update commands per platform, and where to file platform-specific bugs.
+
+### Why this works without code duplication
+
+Agent Skills became an open standard (donated to the Agentic AI Foundation, Dec 2025; adopted by 32+ tools by May 2026). All three target platforms — Claude Code, Codex, Cursor — parse the same `name:` + `description:` SKILL.md frontmatter the same way. DM Pro's 150 skills are platform-portable as written; the v3.6.0 manifests are thin platform-specific wrappers around shared content.
+
+### Platform-specific gotchas (documented in cross-platform-install.md)
+
+| Gotcha | Affects | Workaround |
+|---|---|---|
+| Cursor reads MCP from global `mcp.json` (no leading dot), not from plugin-scoped `.mcp.json` | Cursor only | One-time paste of `.mcp.json` contents into Cursor → Settings → MCP Servers (documented step) |
+| Codex slash-command syntax differs (`/cmds` vs Claude Code's `/<plugin>:<command>`) | Codex only | Skills are invoked via natural-language intent on Codex; outputs are equivalent |
+| Sub-agent format differs across platforms | Codex, Cursor | DM Pro skills embed agent instructions inline so outputs are equivalent on platforms without Claude Code sub-agent support |
+
+### Compatibility
+
+- No breaking changes for Claude Code users.
+- No new dependencies — the new manifests are sibling JSON files; existing tooling untouched.
+- Plugin version: 3.5.0 → 3.6.0 (minor bump — new platform surfaces, no breaking changes)
+- Files added: 3 (2 manifests + 1 docs)
+- Skills count, agents count, commands count, scripts count: unchanged from v3.5.0
+
+---
+
 ## [3.5.0] — 2026-05-24
 
 A May-2026-ecosystem modernisation pass covering Google I/O 2026, the active broad core algorithm update, EU AI Act draft implementing guidelines, Meta platform expansions, and Claude Code's new cost-attribution capability. No breaking changes. No new commands or skills — six discrete content updates applied across 14 existing files + 1 script.
