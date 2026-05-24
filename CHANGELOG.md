@@ -4,6 +4,30 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.7.3] — 2026-05-24
+
+**Community-standards + Star History.** Patch bump — no functional changes.
+
+### Added
+
+- **`CODE_OF_CONDUCT.md`** — Contributor Covenant v2.1, adapted with project-specific scope (Neelverse Marketing Suite, related repositories, Discussions, Issues, PRs). Five-step enforcement ladder (Correction → Warning → Temporary Ban → Permanent Ban). Reporting routed through the maintainer contact at [indranil.in](https://indranil.in) or GitHub Private Security Advisories.
+- **`SECURITY.md`** — Supported-versions table, private vulnerability reporting via GitHub Private Security Advisories (no public Issues for security), coordinated-disclosure timeline (Day 0 ack → Day 7 assessment → Day 30 patch → Day 45 public advisory), scope boundaries (in scope vs upstream-vendor scope), hardening recommendations for operators (don't commit `.mcp.json`, treat `~/.claude-marketing/` as sensitive, rotate API keys quarterly, review SKILL.md PRs as production code, pin version in agency environments).
+- **`.github/PULL_REQUEST_TEMPLATE.md`** — checklist covering platform coverage (5 surfaces), version-bump-in-all-sibling-manifests reminder, compliance-source requirement (primary source only — Wikipedia / blog posts NOT acceptable), AI-content disclosure clause.
+- **Star History chart** in README — live SVG via star-history.com showing 112-star trajectory. Visual social proof for first-time visitors.
+- **`Contributing` section in README** now references CoC + PR template + SECURITY.md explicitly so contributors land on the right artefacts.
+
+### Why this matters
+
+GitHub computes a "Community Standards" score under the repo's Insights tab. Repos with all four (Description, README, Code of Conduct, Contributing, License, Issue templates, PR template, Security policy) get a green checklist that increases organic discovery and contributor trust. v3.7.3 closes the three gaps DMP still had (CoC, SECURITY, PR template).
+
+### Compatibility
+
+- No functional changes. No new commands, skills, agents, scripts, or MCP connectors.
+- All 4 sibling manifests bumped 3.7.2 → 3.7.3.
+- Plugin version: 3.7.2 → 3.7.3 (patch — community-standards files + Star History).
+
+---
+
 ## [3.7.2] — 2026-05-24
 
 **Personal-handles correction.** Patch bump — README only.
