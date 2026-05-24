@@ -64,7 +64,7 @@ def get_brand_dir(slug):
     """Get and validate brand directory."""
     brand_dir = BRANDS_DIR / slug
     if not brand_dir.exists():
-        return None, f"Brand '{slug}' not found. Run /dm:brand-setup first."
+        return None, f"Brand '{slug}' not found. Run /digital-marketing-pro:brand-setup first."
     return brand_dir, None
 
 
@@ -213,7 +213,7 @@ def summary(slug):
                 "total_rules": 0,
                 "custom_files": [],
                 "templates": 0,
-                "note": "No guidelines configured. Use /dm:import-guidelines to add.",
+                "note": "No guidelines configured. Use /digital-marketing-pro:import-guidelines to add.",
             }
             # Check templates
             if templates_dir.exists():
@@ -279,7 +279,7 @@ def get_category(slug, category):
         return {
             "category": category,
             "exists": False,
-            "note": f"No {category} guidelines configured. Use /dm:import-guidelines to add.",
+            "note": f"No {category} guidelines configured. Use /digital-marketing-pro:import-guidelines to add.",
         }
 
     content = filepath.read_text(encoding="utf-8")

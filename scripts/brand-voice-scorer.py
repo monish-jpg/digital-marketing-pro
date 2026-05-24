@@ -188,7 +188,7 @@ def load_brand_profile(slug: str) -> dict:
             "error": f"Brand profile not found at {profile_path}",
             "hint": (
                 "Create a profile.json at the path above. "
-                "Run /dm:brand-setup to create one interactively."
+                "Run /digital-marketing-pro:brand-setup to create one interactively."
             ),
         }
     try:

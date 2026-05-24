@@ -128,7 +128,7 @@ ACTION_RECOMMENDATIONS = {
 def _get_brand_dir(slug):
     brand_dir = BRANDS_DIR / slug
     if not brand_dir.exists():
-        return None, f"Brand '{slug}' not found. Run /dm:brand-setup first."
+        return None, f"Brand '{slug}' not found. Run /digital-marketing-pro:brand-setup first."
     return brand_dir, None
 
 

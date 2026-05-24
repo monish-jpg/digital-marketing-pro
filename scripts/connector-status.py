@@ -481,7 +481,7 @@ CONNECTOR_REGISTRY = {
         "connectors": {
             "google-calendar": {
                 "transport": "http",
-                "url": "https://gcal.mcp.claude.com/mcp",
+                "url": "https://calendarmcp.googleapis.com/mcp/v1",
                 "description": "Google Calendar — events, meeting scheduling",
                 "env_vars": [],
                 "skills_unlocked": ["webinar-plan", "content-calendar"],
@@ -493,7 +493,7 @@ CONNECTOR_REGISTRY = {
         "connectors": {
             "gmail": {
                 "transport": "http",
-                "url": "https://gmail.mcp.claude.com/mcp",
+                "url": "https://gmailmcp.googleapis.com/mcp/v1",
                 "description": "Gmail — send reports, team communication",
                 "env_vars": [],
                 "skills_unlocked": ["send-report", "pr-pitch"],
@@ -773,7 +773,7 @@ def check_connector(name):
                     result["setup"] = (
                         f"Requires npx server. Set environment variables: "
                         f"{', '.join(conn['env_vars'])}. "
-                        f"Then add to .mcp.json or use /dm:add-integration."
+                        f"Then add to .mcp.json or use /digital-marketing-pro:add-integration."
                     )
 
             return result
@@ -819,7 +819,7 @@ def setup_guide(name):
                 guide["steps"] = [
                     f"1. Obtain API credentials from the {name} platform.",
                     f"2. Set these environment variables: {', '.join(conn['env_vars'])}",
-                    f"3. Add the connector to .mcp.json using /dm:add-integration {name}",
+                    f"3. Add the connector to .mcp.json using /digital-marketing-pro:add-integration {name}",
                     f"   Or manually add this to .mcp.json:",
                 ]
                 guide["mcp_json_entry"] = {

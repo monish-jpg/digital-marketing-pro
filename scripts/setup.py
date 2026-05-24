@@ -72,7 +72,7 @@ def check_brand():
     """Check if an active brand is configured."""
     if not ACTIVE_BRAND_FILE.exists():
         print("NO_BRAND: No active brand configured.")
-        print("Run /dm:brand-setup to create a brand profile.")
+        print("Run /digital-marketing-pro:brand-setup to create a brand profile.")
         return False
 
     try:
@@ -97,7 +97,7 @@ def print_brand_summary():
     """Print rich brand context summary for SessionStart injection."""
     if not ACTIVE_BRAND_FILE.exists():
         print("=== DIGITAL MARKETING PRO ===")
-        print("No active brand. Run /dm:brand-setup to create one.")
+        print("No active brand. Run /digital-marketing-pro:brand-setup to create one.")
         scripts_dir = Path(__file__).resolve().parent
         print(f"Scripts: {scripts_dir}")
         print(f"Plugin root: {scripts_dir.parent}")
@@ -111,7 +111,7 @@ def print_brand_summary():
 
         if not profile_path.exists():
             print("=== DIGITAL MARKETING PRO ===")
-            print(f"BROKEN_BRAND: '{slug}' profile not found. Run /dm:brand-setup.")
+            print(f"BROKEN_BRAND: '{slug}' profile not found. Run /digital-marketing-pro:brand-setup.")
             scripts_dir = Path(__file__).resolve().parent
             print(f"Scripts: {scripts_dir}")
             print(f"Plugin root: {scripts_dir.parent}")

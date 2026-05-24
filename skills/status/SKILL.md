@@ -195,7 +195,7 @@ User: /digital-marketing-pro:status
 Output:
 No active brand found.
 Pass --brand <slug> explicitly, or run /digital-marketing-pro:brand-setup to create one.
-Workspace: /Users/indra/.claude-marketing
+Workspace: ~/.claude-marketing      # or $CLAUDE_PLUGIN_DATA/digital-marketing-pro if set
 ```
 
 ## Behaviour rules

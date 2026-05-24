@@ -70,7 +70,7 @@ def get_quality_dir(slug):
     """Return the quality tracking directory for a brand, creating if needed."""
     brand_dir = BRANDS_DIR / slug
     if not brand_dir.exists():
-        return None, f"Brand '{slug}' not found. Run /dm:brand-setup first."
+        return None, f"Brand '{slug}' not found. Run /digital-marketing-pro:brand-setup first."
 
     quality_dir = brand_dir / "quality"
     quality_dir.mkdir(exist_ok=True)
@@ -496,7 +496,7 @@ def main():
     if not slug:
         print(json.dumps({
             "error": "No brand specified and no active brand set. "
-                     "Use --brand <slug> or run /dm:brand-setup first."
+                     "Use --brand <slug> or run /digital-marketing-pro:brand-setup first."
         }))
         sys.exit(1)
 

@@ -274,7 +274,7 @@ def intervention_plan(tier):
 def trend(brand_slug, segment_name, current_score):
     brand_dir = BRANDS_DIR / brand_slug
     if not brand_dir.exists():
-        return {"error": f"Brand '{brand_slug}' not found. Run /dm:brand-setup first."}
+        return {"error": f"Brand '{brand_slug}' not found. Run /digital-marketing-pro:brand-setup first."}
 
     churn_dir = brand_dir / "churn"
     churn_dir.mkdir(parents=True, exist_ok=True)
@@ -357,7 +357,7 @@ def cohort_risk(data):
 def summary(brand_slug):
     brand_dir = BRANDS_DIR / brand_slug
     if not brand_dir.exists():
-        return {"error": f"Brand '{brand_slug}' not found. Run /dm:brand-setup first."}
+        return {"error": f"Brand '{brand_slug}' not found. Run /digital-marketing-pro:brand-setup first."}
 
     churn_dir = brand_dir / "churn"
     if not churn_dir.exists():

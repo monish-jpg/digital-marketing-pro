@@ -66,7 +66,7 @@ def _euclidean(a, b, dims):
 def _brand_check(slug):
     brand_dir = BRANDS_DIR / slug
     if not brand_dir.exists():
-        return {"error": f"Brand '{slug}' not found. Run /dm:brand-setup first."}
+        return {"error": f"Brand '{slug}' not found. Run /digital-marketing-pro:brand-setup first."}
     return None
 
 

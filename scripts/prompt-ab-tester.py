@@ -59,7 +59,7 @@ def get_tests_dir(slug):
     """Return the A/B tests directory for a brand, creating if needed."""
     brand_dir = BRANDS_DIR / slug
     if not brand_dir.exists():
-        return None, f"Brand '{slug}' not found. Run /dm:brand-setup first."
+        return None, f"Brand '{slug}' not found. Run /digital-marketing-pro:brand-setup first."
 
     tests_dir = brand_dir / "quality" / "ab-tests"
     tests_dir.mkdir(parents=True, exist_ok=True)
@@ -392,7 +392,7 @@ def main():
     if not slug:
         print(json.dumps({
             "error": "No brand specified and no active brand set. "
-                     "Use --brand <slug> or run /dm:brand-setup first."
+                     "Use --brand <slug> or run /digital-marketing-pro:brand-setup first."
         }))
         sys.exit(1)
 

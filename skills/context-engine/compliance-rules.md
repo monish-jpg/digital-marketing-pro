@@ -175,13 +175,13 @@ The European Commission published **draft implementing guidelines for Article 50
 | Field | Detail |
 |---|---|
 | **Region** | India |
-| **Law** | Digital Personal Data Protection Act (DPDPA) |
-| **Year Enacted** | 2023 (rules pending finalization as of early 2025) |
-| **Consent Model** | Opt-in. Consent must be free, specific, informed, unconditional, and unambiguous. Deemed consent applies for "legitimate uses" (e.g., voluntary data provision for a stated purpose, employment, medical emergencies). |
-| **Email Rules** | Marketing requires consent. Must provide easy opt-out. The Consent Manager framework (government-registered entities managing consent) may apply once rules are finalized. |
-| **Cookie/Tracking Rules** | Not specifically addressed yet. General consent obligation for processing personal data likely extends to cookie-based tracking. Await implementing rules for specifics. |
-| **Penalty Range** | Up to INR 250 crore (~USD 30 million) per violation. No percentage-of-revenue calculation. Data Protection Board of India enforces. |
-| **Key Marketing Impact** | Rules are still being finalized — build for the strictest interpretation. Children's data (under 18) requires verifiable parental consent and prohibits targeted advertising and tracking. Cross-border transfers allowed except to government-restricted countries. Consent withdrawal must be as easy as giving consent. Significant Data Fiduciaries (large-scale processors) face additional obligations including DPO appointment, audits, and impact assessments. |
+| **Law** | Digital Personal Data Protection Act (DPDPA) 2023, operationalised by the Digital Personal Data Protection Rules 2025 (notified by MeitY 3 Jan 2025; phased commencement through 2025-2026). |
+| **Year Enacted** | 2023 (Rules 2025 finalised; consult MeitY notification for the phase-by-phase commencement schedule before designing for India). |
+| **Consent Model** | Opt-in. Consent must be free, specific, informed, unconditional, and unambiguous, and must be requested in clear, plain language. Notice must accompany or precede the consent request (Rule 3). "Deemed consent" was removed in the 2023 Act and replaced with "Certain Legitimate Uses" (Section 7) — narrower than the 2022 draft. |
+| **Email Rules** | Marketing requires verifiable consent. Withdrawal must be as easy as giving consent. The Consent Manager framework (registered entities that intermediate consent on behalf of Data Principals) is now live under Rule 4 — Data Fiduciaries handling material volumes should integrate with at least one registered Consent Manager. |
+| **Cookie/Tracking Rules** | Cookie / SDK-based tracking that identifies a Data Principal is processing of personal data and requires DPDPA-compliant consent. The Rules do not carve out cookies; rely on the general processing-with-consent obligation. EU-style banner UX is the safest pattern. |
+| **Penalty Range** | Up to INR 250 crore (~USD 30 million) per instance of non-compliance. No percentage-of-revenue calculation. The Data Protection Board of India (constituted under Rule 16 et seq) enforces and adjudicates. |
+| **Key Marketing Impact** | Children's data (under 18) requires verifiable parental consent, and the Act prohibits targeted advertising and behavioural tracking directed at children — design age-gating and parental-consent flows before launching India campaigns to under-18 audiences. Cross-border transfers are permitted by default; Government may notify restricted countries by gazette (none broadly restricted as of May 2026 — verify before launch). Significant Data Fiduciaries (designated by the Government based on volume / sensitivity / risk) carry additional obligations: appoint an India-resident Data Protection Officer, conduct annual Data Protection Impact Assessments, and undergo periodic audits. Breach notification to the Board and affected Data Principals is mandatory without delay (Rule 7). |
 
 ### 1.12 Japan — APPI
 

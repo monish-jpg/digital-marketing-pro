@@ -4,6 +4,34 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.7.4] — 2026-05-25
+
+**Model curator + correctness sweep.** Adds the model-selection infrastructure the suite was missing, plus a 13-finding correctness pass across scripts, skills, agents, and reference docs.
+
+### Added
+
+- **Model curator (`scripts/model_registry.json` + `scripts/resolve_model.py` + `scripts/refresh_models.py`)** — single source of truth for every model id the plugin hands to a provider SDK. Aliases like `latest-balanced-anthropic`, `latest-fast-anthropic`, `latest-text-openai`, `latest-vision-google`, `latest-image-google`, `latest-video-google`, `latest-video-wavespeed` resolve to concrete ids at call time. Deprecated ids auto-fall-forward to their `replacement_id`. Catalog covers Claude Opus 4.7 / Sonnet 4.7 preview / Sonnet 4.6 / Haiku 4.5; GPT-5 / 5-mini / 5-nano (and supported-but-older 4o / 4o-mini with replacements); Gemini 3 Pro / 3.5 Flash / Omni; Nano Banana Pro / 2 / 3.1 Flash Image; Imagen 4; Veo 3.1; Kling v3.0 Pro via WaveSpeed; Higgsfield Soul v2. `refresh_models.py` reports drift against live provider catalogs (Anthropic / OpenAI / Google list endpoints). See [`docs/MODEL-CURATOR.md`](docs/MODEL-CURATOR.md).
+- **`--openai-model` + `--anthropic-model` + `--list-models` flags** on `scripts/ai-visibility-checker.py`. Defaults pull from curator aliases; user overrides validated against the registry with deprecation warnings.
+
+### Changed
+
+- **`scripts/ai-visibility-checker.py`** — replaced the hardcoded deprecated `claude-sonnet-4-5-20250929` and stale `gpt-4o-mini` defaults with curator-resolved `latest-balanced-anthropic` and `latest-balanced-openai`. Per-call model now shown in the result `platform` field (e.g. `Anthropic claude-sonnet-4-6`).
+- **Gmail / Calendar / Drive MCP endpoints** — replaced the dead `*.mcp.claude.com` URLs (all returning HTTP 404 as of May 2026) with the Google-hosted equivalents in `.mcp.json.connectors-reference`, `scripts/connector-status.py`, and `TESTING-GUIDE.md`. New endpoints respond with HTTP 405 to GET probes (alive; POST-only as expected for MCP).
+- **Slash-command refs in Python error messages** — swept 51 shorthand `/dm:X` references and rewrote to the canonical `/digital-marketing-pro:X` namespace. Claude Code's auto-namespacing does NOT accept the short form, so the previous error messages pointed users at slash commands that wouldn't actually invoke.
+- **`skills/context-engine/compliance-rules.md` § 1.11 India — DPDPA** — replaced the stale "rules pending finalization as of early 2025" line. Section now reflects the **Digital Personal Data Protection Rules 2025** (notified by MeitY 3 Jan 2025; phased commencement through 2025-2026), the live Consent Manager framework under Rule 4, the children's targeted-advertising ban, and the Significant Data Fiduciary obligations.
+- **`docs/c2pa-production-cert-guide.md`** — replaced the broken `contentauthenticity.org/community/cr-cli` URL with the working `opensource.contentauthenticity.org/docs/c2patool/` and corrected the framing (open-source `c2patool` CLI, not an Adobe-only program).
+- **`skills/status/SKILL.md`** — removed hardcoded `/Users/indra/.claude-marketing` example, replaced with `~/.claude-marketing` and a note about `$CLAUDE_PLUGIN_DATA`.
+- **`skills/influencer-brief/SKILL.md`** — added Sora deprecation note (consumer Sora app discontinued 26 Apr 2026; Sora API ends 24 Sep 2026) to the AI-tool clauses, with Veo 3.1 / Kling v3.0 Pro / Runway Gen-4 as the recommended set.
+- **`agents/seo-specialist.md` + CHANGELOG entries + `skills/page-seo-analysis/SKILL.md` + `skills/sitemap-manager/SKILL.md`** — fixed broken slash refs `/digital-marketing-pro:page-analysis` (skill is named `page-seo-analysis`) and `/digital-marketing-pro:sitemap` (skill is named `sitemap-manager`).
+- **`skills/context-engine/agency-operations-guide.md`** — replaced references to non-existent `/digital-marketing-pro:campaign-audit` and `/digital-marketing-pro:validate-profile` with concrete chains of existing skills (`competitor-analysis` + `performance-check`; `check` + `status`).
+- **`skills/context-engine/crm-integration-guide.md`** — `launch-campaign` → `launch-ad-campaign` (the actual skill name).
+
+### Quality
+
+- Smoke-tested every Python script via `--help` — **102 of 103 scripts** return valid usage (1 timeout on first-run pip auto-install of `pyairtable`; pre-existing UX issue, not a regression).
+- Per-file content sweep across **185 SKILL.md + 43 agent files + 69 reference docs** for: frontmatter validity, slash-shorthand refs, deprecated model ids, dead MCP URLs, hardcoded local paths. **Zero issues** after the sweeps.
+- License compliance: MIT across all 4 manifests; zero GPL-licensed Python imports detected.
+
 ## [3.7.3] — 2026-05-24
 
 **Community-standards + Star History.** Patch bump — no functional changes.
@@ -744,8 +772,8 @@ Closes the gap with dedicated SEO tools by adding 6 new SEO sub-skills, expanded
 - **`/digital-marketing-pro:programmatic-seo`** — Programmatic SEO at scale: data source assessment, template engine planning, URL pattern strategy, internal linking automation, thin content safeguards with quality gates (WARNING at 100 pages, HARD STOP at 500), index bloat prevention, and Google's Scaled Content Abuse policy enforcement (June 2025 / August 2025 escalation context)
 - **`/digital-marketing-pro:competitor-pages`** — SEO-optimized competitor comparison page generator: "X vs Y" pages, "alternatives to X" pages, "best tools" roundup pages, feature matrix tables. Includes Product/SoftwareApplication/ItemList schema markup, conversion-optimized CTA layouts, keyword targeting formulas, fairness guidelines, and social proof integration
 - **`/digital-marketing-pro:image-seo-audit`** — Dedicated image optimization audit: alt text quality, tiered file size thresholds (thumbnail/content/hero), format analysis (WebP/AVIF/JPEG XL status), responsive images (`srcset`/`sizes`), lazy loading validation (flags `loading="lazy"` on LCP images), `fetchpriority="high"` checks, `decoding="async"`, CLS prevention via dimensions, file naming, CDN usage
-- **`/digital-marketing-pro:page-analysis`** — Deep single-page SEO analysis: all ranking dimensions for one URL (title, meta, headings, content depth, E-E-A-T, schema detection with deprecation tracking, images, internal links, technical signals, AI search readiness). More granular than site-wide `/digital-marketing-pro:seo-audit`. Use for landing page optimization, content refresh prioritization, or pre-publish quality checks
-- **`/digital-marketing-pro:sitemap`** — XML sitemap analysis and generation: parse existing sitemaps for issues (stale lastmod, 404s, noindex conflicts, missing URLs, protocol limit violations), or generate new sitemaps with industry-specific templates (SaaS, ecommerce, local, publisher, agency). Includes sitemap index strategy, robots.txt registration, and compression recommendations
+- **`/digital-marketing-pro:page-seo-analysis`** — Deep single-page SEO analysis: all ranking dimensions for one URL (title, meta, headings, content depth, E-E-A-T, schema detection with deprecation tracking, images, internal links, technical signals, AI search readiness). More granular than site-wide `/digital-marketing-pro:seo-audit`. Use for landing page optimization, content refresh prioritization, or pre-publish quality checks
+- **`/digital-marketing-pro:sitemap-manager`** — XML sitemap analysis and generation: parse existing sitemaps for issues (stale lastmod, 404s, noindex conflicts, missing URLs, protocol limit violations), or generate new sitemaps with industry-specific templates (SaaS, ecommerce, local, publisher, agency). Includes sitemap index strategy, robots.txt registration, and compression recommendations
 - **`/digital-marketing-pro:seo-plan`** — Comprehensive SEO strategy planning with industry-specific templates: discovery, competitive analysis, architecture design, content strategy, technical foundation, and 4-phase implementation roadmap (Foundation → Expansion → Scale → Authority). Templates for SaaS, ecommerce, local service, publisher/media, and agency business models
 
 #### New Reference Files (2)

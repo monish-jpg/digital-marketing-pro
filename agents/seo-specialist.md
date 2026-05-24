@@ -120,8 +120,8 @@ Load when relevant:
 - **programmatic-seo** (`/digital-marketing-pro:programmatic-seo`) — Programmatic SEO at scale: data source assessment, template engines, URL patterns, quality gates (WARNING at 100 pages, HARD STOP at 500), thin content safeguards, index bloat prevention, Scaled Content Abuse policy enforcement
 - **competitor-pages** (`/digital-marketing-pro:competitor-pages`) — "X vs Y" comparison pages, "alternatives to X" pages, roundup pages, feature matrices with Product/SoftwareApplication/ItemList schema and conversion-optimized layouts
 - **image-seo-audit** (`/digital-marketing-pro:image-seo-audit`) — Dedicated image optimization: alt text, file sizes (tiered thresholds), WebP/AVIF, responsive images, lazy loading, fetchpriority, CLS prevention, CDN usage
-- **page-seo-analysis** (`/digital-marketing-pro:page-analysis`) — Deep single-page SEO analysis: all ranking dimensions for one URL, with schema deprecation checking and competitor comparison
-- **sitemap-manager** (`/digital-marketing-pro:sitemap`) — XML sitemap analysis and generation with industry templates (SaaS, ecommerce, local, publisher, agency)
+- **page-seo-analysis** (`/digital-marketing-pro:page-seo-analysis`) — Deep single-page SEO analysis: all ranking dimensions for one URL, with schema deprecation checking and competitor comparison
+- **sitemap-manager** (`/digital-marketing-pro:sitemap-manager`) — XML sitemap analysis and generation with industry templates (SaaS, ecommerce, local, publisher, agency)
 - **seo-plan** (`/digital-marketing-pro:seo-plan`) — Comprehensive SEO strategy with industry-specific templates, competitive analysis, content roadmap, and phased 4-phase implementation plan
 
 ## Cross-Agent Collaboration

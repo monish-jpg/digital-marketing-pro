@@ -17,7 +17,7 @@ The [Content Authenticity Initiative (CAI)](https://contentauthenticity.org/) ma
 
 - **Who it's for:** Brands already using Adobe Creative Cloud (Photoshop, Lightroom, Illustrator, Premiere, After Effects).
 - **How:** Adobe Content Credentials is built into Creative Cloud apps. Generate a Content Credentials identity through Adobe ID; assets signed via Creative Cloud carry an Adobe-issued C2PA signature that verifies cleanly.
-- **For scripted / API signing (our plugin path):** Adobe issues C2PA signing certificates through their Content Authenticity program for partners. Apply at https://contentauthenticity.org/community/cr-cli (CR-CLI is the command-line tool Adobe ships for this).
+- **For scripted / API signing (our plugin path):** Use the open-source `c2patool` CLI from the Coalition for Content Provenance and Authenticity (CAI) — docs at https://opensource.contentauthenticity.org/docs/c2patool/. For a production trust-listed signing certificate, contact the CAI via https://contentauthenticity.org/ to be onboarded as a signing partner; Adobe and several certificate authorities issue C2PA-compliant certificates for partners.
 - **Cost:** Currently free for the basic identity; enterprise tiers TBD.
 - **Cert format:** PEM-encoded ECDSA P-256 (compatible with our scripts' default `alg=b"es256"`).
 

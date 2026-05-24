@@ -78,7 +78,7 @@ def _days_ago(n):
 def record_signal(slug, args):
     brand_dir = BRANDS_DIR / slug
     if not brand_dir.exists():
-        return {"error": f"Brand '{slug}' not found. Run /dm:brand-setup first."}
+        return {"error": f"Brand '{slug}' not found. Run /digital-marketing-pro:brand-setup first."}
 
     ts = datetime.now().isoformat()
     raw = f"{slug}:{args.signal}:{ts}"
@@ -107,7 +107,7 @@ def record_signal(slug, args):
 def weather_report(slug):
     brand_dir = BRANDS_DIR / slug
     if not brand_dir.exists():
-        return {"error": f"Brand '{slug}' not found. Run /dm:brand-setup first."}
+        return {"error": f"Brand '{slug}' not found. Run /digital-marketing-pro:brand-setup first."}
 
     signals = _load_all_signals(slug)
     cutoff = _days_ago(30)
@@ -160,7 +160,7 @@ def weather_report(slug):
 def list_signals(slug, category=None, since=None, impact=None):
     brand_dir = BRANDS_DIR / slug
     if not brand_dir.exists():
-        return {"error": f"Brand '{slug}' not found. Run /dm:brand-setup first."}
+        return {"error": f"Brand '{slug}' not found. Run /digital-marketing-pro:brand-setup first."}
 
     signals = _load_all_signals(slug)
     if category:
@@ -175,7 +175,7 @@ def list_signals(slug, category=None, since=None, impact=None):
 def trend(slug, category=None):
     brand_dir = BRANDS_DIR / slug
     if not brand_dir.exists():
-        return {"error": f"Brand '{slug}' not found. Run /dm:brand-setup first."}
+        return {"error": f"Brand '{slug}' not found. Run /digital-marketing-pro:brand-setup first."}
 
     signals = _load_all_signals(slug)
     if category:
@@ -215,7 +215,7 @@ def trend(slug, category=None):
 def alert_check(slug):
     brand_dir = BRANDS_DIR / slug
     if not brand_dir.exists():
-        return {"error": f"Brand '{slug}' not found. Run /dm:brand-setup first."}
+        return {"error": f"Brand '{slug}' not found. Run /digital-marketing-pro:brand-setup first."}
 
     signals = _load_all_signals(slug)
     cutoff = _days_ago(7)
@@ -226,7 +226,7 @@ def alert_check(slug):
 def acknowledge(slug, signal_id, action_taken):
     brand_dir = BRANDS_DIR / slug
     if not brand_dir.exists():
-        return {"error": f"Brand '{slug}' not found. Run /dm:brand-setup first."}
+        return {"error": f"Brand '{slug}' not found. Run /digital-marketing-pro:brand-setup first."}
 
     sdir = _signals_dir(slug)
     fpath = sdir / f"{signal_id}.json"
@@ -244,7 +244,7 @@ def acknowledge(slug, signal_id, action_taken):
 def summary(slug):
     brand_dir = BRANDS_DIR / slug
     if not brand_dir.exists():
-        return {"error": f"Brand '{slug}' not found. Run /dm:brand-setup first."}
+        return {"error": f"Brand '{slug}' not found. Run /digital-marketing-pro:brand-setup first."}
 
     signals = _load_all_signals(slug)
     if not signals:

@@ -505,8 +505,8 @@ DM Pro has 4 hook events.
 | 7 | **Ahrefs** | `api.ahrefs.com/mcp/mcp` | Get backlink data | Link profile returned |
 | 8 | **Similarweb** | `mcp.similarweb.com` | Get traffic data | Traffic estimates returned |
 | 9 | **Klaviyo** | `mcp.klaviyo.com/mcp` | List email campaigns | Campaign data returned |
-| 10 | **Google Calendar** | `gcal.mcp.claude.com/mcp` | Create event | Calendar event created |
-| 11 | **Gmail** | `gmail.mcp.claude.com/mcp` | Draft email | Email draft created |
+| 10 | **Google Calendar** | `calendarmcp.googleapis.com/mcp/v1` | Create event | Calendar event created |
+| 11 | **Gmail** | `gmailmcp.googleapis.com/mcp/v1` | Draft email | Email draft created |
 | 12 | **Stripe** | `mcp.stripe.com/` | Get revenue data | Payment data returned |
 | 13 | **Asana** | `mcp.asana.com/sse` | List tasks | Task list returned |
 | 14 | **Webflow** | `mcp.webflow.com/sse` | Publish content | Content appears in CMS |
