@@ -158,7 +158,7 @@ Examples:
 
 **Setup:** Set `SUPERMEMORY_API_KEY` in `.env`.
 
-**Shared across:** All 13 agents. When one agent learns something, every other agent can retrieve it.
+**Shared across:** All 25 agents. When one agent learns something, every other agent can retrieve it.
 
 ---
 

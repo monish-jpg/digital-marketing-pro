@@ -1,41 +1,83 @@
 # Digital Marketing Pro
 
-**End-to-end engagement methodology for marketing teams running on Claude Code & Cowork.**
+**The most comprehensive open-source AI marketing plugin** — 150 skills, 25 specialist agents, a canonical 12-Part Strategy Flow, and EU AI Act Article 50 readiness. Installs on **5 coding-agent surfaces** from a single repo: Claude Code, Claude Cowork, OpenAI Codex, Cursor, GitHub Copilot CLI, and Google Antigravity 2.0 (experimental).
 
-[![Version](https://img.shields.io/badge/version-3.7.0-blue.svg)](CHANGELOG.md)
+Built for digital marketing agencies, in-house teams running 50–200 brands, and consultancies that need consistent depth and auditable handoffs. Created by [Indranil Banerjee](https://indranil.in).
+
+[![Version](https://img.shields.io/badge/version-3.7.1-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/python-optional-yellow.svg)](#python-dependencies-optional)
+[![Stars](https://img.shields.io/github/stars/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=yellow)](https://github.com/indranilbanerjee/digital-marketing-pro/stargazers)
+[![Forks](https://img.shields.io/github/forks/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=blue)](https://github.com/indranilbanerjee/digital-marketing-pro/network/members)
+[![Issues](https://img.shields.io/github/issues/indranilbanerjee/digital-marketing-pro?logo=github)](https://github.com/indranilbanerjee/digital-marketing-pro/issues)
+[![Last commit](https://img.shields.io/github/last-commit/indranilbanerjee/digital-marketing-pro?logo=github)](https://github.com/indranilbanerjee/digital-marketing-pro/commits/main)
 [![Cowork](https://img.shields.io/badge/cowork-compatible-purple.svg)](docs/claude-interfaces.md#claude-cowork-full-support)
+[![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Article%2050%20ready-darkred.svg)](skills/context-engine/compliance-rules.md)
+[![5 platforms](https://img.shields.io/badge/installs%20on-5%20platforms-success.svg)](docs/cross-platform-install.md)
 
-DM Pro is the most ambitious marketing plugin in the Neelverse suite. It runs every brand engagement through a canonical **12-Part Strategy Flow** producing the **Four Core Documents** (61 explicit steps), the Two-Views Model (v1 unbiased + v2 client-validated), the Decision Matrix for selective re-runs, and the Living Project Instruction File. 25 specialist agents, 150 skills, 71 Python scripts, 14 HTTP MCP connectors, 16 industry profiles, 16 privacy-law jurisdictions. **v3.5.0** is a May-2026-ecosystem refresh: Google AI Mode now treated as a distinct AEO surface (6 platforms, not 5), May 2026 broad core update triage guidance, EU AI Act Article 50 draft implementing guidelines (8 May 2026; consultation closes 3 June), Meta Advantage+ Leads global rollout + Threads ads + tightened brand-safety controls, Gemini Omni / Nano Banana Pro / Veo 3.1 added to AI creative-brief skills with mandatory C2PA + deepfake-disclosure clauses, and Claude Code v2.1.149+ `/usage` per-model cost tracking integrated into the agency dashboard. Designed for digital marketing agencies, in-house teams running 50–200 brands, and consultancies who want consistent depth and auditable handoffs.
+```bash
+# Install — one line on any of 5 supported platforms
+/plugin marketplace add indranilbanerjee/neels-plugins
+/plugin install digital-marketing-pro@neels-plugins
+```
 
-> **Current version:** 3.7.0 — see [Release notes](#release-notes) at the bottom of this README.
+> If this saves you time, [give it a star ⭐](https://github.com/indranilbanerjee/digital-marketing-pro/stargazers) — it's the single thing that helps other marketers find it.
 
-> **Cross-platform install (5 surfaces):** Claude Code + Cowork (canonical), OpenAI Codex, Cursor, GitHub Copilot CLI (auto-discovers `.claude-plugin/plugin.json`), and Google Antigravity 2.0 (experimental). Single `skills/` directory, single `scripts/`, single MCP catalog — no fork. See [`docs/cross-platform-install.md`](docs/cross-platform-install.md).
+---
+
+## Why Digital Marketing Pro
+
+Most AI marketing tools generate isolated outputs — a campaign brief here, an email there. No canonical sequence, no shared state, no enforced structure. Result: inconsistent depth, missed dependencies, outputs that don't compound.
+
+**DM Pro runs every brand through the same 12 parts, producing the same files in the same order, with explicit dependency rules between them.** That's the whole product. Everything else — the 150 skills, 25 agents, 5-platform install, May-2026 compliance updates — exists to make that 12-Part Flow ship cleanly for real agencies on real client work.
+
+| What this gives you that ad-hoc prompts don't | Why it matters |
+|---|---|
+| **Canonical 12-Part Strategy Flow** producing the Four Core Documents (61 explicit steps) | Every engagement looks the same, so handoffs work and quality is auditable |
+| **Two-Views Model** (v1 unbiased + v2 client-validated) | You never lose the original market view when the client pushes back |
+| **Decision Matrix** — maps validation responses to re-runs | Stops over-running (wasted hours) and under-running (broken strategy) |
+| **Living Project Instruction File** — single source of truth per engagement | All skills read it first; corrections propagate automatically |
+| **EU AI Act Article 50 readiness** built in | C2PA provenance signing, deepfake disclosure, draft-guidelines table in compliance |
+| **6-platform AEO/GEO audit** (incl. Google AI Mode) | The first marketing plugin to treat AI Mode as a distinct surface from AI Overviews |
+
+---
+
+## What you get in 60 minutes
+
+Run `/digital-marketing-pro:engagement` and the plugin produces a full brand-strategy engagement in roughly 60 minutes on Opus 4.7 — **~50–60 canonical files** organized by part:
+
+- **Part 1** — Stone-vs-Opinion intake (what the client knows for certain vs what they believe)
+- **Part 2** — External market research (unbiased, no client docs)
+- **Part 3** — Four Core Documents — 61 explicit steps across Business & SBU Analysis, Segmentation Framework, Brand Positioning & Communications, DMFlow
+- **Part 4** — Competitive + Customer + Market analysis (4 unbiased docs)
+- **Part 5** — Client Validation Document — the one true stop
+- **Part 6** — Selective v2 re-runs per Decision Matrix
+- **Part 7** — Preparation documents (campaign architecture, KPI tree, content pillars, approval chains)
+- **Part 8** — **Growth Plan + 12-month Yearly Planner** (the flagship deliverable)
+- **Part 9** — Channel-strategy fan-out (up to 17 channel docs in 7 families)
+- **Part 10** — Execution artefacts (ad copy, post copy, headlines, CTAs)
+- **Part 11** — AI creative briefs (with Nano Banana Pro / Veo 3.1 / Gemini Omni model guidance and C2PA + deepfake-disclosure clauses)
+- **Part 12** — Continuous improvement loop
+
+Cost: roughly **$15–40 in Claude API spend** for a full 12-part engagement using Opus 4.7. The plugin itself is MIT-licensed and free.
 
 ---
 
 ## Quick start
 
-### 1. Install the plugin
+### 1. Install on Claude Code (canonical)
 
 ```bash
-# Add the marketplace (one time)
 /plugin marketplace add indranilbanerjee/neels-plugins
-
-# Install Digital Marketing Pro
 /plugin install digital-marketing-pro@neels-plugins
 ```
 
-Tested in Claude Code CLI, Claude Code Desktop, and Anthropic Cowork. Web chat (`claude.ai`) does not support `/plugin` commands.
+Works in Claude Code CLI, Claude Code Desktop, and Anthropic Cowork. Web chat (`claude.ai`) does not support `/plugin` commands. For Codex / Cursor / Copilot CLI / Antigravity install commands see [`docs/cross-platform-install.md`](docs/cross-platform-install.md).
 
-### 2. Turn on auto-update (one-time, recommended)
+### 2. Turn on auto-update (recommended)
 
-**Third-party marketplaces — including this one — have auto-update OFF by default in Claude Code.** When v3.3.0 is the latest and you're still on v3.2.2, nothing tells you. There's no banner, no badge.
+Third-party marketplaces have auto-update **OFF by default** in Claude Code — no banner tells you when v3.8 ships. Fix it once:
 
-Open `/plugin`, go to the **Marketplaces** tab, find `neels-plugins`, and toggle **Enable auto-update**. Done — Claude Code will refresh and pull new DM Pro releases at startup from now on, prompting `/reload-plugins` to apply changes mid-session (no full restart needed; conversation context preserved).
-
-To update manually instead, see the [Updating](#updating) section below.
+Open `/plugin` → **Marketplaces** tab → find `neels-plugins` → toggle **Enable auto-update**. Done — future releases pull at session start; `/reload-plugins` applies mid-session without restart.
 
 ### 3. Set up your first brand
 
@@ -43,27 +85,28 @@ To update manually instead, see the [Updating](#updating) section below.
 /digital-marketing-pro:brand-setup
 ```
 
-Interactive brand profiling — voice, audience, channels, industry, jurisdictions, competitors, goals. Choose **quick mode** (5 questions) or **full mode** (17 questions). Optional: import existing brand guidelines, SOPs, or templates with `/digital-marketing-pro:import-guidelines`.
+Interactive brand profiling — voice, audience, channels, industry, target jurisdictions, competitors, goals. Quick mode (5 questions) or full mode (17 questions). Optional: `/digital-marketing-pro:import-guidelines` to bulk-load existing brand guidelines, SOPs, or templates.
 
-### 4. Run your first engagement
+### 4. Run a full engagement, or jump straight to a workflow
 
 ```
-/digital-marketing-pro:engagement
+/digital-marketing-pro:engagement           # full 12-Part Strategy Flow (~60 min)
 ```
 
-Walks the brand through the full **12-Part Strategy Flow**. Each part has a defined output (Stone-vs-Opinion intake → external research → Four Core Documents → competitive/customer/market analysis → Client Validation → selective v2 re-runs → preparation docs → Growth Plan + Yearly Planner → channel strategy fan-out → execution artefacts → AI creative instructions → continuous improvement loop). Produces ~50–60 canonical files per engagement.
+Or jump straight to one workflow:
 
-Or jump straight to a specific workflow:
-- `/digital-marketing-pro:campaign-plan` — multi-channel campaign with budget, timeline, KPIs
-- `/digital-marketing-pro:seo-audit` — technical + content + E-E-A-T + AI visibility audit
-- `/digital-marketing-pro:content-engine` — blog / ad / email / social / landing / video drafts
-- `/digital-marketing-pro:competitor-analysis` — multi-dimensional deep-dive
-- `/digital-marketing-pro:check` — pre-publish quality gate (hallucination + brand voice + structure + claims)
-- `/digital-marketing-pro:status` — unified brand snapshot
+```
+/digital-marketing-pro:campaign-plan        # multi-channel campaign with budget, timeline, KPIs
+/digital-marketing-pro:seo-audit            # technical + content + E-E-A-T + AI visibility audit
+/digital-marketing-pro:content-engine       # blog / ad / email / social / landing / video drafts
+/digital-marketing-pro:competitor-analysis  # multi-dimensional deep-dive
+/digital-marketing-pro:performance-report   # trends + anomalies + recommendations
+/digital-marketing-pro:email-sequence       # subject lines, copy, timing, segmentation
+/digital-marketing-pro:check                # pre-publish quality gate (hallucination + voice + claims)
+/digital-marketing-pro:status               # unified brand snapshot
+```
 
 ### 5. Find your output
-
-Everything lands in:
 
 ```
 ~/.claude-marketing/<brand-slug>/
@@ -74,8 +117,8 @@ Everything lands in:
 │       ├── 02-research/         ← Part 2 external market research
 │       ├── 03-four-core/        ← Part 3 Four Core Documents (61 steps)
 │       ├── 04-analysis/         ← Part 4 competitive / customer / market
-│       ├── 05-validation/       ← Part 5 Client Validation Document (the one true stop)
-│       ├── 06-v2-reruns/        ← Part 6 selective v2 re-runs per Decision Matrix
+│       ├── 05-validation/       ← Part 5 Client Validation Document
+│       ├── 06-v2-reruns/        ← Part 6 selective v2 re-runs
 │       ├── 07-prep/             ← Part 7 internal operating layer
 │       ├── 08-growth-plan/      ← Part 8 Growth Plan + Yearly Planner
 │       ├── 09-channels/         ← Part 9 channel-strategy fan-out
@@ -86,105 +129,221 @@ Everything lands in:
 └── insights/                    ← cross-engagement learnings
 ```
 
-The [Multi-Brand & Agency Guide](docs/multi-brand-guide.md) covers the multi-client switching workflow.
+See the [Multi-Brand & Agency Guide](docs/multi-brand-guide.md) for the multi-client switching workflow.
+
+---
+
+## Installs on 5 coding-agent surfaces (one repo, no fork)
+
+| Platform | Install command | Status |
+|---|---|---|
+| **Claude Code** CLI + Desktop + **Anthropic Cowork** | `/plugin install digital-marketing-pro@neels-plugins` | Full support (canonical) |
+| **OpenAI Codex** CLI | `codex plugin install indranilbanerjee/digital-marketing-pro` | Full support — skills + MCP + hooks + scripts |
+| **Cursor** IDE + CLI | `cursor plugin install indranilbanerjee/digital-marketing-pro` | Skills + hooks + scripts; MCP via Cursor's global `mcp.json` |
+| **GitHub Copilot CLI** | `copilot plugin install indranilbanerjee/digital-marketing-pro` | Full support — Copilot CLI auto-discovers `.claude-plugin/plugin.json` (no new manifest needed) |
+| **Google Antigravity 2.0** CLI | `agy plugin install indranilbanerjee/digital-marketing-pro` | **Experimental** — manifest format will firm up as Antigravity publishes v2-native spec |
+
+**Why this works:** Agent Skills became an open standard in Dec 2025 (donated to the Agentic AI Foundation, adopted by 32+ tools by May 2026). All 150 SKILL.md files in DM Pro are platform-portable as written. The four sibling manifests (`.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/`, `.antigravity/`) are thin platform-specific wrappers around the same `skills/` directory — no skill duplication, no maintenance fork.
+
+Full per-platform install guide: [`docs/cross-platform-install.md`](docs/cross-platform-install.md).
 
 ---
 
 ## The 12-Part Engagement Methodology
 
-Most marketing tools generate isolated outputs — a campaign brief here, an email there. There is no canonical sequence, no shared state, no enforced structure. Result: inconsistent depth, missed dependencies, outputs that don't compound.
-
-DM Pro v3.0+ runs every brand engagement through the same 12 parts in sequence, producing the same files in the same order, with explicit dependency rules between them.
-
 | Part | Name | Output |
 |------|------|--------|
 | 1 | Client Inputs | Stone vs Opinion intake (what client knows for certain vs what they believe) |
 | 2 | External Research | Unbiased market research (no client docs used) |
-| 3 | **Four Core Documents** | 61 explicit steps across Business & SBU Analysis (18), Segmentation Framework (15), Brand Positioning & Communications (19), DMFlow (9) |
+| 3 | **Four Core Documents** | 61 explicit steps — Business & SBU (18), Segmentation (15), Brand Positioning (19), DMFlow (9) |
 | 4 | Competitive + Customer + Market | 4 unbiased analysis documents (4.1–4.4) |
-| 5 | **Client Validation Document** | The one true stop. Client accepts/rejects/edits each finding |
+| 5 | **Client Validation Document** | The one true stop — client accepts/rejects/edits each finding |
 | 6 | Selective v2 Re-runs | Subset of Part 3 + Part 4 docs re-run per the Decision Matrix |
 | 7 | Preparation Documents | Internal operating layer (campaign architecture, KPI tree, content pillars, asset inventory, approval chains) |
 | 8 | **Growth Plan + Yearly Planner** | The flagship 11-section client-facing strategy + 12-month operational calendar |
-| 9 | Channel Strategy Fan-out | Up to 17 channel docs grouped into 7 families (Search & Campaign, Paid platforms, Organic & Influencer, Marketplace & CRM, Content/ATL/BTL/PR, Web + Measurement) |
-| 10 | Execution Artefacts | Communication outputs (ad copy, post copy, headlines, CTAs) |
-| 11 | AI Creative Instructions | Visual asset briefs |
-| 12 | **Continuous Improvement Loop** | Quarterly briefs + ad-hoc briefs feeding market + operating signals back into product/offering decisions |
+| 9 | Channel Strategy Fan-out | Up to 17 channel docs grouped into 7 families |
+| 10 | Execution Artefacts | Ad copy, post copy, headlines, CTAs |
+| 11 | AI Creative Instructions | Visual asset briefs with C2PA + EU Article 50 clauses |
+| 12 | **Continuous Improvement Loop** | Quarterly briefs feeding signals back into product/offering decisions |
 
-### Key architectural concepts
-
-- **Two-Views Model** — After Part 5, every engagement carries both v1 (unbiased market view) and v2 (client-validated view). Operating decisions reference v2; ideation references both. v1 is never deleted.
+**Key architectural concepts:**
+- **Two-Views Model** — Every engagement carries v1 (unbiased market view) and v2 (client-validated view) after Part 5. Operating decisions reference v2; ideation references both. v1 is never deleted.
 - **Stone vs Opinion** — Every fact captured at intake is tagged with confidence. Stone = client knows for certain. Opinion = client believes (becomes a research question, not ground truth).
 - **Decision Matrix** — Maps client validation responses to which v1 documents need v2 re-runs. Prevents over- and under-re-running.
-- **Update-Back Rule** — When live operations surface corrections after Part 7, source documents get versioned (v2.1, v2.2 etc.) and the Living Project Instruction File propagates the change to all downstream skills.
-- **Living Project Instruction File** — Single source of truth per engagement. All skills read it first. Auto-updated when source docs change.
+- **Update-Back Rule** — Live operations surface corrections → source documents get versioned (v2.1, v2.2 …) → Living Project Instruction File propagates the change to all downstream skills.
+- **Living Project Instruction File** — Single source of truth per engagement. All skills read it first.
 
-15 strategic-framework reference documents in `skills/context-engine/` support the methodology — Five Digital Markets, Channel Families, In-Market vs Out-Market, Multi-Dimensional Decision Framework, Unit Economics, Actionable Persona Format, B2B Decision-Making Unit, Three-Scenario Forecasting, 30/60/90-Day Framework, Reporting Cadence, Fixed vs Variable Budget, Competitor 3-Question Output, India Market Context, plus more.
+15+ strategic-framework reference documents in `skills/context-engine/` support the methodology (Five Digital Markets, Channel Families, In-Market vs Out-Market, Multi-Dimensional Decision Framework, Unit Economics, Actionable Persona Format, B2B Decision-Making Unit, Three-Scenario Forecasting, 30/60/90-Day Framework, Reporting Cadence, Fixed vs Variable Budget, Competitor 3-Question Output, India Market Context, and more).
 
 ---
 
-## Architecture
+## What's new in May 2026
+
+DM Pro is updated against the **actual May-2026 marketing ecosystem state** — Google I/O 2026, the active broad core algorithm update, EU AI Act draft implementing guidelines, Meta platform expansions, and the latest AI image/video model landscape. No "trained on 2024 data" surprises in your client outputs.
+
+**v3.7.0 — Install-surface expansion (May 24)**
+GitHub Copilot CLI compatibility (free win — Copilot CLI auto-discovers `.claude-plugin/plugin.json` as one of its manifest paths). Experimental `.antigravity/plugin.json` for Google Antigravity 2.0 CLI (launched 19 May 2026, replacing Gemini CLI).
+
+**v3.6.0 — Cross-platform compatibility pack (May 24)**
+Added `.codex-plugin/plugin.json` and `.cursor-plugin/plugin.json` so DM Pro installs natively on OpenAI Codex and Cursor. Single `skills/` directory shared across all platform manifests.
+
+**v3.5.0 — May 2026 content modernisation (May 24)** — six discrete updates:
+1. **Google AI Mode** added as a 6th first-class AEO/GEO surface (default conversational search since Google I/O on 19 May 2026, ~1B MAUs, Gemini 3.5 Flash backbone). AI Mode vs AI Overviews citations diverge 40–60% on the same query — audit both. `scripts/geo-tracker.py` PLATFORMS list now includes `ai-mode`.
+2. **May 2026 broad core algorithm update** triage guidance — wait for rollout + 7–14 days settling before drawing conclusions; segment GSC data pre/in/post; Core Updates reweight existing signals, don't introduce new ones.
+3. **EU AI Act Article 50 draft implementing guidelines** (8 May 2026; consultation closes 3 June; final guidelines July; enforcement 2 August 2026) — six-row clarification table covering "substantial AI manipulation", "matters of public interest", C2PA as presumption-of-compliance, deepfake visible disclosure, editorial-responsibility carve-out conditions, plus a five-point action list for brands with EU exposure.
+4. **Meta platform updates** — Advantage+ Leads (global availability), Threads ads (global rollout, image-only), brand-safety inventory filters (Expanded/Moderate/Limited tiers with explicit reach cost).
+5. **Gemini Omni + Nano Banana Pro + Veo 3.1** added to AI creative-brief skills with consistent C2PA-by-default and EU Article 50 disclosure clauses; influencer briefs ship with three explicit AI-tool clauses (permitted use, required platform disclosures, EU deepfake clause).
+6. **Claude Code v2.1.149+ `/usage`** per-model breakdown integrated into `/digital-marketing-pro:agency-dashboard` for brand-attributable AI cost tracking.
+
+See [CHANGELOG.md](CHANGELOG.md) for the full release history.
+
+---
+
+## Architecture — what's actually in the box
 
 ### 25 specialist agents
+Marketing Strategist · Brand Guardian · Content Creator · Email Specialist · Social Media Manager · PR Outreach · SEO Specialist · CRO Specialist · Analytics Analyst · Marketing Scientist · Competitor Intelligence · Market Intelligence · Influencer Manager · CRM Manager · Growth Engineer · Journey Orchestrator · Agency Operations · Performance Monitor · Quality Assurance · Memory Manager · Execution Coordinator · Intelligence Curator · Localization Specialist · Media Buyer · Competitive Intel
 
-Marketing strategist · brand guardian · content creator · email specialist · social-media manager · PR outreach · SEO specialist · CRO specialist · analytics analyst · marketing scientist · competitor intelligence · campaign orchestrator · crisis communicator · synthetic-audience moderator · creative director · channel specialist · paid-media planner · influencer-relations · MarTech architect · GEO/AEO intelligence · multilingual coordinator · agency-operations · pricing strategist · partnership-development · attribution analyst.
+Each agent has scoped responsibilities, explicit input/output contracts, and reads the Living Project Instruction File before acting.
 
-Each agent has scoped responsibilities, explicit input/output contracts, and references the Living Project Instruction File before acting.
+### 150 skills
+Skills are invoked by description match through the Skill tool, addressable as `/digital-marketing-pro:<skill-name>` from chat. Coverage: brand setup, content production (blog / ad / email / social / landing / video / PR / case study), SEO / AEO / GEO audits (6 platforms incl. Google AI Mode), competitor monitoring, campaign planning, channel-specific strategies, attribution, churn risk, lifecycle journeys, intelligence reports, eval framework, knowledge management, multi-brand operations, regional configuration, C2PA content provenance.
 
-### 149 skills
-
-Skills are invoked by description match through the Skill tool, addressable as `/digital-marketing-pro:<skill-name>` from the chat. Coverage: brand setup, content production (blog / ad / email / social / landing / video / PR / case study), SEO / AEO / GEO audits, competitor monitoring, campaign planning, channel-specific strategies, attribution, churn risk, lifecycle journeys, intelligence reports, eval framework, knowledge management, multi-brand operations, regional configuration.
-
-### 10 top-level commands (Customize panel)
-
-These are the discoverable slash commands in Claude Code's slash palette. Each wraps the related skill(s) and adds argument hints + execution safety:
-
+### 10 top-level commands
 | Command | What it does |
 |---|---|
-| `/digital-marketing-pro:brand-setup` | Set up a new brand profile with voice, audience, competitors, compliance |
-| `/digital-marketing-pro:engagement` | Run the full 12-part engagement methodology |
+| `/digital-marketing-pro:brand-setup` | Set up a new brand profile (voice, audience, competitors, compliance) |
+| `/digital-marketing-pro:engagement` | Run the full 12-Part Strategy Flow |
 | `/digital-marketing-pro:campaign-plan` | Generate a multi-channel campaign plan with budget, timeline, KPIs |
 | `/digital-marketing-pro:seo-audit` | Comprehensive SEO audit — technical, on-page, content, E-E-A-T, AI visibility |
-| `/digital-marketing-pro:content-engine` | Draft blog posts, ad copy, emails, social, landing pages, video scripts |
+| `/digital-marketing-pro:content-engine` | Draft blog, ad copy, emails, social, landing pages, video scripts |
 | `/digital-marketing-pro:performance-report` | Performance report with trends, anomaly detection, recommendations |
-| `/digital-marketing-pro:competitor-analysis` | Multi-dimensional competitive analysis across content, SEO, ads, social, pricing |
-| `/digital-marketing-pro:email-sequence` | Complete email sequences with subject lines, copy, timing, segmentation |
+| `/digital-marketing-pro:competitor-analysis` | Multi-dimensional competitive analysis (content, SEO, ads, social, pricing) |
+| `/digital-marketing-pro:email-sequence` | Complete email sequences (subject lines, copy, timing, segmentation) |
 | `/digital-marketing-pro:check` | Pre-publish quality gate (hallucination + brand voice + structure + claims) |
-| `/digital-marketing-pro:status` | Unified brand snapshot (profile, engagements, recent insights, compliance) |
+| `/digital-marketing-pro:status` | Unified brand snapshot (profile, engagements, insights, compliance) |
 
-Plus 113 additional skills addressable via `/digital-marketing-pro:<skill-name>` — `:competitor-monitor`, `:churn-risk`, `:autopilot-status`, `:agency-dashboard`, `:integrations`, `:connect`, `:help`, `:learn`, `:switch-brand`, `:keyword-research`, `:tech-seo-audit`, `:local-seo-audit`, `:aeo-audit`, `:client-onboarding`, `:journey-design` … see `/digital-marketing-pro:help` for the full list once installed, or browse `skills/` in the repo.
+Plus **140 additional skills** addressable via `/digital-marketing-pro:<skill-name>` — `:competitor-monitor`, `:churn-risk`, `:autopilot-status`, `:agency-dashboard`, `:aeo-audit`, `:geo-monitor`, `:c2pa-metadata`, `:client-onboarding`, `:journey-design` … see `/digital-marketing-pro:help` after install for the full list, or browse `skills/` in the repo.
 
-### 70 Python scripts
+### 69 Python scripts (optional)
+Plugin works fully without Python — all marketing knowledge, frameworks, agent capabilities, and skills work out of the box via the 167 reference knowledge files.
 
-Optional. Knowledge-only mode (0 MB, no install) covers all 149 skills + 25 agents + 170+ reference knowledge files. Lite mode (~15 MB, `pip install nltk textstat`) adds brand-voice scoring, content quality scoring, readability analysis. Full mode (~50 MB, `pip install -r scripts/requirements.txt`) adds competitor scraping, QR generation, AI visibility API checking. See [Python dependencies](#python-dependencies-optional).
+| Mode | Size | Adds |
+|---|---|---|
+| **Knowledge-only** (default) | 0 MB | All 150 skills + 25 agents + 167 reference files |
+| **Lite** (`pip install nltk textstat`) | ~15 MB | Brand-voice scoring, content quality scoring, readability analysis |
+| **Full** (`pip install -r scripts/requirements.txt`) | ~50 MB | Competitor scraping, QR generation, AI visibility API checking, GEO tracking, C2PA signing |
+
+### 14 HTTP MCP connectors
+Notion · Slack · Canva · Figma · HubSpot · Amplitude · Ahrefs · SimilarWeb · Klaviyo · Google Calendar · Gmail · Stripe · Asana · Webflow
+
+All HTTP, all Cowork-compatible. For services without first-party HTTP MCPs (Google Sheets, Drive, Salesforce, etc.), see `.mcp.json.connectors-reference` for **Pipedream / Composio / Zapier / Make.com** aggregator paths.
+
+For the full ~68-server stdio configuration (Google Ads, Meta Ads, GA4, GSC, Mixpanel, Marketo, Brevo, etc. via npx, Claude Code only — not Cowork-compatible): `cp .mcp.json.example .mcp.json`. See [CONNECTORS.md](CONNECTORS.md) and [Integrations Guide](docs/integrations-guide.md).
 
 ---
 
-## v3.2 + v3.3 — closing the hook-removal gaps and modernizing for May 2026
+## Compliance — 16 jurisdictions, EU AI Act Article 50 ready
 
-v3.0 was a methodology release. v3.1 was a hygiene release that removed the global `SessionStart` and `PreToolUse` hooks that fired on every Claude Code operation in every project. v3.2 added explicit replacements (`/check`, `/status`, embedded hallucination checks, opt-in `auto_save_insights` flag). **v3.3 modernizes the May 2026 reality** across pricing, regulation, and channel mechanics — see [Release notes](#release-notes) below for the full list.
+DM Pro carries jurisdiction-specific compliance rules that auto-apply when a brand declares its target markets. Coverage:
 
-### Quick examples
+🇪🇺 EU (GDPR + AI Act Article 50) · 🇺🇸 US Federal (CAN-SPAM) · 🇺🇸 California (CCPA/CPRA) · US 20+ state privacy laws · 🇨🇦 Canada (CASL + PIPEDA) · 🇧🇷 Brazil (LGPD) · 🇬🇧 UK (UK GDPR + PECR) · 🇦🇺 Australia (Privacy Act + Spam Act) · 🇸🇬 Singapore (PDPA) · 🇨🇳 China (PIPL) · 🇮🇳 India (DPDPA) · 🇯🇵 Japan (APPI) · 🇰🇷 South Korea (PIPA) · 🇸🇦 Saudi Arabia (PDPL) · 🇦🇪 UAE (Federal Decree-Law No. 45) · 🇹🇭 Thailand (PDPA)
 
-```bash
-# Pre-publish quality gate (replaces the global PreToolUse hook)
-/digital-marketing-pro:check drafts/q2-launch-blog.md
+**EU AI Act Article 50 readiness (applicable 2 August 2026):**
+- C2PA content-provenance signing via `/digital-marketing-pro:c2pa-metadata` (end-to-end tested against c2pa-python 0.32 — 75-byte test PNG → 42,818-byte signed PNG with `manifest_embedded_and_verified=true`)
+- Pre-publish gate (`/digital-marketing-pro:check`) treats missing C2PA on AI-flagged assets in EU campaigns as CRITICAL → BLOCKED
+- Draft implementing guidelines (8 May 2026) added as `compliance-rules.md` §1.1b.i with six-row clarification table + five-point action list
+- Production cert guide at `docs/c2pa-production-cert-guide.md` covers the four CAI-recognised authorities (Adobe Content Credentials, Truepic, Numbers Protocol, Microsoft Azure Confidential Ledger)
 
-# Status snapshot (replaces the global SessionStart banner)
-/digital-marketing-pro:status
+**Other May 2026 regulatory updates baked in:**
+- NY synthetic-performer disclosure law (live June 2026, $1K–$5K per violation, $10K repeat) — applies to synthetic influencers + AI endorsements
+- FTC May 2026 endorsement guidance — synthetic influencers, AI testimonials, AI-edited creator content
+- CJEU March 2026 ruling — pseudonymized cookie IDs are personal data when re-identification is feasible
+- CCPA Jan 2026 ADMT amendments + AI-derived sensitive data classification
+- DPDP Phase II preparation — consent manager registration opens Nov 2026
 
-# Status with options
-/digital-marketing-pro:status --brand acme-corp --section engagements
-/digital-marketing-pro:status --json
-```
+---
 
-### Opt in to ambient insight capture
+## AEO / GEO — May 2026 reality
 
-If you want the prior v3.0 ambient learning behavior, set `auto_save_insights: true` in your `brand-profile.json`. Insights are saved to `~/.claude-marketing/<brand>/insights/` at session end.
+The search landscape pivoted hard in 2025–2026:
+- Google AI Overviews appear on ~55% of all Google searches (Seer Interactive, Sept 2025); organic CTR on AI Overview queries dropped ~61% (1.76% → 0.61%); ~58% of Google searches are now zero-click
+- **Google AI Mode** became the default conversational search experience for opted-in users at I/O 2026 (19 May 2026), backed by Gemini 3.5 Flash — ~1B MAUs
+- ChatGPT search reaches ~883M MAU; Perplexity heavily skews citations to Reddit (47% of factual cites); Wikipedia drives 48% of ChatGPT citations
 
-### Re-enable hooks at your own settings level
+DM Pro's AEO/GEO skills (`/digital-marketing-pro:aeo-audit`, `:geo-monitor`, `:entity-audit`) reflect this:
+- **6-platform audit standard** — ChatGPT, Perplexity, Google AI Mode, Google AI Overviews, Gemini, Microsoft Copilot (was 5 — AI Mode added May 2026)
+- Schema strategy refresh — Google's March 2026 core update demoted FAQ/Review/HowTo schema on non-primary pages. Skills emphasise entity-rich JSON-LD (Article + Organization + Person + Product) and produce an **LLMs.txt** companion file
+- Citation tracking across all 6 surfaces, with Profound / Otterly / Conductor AgentStack integration paths in the connectors layer
+- **Share of AI Voice** as a first-class metric in `/digital-marketing-pro:performance-report`
 
-Plugin hooks fire globally regardless of working directory. If you genuinely want a global `PreToolUse` content-check or `SessionStart` brand banner, copy the snippet from `hooks/hooks-reference.example.json` into your own `~/.claude/settings.json`. That keeps the hook scoped to your installation, not pushed onto everyone who installs the plugin.
+---
+
+## Channel guidance — May 2026 updates baked in
+
+- **LinkedIn (March 2026 algorithm shift):** external links and engagement bait penalized ~60%. New **Depth Score** measures dwell time. Followers no longer guarantee reach. Skills optimize for relevance and Depth Score.
+- **Email:** Apple MPP affects ~64% of B2C opens — open rate is functionally dead as a primary KPI. **DMARC + RFC 8058 one-click POST unsubscribe** mandatory; non-compliant bulk mail to Gmail/Yahoo/Microsoft gets permanent 550 rejections. Spam threshold tightened to <0.10%.
+- **TikTok (post Jan 22 2026 USDS Joint Venture closing):** US data + algorithm under USDS LLC; ByteDance retains <20%. AI-generated creators require disclosure label; AI content excluded from Creator Rewards Program; daily shoppable-post limits effective May 11 2026.
+- **Meta Advantage+ Leads** (global as of May 2026), **Threads ads** (global, image-only), **brand-safety inventory tiers** (Expanded/Moderate/Limited — Limited costs ~30% reach).
+- **WhatsApp** per-message pricing (since 1 July 2025) — India marketing template ≈ USD 0.0118 per message; 72-hour free service window from CTWA ads or Page CTAs.
+- **Third-party cookies — deprecation cancelled.** First-party data is the strategic priority. The `attribution-model` skill defaults to first-party + MMM + incrementality stack.
+- **Sora dependency note:** OpenAI consumer Sora app discontinued April 26 2026; Sora API September 24 2026. AI creative briefs default to **Veo 3.1, Kling v3.0 Pro, Runway Gen-4, Gemini Omni**.
+
+---
+
+## Documentation
+
+| Guide | Description |
+|---|---|
+| [Getting Started](docs/getting-started.md) | Installation, first brand setup, first marketing task — with worked examples |
+| [Cross-Platform Install](docs/cross-platform-install.md) | Per-platform install for Claude Code, Codex, Cursor, Copilot CLI, Antigravity |
+| [Brand Guidelines](docs/brand-guidelines.md) | Importing voice guides, restrictions, channel styles, templates, agency SOPs |
+| [Multi-Brand & Agency Guide](docs/multi-brand-guide.md) | Multi-brand corporations and agency multi-client workflows |
+| [Strategy & KPI Mapping](docs/strategy-and-kpis.md) | Business objectives → KPI frameworks → campaign strategy → measurement loop |
+| [Integrations Guide](docs/integrations-guide.md) | MCP setup for GA4, HubSpot, Google Ads, Meta, and more |
+| [Engagement Methodology](docs/engagement-methodology.md) | Deep-dive on the 12-Part Strategy Flow |
+| [Competitor Intelligence](docs/competitor-intelligence.md) | Setting up competitors, running analysis, responding to competitive moves |
+| [Claude Interfaces](docs/claude-interfaces.md) | What works in Claude Code, Cowork, Desktop, claude.ai |
+| [C2PA Production Cert Guide](docs/c2pa-production-cert-guide.md) | Acquiring a CAI-recognised signing certificate for EU production deployment |
+| [Architecture](docs/architecture.md) | Technical deep-dive for contributors and power users |
+| [Testing Guide](TESTING-GUIDE.md) | Per-phase test checklist for plugin contributors |
+
+Two PDF references at the repo root: `DM_Strategy_Complete_Learning_Guide.pdf` (full methodology) and `DM_Strategy_Flow_v3_2_Visualization_v1_23Apr26.pdf` (one-page visual map).
+
+---
+
+## FAQ
+
+**Q: How does this compare to LangChain marketing templates / CrewAI marketing crews / general AI marketing tools?**
+Those are frameworks. DM Pro is a **packaged, opinionated methodology** with explicit dependency rules between every output. You can build something like it in LangChain or CrewAI — at the cost of months of engineering. DM Pro ships it.
+
+**Q: Which Claude interface should I use?**
+
+| | Claude Code | Claude Cowork | Claude Desktop (no Cowork) | claude.ai web |
+|-|:-:|:-:|:-:|:-:|
+| Full plugin support | yes | yes | partial | no |
+| Brand memory | yes | yes | no | no |
+| MCP integrations | all | HTTP only | HTTP only | no |
+| Document creation (Excel, PPT) | no | yes | no | no |
+| Recommended for | Terminal workflows + scripting | Visual desktop workflows | Quick content | One-off questions |
+
+**Q: How much does a full engagement cost in API spend?**
+Roughly **$15–40** for a complete 12-part engagement using Opus 4.7 across ~50–60 documents. Track per-brand consumption via Claude Code v2.1.149+ `/usage` (now integrated into `/digital-marketing-pro:agency-dashboard`).
+
+**Q: Can I run multiple brands in parallel?**
+Yes. Each brand has its own `~/.claude-marketing/<brand-slug>/` directory and Python script state. Switch with `/digital-marketing-pro:switch-brand`.
+
+**Q: What if I only want a campaign plan, not the full methodology?**
+Skip to `/digital-marketing-pro:campaign-plan`. Every individual surface (campaign / SEO / content / competitor / email / report) is independently runnable. The full engagement is the canonical path, not the only path.
+
+**Q: Will this work on Codex / Cursor / Copilot CLI / Antigravity?**
+Yes — see [Cross-platform install guide](docs/cross-platform-install.md). All four secondary platforms read the same `skills/` directory. Copilot CLI works with zero new files (it auto-discovers `.claude-plugin/plugin.json`). Antigravity is experimental until Google publishes its v2-native plugin spec.
+
+**Q: Is this an Anthropic product?**
+No — independent open-source plugin built by [Indranil Banerjee](https://indranil.in). MIT-licensed. Runs on Claude (and Codex, Cursor, Copilot CLI, Antigravity).
+
+**Q: I found a compliance rule that looks out of date.**
+[File an issue](https://github.com/indranilbanerjee/digital-marketing-pro/issues) with the citation. Privacy and AI law change quarterly — DM Pro is actively maintained against the May 2026 reality but enforcement actions and amendments keep coming.
 
 ---
 
@@ -197,7 +356,7 @@ Plugin hooks fire globally regardless of working directory. If you genuinely wan
 /reload-plugins
 ```
 
-`/plugin marketplace update` only refreshes the catalog — it does not bump installed plugin versions. The uninstall + reinstall is what actually pulls the new version. `/reload-plugins` applies the change without a full restart.
+`/plugin marketplace update` only refreshes the catalog — the uninstall + reinstall is what actually pulls the new version. `/reload-plugins` applies the change without restart.
 
 If a version stays the same but content changed (fast-iteration debugging):
 ```
@@ -206,198 +365,17 @@ rm -rf ~/.claude/plugins/cache/neels-plugins
 /reload-plugins
 ```
 
-### Installs in Cowork
-
-Cowork is the Anthropic Desktop computer-use product (macOS/Windows). It supports third-party plugins from custom marketplaces — same `/plugin marketplace add indranilbanerjee/neels-plugins` install pattern, then `/plugin install digital-marketing-pro@neels-plugins`. Cowork has local filesystem access, so the full DM Pro pipeline including all 70 Python scripts runs natively. The only Cowork-specific limitation is **HTTP MCPs only** (no stdio/npx) — DM Pro's 14 HTTP connectors are all Cowork-compatible; for stdio servers see `.mcp.json.example`.
-
----
-
-## Connectors (MCP integrations)
-
-DM Pro ships with **14 HTTP MCP connectors** that work in both Cowork and Claude Code:
-
-Notion · Slack · Canva · Figma · HubSpot · Amplitude · Ahrefs · Similarweb · Klaviyo · Google Calendar · Gmail · Stripe · Asana · Webflow
-
-For Claude Code users who want the full ~68-server stdio configuration (Google Ads, Meta Ads, GA4, GSC, Mixpanel, Marketo, Brevo, etc. via npx), copy the example:
-
-```bash
-cp .mcp.json.example .mcp.json
-```
-
-For Cowork users who need services without first-party HTTP MCPs (Google Sheets, Drive, Salesforce, dozens more SaaS), see `.mcp.json.connectors-reference` for **Pipedream / Composio / Zapier / Make.com** aggregator paths.
-
-See [CONNECTORS.md](CONNECTORS.md) for the full reference and [MCP Integration Guide](docs/integrations-guide.md) for setup walkthroughs.
-
----
-
-## Privacy & compliance — 16 jurisdictions
-
-DM Pro carries jurisdiction-specific compliance rules that auto-apply when a brand declares its target markets. Coverage includes the GDPR umbrella, EU AI Act, CCPA / CPRA (with the Jan 2026 ADMT amendments and AI-derived sensitive data classification), DPDP Act (India — Phase II consent-manager framework effective Nov 13 2026, Phase III hard enforcement May 13 2027), LGPD (Brazil), APPI (Japan), Privacy Act (Australia), POPIA (South Africa), PIPEDA (Canada), PIPL (China), and more.
-
-**v3.3 modernization adds:**
-- **EU AI Act Article 50** (applicable Aug 2 2026) — generative-AI marketing content must carry machine-readable C2PA-style watermarks; deepfakes must be visibly disclosed; AI-generated text on matters of public interest must be disclosed. Penalty up to €15M or 3% global turnover.
-- **NY synthetic-performer disclosure law** (live June 2026) — $1K–$5K per violation, $10K repeat. Applies to synthetic influencers and AI-generated endorsements.
-- **FTC May 2026 endorsement guidance** — covers synthetic influencers, AI testimonials, AI-edited creator content. The `compliance-rules` skill flags these for any campaign targeting US consumers.
-- **CJEU March 2026 ruling** — pseudonymized cookie IDs are personal data when re-identification is feasible. Adtech identifier handling now flagged in EU campaigns.
-- **DPDP Phase II preparation** — consent manager registration window opens Nov 2026; brands targeting India should prepare consent flows now.
-
----
-
-## AEO / GEO — May 2026 reality
-
-The search landscape pivoted hard:
-- Google AI Overviews now appear on roughly 55% of all Google searches (Seer Interactive, Sept 2025).
-- Organic CTR on AI Overview queries dropped ~61% (1.76% → 0.61%).
-- ~58% of Google searches are now zero-click.
-- ChatGPT search reaches ~883M MAU; Perplexity heavily skews citations to Reddit (47% of factual cites); Wikipedia drives 48% of ChatGPT citations.
-
-DM Pro's AEO / GEO skills (`/digital-marketing-pro:aeo-audit`, `/digital-marketing-pro:geo-monitor`, `/digital-marketing-pro:entity-audit`) reflect this shift:
-- **Schema strategy refresh**: Google's March 2026 core update demoted FAQ / Review / HowTo schema on non-primary pages. Skills now emphasize entity-rich JSON-LD (Article + Organization + Person + Product) and produce an **LLMs.txt** companion file (curated map of high-value pages for AI crawlers).
-- **Citation tracking**: agentic skills detect mentions across ChatGPT, Perplexity, Google AI Overviews, Claude, Bing Copilot, Gemini. For ongoing measurement, integrate with Profound / Otterly / Conductor AgentStack via the connectors layer.
-- **Share of AI Voice** as a first-class metric in `/digital-marketing-pro:performance-report`.
-
----
-
-## Channel guidance — May 2026 updates
-
-- **LinkedIn (March 2026 algorithm shift):** external links and engagement bait penalized ~60%. New **Depth Score** measures dwell time on post. Followers no longer guarantee reach. Skills updated to optimize for relevance and Depth Score.
-- **Email:** Apple Mail Privacy Protection now affects ~64% of B2C opens — open rate is functionally dead as a primary KPI. **DMARC + RFC 8058 one-click POST unsubscribe** is mandatory; non-compliant bulk mail to Gmail / Yahoo / Microsoft gets permanent 550 rejections (was temp 421). Spam threshold tightened to <0.10%. The `email-sequence` skill enforces all of this.
-- **TikTok (post Jan 22 2026 USDS Joint Venture closing):** US data and algorithm under USDS LLC; ByteDance retains <20%. AI-generated creators allowed only with disclosure; AI content excluded from Creator Rewards Program. Daily shoppable-post limits effective May 11 2026. Channel skills updated.
-- **WhatsApp (per-message pricing since 1 July 2025):** India marketing template ≈ USD 0.0118 per message — cheapest globally. 72-hour free service window opens from CTWA ads or Page CTAs. Service messages in the 24-hour customer-care window remain free. India-market context skills carry the new pricing.
-- **Third-party cookies — deprecation cancelled:** Chrome formally abandoned the timeline. Privacy Sandbox APIs being retired (CHIPS, FedCM, Private State Tokens kept). First-party data is now the strategic priority — 85% of publishers expect first-party data role to grow in 2026. The `attribution-model` skill defaults to first-party + MMM + incrementality stack.
-- **Sora dependency note:** OpenAI's consumer Sora app is being discontinued April 26 2026; Sora API September 24 2026. AI creative briefs default to Runway Gen-4 / Veo 3.x / Kling 3.0 instead.
-
----
-
-## How it works
-
-### Session lifecycle
-
-1. **Session start** — brand context is available on demand via `/digital-marketing-pro:status`. (v3.0 had this auto-load via SessionStart hook; v3.1 removed the global hook; v3.3 keeps it on-demand only — no global side effects.)
-2. **During the session** — request marketing help naturally. The plugin matches your request to the right module(s) and agent(s), auto-applies brand voice, compliance rules, industry benchmarks, guidelines.
-3. **Pre-publish** — `/digital-marketing-pro:check` runs the unified quality gate (hallucination + brand voice + structure + claims) before content ships.
-4. **Session end** — if `auto_save_insights: true` is in your brand profile, key learnings auto-save to `~/.claude-marketing/<brand>/insights/`. Otherwise insights stay session-local.
-
-### Multi-client workflow (agencies)
-
-1. Create profiles per client: `/digital-marketing-pro:brand-setup`
-2. Switch clients: `/digital-marketing-pro:switch-brand` or just say "switch to [client name]"
-3. Outputs adapt to the active client's voice, compliance, jurisdictions, history
-4. Each client's data lives in its own `~/.claude-marketing/<brand-slug>/` directory
-
-See [Multi-Brand & Agency Guide](docs/multi-brand-guide.md) for detailed workflows.
-
----
-
-## Documentation
-
-| Guide | Description |
-|---|---|
-| [Getting Started](docs/getting-started.md) | Installation, first brand setup, first marketing task — with worked examples |
-| [Brand Guidelines](docs/brand-guidelines.md) | Importing voice guides, restrictions, channel styles, templates, agency SOPs |
-| [Multi-Brand & Agency Guide](docs/multi-brand-guide.md) | Multi-brand corporations and agency multi-client workflows |
-| [Strategy & KPI Mapping](docs/strategy-and-kpis.md) | Business objectives → KPI frameworks → campaign strategy → measurement loop |
-| [Integrations Guide](docs/integrations-guide.md) | MCP setup for GA4, HubSpot, Google Ads, Meta, and more |
-| [Engagement Methodology](docs/engagement-methodology.md) | Deep-dive on the 12-Part Strategy Flow |
-| [Competitor Intelligence](docs/competitor-intelligence.md) | Setting up competitors, running analysis, responding to competitive moves |
-| [Claude Interfaces](docs/claude-interfaces.md) | What works in Claude Code, Cowork, Desktop, claude.ai |
-| [Architecture](docs/architecture.md) | Technical deep-dive for contributors and power users |
-| [Testing Guide](TESTING-GUIDE.md) | Per-phase test checklist for plugin contributors |
-
-Two PDF references at the repo root: `DM_Strategy_Complete_Learning_Guide.pdf` (full methodology) and `DM_Strategy_Flow_v3_2_Visualization_v1_23Apr26.pdf` (one-page visual map).
-
----
-
-## Python dependencies (optional)
-
-The plugin works fully without any Python installation. All marketing knowledge, frameworks, agent capabilities, and slash commands work out of the box.
-
-**Knowledge-only mode (0 MB, no install) — Default**
-All 16 modules, 25 agents, 149 skills, and 170+ reference knowledge files work with zero dependencies.
-
-**Lite mode (~15 MB) — Enables scoring scripts**
-```
-pip install nltk textstat
-```
-Adds: brand-voice scoring, content quality scoring, readability analysis.
-
-**Full mode (~50 MB) — Enables all scripts**
-```
-pip install -r scripts/requirements.txt
-```
-Adds everything in lite mode plus: competitor scraping (`beautifulsoup4`, `requests`), QR code generation, AI visibility API checking.
-
----
-
-## Troubleshooting
-
-### `/digital-marketing-pro:<skill-name>` doesn't autocomplete in the slash palette
-Only the 10 commands in `commands/` show in slash autocomplete. The other 113 skills are addressable via `/digital-marketing-pro:<name>` but won't appear in autocomplete. Use `/digital-marketing-pro:help` to see the full list, or open `skills/` in the repo.
-
-### `/dm:` shortcut commands no longer work
-As of v3.2.2 the canonical namespace is `/digital-marketing-pro:`. The `/dm:` prefix was removed in the namespace sweep — use `/digital-marketing-pro:brand-setup`, `/digital-marketing-pro:engagement`, etc. ~600 references were swept across docs and runtime files.
-
-### Manifest install error: "repository field is an object" or "$schema unknown"
-Fixed in v3.2.1. Update via the [Updating](#updating) section.
-
-### The plugin claims `/dm:check` will run automatically on every Write/Edit
-That was the v3.0/v3.1 behavior via a global PreToolUse hook. Removed in v3.1 because plugin hooks fire across every project regardless of context. Now use `/digital-marketing-pro:check` explicitly before publishing, or re-enable the hook at your own user-settings level — see `hooks/hooks-reference.example.json` for the snippet.
-
-### Where is my brand data stored?
-`~/.claude-marketing/<brand-slug>/`. Engagements live in `engagements/<engagement-slug>/` with the 12 numbered subdirectories (01-client-inputs … 12-improvement) plus the Living Project Instruction File at the engagement root.
-
-### Compliance rule for [my jurisdiction] looks out of date
-Open an issue with the citation. Privacy and AI law change quarterly. v3.3 covers the May 2026 state of the EU AI Act, CCPA ADMT, DPDP Phase II, NY synthetic-performer law, and the FTC May 2026 endorsement guidance — but enforcement actions and amendments will continue.
-
----
-
-## FAQ
-
-**Q: Which Claude interface should I use?**
-
-| | Claude Code | Claude Cowork | Claude Desktop (no Cowork) | claude.ai web |
-|-|:-:|:-:|:-:|:-:|
-| Full plugin support | Yes | Yes | Partial | No |
-| Brand memory | Yes | Yes | No | No |
-| MCP integrations | All | HTTP only | HTTP only | No |
-| Document creation (Excel, PPT) | No | Yes | No | No |
-| Recommended for | Terminal workflows + scripting | Visual desktop workflows | Quick content | One-off questions |
-
-**Q: How does this compare to Anthropic's official marketing plugins?**
-Anthropic's directory has not yet accepted a full multi-agent marketing methodology plugin. DM Pro covers a much wider surface — full 12-part methodology, 16 industry profiles, 16 jurisdictions, multi-brand operations — than any single official marketing plugin currently in the directory.
-
-**Q: How much does it cost to run?**
-Plugin is MIT-licensed and free. Claude API costs vary with engagement complexity. A full 12-part engagement using Opus 4.7 typically runs $15–40 in API costs across 50–60 documents.
-
-**Q: Can I run multiple brands in parallel?**
-Yes. Each brand has its own `~/.claude-marketing/<brand-slug>/` directory and Python script state. Switch brands with `/digital-marketing-pro:switch-brand`.
-
-**Q: What if I only want a campaign plan, not the full 12-part methodology?**
-Skip straight to `/digital-marketing-pro:campaign-plan`. The full engagement is the canonical path but every individual surface (campaign / SEO audit / content / competitor / email / report) is independently runnable.
-
----
-
-## Cross-platform compatibility
-
-| Platform | Status |
-|---|---|
-| Claude Code CLI | Full support |
-| Claude Code Desktop | Full support |
-| Anthropic Cowork | Full support (HTTP MCPs only — see `.mcp.json.connectors-reference`) |
-| claude.ai web chat | Not supported (`/plugin` not available) |
-| Codex / Cursor / Gemini CLI | Skills (SKILL.md files) are portable; rename `.claude-plugin/` to platform's convention |
-
 ---
 
 ## Neelverse Marketing Suite
 
-DM Pro is part of a three-plugin suite that share the same brand profiles:
+DM Pro is part of a three-plugin suite by [Indranil Banerjee](https://indranil.in) — share the same brand profiles, install together, designed to chain:
 
 | Plugin | What it does |
 |---|---|
-| **Digital Marketing Pro** (this plugin) | End-to-end engagement methodology — 12-Part Strategy Flow, Four Core Documents, Two-Views Model |
-| [ContentForge](https://github.com/indranilbanerjee/contentforge) | Publication-ready content via 11-phase pipeline, three-category internal linking, real .docx output |
-| [SocialForge](https://github.com/indranilbanerjee/socialforge) | Social media calendar with AI image + video generation (Vertex AI / Kling v3.0) |
+| **Digital Marketing Pro** (this plugin) | End-to-end engagement methodology — 12-Part Flow, Four Core Documents, Two-Views Model |
+| [ContentForge](https://github.com/indranilbanerjee/contentforge) | Publication-ready content via 10-phase pipeline, fact-checker, 29-pattern AI-detection humanizer, .docx export with C2PA signing |
+| [SocialForge](https://github.com/indranilbanerjee/socialforge) | Social media calendar with AI image (Vertex AI Nano Banana Pro) + video (WaveSpeed Kling v3.0 Pro) generation, C2PA signing |
 
 ```
 /plugin marketplace add indranilbanerjee/neels-plugins
@@ -408,43 +386,58 @@ DM Pro is part of a three-plugin suite that share the same brand profiles:
 
 ---
 
-## Release notes
+## About the maintainer
 
-**v3.7.0 (2026-05-24)** — Install-surface expansion to 5 platforms. Adds **GitHub Copilot CLI** compatibility (no new manifest — Copilot CLI auto-discovers `.claude-plugin/plugin.json` as one of its accepted manifest paths) and an **experimental `.antigravity/plugin.json`** for Google Antigravity 2.0 CLI (launched 19 May 2026, replacing Gemini CLI). The Antigravity manifest mirrors the Gemini-CLI-extensions format that Antigravity's `agy plugin import gemini` converter accepts; will be updated against the v2-native spec when Google publishes it. `docs/cross-platform-install.md` expanded to cover all 5 platforms with install commands, what works natively per platform, and where to file platform-specific bugs. Single `skills/` directory shared across all platforms — no skill duplication. No breaking changes.
+DM Pro is built and maintained by **[Indranil Banerjee](https://indranil.in)** — a digital marketing practitioner shipping engagement methodology as code. The 12-Part Strategy Flow comes from real client engagements across consumer DTC, B2B SaaS, regulated industries (health, finance), and agency multi-brand portfolios.
 
-**v3.6.0 (2026-05-24)** — Cross-platform compatibility pack. DM Pro now installs cleanly on **OpenAI Codex** and **Cursor** in addition to Claude Code, via two new sibling manifest files (`.codex-plugin/plugin.json` and `.cursor-plugin/plugin.json`) — same `skills/` directory, same `scripts/`, same `.mcp.json`, same `hooks/hooks.json`. No skill duplication. Works because Agent Skills became an open standard (Dec 2025) and all three platforms parse the same SKILL.md `name:` + `description:` frontmatter. Full per-platform install guide added at [`docs/cross-platform-install.md`](docs/cross-platform-install.md): install commands, what works natively per platform, the one Cursor MCP gotcha (Cursor reads MCP from a global `mcp.json` not from plugin-scoped `.mcp.json` — one-time paste required), update commands per platform, and where to file platform-specific bugs. No breaking changes for existing Claude Code users.
+- 🌐 **Website:** [indranil.in](https://indranil.in)
+- 💼 **GitHub:** [@indranilbanerjee](https://github.com/indranilbanerjee)
+- 📦 **Other plugins:** [ContentForge](https://github.com/indranilbanerjee/contentforge) · [SocialForge](https://github.com/indranilbanerjee/socialforge)
+- 💬 **Discussions:** [GitHub Discussions](https://github.com/indranilbanerjee/digital-marketing-pro/discussions)
+- 🐛 **Bug reports:** [GitHub Issues](https://github.com/indranilbanerjee/digital-marketing-pro/issues)
 
-**v3.5.0 (2026-05-24)** — May-2026-ecosystem modernisation pass. Six discrete content updates, no breaking changes. **(1) Google AI Mode added as a first-class AEO/GEO surface** — AI Mode (default conversational search since Google I/O 19 May 2026, ~1B MAUs, Gemini 3.5 Flash backbone) is now tracked as a distinct platform separate from AI Overviews across `aeo-audit`, `aeo-geo`, `ai-visibility-audit.md`, `geo-monitor`, and `scripts/geo-tracker.py` (the `PLATFORMS` constant now includes `ai-mode`). AEO scoring rubric updated: max per query is now 30 (6 platforms × 5 pts), not 25 — historical baselines need ×1.2 normalisation OR a rerun. **(2) May 2026 broad core algorithm update triage** added to `seo-audit` and `tech-seo-audit`: wait for the rollout + 7–14 days settling before drawing conclusions; segment Search Console data pre/in/post; Core Updates re-weight existing E-E-A-T/quality signals rather than introducing new ones; technical "fixes" sold as Core Update remedies won't undo a quality-driven hit. **(3) EU AI Act Article 50 draft implementing guidelines** (8 May 2026; public consultation closes 3 June 2026; final guidelines expected July 2026 ahead of 2 August 2026 enforcement) added as `compliance-rules.md` §1.1b.i — six-row clarification table covering "substantial AI manipulation," "matters of public interest," C2PA as presumption-of-compliance, deepfake visible disclosure, editorial-responsibility carve-out conditions, and enforcement priorities, plus a five-point action list. **(4) Meta platform updates** in `execution-workflows.md`: Advantage+ Leads (global availability), Threads ads (global rollout, image-only, cap budget at <10% until CPA proves out), brand-safety inventory filters (Expanded/Moderate/Limited with the ~30% reach cost of Limited explicit). **(5) Gemini Omni + Nano Banana Pro + Veo 3.1** added to `ad-creative`, `content-brief`, `creative-testing-framework`, `influencer-brief` with consistent C2PA-by-default and Article 50 deepfake/disclosure clauses; influencer briefs now ship with three explicit AI-tool clauses (permitted use, required platform disclosures, EU deepfake clause). **(6) Claude Code v2.1.149+ `/usage` per-model breakdown** added to `claude-interfaces.md` and `agency-dashboard` — per-directory token + USD attribution, brand-per-directory pattern gives free brand attribution, dashboard now flags brands at >2× portfolio median for rate review.
+**Why this plugin exists:** Most AI marketing tools generate isolated outputs that don't compose. The 12-Part Strategy Flow encodes the canonical sequence a real engagement actually needs — Stone-vs-Opinion intake, Four Core Documents, Client Validation, Two-Views Model, Decision Matrix, Growth Plan + Yearly Planner, channel fan-out, execution artefacts, creative briefs, continuous improvement loop. Once it's a plugin, every engagement looks the same, handoffs work, and quality is auditable. That's the whole product.
 
-**v3.4.1 (2026-05-17)** — Audit & corrections pass on v3.4.0. **(1) C2PA script — actually works now.** v3.4.0 shipped with broken API calls (`c2pa.create_signer`, `c2pa.sign_file` — neither exists in c2pa-python 0.32.6). Rewrote against the real `c2pa.Builder` + `c2pa.Signer.from_info(C2paSignerInfo)` API, fixed the self-signed dev cert to include the EKU + Subject Key Identifier extensions C2PA requires, fixed the manifest read-back to use `c2pa.Reader(format, stream)` not the non-existent `Reader.from_file`. End-to-end tested: 75-byte test PNG → 42,818-byte signed PNG with `manifest_embedded_and_verified=true` and round-trippable assertions. **(2) Unified ads MCP entries corrected.** Synter endpoint was wrong (`mcp.synter.com/sse` → actual `mcp.syntermedia.ai/mcp/`, X-Synter-Key auth) and platform count overstated (claimed 14, actual 7: Google + Meta + LinkedIn + Microsoft + Reddit + TikTok + X). Ryze AI is a managed OAuth service not a generic HTTP MCP — corrected to point at the per-platform Google Ads endpoint and noted the managed-OAuth nature. Northbeam GitHub URL corrected to `mattcoatsworth/Northbeam-MCP-Server` (community-maintained, not first-party from Northbeam Inc). **(3) Parallel-dispatch speedup claim softened** from flat "~6× wall-clock speedup" to honest "4–6× parallelism with ~50–80% wall-clock reduction (3–8 concurrent subagents is the sweet spot; past 8 you queue against rate limits)" with a token-cost note. Applied in engagement-workflow + competitor-analysis + seo-audit. **(4) Submission URLs:** `platform.claude.com/plugins/submit` confirmed; `claude.ai/settings/plugins/submit` removed as unverified.
+If DM Pro saves your team time, [⭐ star the repo](https://github.com/indranilbanerjee/digital-marketing-pro/stargazers) — it's the single most useful thing you can do to help other marketing teams discover it. Sharing on LinkedIn or X (`@neelverse` mentions appreciated) helps too.
 
-**v3.4.0 (2026-05-16)** — Four deferred items from the v3.3 audit, now shipped: **(1)** C2PA content-provenance for EU AI Act Article 50 compliance — new `scripts/embed-c2pa.py` wrapping `c2pa-python`, new `/digital-marketing-pro:c2pa-metadata` skill, pre-publish gate integration so `/check` treats missing C2PA manifest on AI-flagged assets in EU campaigns as CRITICAL (BLOCKED), new `Section 1.1b` in `compliance-rules.md` documenting Article 50. **(2)** Unified ads-platform MCPs added to connectors catalog (corrections in v3.4.1). **(3)** Explicit parallel subagent dispatch in `engagement-workflow` (Parts 2, 4, 9, 10, 11 dispatch independent sub-tasks via multiple Task calls in one message; Parts 1→2, 3→4, 5→6, 7→8, 8→9 remain sequential due to real data dependencies) + `competitor-analysis` + `seo-audit` + `content-engine` + `campaign-plan` (speedup claims corrected in v3.4.1). Leverages Claude Code's April 2026 parallel-subagent initialization. **(4)** Anthropic Software Directory submission packet at `SUBMISSION.md` pre-stages every input the form requires. Skill count 149 → **150**, script count 70 → **71**.
+---
 
-**v3.3.0 (2026-05-15)** — May 2026 modernization sweep. Privacy & compliance updates: EU AI Act Article 50 (Aug 2 2026 enforcement, C2PA metadata for AI marketing content), DPDP Phase II timeline (Nov 2026), NY synthetic-performer disclosure law (June 2026), FTC May 2026 endorsement guidance, CCPA ADMT amendments (Jan 2026), CJEU pseudonymized-cookie ruling (March 2026). Channel guidance updates: LinkedIn algorithm shift (external-link penalty, Depth Score), email DMARC + RFC 8058 one-click POST baseline (open rate dropped as KPI), TikTok USDS Joint Venture mechanics + AI creator labeling, WhatsApp per-message pricing (corrected from deprecated conversation-based model in 3 skill files), schema refresh (LLMs.txt, entity-rich JSON-LD, deprecate FAQ/Review/HowTo on non-primary pages), Sora deprecation note for AI creative briefs. AEO/GEO modernization: Google AI Overviews + zero-click reality, Profound/Otterly/Conductor measurement integration. README fully restructured — Quick Start at top with install + auto-update toggle as steps 1-2, "Where your files go" section, version histories collapsed at the bottom. Top Commands table corrected to use `/digital-marketing-pro:` prefix (was bare `/brand-setup` form that conflicted with other plugins). Duplicate "Option C" install heading fixed. Top version badge bumped 3.2.0 → 3.3.0.
+## Contributing
 
-**v3.2.2 (2026-05-09)** — Swept all `/dm:` shorthand to `/digital-marketing-pro:` across ~600 references in README, getting-started, TESTING-GUIDE, engagement-methodology, multi-brand-guide, brand-guidelines, architecture, all agent files, all 149 skill SKILL.md files, command files, and CHANGELOG. Users can now copy-paste any command from any doc and have it work.
-
-**v3.2.1 (2026-05-04)** — Fixed plugin manifest install format: `repository` must be a string URL (not npm-shorthand object), `$schema` field removed.
-
-**v3.2.0 (2026-05-03)** — Closes the v3.1 hook-removal gaps with explicit replacements: `/digital-marketing-pro:check` pre-publish gate, `/digital-marketing-pro:status` brand snapshot, embedded mandatory hallucination check inside content-creator/email-specialist/social-media-manager/pr-outreach agents, opt-in `auto_save_insights` brand flag for ambient learning capture.
-
-**v3.1.0 (2026-05-03)** — Removed all global hooks. Prior `SessionStart` and `PreToolUse mcp_.*` matchers were firing across every project regardless of context. Hook config preserved as reference at `hooks/hooks-reference.example.json`.
-
-**v3.0.0 (2026-04-23)** — 12-Part Engagement Methodology. Four Core Documents (61 explicit steps). Two-Views Model. Decision Matrix. Update-Back Rule. Living Project Instruction File. 23 strategic-framework reference docs.
-
-**Earlier versions:** see [CHANGELOG.md](CHANGELOG.md) for v2.7 and earlier — 25 specialist agents, 14 HTTP MCP connectors, 16 industry profiles, 16 privacy-law jurisdictions, full execution-layer support.
+PRs welcome — especially on compliance rules (privacy and AI law change fast), industry profiles, and channel-specific updates. See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow. The [Testing Guide](TESTING-GUIDE.md) covers per-phase test checklists for plugin contributors.
 
 ---
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE). Free to use commercially.
 
-## Support
+---
 
-- **Issues:** [GitHub Issues](https://github.com/indranilbanerjee/digital-marketing-pro/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/indranilbanerjee/digital-marketing-pro/discussions)
+## Release notes
 
-## Credits
+**v3.7.1 (2026-05-24)** — Polish + discoverability pass. README rewritten for organic GitHub/AI-engine discoverability with social-proof badges, install matrix at the top, outcome-focused "What you get in 60 minutes" section, AEO/GEO/compliance keyword density, maintainer block with [indranil.in](https://indranil.in), and ⭐ CTAs. Stale asset counts swept across `docs/claude-interfaces.md` (13→25 agents, 117→167 reference files, 34→69 scripts, 42→10 commands), `docs/architecture.md` (149→150 skills), `docs/getting-started.md` (149→150 skills), `docs/competitor-intelligence.md` (117→167 reference files), `docs/cross-platform-install.md` (71→69 scripts), and `skills/context-engine/memory-architecture.md` (13→25 agents). plugin.json description corrected to 69 scripts (was 71). No functional changes; no breaking changes.
 
-Created by Indranil Banerjee. Built for Claude Code & Cowork. Powered by Anthropic Claude.
+**v3.7.0 (2026-05-24)** — Install-surface expansion to 5 platforms. GitHub Copilot CLI compatibility (no new manifest — auto-discovers `.claude-plugin/plugin.json`) + experimental `.antigravity/plugin.json` for Google Antigravity 2.0 CLI (launched 19 May 2026 replacing Gemini CLI). Cross-platform install guide expanded to all 5 platforms.
+
+**v3.6.0 (2026-05-24)** — Cross-platform compatibility pack. Added `.codex-plugin/plugin.json` and `.cursor-plugin/plugin.json`. Single `skills/` directory shared across Claude Code, Codex, Cursor. No skill duplication. Works because Agent Skills became an open standard (Dec 2025).
+
+**v3.5.0 (2026-05-24)** — May-2026-ecosystem modernisation pass. Six discrete updates: (1) Google AI Mode as 6th AEO/GEO surface; (2) May 2026 broad core algorithm update triage; (3) EU AI Act Article 50 draft implementing guidelines (8 May; 3 June consultation; 2 Aug enforcement); (4) Meta Advantage+ Leads global + Threads ads + brand-safety filters; (5) Gemini Omni + Nano Banana Pro + Veo 3.1 in creative briefs; (6) Claude Code v2.1.149+ `/usage` per-brand cost tracking in agency dashboard.
+
+**v3.4.1 (2026-05-17)** — Audit & corrections pass on v3.4.0. C2PA script rewritten against the real c2pa-python 0.32 API (Builder + Signer.from_info), end-to-end tested. Unified ads MCP entries corrected. Parallel-dispatch speedup claim softened from flat 6× to honest 4–6× parallelism / ~50–80% wall-clock reduction.
+
+**v3.4.0 (2026-05-16)** — C2PA content-provenance for EU AI Act Article 50 compliance (`scripts/embed-c2pa.py`, `/digital-marketing-pro:c2pa-metadata`, pre-publish gate integration). Unified ads-platform MCPs added. Explicit parallel subagent dispatch in `engagement-workflow` + 4 multi-dimensional commands. Anthropic Software Directory submission packet at `SUBMISSION.md`.
+
+**v3.3.0 (2026-05-15)** — May 2026 modernization sweep. Privacy & compliance updates (EU AI Act, DPDP Phase II, NY synthetic-performer law, FTC May 2026 endorsement guidance, CCPA ADMT, CJEU pseudonymized-cookie ruling). Channel guidance updates (LinkedIn algorithm shift, email DMARC + RFC 8058, TikTok USDS, WhatsApp per-message pricing, schema refresh + LLMs.txt, Sora deprecation). AEO/GEO modernization.
+
+**v3.2.x (May 2026)** — `/dm:` → `/digital-marketing-pro:` namespace sweep (~600 references); manifest install format fix; hook-removal gap closure (`/check`, `/status`, embedded hallucination checks, opt-in `auto_save_insights`).
+
+**v3.1.0 (May 2026)** — Removed all global hooks. Prior `SessionStart` and `PreToolUse mcp_.*` matchers were firing across every project regardless of context. Hook config preserved as reference at `hooks/hooks-reference.example.json`.
+
+**v3.0.0 (April 2026)** — 12-Part Engagement Methodology. Four Core Documents (61 explicit steps). Two-Views Model. Decision Matrix. Update-Back Rule. Living Project Instruction File.
+
+**Earlier versions:** see [CHANGELOG.md](CHANGELOG.md) for v2.7 and earlier.
+
+---
+
+<sub>Made with care by [Indranil Banerjee](https://indranil.in) · Powered by Anthropic Claude · MIT-licensed · [⭐ Star the repo](https://github.com/indranilbanerjee/digital-marketing-pro) if it helps you</sub>

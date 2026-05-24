@@ -4,6 +4,56 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.7.1] — 2026-05-24
+
+**Polish + discoverability pass.** No functional changes; no new commands, skills, agents, or scripts. Patch bump for a comprehensive README rewrite and a sweep of stale asset counts across the docs.
+
+### Changed
+
+#### README rewrite for organic GitHub + AI-engine discoverability
+
+- **Hero section rewritten** — leads with a tweet-worthy one-liner positioning DM Pro as "the most comprehensive open-source AI marketing plugin" and the only one installable on 5 coding-agent surfaces. Adds GitHub stars / forks / issues / last-commit badges (live counts from shields.io), Cowork-compatible badge, EU AI Act Article 50 badge, and a "5 platforms" badge. Install command moved to the top of the document.
+- **New "Why Digital Marketing Pro" section** — explicit differentiator vs ad-hoc prompts. Six-row comparison table covering canonical 12-Part Flow, Two-Views Model, Decision Matrix, Living Project Instruction File, EU AI Act readiness, 6-platform AEO/GEO audit.
+- **New "What you get in 60 minutes" section** — outcome-focused list of the ~50–60 canonical files produced by `/digital-marketing-pro:engagement` with explicit API-spend range ($15–40 on Opus 4.7) and time estimate.
+- **New "Installs on 5 coding-agent surfaces" matrix** — install commands per platform (Claude Code, Codex, Cursor, Copilot CLI, Antigravity) with status per platform and a one-sentence "why this works without code duplication" (Agent Skills became an open standard in Dec 2025).
+- **Compliance section restructured** — adds flag emojis per jurisdiction for visual scannability, hoists EU AI Act Article 50 readiness as a sub-section with explicit C2PA + pre-publish-gate + production-cert-guide references.
+- **AEO/GEO section restructured** — "6-platform audit standard" called out (was 5 before AI Mode added in v3.5). Lists exact platforms (ChatGPT, Perplexity, Google AI Mode, Google AI Overviews, Gemini, Microsoft Copilot).
+- **New "About the maintainer" section** — author block with website link ([indranil.in](https://indranil.in)), GitHub, other Neelverse plugins, Discussions, Issues, and the "why this plugin exists" story.
+- **New FAQ entries** — comparison vs LangChain marketing templates / CrewAI marketing crews, per-engagement API cost ($15–40), cross-platform support clarification, "is this an Anthropic product?" disambiguation.
+- **⭐ Star CTAs** added at hero, maintainer section, and footer. Footer "Made with care by Indranil Banerjee · Powered by Anthropic Claude · MIT-licensed" line at bottom.
+- **SEO keyword density** improved throughout — "AI marketing plugin", "Claude Code marketing", "Google AI Mode", "EU AI Act Article 50", "C2PA content provenance", "OpenAI Codex marketing", "GitHub Copilot CLI marketing", "agency operations", "multi-brand marketing", "agent skills standard".
+
+#### Stale asset counts swept across docs
+
+| File | Before | After |
+|---|---|---|
+| `docs/claude-interfaces.md` | "13 specialist agents" | "25 specialist agents" |
+| `docs/claude-interfaces.md` | "117 reference files" | "167 reference files" |
+| `docs/claude-interfaces.md` | "34 Python scripts" | "69 Python scripts" |
+| `docs/claude-interfaces.md` | "42 commands" | "10 commands" |
+| `docs/claude-interfaces.md` | "18 MCP integrations" | "14 HTTP MCP connectors" |
+| `docs/architecture.md` | "149 skills total" | "150 skills total" |
+| `docs/getting-started.md` | "149 skills" (×3 places) | "150 skills" |
+| `docs/competitor-intelligence.md` | "117 reference knowledge files" | "167 reference knowledge files" |
+| `docs/cross-platform-install.md` | "71 Python scripts" (×4 places) | "69 Python scripts" |
+| `skills/context-engine/memory-architecture.md` | "All 13 agents" | "All 25 agents" |
+| `.claude-plugin/plugin.json` description | "71 Python scripts, 16 industry profiles, 16 privacy-law jurisdictions" | "69 Python scripts, 16 privacy-law jurisdictions" (industry-profiles claim removed pending re-count) |
+
+Audit method: JSON-validated all 6 manifest/config files (`.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`, `.cursor-plugin/plugin.json`, `.antigravity/plugin.json`, `.mcp.json`, `hooks/hooks.json`). Smoke-tested all 69 Python scripts via `python3 <script> --help` (69 pass, 0 fail). Verified all 150 SKILL.md files have valid `name:` + `description:` frontmatter. Checked all internal markdown links in README.md for broken references (none found).
+
+#### Plugin manifest keywords expanded for GitHub + marketplace search
+
+Added: `marketing-automation`, `marketing-plugin`, `ai-marketing`, `ai-mode`, `ai-overviews`, `generative-engine-optimization`, `answer-engine-optimization`, `google-ai-mode`, `performance-max`, `advantage-plus`, `content-strategy`, `brand-guidelines`, `gdpr`, `ccpa`, `eu-ai-act`, `article-50`, `c2pa`, `content-provenance`, `synthid`, `deepfake-disclosure`, `claude-code-plugin`, `claude-skills`, `agent-skills`, `anthropic-claude`, `openai-codex`, `cursor-plugin`, `github-copilot`, `antigravity`, `mcp`, `model-context-protocol`, `gemini`, `nano-banana-pro`, `veo-3`, `gemini-omni`, `neelverse`. Total keyword count: 26 → 61.
+
+### Compatibility
+
+- No breaking changes. All previous v3.7.x commands, skills, agents, scripts, and MCP connectors continue to work unchanged.
+- Plugin version: 3.7.0 → 3.7.1 (patch bump — docs + branding only).
+- All 4 sibling manifests bumped to 3.7.1 (`.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/`, `.antigravity/`).
+- Skills count, agents count, commands count, scripts count: unchanged from v3.7.0.
+
+---
+
 ## [3.7.0] — 2026-05-24
 
 **Install-surface expansion: GitHub Copilot CLI (auto-discovered) + Google Antigravity 2.0 (experimental).** DM Pro now installs cleanly on five coding-agent surfaces from a single source repository — Claude Code (canonical), OpenAI Codex, Cursor (added v3.6), GitHub Copilot CLI, and Google Antigravity 2.0 (experimental). No new core dependencies; same 150 skills, same scripts, same MCP catalog.

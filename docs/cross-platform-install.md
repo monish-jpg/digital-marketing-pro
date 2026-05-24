@@ -1,6 +1,6 @@
 # Cross-platform install guide
 
-Digital Marketing Pro v3.7.0 ships **five platform-compatible install surfaces** from a single source repository — same 150 Agent Skills, 71 Python scripts, and 14 HTTP MCP connectors:
+Digital Marketing Pro v3.7.1 ships **five platform-compatible install surfaces** from a single source repository — same 150 Agent Skills, 69 Python scripts, and 14 HTTP MCP connectors:
 
 | Platform | Manifest path | Status |
 |---|---|---|
@@ -48,7 +48,7 @@ After install, restart your Codex session. Codex auto-discovers the `skills/` di
 **What works on Codex:**
 - All 150 Agent Skills (auto-discovered via SKILL.md frontmatter — same open standard as Claude Code)
 - All 14 HTTP MCP connectors (Slack, HubSpot, Notion, Stripe, Gmail, Google Calendar, Asana, Webflow, Ahrefs, SimilarWeb, Klaviyo, Amplitude, Figma, Canva) — Codex reads `.mcp.json` directly
-- All 71 Python scripts (campaign-tracker, geo-tracker, technical-seo-auditor, embed-c2pa, etc.) run when Python 3.8+ is present
+- All 69 Python scripts (campaign-tracker, geo-tracker, technical-seo-auditor, embed-c2pa, etc.) run when Python 3.8+ is present
 - `hooks/hooks.json` (empty by default — no global hooks, matches Claude Code v3.1+ behaviour)
 
 **What's Claude-Code-native and isn't auto-invoked on Codex:**
@@ -71,7 +71,7 @@ After install, restart Cursor (or run `Cursor: Reload Window` from the command p
 **What works on Cursor:**
 - All 150 Agent Skills (auto-discovered — Cursor uses the same SKILL.md frontmatter convention)
 - `hooks/hooks.json` (empty by default — `afterFileEdit` and `beforeMCPExecution` lifecycle events available if you want to register them)
-- All 71 Python scripts run from Cursor's terminal context
+- All 69 Python scripts run from Cursor's terminal context
 
 **MCP on Cursor — manual one-time configuration:**
 
@@ -106,7 +106,7 @@ copilot ask "Set up a new brand for digital marketing engagement"
 
 **What works on Copilot CLI:**
 - All 150 Agent Skills (auto-discovered via SKILL.md frontmatter — Copilot CLI uses the same open standard)
-- All 71 Python scripts run via Copilot CLI's `command` exec
+- All 69 Python scripts run via Copilot CLI's `command` exec
 - `hooks/hooks.json` (empty by default — zero global hooks)
 - `mcpServers` field in the manifest tells Copilot CLI to wire `.mcp.json` into its MCP host (14 HTTP connectors auto-load when env vars are set)
 
@@ -136,7 +136,7 @@ agy plugin install indranilbanerjee/digital-marketing-pro
 
 **What works on Antigravity:**
 - All 150 Agent Skills (SKILL.md frontmatter — same open standard)
-- All 71 Python scripts run via Antigravity's shell exec
+- All 69 Python scripts run via Antigravity's shell exec
 - `hooks/hooks.json` (empty by default)
 - `.mcp.json` 14 connectors — Antigravity 2.0 supports MCP natively
 
