@@ -4,7 +4,7 @@
 
 Built for digital marketing agencies, in-house teams running 50–200 brands, and consultancies that need consistent depth and auditable handoffs. Created by [Indranil Banerjee](https://indranil.in).
 
-[![Version](https://img.shields.io/badge/version-3.7.1-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.7.2-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=yellow)](https://github.com/indranilbanerjee/digital-marketing-pro/stargazers)
 [![Forks](https://img.shields.io/github/forks/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=blue)](https://github.com/indranilbanerjee/digital-marketing-pro/network/members)
@@ -391,14 +391,16 @@ DM Pro is part of a three-plugin suite by [Indranil Banerjee](https://indranil.i
 DM Pro is built and maintained by **[Indranil Banerjee](https://indranil.in)** — a digital marketing practitioner shipping engagement methodology as code. The 12-Part Strategy Flow comes from real client engagements across consumer DTC, B2B SaaS, regulated industries (health, finance), and agency multi-brand portfolios.
 
 - 🌐 **Website:** [indranil.in](https://indranil.in)
-- 💼 **GitHub:** [@indranilbanerjee](https://github.com/indranilbanerjee)
+- 💼 **LinkedIn:** [linkedin.com/in/askneelnow](https://www.linkedin.com/in/askneelnow)
+- 🐦 **X / Twitter:** [@askneelnow](https://x.com/askneelnow)
+- 💻 **GitHub:** [@indranilbanerjee](https://github.com/indranilbanerjee)
 - 📦 **Other plugins:** [ContentForge](https://github.com/indranilbanerjee/contentforge) · [SocialForge](https://github.com/indranilbanerjee/socialforge)
 - 💬 **Discussions:** [GitHub Discussions](https://github.com/indranilbanerjee/digital-marketing-pro/discussions)
 - 🐛 **Bug reports:** [GitHub Issues](https://github.com/indranilbanerjee/digital-marketing-pro/issues)
 
 **Why this plugin exists:** Most AI marketing tools generate isolated outputs that don't compose. The 12-Part Strategy Flow encodes the canonical sequence a real engagement actually needs — Stone-vs-Opinion intake, Four Core Documents, Client Validation, Two-Views Model, Decision Matrix, Growth Plan + Yearly Planner, channel fan-out, execution artefacts, creative briefs, continuous improvement loop. Once it's a plugin, every engagement looks the same, handoffs work, and quality is auditable. That's the whole product.
 
-If DM Pro saves your team time, [⭐ star the repo](https://github.com/indranilbanerjee/digital-marketing-pro/stargazers) — it's the single most useful thing you can do to help other marketing teams discover it. Sharing on LinkedIn or X (`@neelverse` mentions appreciated) helps too.
+If DM Pro saves your team time, [⭐ star the repo](https://github.com/indranilbanerjee/digital-marketing-pro/stargazers) — it's the single most useful thing you can do to help other marketing teams discover it. Sharing on **LinkedIn** ([linkedin.com/in/askneelnow](https://www.linkedin.com/in/askneelnow)) or **X** ([@askneelnow](https://x.com/askneelnow)) helps too — tag me, I'll re-share.
 
 ---
 

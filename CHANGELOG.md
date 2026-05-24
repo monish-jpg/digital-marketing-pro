@@ -4,6 +4,30 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.7.2] — 2026-05-24
+
+**Personal-handles correction.** Patch bump — README only.
+
+### Fixed
+
+- The v3.7.1 "Star + share" CTA at the bottom of the maintainer section used `@neelverse` as a social-handle suggestion. That's the **product/suite brand name**, not Indranil's personal handle. Corrected to use Indranil's actual handles across LinkedIn and X:
+  - **LinkedIn:** [linkedin.com/in/askneelnow](https://www.linkedin.com/in/askneelnow)
+  - **X / Twitter:** [@askneelnow](https://x.com/askneelnow)
+
+### Changed
+
+- "About the maintainer" links block now includes LinkedIn and X rows alongside Website, GitHub, Other plugins, Discussions, and Issues — so readers can one-click follow Indranil on the platform they prefer.
+- The keyword `"neelverse"` in `plugin.json` stays — it's a brand/marketplace-search keyword, not a social handle.
+- "Neelverse Marketing Suite" branding throughout the README is preserved — that's the correct name for the bundle of DMP + ContentForge + SocialForge.
+
+### Compatibility
+
+- No functional changes. No new commands, skills, agents, scripts, or MCP connectors.
+- All 4 sibling manifests bumped 3.7.1 → 3.7.2.
+- Plugin version: 3.7.1 → 3.7.2 (patch — README + branding correction only).
+
+---
+
 ## [3.7.1] — 2026-05-24
 
 **Polish + discoverability pass.** No functional changes; no new commands, skills, agents, or scripts. Patch bump for a comprehensive README rewrite and a sweep of stale asset counts across the docs.
