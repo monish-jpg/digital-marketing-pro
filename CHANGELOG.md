@@ -4,6 +4,33 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.7.0] — 2026-05-24
+
+**Install-surface expansion: GitHub Copilot CLI (auto-discovered) + Google Antigravity 2.0 (experimental).** DM Pro now installs cleanly on five coding-agent surfaces from a single source repository — Claude Code (canonical), OpenAI Codex, Cursor (added v3.6), GitHub Copilot CLI, and Google Antigravity 2.0 (experimental). No new core dependencies; same 150 skills, same scripts, same MCP catalog.
+
+### Added
+
+- **GitHub Copilot CLI compatibility — no new manifest needed.** Copilot CLI's plugin discovery explicitly checks `.claude-plugin/plugin.json` as one of its accepted manifest paths (alongside `.plugin/plugin.json`, `plugin.json`, and `.github/plugin/plugin.json`). DM Pro's existing Claude Code manifest is therefore directly readable by Copilot CLI. Install: `copilot plugin install indranilbanerjee/digital-marketing-pro`. The MCP catalog (`.mcp.json`), hooks (`hooks/hooks.json`), and SKILL.md auto-discovery all work natively.
+- **`.antigravity/plugin.json`** — Experimental manifest for Google Antigravity 2.0 CLI (launched 19 May 2026 at Google I/O, replacing Gemini CLI). Mirrors the Gemini-CLI-extensions format that Antigravity's `agy plugin import gemini` converter accepts. Includes a `_status` field flagging the experimental nature. Will be updated against the v2-native plugin spec when Google publishes it.
+- **`docs/cross-platform-install.md` — expanded** to cover all 5 platforms with: install commands, what works natively per platform, the Antigravity caveat (spec not yet public — Gemini-extensions importer is the most reliable current path), `agy plugin import gemini` workflow, update commands per platform, and where to file platform-specific bugs.
+
+### Why Copilot CLI works without a new manifest
+
+GitHub Copilot CLI plugin discovery (May 2026 Public Preview) is intentionally inclusive — it accepts `.claude-plugin/plugin.json`, `.plugin/plugin.json`, `plugin.json`, and `.github/plugin/plugin.json` interchangeably. The manifest format (name, version, description, skills, mcpServers, hooks fields) is a near-superset of Claude Code's, so the existing DM Pro manifest is directly readable. Skills, MCP, and hooks all auto-load without modification.
+
+### Why Antigravity ships as experimental
+
+Antigravity CLI (announced 19 May 2026) preserves Gemini CLI's plugin concepts but has not yet published an open v2-native plugin manifest spec. Third-party plugin libraries (e.g., antigravity-awesome-skills) currently distribute via Antigravity's Gemini-CLI-extensions importer (`agy plugin import gemini`). DM Pro ships an experimental `.antigravity/plugin.json` against the same format the importer accepts; when Google publishes the v2-native spec, this will be updated and the experimental flag removed.
+
+### Compatibility
+
+- No breaking changes for existing Claude Code, Codex, or Cursor users.
+- Plugin version: 3.6.0 → 3.7.0 (minor bump — new install surfaces, no breaking changes).
+- Files added: 1 (`.antigravity/plugin.json`); 1 expanded (`docs/cross-platform-install.md`).
+- Skills count, agents count, commands count, scripts count: unchanged from v3.6.0.
+
+---
+
 ## [3.6.0] — 2026-05-24
 
 **Cross-platform compatibility pack.** Digital Marketing Pro now installs cleanly on three coding-agent surfaces from a single source repository — Claude Code (canonical), OpenAI Codex, and Cursor — by adding platform-native manifest files alongside the existing Claude Code manifest. No skill duplication: all three platforms read the same `skills/` directory, the same `scripts/`, the same `.mcp.json`, and the same `hooks/hooks.json`.

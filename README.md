@@ -2,16 +2,16 @@
 
 **End-to-end engagement methodology for marketing teams running on Claude Code & Cowork.**
 
-[![Version](https://img.shields.io/badge/version-3.6.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.7.0-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-optional-yellow.svg)](#python-dependencies-optional)
 [![Cowork](https://img.shields.io/badge/cowork-compatible-purple.svg)](docs/claude-interfaces.md#claude-cowork-full-support)
 
 DM Pro is the most ambitious marketing plugin in the Neelverse suite. It runs every brand engagement through a canonical **12-Part Strategy Flow** producing the **Four Core Documents** (61 explicit steps), the Two-Views Model (v1 unbiased + v2 client-validated), the Decision Matrix for selective re-runs, and the Living Project Instruction File. 25 specialist agents, 150 skills, 71 Python scripts, 14 HTTP MCP connectors, 16 industry profiles, 16 privacy-law jurisdictions. **v3.5.0** is a May-2026-ecosystem refresh: Google AI Mode now treated as a distinct AEO surface (6 platforms, not 5), May 2026 broad core update triage guidance, EU AI Act Article 50 draft implementing guidelines (8 May 2026; consultation closes 3 June), Meta Advantage+ Leads global rollout + Threads ads + tightened brand-safety controls, Gemini Omni / Nano Banana Pro / Veo 3.1 added to AI creative-brief skills with mandatory C2PA + deepfake-disclosure clauses, and Claude Code v2.1.149+ `/usage` per-model cost tracking integrated into the agency dashboard. Designed for digital marketing agencies, in-house teams running 50–200 brands, and consultancies who want consistent depth and auditable handoffs.
 
-> **Current version:** 3.6.0 — see [Release notes](#release-notes) at the bottom of this README.
+> **Current version:** 3.7.0 — see [Release notes](#release-notes) at the bottom of this README.
 
-> **Cross-platform install:** v3.6.0 adds native manifests for **OpenAI Codex** and **Cursor** alongside the canonical Claude Code manifest. Same `skills/` directory, same `scripts/`, same MCP catalog. See [`docs/cross-platform-install.md`](docs/cross-platform-install.md).
+> **Cross-platform install (5 surfaces):** Claude Code + Cowork (canonical), OpenAI Codex, Cursor, GitHub Copilot CLI (auto-discovers `.claude-plugin/plugin.json`), and Google Antigravity 2.0 (experimental). Single `skills/` directory, single `scripts/`, single MCP catalog — no fork. See [`docs/cross-platform-install.md`](docs/cross-platform-install.md).
 
 ---
 
@@ -409,6 +409,8 @@ DM Pro is part of a three-plugin suite that share the same brand profiles:
 ---
 
 ## Release notes
+
+**v3.7.0 (2026-05-24)** — Install-surface expansion to 5 platforms. Adds **GitHub Copilot CLI** compatibility (no new manifest — Copilot CLI auto-discovers `.claude-plugin/plugin.json` as one of its accepted manifest paths) and an **experimental `.antigravity/plugin.json`** for Google Antigravity 2.0 CLI (launched 19 May 2026, replacing Gemini CLI). The Antigravity manifest mirrors the Gemini-CLI-extensions format that Antigravity's `agy plugin import gemini` converter accepts; will be updated against the v2-native spec when Google publishes it. `docs/cross-platform-install.md` expanded to cover all 5 platforms with install commands, what works natively per platform, and where to file platform-specific bugs. Single `skills/` directory shared across all platforms — no skill duplication. No breaking changes.
 
 **v3.6.0 (2026-05-24)** — Cross-platform compatibility pack. DM Pro now installs cleanly on **OpenAI Codex** and **Cursor** in addition to Claude Code, via two new sibling manifest files (`.codex-plugin/plugin.json` and `.cursor-plugin/plugin.json`) — same `skills/` directory, same `scripts/`, same `.mcp.json`, same `hooks/hooks.json`. No skill duplication. Works because Agent Skills became an open standard (Dec 2025) and all three platforms parse the same SKILL.md `name:` + `description:` frontmatter. Full per-platform install guide added at [`docs/cross-platform-install.md`](docs/cross-platform-install.md): install commands, what works natively per platform, the one Cursor MCP gotcha (Cursor reads MCP from a global `mcp.json` not from plugin-scoped `.mcp.json` — one-time paste required), update commands per platform, and where to file platform-specific bugs. No breaking changes for existing Claude Code users.
 
