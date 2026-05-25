@@ -211,7 +211,7 @@ Each agent has scoped responsibilities, explicit input/output contracts, and rea
 ### 153 skills
 Skills are invoked by description match through the Skill tool, addressable as `/digital-marketing-pro:<skill-name>` from chat. Coverage: brand setup, content production (blog / ad / email / social / landing / video / PR / case study), SEO / AEO / GEO audits (6 platforms incl. Google AI Mode), competitor monitoring, campaign planning, channel-specific strategies, attribution, churn risk, lifecycle journeys, intelligence reports, eval framework, knowledge management, multi-brand operations, regional configuration, C2PA content provenance.
 
-### 10 top-level commands
+### 13 top-level commands
 | Command | What it does |
 |---|---|
 | `/digital-marketing-pro:brand-setup` | Set up a new brand profile (voice, audience, competitors, compliance) |
@@ -224,10 +224,13 @@ Skills are invoked by description match through the Skill tool, addressable as `
 | `/digital-marketing-pro:email-sequence` | Complete email sequences (subject lines, copy, timing, segmentation) |
 | `/digital-marketing-pro:check` | Pre-publish quality gate (hallucination + brand voice + structure + claims) |
 | `/digital-marketing-pro:status` | Unified brand snapshot (profile, engagements, insights, compliance) |
+| `/digital-marketing-pro:resume` | Resume an interrupted long workflow from the last checkpoint |
+| `/digital-marketing-pro:output-folder` | Print + open the visible output folder for a brand |
+| `/digital-marketing-pro:doctor` | Per-action readiness diagnostic (which campaign-audit / launch-campaign actions are live vs need connector setup) |
 
 Plus **140 additional skills** addressable via `/digital-marketing-pro:<skill-name>` — `:competitor-monitor`, `:churn-risk`, `:autopilot-status`, `:agency-dashboard`, `:aeo-audit`, `:geo-monitor`, `:c2pa-metadata`, `:client-onboarding`, `:journey-design` … see `/digital-marketing-pro:help` after install for the full list, or browse `skills/` in the repo.
 
-### 69 Python scripts (optional)
+### 76 Python scripts (optional)
 Plugin works fully without Python — all marketing knowledge, frameworks, agent capabilities, and skills work out of the box via the 167 reference knowledge files.
 
 | Mode | Size | Adds |
@@ -265,6 +268,30 @@ Two user-team complaints from the v3.7.5 cycle drove this release: "dm pro is ta
 ```
 
 **Implementation:** `scripts/checkpoint-manager.py` (per-step storage + atomic writes, stdlib only) + `scripts/output-publisher.py` (dual-copy publish + `where` + `open` subcommands). Mirrors the ContentForge v3.12.3 / v3.12.4 patterns. Verified end-to-end with [`_shared/dmp_engagement_simulation.py`](../_shared/dmp_engagement_simulation.py) — 5 scenarios (clean 12-part run / interrupt-resume / 3 parallel workflows / quality-gate fail / all 8 workflows accepted) all pass in ~6 seconds.
+
+---
+
+## Connector-aware action resolver (v3.7.10+)
+
+The `campaign-audit` and `launch-campaign` skills depend on 14 actions that map to real marketing APIs (Google Ads, Meta Marketing, LinkedIn, TikTok, HubSpot, Salesforce, Klaviyo, Mailchimp, Customer.io, Gmail, Cision, Muckrack, Slack, Google Calendar, Ahrefs, Similarweb, SEMrush, Google Search Console). v3.7.5–v3.7.7 shipped these actions as honest stubs that always returned `status: stub_implementation` regardless of which connectors the user had. v3.7.10 introduces a resolver that probes the live state and resolves each action to one of three modes per call:
+
+| mode | what it means |
+|------|---------------|
+| `real` | runs end-to-end with no external API (currently only `arm-watchdog` which writes a watchdog config to `~/.claude-marketing/{brand}/watchdogs/`) |
+| `manifest_ready` | a matching connector is configured — the response includes the exact HTTP request manifest (method, URL, headers, body template, auth pattern) for the orchestrator (Claude via MCP) to execute. Write/launch ops set `approval_required: true`. |
+| `stub_unconfigured` | no matching connector is configured — the response includes the manual fallback PLUS copy-paste `.mcp.json` snippet, env-var list, and a Cowork-compatibility note |
+
+Check what's live in your environment any time:
+
+```
+/digital-marketing-pro:doctor                              # full readiness table
+/digital-marketing-pro:doctor --summary                    # one-line counts
+/digital-marketing-pro:doctor --action inventory --channel google_ads  # drill in
+```
+
+**Test coverage:** [`_shared/dmp_action_test_harness.py`](../_shared/dmp_action_test_harness.py) exercises all 14 actions across 27 scenarios (unconfigured + configured + local-execution variants) — all pass.
+
+**Implementation:** `scripts/_connector_registry.py` (catalog of 33 connectors, 11 categories, `is_connector_configured()` probe) + `scripts/connector_resolver.py` (`ACTION_SPECS` map + per-action manifest builders + local executors) + `scripts/action-doctor.py` (the doctor command's underlying script).
 
 ---
 

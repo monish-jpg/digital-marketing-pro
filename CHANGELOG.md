@@ -4,6 +4,44 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.7.10] — 2026-05-26
+
+**Replaces 14 unconfigured-only action stubs with a connector-aware three-mode resolver.** The v3.7.5–v3.7.7 stubs always returned `status: stub_implementation` no matter what connectors the user had configured. They were honest about being scaffolds but they could not graduate to real calls. v3.7.10 introduces a resolver layer that probes the live connector state and chooses one of three modes per action, every call:
+
+| mode | when it applies |
+|------|----------------|
+| `real` | The action runs end-to-end with no external API. Currently only `arm-watchdog` (writes a watchdog config to `~/.claude-marketing/{brand}/watchdogs/`). |
+| `manifest_ready` | A matching connector is configured. The response includes the exact HTTP request manifest (method, URL, headers, body template, auth pattern) for the orchestrator (Claude via MCP) to execute. For write/launch ops the response sets `approval_required: true`. |
+| `stub_unconfigured` | No matching connector is configured. The response includes the manual fallback PLUS copy-paste setup hints with `.mcp.json` snippets, env vars, and a Cowork-compatibility warning. |
+
+### Added
+
+- **`scripts/_connector_registry.py`** — single source of truth for the connector catalog (33 connectors, 11 categories). Imported by both `connector-status.py` and the new resolver. Includes `is_connector_configured(name)` (probes `.mcp.json` membership + env-var presence), `redact_secrets()` for credential-safe response filtering.
+- **`scripts/connector_resolver.py`** — the resolver layer. `ACTION_SPECS` table maps each of the 14 actions (`inventory`, `automations`, `cadence`, `diagnostic`, `arm-watchdog`, `audit-workflows`, `create-campaign`, `enable-automation`, `schedule-posts`, `notify-influencers`, `pr-send`, `internal-kickoff`, `launch-ads`, `audit-current`) to its candidate connectors, manifest builder (concrete HTTP request shapes for Google Ads / Meta Marketing / LinkedIn / TikTok / HubSpot / Salesforce / Klaviyo / Mailchimp / Brevo / Customer.io / SendGrid / Gmail / Cision / Muckrack / Slack / Google Calendar / Ahrefs / Similarweb / SEMrush / Google Search Console), and operation type (`read` / `write` / `local`). `arm-watchdog` is fully implemented as a local executor that writes a real watchdog config; the remaining 13 return either `manifest_ready` (one of the candidates is configured) or `stub_unconfigured` (none are).
+- **`scripts/action-doctor.py`** — per-action readiness diagnostic. Resolves every action against the live `.mcp.json` + env-var state and reports the mode (`real` / `manifest_ready` / `stub_unconfigured`) for each one, with a one-step unlock guide for the blocked ones. Defensive UTF-8 stdout reconfigure for Windows cp1252 consoles.
+- **`commands/doctor.md`** — `/digital-marketing-pro:doctor` slash command. Wraps `action-doctor.py`. The canonical pre-flight check before running `campaign-audit` or `launch-campaign`. Output options: full readiness table, `--summary` one-liner, `--action <id>` drill-in, `--json`.
+- **`_shared/dmp_action_test_harness.py`** — comprehensive test harness. For every non-local action, exercises (1) unconfigured mode — empty `.mcp.json` → expects `stub_unconfigured` with `setup_hint.setup_options` populated; (2) configured mode — temporarily writes a single matching connector entry to `.mcp.json` → expects `manifest_ready` with a complete `http_request` shape (method + url + headers/body/params + auth_pattern). For `arm-watchdog`, runs an end-to-end execution test and verifies the watchdog file is written to disk and matches the response. Backs up + restores the user's real `.mcp.json` around every scenario. 27 total scenarios; all pass.
+
+### Changed
+
+- **`scripts/performance-monitor.py`** — `inventory`, `automations`, `cadence`, `diagnostic`, `arm-watchdog` actions now delegate to `connector_resolver.resolve_action()`. The inline `_stub_action()` helper from v3.7.6 is removed.
+- **`scripts/crm-sync.py`** — `audit-workflows`, `create-campaign` actions now delegate to the resolver. Inline `_stub_action()` removed.
+- **`scripts/execution-tracker.py`** — `enable-automation`, `schedule-posts`, `notify-influencers`, `pr-send`, `internal-kickoff`, `launch-ads` actions now delegate to the resolver. Inline `_stub_action()` removed.
+- **`scripts/seo-executor.py`** — `audit-current` action now delegates to the resolver. Inline stub block removed.
+
+### Cross-platform verification
+
+- All new scripts run clean on Windows cp1252 console (UTF-8 stdout reconfigure where needed; otherwise pure ASCII output).
+- No Windows-only paths (`pathlib.Path` everywhere, `Path.home()` for user dirs, no hardcoded drive letters).
+- No `os.system()` / `shell=True` calls (subprocess uses argv lists).
+- HTTP connectors work in Claude Code CLI + IDE + Anthropic Cowork. npx connectors (Salesforce, Google Ads, Meta Marketing, etc.) work in Claude Code only; the resolver flags this in `setup_hint.platforms_warning` so Cowork users know to use the Pipedream/Composio/Zapier aggregator alternatives.
+
+### Anthropic submission readiness
+
+- 27/27 test scenarios pass.
+- Every action has a documented purpose, manual fallback, fields-returned schema, and live status (real / manifest_ready / stub_unconfigured) — no silent stubs anywhere.
+- Every stub response is self-documenting about how to upgrade itself.
+
 ## [3.7.9] — 2026-05-25
 
 **Corrects an inaccuracy in the v3.7.8 README callout.** v3.7.8 said the `/plugin isn't available in this environment` error applies to **claude.ai web chat**. User correction: it also applies to the **Claude Desktop app**. The actual rule: `/plugin` slash commands are supported only in **Claude Code** (CLI / IDE at claude.com/code) and **Anthropic Cowork** — not in the standard Claude chat app, whether browser OR installed desktop.

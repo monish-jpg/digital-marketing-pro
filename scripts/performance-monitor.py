@@ -283,62 +283,12 @@ def get_baseline(slug):
     }
 
 
-def _stub_action(action: str, brand: str, channel: str | None = None, **kwargs) -> dict:
-    """Return a structured contract for actions that the campaign-audit and
-    launch-campaign skills depend on but whose full implementation is staged
-    over multiple releases. The orchestrator gets a clean response it can
-    surface to the user as 'these are the steps that need to run; here's what
-    each one would do; here is the manual fallback'.
-
-    This is intentionally NOT a silent stub — every response includes a
-    `status: stub_implementation` field so the orchestrator and the user
-    always know which actions are scaffolded vs fully wired."""
-    schemas = {
-        "inventory": {
-            "purpose": "List active campaigns / ad groups / keywords / audiences / creatives for the channel, with daily budget and last-modified date.",
-            "data_source": "Channel API (Google Ads / Meta Ads / LinkedIn / etc.) via the brand's configured connector.",
-            "manual_fallback": "Open the channel's native UI and export the active-campaigns list. Save to ~/.claude-marketing/{brand}/audits/{channel}-inventory.json.",
-            "fields_returned_when_implemented": ["campaign_id", "campaign_name", "status", "daily_budget", "last_modified", "spend_30d", "conversions_30d"],
-        },
-        "automations": {
-            "purpose": "List active automations / journeys for the channel (e.g. Klaviyo flows, HubSpot workflows) with last-execution and per-step health.",
-            "data_source": "Email/CRM platform API via the brand's configured connector.",
-            "manual_fallback": "Open the email/CRM platform, list active automations, export to JSON.",
-            "fields_returned_when_implemented": ["automation_id", "name", "trigger", "last_execution", "active_subscribers", "deliverability_30d"],
-        },
-        "cadence": {
-            "purpose": "Report posting cadence per platform over the last 90 days (post count, engagement rate, follower trend).",
-            "data_source": "Organic social platform APIs (Meta Graph / LinkedIn API / Twitter API) via the brand's configured connectors.",
-            "manual_fallback": "Pull from each platform's native analytics. Use Buffer / Hootsuite if scheduling-tool tracking is in place.",
-            "fields_returned_when_implemented": ["platform", "post_count_90d", "engagement_rate", "follower_trend"],
-        },
-        "diagnostic": {
-            "purpose": "Diagnose tag-firing health, conversion tracking, consent-mode state, event-naming consistency on the configured GA4/GSC property.",
-            "data_source": "GA4 Admin API + Real Time API + GSC API.",
-            "manual_fallback": "Open GA4 DebugView and walk a test session; check Tag Assistant; verify GSC ownership.",
-            "fields_returned_when_implemented": ["ga4_property_id", "events_firing_24h", "conversion_events_configured", "consent_mode_state", "gsc_property_ownership"],
-        },
-        "arm-watchdog": {
-            "purpose": "Activate a day-1 monitoring watchdog on a launched campaign — track CPC, conversion volume, deliverability, error rates against the campaign's stated KPI targets and alert on deviation > N%.",
-            "data_source": "All channel APIs in the campaign plan.",
-            "manual_fallback": "Set up dashboards in GA4 + Looker Studio + the channel native UIs, schedule a 24-hour manual review.",
-            "fields_returned_when_implemented": ["watchdog_id", "campaign_id", "kpis_monitored", "alert_thresholds", "next_check_at"],
-        },
-    }
-    if action not in schemas:
-        return {"error": f"unknown stub action: {action}"}
-    base = {
-        "status": "stub_implementation",
-        "action": action,
-        "brand": brand,
-        "channel": channel,
-        "version": "3.7.6",
-        "note": "This action is part of the campaign-audit / launch-campaign skill surface added in v3.7.5. The action contract is stable; the live implementation is staged across releases. Use the manual_fallback for now or wire the connector listed in data_source.",
-        **schemas[action],
-    }
-    if kwargs:
-        base["called_with"] = kwargs
-    return base
+# v3.7.10 — connector-aware action resolver. The inline _stub_action helper
+# from v3.7.6 is gone; resolve_action now returns one of three modes:
+#   real / manifest_ready / stub_unconfigured (see scripts/connector_resolver.py).
+# Adding sys.path so the relative import works no matter where Python is invoked.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from connector_resolver import resolve_action  # noqa: E402
 
 
 def main():
@@ -398,12 +348,12 @@ def main():
         result = get_baseline(args.brand)
 
     elif args.action in {"inventory", "automations", "cadence", "diagnostic", "arm-watchdog"}:
-        extra = {}
+        extra = {"channel": args.channel}
         if args.campaign_id:
             extra["campaign_id"] = args.campaign_id
         if args.kpis:
             extra["kpis"] = [k.strip() for k in args.kpis.split(",") if k.strip()]
-        result = _stub_action(args.action, args.brand, channel=args.channel, **extra)
+        result = resolve_action(args.action, args.brand, **extra)
 
     json.dump(result, sys.stdout, indent=2)
     print()
