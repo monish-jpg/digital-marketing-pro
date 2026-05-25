@@ -211,7 +211,7 @@ Each agent has scoped responsibilities, explicit input/output contracts, and rea
 ### 153 skills
 Skills are invoked by description match through the Skill tool, addressable as `/digital-marketing-pro:<skill-name>` from chat. Coverage: brand setup, content production (blog / ad / email / social / landing / video / PR / case study), SEO / AEO / GEO audits (6 platforms incl. Google AI Mode), competitor monitoring, campaign planning, channel-specific strategies, attribution, churn risk, lifecycle journeys, intelligence reports, eval framework, knowledge management, multi-brand operations, regional configuration, C2PA content provenance.
 
-### 13 top-level commands
+### 14 top-level commands
 | Command | What it does |
 |---|---|
 | `/digital-marketing-pro:brand-setup` | Set up a new brand profile (voice, audience, competitors, compliance) |
@@ -227,10 +227,11 @@ Skills are invoked by description match through the Skill tool, addressable as `
 | `/digital-marketing-pro:resume` | Resume an interrupted long workflow from the last checkpoint |
 | `/digital-marketing-pro:output-folder` | Print + open the visible output folder for a brand |
 | `/digital-marketing-pro:doctor` | Per-action readiness diagnostic (which campaign-audit / launch-campaign actions are live vs need connector setup) |
+| `/digital-marketing-pro:execute-action` | Actually fire an action against its real API (stdlib `urllib`, no third-party deps). 8 verified connectors execute end-to-end; 25 OAuth-only connectors fall back to the MCP path with the manifest still returned. |
 
 Plus **140 additional skills** addressable via `/digital-marketing-pro:<skill-name>` — `:competitor-monitor`, `:churn-risk`, `:autopilot-status`, `:agency-dashboard`, `:aeo-audit`, `:geo-monitor`, `:c2pa-metadata`, `:client-onboarding`, `:journey-design` … see `/digital-marketing-pro:help` after install for the full list, or browse `skills/` in the repo.
 
-### 76 Python scripts (optional)
+### 77 Python scripts (optional)
 Plugin works fully without Python — all marketing knowledge, frameworks, agent capabilities, and skills work out of the box via the 167 reference knowledge files.
 
 | Mode | Size | Adds |
@@ -292,6 +293,29 @@ Check what's live in your environment any time:
 **Test coverage:** [`_shared/dmp_action_test_harness.py`](../_shared/dmp_action_test_harness.py) exercises all 14 actions across 27 scenarios (unconfigured + configured + local-execution variants) — all pass.
 
 **Implementation:** `scripts/_connector_registry.py` (catalog of 33 connectors, 11 categories, `is_connector_configured()` probe) + `scripts/connector_resolver.py` (`ACTION_SPECS` map + per-action manifest builders + local executors) + `scripts/action-doctor.py` (the doctor command's underlying script).
+
+### v3.7.11 — actions can actually fire HTTP requests from Python
+
+The v3.7.10 resolver returned a manifest of "what would be sent." v3.7.11 adds `scripts/connector_executor.py` (stdlib `urllib.request`, no third-party deps) that takes that manifest and **actually executes** the request against the real API. Public CLI: `/digital-marketing-pro:execute-action`.
+
+**Executes end-to-end from Python (8 connectors, verified vendor docs):**
+
+| Connector | Env var | What it can fire |
+|-----------|---------|---|
+| Slack | `SLACK_BOT_TOKEN` | `POST chat.postMessage` (with `body.ok` post-check) |
+| HubSpot | `HUBSPOT_PRIVATE_APP_TOKEN` | `GET /automation/v4/flows`, `POST /marketing/v3/campaigns` |
+| Klaviyo | `KLAVIYO_PRIVATE_KEY` | `GET /api/flows`, `PATCH /api/flows/{id}` (vnd.api+json) |
+| SendGrid | `SENDGRID_API_KEY` | `POST /v3/mail/send` (202 success) |
+| Brevo | `BREVO_API_KEY` | `POST /v3/smtp/email` (lowercase `api-key:` header) |
+| Customer.io | `CUSTOMERIO_APP_API_KEY` | `POST /v1/send/email` (App API key only) |
+| Mailchimp | `MAILCHIMP_API_KEY` | `GET /3.0/automations` (Basic auth, dc from suffix) |
+| Ahrefs | `AHREFS_API_KEY` | `GET /v3/site-explorer/metrics` |
+
+**Requires the MCP path (25 OAuth-only connectors):** Google Ads, Meta Marketing, LinkedIn Marketing, LinkedIn Publishing, TikTok Ads, Twitter/X, Gmail, Google Calendar, Google Analytics, Google Search Console, Meta Graph, Salesforce, Pipedrive, Zoho CRM, Buffer, Hootsuite, Cision, Muckrack, Amplitude, Similarweb, SEMrush, Moz, Intercom, Canva, Figma. For all of these, the resolver still returns `manifest_ready` so you can see the exact HTTP shape Claude's MCP tool will send — Python just can't execute the OAuth flow itself.
+
+**Safety gates:** read ops auto-execute with `--execute`; write ops require both `--execute --confirm`; missing env vars block with `setup_hint_credential`; unresolved `{VAR}` placeholders block before the request fires. Every fired call logs to `~/.claude-marketing/{brand}/executions/`.
+
+**Test coverage:** [`_shared/dmp_executor_test_harness.py`](../_shared/dmp_executor_test_harness.py) runs 17 tests against a stdlib `http.server` mock — verifies actual HTTP send-and-receive (not just shape inspection): the 8 connector-specific tests (incl. Slack body.ok post-check + Klaviyo vnd.api+json + Brevo lowercase header + Mailchimp Basic), 6 safety-gate tests, and 1 data-substitution test. All pass.
 
 ---
 

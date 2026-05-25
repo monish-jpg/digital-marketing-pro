@@ -4,6 +4,89 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.7.11] — 2026-05-26
+
+**Closes the resolver loop: actions can now actually fire HTTP requests from Python.** v3.7.10 introduced a resolver that returned a manifest of "what would be sent" when a connector was configured. v3.7.11 introduces `scripts/connector_executor.py` (stdlib `urllib.request`, no third-party deps) that takes that manifest and actually executes the request against the real API, with credential substitution, write-op gates, audit logging, and per-endpoint success-code handling.
+
+### What can execute end-to-end from Python (8 connectors, verified docs)
+
+Verified against current vendor docs (May 2026 research pass — see CHANGELOG source citations below):
+
+| Connector | Env var | Auth pattern | Endpoint examples |
+|-----------|---------|--------------|---------------------|
+| Slack | `SLACK_BOT_TOKEN` | `Authorization: Bearer xoxb-...` | `POST /api/chat.postMessage` (HTTP 200 + body.ok=true required) |
+| HubSpot | `HUBSPOT_PRIVATE_APP_TOKEN` | `Authorization: Bearer pat-...` | `GET /automation/v4/flows`, `POST /marketing/v3/campaigns` (201) |
+| Klaviyo | `KLAVIYO_PRIVATE_KEY` | `Authorization: Klaviyo-API-Key ...` + revision `2026-04-15` | `GET /api/flows`, `PATCH /api/flows/{id}` (vnd.api+json) |
+| SendGrid | `SENDGRID_API_KEY` | `Authorization: Bearer SG.xxx` | `POST /v3/mail/send` (202 + empty body) |
+| Brevo | `BREVO_API_KEY` | `api-key:` header (lowercase, NOT Authorization) | `POST /v3/smtp/email` (201) |
+| Customer.io | `CUSTOMERIO_APP_API_KEY` | `Authorization: Bearer <App-API-key>` (App key, NOT Site/Track) | `POST /v1/send/email` |
+| Mailchimp | `MAILCHIMP_API_KEY` | `Authorization: Basic <base64(anystring:key)>`, dc from key suffix | `GET /3.0/automations` |
+| Ahrefs | `AHREFS_API_KEY` | `Authorization: Bearer ...` | `GET /v3/site-explorer/metrics` (not `/overview`) |
+
+### What requires the MCP path (25 OAuth-only connectors)
+
+Cannot execute from Python because OAuth flows require a browser redirect. The resolver still returns `manifest_ready` with the exact request shape, and the executor returns `execute_blocked_reason: "use MCP path"` with an `alternative` field pointing to the MCP route:
+
+Google Ads, Meta Marketing, LinkedIn Marketing, LinkedIn Publishing, TikTok Ads, Twitter/X (OAuth 1.0a HMAC), Gmail, Google Calendar, Google Analytics, Google Search Console, Meta Graph (organic), Salesforce, Pipedrive, Zoho CRM, Buffer, Hootsuite, Cision, Muckrack, Amplitude, Similarweb, SEMrush, Moz, Intercom, Canva, Figma.
+
+### Safety gates (all 6 tested)
+
+1. **No `--execute`** -> dry-run, returns resolver manifest, no HTTP fired
+2. **Write op without `--confirm`** -> blocked with reason naming the action
+3. **OAuth-only connector** -> blocked with `alternative` MCP path hint
+4. **Missing env var credential** -> blocked with `setup_hint_credential` naming the var
+5. **Unconfigured connector** -> blocked at resolver level (`stub_unconfigured`)
+6. **Unresolved `{VAR}` placeholder** -> request NEVER sent (prevents leaking placeholder text to APIs)
+
+Every executed call is logged to `~/.claude-marketing/{brand}/executions/exec-{connector}-{action}-{ts}.json` with HTTP status, elapsed_ms, success/failure, and any error reason.
+
+### Manifest corrections from research pass
+
+The May 2026 doc verification surfaced 6 errors in the v3.7.10 manifests, now fixed:
+
+1. **Klaviyo `revision` header** — bumped from `2024-10-15` (18 months stale) to `2026-04-15`
+2. **Klaviyo PATCH `Content-Type`** — was `application/json` (rejected by API), now `application/vnd.api+json` per JSON:API spec
+3. **Ahrefs site-explorer URL** — was `/v3/site-explorer/overview` (doesn't exist), now `/v3/site-explorer/metrics`
+4. **Brevo auth note** — clarified custom lowercase `api-key:` header, NOT `Authorization: Bearer`
+5. **SendGrid success code** — documented that 202 is success (not 200) per async-queue behavior
+6. **Slack success check** — documented that HTTP 200 with `body.ok=false` is logical failure (chat.postMessage returns 200 even on `channel_not_found` errors); executor now does the body.ok check
+
+### Added
+
+- **`scripts/connector_executor.py`** — stdlib HTTP executor. Public API: `execute_manifest(http_request, env, data, timeout, connector)` for direct manifest execution; `execute_action(action_id, brand, execute, confirm, data, timeout, log_to_tracker, env, **kwargs)` for resolve+execute orchestration. `EXECUTE_PROFILES` table holds per-connector env var + auth handler + success codes + post-checks. CLI mode supports dry-run / execute / confirm / data flags.
+- **`commands/execute-action.md`** — `/digital-marketing-pro:execute-action` slash command. Wraps `connector_executor.py` with full safety-gate documentation, executable-vs-OAuth-only matrix, and 6 worked examples covering dry-run, read-op execute, write-op execute, blocked-without-confirm, OAuth-only, missing-credential.
+- **`_shared/dmp_executor_test_harness.py`** — 17 tests against a stdlib `http.server` mock HTTP server in a daemon thread. Coverage:
+  - 8 connector-specific tests (Slack incl. body.ok check + logical-failure variant, HubSpot read + write, Klaviyo list + PATCH with vnd.api+json, SendGrid 202, Brevo lowercase header, Mailchimp Basic auth)
+  - 6 safety-gate tests (OAuth-only blocks, write requires confirm, missing credential, unconfigured connector, 404 = failure, network error = clean status, unresolved placeholder NEVER fires)
+  - 1 utility test (data-substitution from `{plan.field}` placeholders)
+
+### Changed
+
+- Plugin command count: 13 -> 14 (`/digital-marketing-pro:execute-action` added)
+- Script count: 76 -> 77 (`connector_executor.py` added)
+- Manifest builders in `connector_resolver.py` updated with the 6 corrections above
+
+### Anthropic submission readiness
+
+- 17/17 mock-server tests pass (covers actual HTTP send-and-receive against a real local server, not just request shape inspection)
+- 27/27 resolver tests still pass (no regressions from v3.7.10)
+- Every executable endpoint cited to its current vendor documentation
+- OAuth-only connectors honestly flagged with explicit MCP fallback path
+- All safety gates tested
+
+### Source citations for executable endpoints
+
+- Slack `chat.postMessage` — https://docs.slack.dev/reference/methods/chat.postMessage
+- HubSpot `/marketing/v3/campaigns` — https://developers.hubspot.com/docs/reference/api/marketing/campaigns
+- HubSpot `/automation/v4/flows` — https://developers.hubspot.com/docs/guides/api/automation/create-manage-workflows (BETA flag)
+- Klaviyo `/api/flows` (list) — https://developers.klaviyo.com/en/reference/get_flows
+- Klaviyo `/api/flows/{id}` (PATCH) — https://developers.klaviyo.com/en/reference/update_flow
+- SendGrid `/v3/mail/send` — https://www.twilio.com/docs/sendgrid/api-reference/mail-send/mail-send
+- Brevo `/v3/smtp/email` — https://developers.brevo.com/reference/sendtransacemail
+- Customer.io `/v1/send/email` — https://docs.customer.io/api/app/#operation/sendEmail
+- Mailchimp `/3.0/automations` — https://mailchimp.com/developer/marketing/api/automation/list-automations/ (Classic Automations — flag for new tenants)
+- Ahrefs `/v3/site-explorer/metrics` — https://docs.ahrefs.com/api/reference/site-explorer/get-metrics
+
 ## [3.7.10] — 2026-05-26
 
 **Replaces 14 unconfigured-only action stubs with a connector-aware three-mode resolver.** The v3.7.5–v3.7.7 stubs always returned `status: stub_implementation` no matter what connectors the user had configured. They were honest about being scaffolds but they could not graduate to real calls. v3.7.10 introduces a resolver layer that probes the live connector state and chooses one of three modes per action, every call:

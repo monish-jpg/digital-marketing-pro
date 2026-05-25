@@ -200,7 +200,7 @@ def _manifest_automations(connector_name, brand, kwargs):
             "url": "https://a.klaviyo.com/api/flows/",
             "headers": {
                 "Authorization": "Klaviyo-API-Key {KLAVIYO_PRIVATE_KEY}",
-                "revision": "2024-10-15",
+                "revision": "2026-04-15",
                 "accept": "application/json",
             },
             "params": {"filter": "equals(status,'live')", "page[size]": "100"},
@@ -224,7 +224,7 @@ def _manifest_automations(connector_name, brand, kwargs):
             "url": "https://api.brevo.com/v3/emailCampaigns",
             "headers": {"api-key": "{BREVO_API_KEY}", "accept": "application/json"},
             "params": {"status": "queued", "limit": "100"},
-            "auth_pattern": "api-key header",
+            "auth_pattern": "Brevo custom api-key header (lowercase, NOT Authorization Bearer)",
         },
         "customer-io": {
             "method": "GET",
@@ -433,15 +433,15 @@ def _manifest_enable_automation(connector_name, brand, kwargs):
     endpoints = {
         "klaviyo": {
             "method": "PATCH",
-            "url": f"https://a.klaviyo.com/api/flows/{automation_id}/",
+            "url": f"https://a.klaviyo.com/api/flows/{automation_id}",
             "headers": {
                 "Authorization": "Klaviyo-API-Key {KLAVIYO_PRIVATE_KEY}",
-                "revision": "2024-10-15",
-                "Content-Type": "application/json",
+                "revision": "2026-04-15",
+                "Content-Type": "application/vnd.api+json",
             },
             "body_template": {"data": {"type": "flow", "id": automation_id,
                                        "attributes": {"status": "live"}}},
-            "auth_pattern": "Klaviyo private API key",
+            "auth_pattern": "Klaviyo private API key (PATCH requires application/vnd.api+json)",
         },
         "hubspot": {
             "method": "PUT",
@@ -702,9 +702,10 @@ def _manifest_audit_current_seo(connector_name, brand, kwargs):
         },
         "ahrefs": {
             "method": "GET",
-            "url": "https://api.ahrefs.com/v3/site-explorer/overview",
-            "headers": {"Authorization": "Bearer {AHREFS_API_KEY}"},
+            "url": "https://api.ahrefs.com/v3/site-explorer/metrics",
+            "headers": {"Authorization": "Bearer {AHREFS_API_KEY}", "Accept": "application/json"},
             "params": {"target": "{brand.domain}", "mode": "domain", "date": "{today}"},
+            "auth_pattern": "Bearer token (Ahrefs site-explorer endpoint is /metrics not /overview)",
         },
         "similarweb": {
             "method": "GET",
