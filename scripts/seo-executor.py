@@ -395,6 +395,8 @@ def main():
             "update-meta", "deploy-schema", "create-redirect",
             "submit-sitemap", "request-indexing", "bulk-meta-update",
             "status", "complete",
+            # v3.7.7 — campaign-audit skill surface
+            "audit-current",
         ],
         help="Action to perform",
     )
@@ -462,6 +464,20 @@ def main():
             print(json.dumps({"error": "Provide --change-id to complete"}))
             sys.exit(1)
         result = complete_change(args.brand, args.change_id)
+
+    elif args.action == "audit-current":
+        # v3.7.7 — campaign-audit skill surface
+        result = {
+            "status": "stub_implementation",
+            "action": "audit-current",
+            "brand": args.brand,
+            "version": "3.7.7",
+            "purpose": "Audit the current SEO state for the brand: pages publishing in last 90 days, ranking keywords (top 50), schema markup state per page (including the May 2026 demoted-FAQ/HowTo/Review check), internal-link density, indexation health, Core Web Vitals, AI-Overview citation rate.",
+            "data_source": "Google Search Console API + Ahrefs / SimilarWeb API + Lighthouse via the brand's configured connectors.",
+            "manual_fallback": "Pull last-90-days publishing list from CMS; run Lighthouse for each high-traffic page; check GSC > Search Results for ranking keywords; verify schema with rich-results.test.google.com (skip FAQ/HowTo/Review on non-primary pages per Google's March 2026 update).",
+            "fields_returned_when_implemented": ["pages_published_90d", "ranking_keywords_top_50", "schema_state_per_page", "internal_link_density", "indexation_health", "core_web_vitals", "ai_overview_citation_rate"],
+            "note": "Part of the campaign-audit skill surface (v3.7.5). Action contract stable; live implementation staged across releases.",
+        }
 
     json.dump(result, sys.stdout, indent=2)
     print()

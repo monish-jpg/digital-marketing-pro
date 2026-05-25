@@ -246,6 +246,14 @@ def _stub_action(action: str, brand: str, plan_path: str | None = None,
             "fields_returned_when_implemented": ["slack_message_url", "email_message_id", "calendar_event_id", "recipients_count"],
             "plan_path_received": plan_path,
         },
+        "launch-ads": {
+            "purpose": "Activate the paid-ads portion of the campaign plan across Google Ads / Meta Ads / LinkedIn Ads / TikTok Ads in dependency order. Delegates to the per-platform launch logic but tracks the full multi-platform launch as one transaction.",
+            "data_source": "Google Ads API + Meta Marketing API + LinkedIn Marketing API + TikTok Business API via the brand's configured ad-platform connectors.",
+            "manual_fallback": "Open each ad platform UI in order (Google Ads, then Meta Ads Manager, then LinkedIn Campaign Manager, then TikTok Ads), activate the campaigns matching the plan's campaign_ids. Record activation timestamps in the launch-record.",
+            "fields_returned_when_implemented": ["platforms_activated", "campaign_ids_per_platform", "total_daily_budget", "activated_at"],
+            "plan_path_received": plan_path,
+            "delegates_to": "/digital-marketing-pro:launch-ad-campaign (paid-ads-only subset)",
+        },
     }
     if action not in schemas:
         return {"error": f"unknown stub action: {action}"}
@@ -266,7 +274,9 @@ def main():
                         choices=["log-execution", "get-history", "get-stats",
                                  # v3.7.6 — launch-campaign skill surface
                                  "enable-automation", "schedule-posts",
-                                 "notify-influencers", "pr-send", "internal-kickoff"],
+                                 "notify-influencers", "pr-send", "internal-kickoff",
+                                 # v3.7.7 — additional launch-campaign surface
+                                 "launch-ads"],
                         help="Action to perform")
     parser.add_argument("--data", help="JSON data (for log-execution)")
     parser.add_argument("--platform", help="Filter history by platform")
@@ -295,7 +305,8 @@ def main():
         result = get_stats(args.brand)
 
     elif args.action in {"enable-automation", "schedule-posts",
-                         "notify-influencers", "pr-send", "internal-kickoff"}:
+                         "notify-influencers", "pr-send", "internal-kickoff",
+                         "launch-ads"}:
         result = _stub_action(args.action, args.brand,
                               plan_path=args.plan,
                               automation_id=args.automation_id,

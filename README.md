@@ -4,7 +4,7 @@
 
 Built for digital marketing agencies, in-house teams running 50–200 brands, and consultancies that need consistent depth and auditable handoffs. Created by [Indranil Banerjee](https://indranil.in).
 
-[![Version](https://img.shields.io/badge/version-3.7.6-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.7.7-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=yellow)](https://github.com/indranilbanerjee/digital-marketing-pro/stargazers)
 [![Forks](https://img.shields.io/github/forks/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=blue)](https://github.com/indranilbanerjee/digital-marketing-pro/network/members)
@@ -104,6 +104,8 @@ Or jump straight to one workflow:
 /digital-marketing-pro:email-sequence       # subject lines, copy, timing, segmentation
 /digital-marketing-pro:check                # pre-publish quality gate (hallucination + voice + claims)
 /digital-marketing-pro:status               # unified brand snapshot
+/digital-marketing-pro:resume               # resume an interrupted long workflow (engagement / campaign-plan / etc.)
+/digital-marketing-pro:output-folder        # open the user-visible ~/Documents/DigitalMarketingPro/ folder
 ```
 
 ### 5. Find your output
@@ -240,6 +242,29 @@ Notion · Slack · Canva · Figma · HubSpot · Amplitude · Ahrefs · SimilarWe
 All HTTP, all Cowork-compatible. For services without first-party HTTP MCPs (Google Sheets, Drive, Salesforce, etc.), see `.mcp.json.connectors-reference` for **Pipedream / Composio / Zapier / Make.com** aggregator paths.
 
 For the full ~68-server stdio configuration (Google Ads, Meta Ads, GA4, GSC, Mixpanel, Marketo, Brevo, etc. via npx, Claude Code only — not Cowork-compatible): `cp .mcp.json.example .mcp.json`. See [CONNECTORS.md](CONNECTORS.md) and [Integrations Guide](docs/integrations-guide.md).
+
+---
+
+## Resumable workflows + visible output folder (v3.7.7+)
+
+Two user-team complaints from the v3.7.5 cycle drove this release: "dm pro is taking too long to process" (the 60-minute engagement that breaks midway loses 30+ minutes of work on restart) and the general "where did my 50 deliverable files save?" confusion (everything was landing under the Windows-hidden `~/.claude-marketing/` dotfolder).
+
+**Fix 1 — Resumable workflows.** Every long-running DMP workflow now writes per-part checkpoints to disk so an interrupted session can resume from the next un-checkpointed part instead of restarting from Part 1. Covered workflows: `engagement` (12-Part Strategy Flow), `campaign-plan`, `content-engine`, `seo-audit`, `competitor-analysis`, `campaign-audit` (v3.7.5), `launch-campaign` (v3.7.5), plus a `custom` slot for any other long flow. Resume with:
+
+```
+/digital-marketing-pro:resume                              # auto-pick latest in-progress run
+/digital-marketing-pro:resume engagement                   # filter to a workflow
+/digital-marketing-pro:resume engagement <run-id>          # pick a specific run
+```
+
+**Fix 2 — Visible output folder.** Every artifact a workflow produces is now copied to TWO locations: the internal tracking copy under `~/.claude-marketing/{brand}/output/{workflow}/...` (system-of-record), and a user-visible published copy under `~/Documents/DigitalMarketingPro/{brand}/{workflow}/{YYYY-MM}/{filename}` (visible in Windows Explorer / macOS Finder by default). Override the visible root with `DIGITAL_MARKETING_PRO_PUBLISH_DIR=/path` (e.g. a Dropbox share for the team). Reveal the folder any time with:
+
+```
+/digital-marketing-pro:output-folder                       # opens ~/Documents/DigitalMarketingPro/{brand}/
+/digital-marketing-pro:output-folder <brand> <workflow>    # drill down
+```
+
+**Implementation:** `scripts/checkpoint-manager.py` (per-step storage + atomic writes, stdlib only) + `scripts/output-publisher.py` (dual-copy publish + `where` + `open` subcommands). Mirrors the ContentForge v3.12.3 / v3.12.4 patterns. Verified end-to-end with [`_shared/dmp_engagement_simulation.py`](../_shared/dmp_engagement_simulation.py) — 5 scenarios (clean 12-part run / interrupt-resume / 3 parallel workflows / quality-gate fail / all 8 workflows accepted) all pass in ~6 seconds.
 
 ---
 

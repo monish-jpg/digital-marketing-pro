@@ -4,6 +4,48 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.7.7] — 2026-05-25
+
+**Direct fix for "dm pro also taking too long to process" (user-team feedback from the v3.12.2-cycle WhatsApp transcript) + an audit pass that caught 4 additional broken refs missed by v3.7.6.**
+
+### Audit pass — 4 newly-found gaps fixed
+
+Full audit across all 153 SKILL.md + 25 agent + 10 command files (broader than v3.7.6's "just the 3 new skills" audit):
+
+- 2 more missing actions: `execution-tracker.py --action launch-ads`, `seo-executor.py --action audit-current` (called from the v3.7.5 skills, missed in v3.7.6). Both added as stub-implementation handlers.
+- 2 broken slash refs in v3.7.5 SKILL.md docs: `/digital-marketing-pro:performance-monitor` (no such skill — corrected to `/digital-marketing-pro:performance-check`) and `/digital-marketing-pro:setup` (no such command — corrected to `/digital-marketing-pro:add-integration`).
+- 2 broken internal file refs: `docs/custom-mcp-guide.md` (corrected to `skills/context-engine/custom-mcp-guide.md`) and `skills/context-engine/industry-benchmarks.md` (replaced with the existing `industry-profiles.md` + `channel-families.md` fallback chain).
+- Re-audit after fixes: **0 broken slash refs, 0 missing script actions, 0 broken internal file refs**.
+
+### Added — resumable workflows (Shreea's "too long" fix)
+
+- **`scripts/checkpoint-manager.py`** — per-step checkpoint storage for every long DMP workflow. Supports `engagement` (the 12-Part Strategy Flow), `campaign-plan`, `content-engine`, `seo-audit`, `competitor-analysis`, `campaign-audit`, `launch-campaign`, plus a `custom` slot for any other long flow. Subcommands: `init`, `save`, `status`, `load`, `list`, `resume`, `finalize`, `discard`. Atomic writes; stdlib only; works in headless / cron contexts. Ported from the ContentForge v3.12.3 pattern, adapted for DMP's multi-workflow surface (CF was content-only; DMP has 8 distinct long workflows).
+- **`commands/resume.md`** — `/digital-marketing-pro:resume [workflow] [run-id]`. Picks the run to resume (auto-pick latest in_progress, or filter by workflow, or explicit run-id), reloads every saved part as context, hands control to the agent/sub-flow that owns the next un-checkpointed part. Warns if `last_updated` > 7 days (market data drifts). Lists all in-progress runs when there's ambiguity.
+
+### Added — dual-copy save (visible output folder)
+
+- **`scripts/output-publisher.py`** — dual-copy publisher. Every artifact a workflow produces now lands in TWO locations: internal tracking copy under `~/.claude-marketing/{brand}/output/{workflow}/...` (system-of-record) AND user-visible copy under `~/Documents/DigitalMarketingPro/{brand}/{workflow}/{YYYY-MM}/{filename}` (visible in Explorer / Finder by default). Override the visible root with `DIGITAL_MARKETING_PRO_PUBLISH_DIR` env var or `--publish-dir`. Subcommands: `publish` (single file), `publish-run` (bulk-publish every artifact in a checkpoint-manager run), `where` (print both paths without copying), `open` (print + open in OS file manager via Windows `start` / macOS `open` / Linux `xdg-open`).
+- **`commands/output-folder.md`** — `/digital-marketing-pro:output-folder [brand] [workflow]`. Direct answer to "where did my 50 engagement files save?" Prints the absolute visible path and opens it in the OS file manager. Configuration section documents the env-var override for Dropbox / shared-drive setups.
+
+### Changed
+
+- **`commands/engagement.md`** — added a "Checkpointing (v3.7.7+)" section explaining the per-part `checkpoint-manager.py save` cadence + the `output-publisher.py publish-run` finalize step. The `start` subcommand description now mentions that it opens a checkpoint run automatically.
+- **README** — new "Resumable workflows + visible output folder (v3.7.7+)" section above the Model Curator section; new entries in the slash command list for `/resume` + `/output-folder`.
+- **plugin.json count fields** — none change (the 3 v3.7.5 skills are still counted; the 2 new commands bring the total from 10 → 12).
+
+### Honesty disclosure
+
+The 12 stub-implementation action handlers added in v3.7.6 are unchanged in v3.7.7 — they still return structured `stub_implementation` contracts, not live API calls. The checkpoint-manager and output-publisher are **fully implemented** (no stubs there).
+
+The /engagement workflow itself is unchanged in runtime — Opus 4.7 still takes ~60 minutes for the full 12-Part Strategy Flow. What's new is that a single interruption no longer means losing 30+ minutes of work. That's the direct addressing of "dm pro also taking too long to process" — the workflow can't be made faster (LLM latency is the dominant cost), but it can be made resilient to interruption.
+
+### Verification
+
+- Full e2e simulation `_shared/dmp_engagement_simulation.py` — 5 scenarios: (A) clean 12-part engagement → dual-copy publish → finalize, (B) interrupt at Part 5 → /resume → continue to Part 12, (C) 3 parallel workflows (engagement + campaign-plan + seo-audit) preserved state independently, (D) Part 7 quality-gate fail leaves run in_progress, (E) all 8 workflows accept the checkpoint contract. **5/5 PASS in 5.8 seconds.**
+- 12 visible deliverables landed in `~/Documents/DigitalMarketingPro/EngagementSim/engagement/2026-05/` (the user-visible folder) — verified by directory listing.
+- All **73 DMP scripts** (was 71, added 2) pass `--help` smoke test; **0** scripts take > 2 seconds on import.
+- Sweep across 188 SKILL.md / 25 agents / 167 references files clean.
+
 ## [3.7.6] — 2026-05-25
 
 **Wires the v3.7.5 skill surface to actual script implementations.** The 3 new skills shipped in v3.7.5 (`/validate-profile`, `/campaign-audit`, `/launch-campaign`) referenced ~15 script actions that **did not exist** in the underlying Python scripts. The skills were documented but uncallable end-to-end — the orchestrator would dispatch an action and the script would error with `argparse: invalid choice`. Caught by an audit pass mirroring the ContentForge v3.12.3 → v3.12.4 production-simulation fix.

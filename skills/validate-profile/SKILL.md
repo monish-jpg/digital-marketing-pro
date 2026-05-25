@@ -130,7 +130,7 @@ Print a structured report. ALWAYS show every check (don't only print failures �
 ⚠️  Audience profile       primary_persona.role set, reading_level MISSING
 ✅ Guardrails             {N} prohibited_terms, {M} prohibited_claims (industry={industry})
 ✅ Compliance jurisdictions  EU-GDPR ✓ · IN-DPDPA ✓ · US-CCPA ✓
-🛑 Connector — Slack       UNAUTHENTICATED (token rotated? re-run /digital-marketing-pro:setup --slack)
+🛑 Connector — Slack       UNAUTHENTICATED (token rotated? re-add via /digital-marketing-pro:add-integration slack)
 ✅ Connector — HubSpot     OK (workspace acme-corp, 1247 contacts)
 ✅ Connector — Stripe      OK
 ✅ MCP — gmailmcp.googleapis.com  HTTP 405 (alive)

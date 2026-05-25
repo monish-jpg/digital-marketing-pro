@@ -1,6 +1,6 @@
 {
   "name": "digital-marketing-pro",
-  "version": "3.7.6",
+  "version": "3.7.7",
   "description": "v3.7.5 ships 3 new skills closing the v3.7.4 audit gaps: /validate-profile (brand profile + connector health check, no credential exposure), /campaign-audit (cross-channel current-state inventory + 4-tier triage), /launch-campaign (multi-channel 14-step launch orchestrator with checkpointed activation). End-to-end digital marketing engagement methodology. 150 portable Agent Skills covering brand setup, content production, SEO/AEO/GEO audits (6 platforms including Google AI Mode), ad campaigns, email, social, compliance (GDPR/CCPA/EU AI Act Article 50), and agency operations. 12-Part Strategy Flow producing the Four Core Documents. Shared model curator (scripts/model_registry.json + resolve_model.py + refresh_models.py): single source of truth for every AI model id used by the plugin, with deprecated-id auto-fall-forward and a refresh_models.py drift report against live provider catalogs (Anthropic / OpenAI / Google). See docs/MODEL-CURATOR.md.",
   "author": {
     "name": "Indranil Banerjee",

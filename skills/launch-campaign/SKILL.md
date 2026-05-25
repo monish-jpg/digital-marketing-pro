@@ -78,7 +78,7 @@ Before touching any live system, print a dry-run preview of every action that's 
    10. Internal kickoff — Slack message to {channel}, email to {distribution_list}
    11. Tracking — Wire UTM parameters across every link (cross-check against plan)
    12. Attribution — Confirm {attribution_model} active in GA4 + CRM
-   13. Monitoring — Activate day-1 watchdog on {KPIs} via /digital-marketing-pro:performance-monitor
+   13. Monitoring — Activate day-1 watchdog on {KPIs} via /digital-marketing-pro:performance-check
    14. Documentation — Write launch record to ~/.claude-marketing/{brand}/campaigns/{campaign_id}/launch-record.json
        and publish a user-visible copy to ~/Documents/DigitalMarketingPro/{brand}/campaigns/
 
@@ -176,7 +176,7 @@ Print the launch summary in the conversation:
    CRM record:      {hubspot|salesforce|...} Campaign #{id}
    Window:          {start_date} → {end_date}
    Channels live:   {list with daily totals}
-   Day-1 watchdog:  /digital-marketing-pro:performance-monitor --watchdog {watchdog_id}
+   Day-1 watchdog:  /digital-marketing-pro:performance-check --watchdog {watchdog_id}
 
    📂 Launch record:
       {published_path}
