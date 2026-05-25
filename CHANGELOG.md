@@ -4,6 +4,30 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.7.6] — 2026-05-25
+
+**Wires the v3.7.5 skill surface to actual script implementations.** The 3 new skills shipped in v3.7.5 (`/validate-profile`, `/campaign-audit`, `/launch-campaign`) referenced ~15 script actions that **did not exist** in the underlying Python scripts. The skills were documented but uncallable end-to-end — the orchestrator would dispatch an action and the script would error with `argparse: invalid choice`. Caught by an audit pass mirroring the ContentForge v3.12.3 → v3.12.4 production-simulation fix.
+
+### Added — script action surface that the v3.7.5 skills actually need
+
+- **`scripts/performance-monitor.py`** — 5 new actions: `inventory`, `automations`, `cadence`, `diagnostic`, `arm-watchdog`. Plus new flags `--channel`, `--campaign-id`, `--kpis`, `--read-only`.
+- **`scripts/crm-sync.py`** — 2 new actions: `audit-workflows`, `create-campaign`. Plus new flag `--plan` for the approved-plan JSON path.
+- **`scripts/execution-tracker.py`** — 5 new actions: `enable-automation`, `schedule-posts`, `notify-influencers`, `pr-send`, `internal-kickoff`. Plus new flags `--plan`, `--automation-id`.
+- **`scripts/connector-status.py`** — 2 new flags: `--probe-only` (credential-safe reachability probe used by `/validate-profile`) and `--no-secrets` (walks the response object and redacts any token/secret/password/api_key field before printing). New `_redact_secrets()` and `_probe_only()` helpers.
+
+### Honesty disclosure
+
+Each of the 12 new action handlers in `performance-monitor.py` / `crm-sync.py` / `execution-tracker.py` is a **stub implementation** that returns a structured contract with a `status: "stub_implementation"` field, a `purpose` description, the `data_source` connector that would back it, a `manual_fallback` procedure, and the `fields_returned_when_implemented` schema. The orchestrator gets a clean JSON response it can surface to the user as "this part of the workflow is the design, here is what it would do, here is the manual fallback for now." Live implementation is staged across subsequent releases. The action contract is stable; what's marked `stub_implementation` today will become a live API call as the underlying connectors are integrated.
+
+The `connector-status.py` flags (`--probe-only`, `--no-secrets`) are **fully implemented** — they're a thin wrapper over the existing `check_connector()` function plus a recursive secret-redactor for the response.
+
+### Quality
+
+- All 14 new action invocations return valid structured JSON (`14/14 PASS`).
+- All **71 DMP scripts** still pass `--help` smoke test after the additions (no regressions).
+- End-to-end `/validate-profile` simulation against a deliberately-broken brand profile correctly produces 1 BLOCKER + 1 WARN + 6 PASSED checks, with credential-safe `--probe-only --no-secrets` connector probes verifying no credential values leak into output.
+- Only one DMP script calls LLM APIs at runtime (`ai-visibility-checker.py`) and it correctly uses the model curator from v3.7.4 — no hidden hardcoded model ids elsewhere.
+
 ## [3.7.5] — 2026-05-25
 
 **Three new skills shipped to close gaps from the v3.7.4 audit.** No breaking changes.

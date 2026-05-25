@@ -840,17 +840,101 @@ def setup_guide(name):
     return {"error": f"Unknown connector: {name}", "hint": "Run --action list-available to see all connectors"}
 
 
+def _redact_secrets(obj):
+    """Walk a dict/list and redact anything that looks like a credential value.
+    Used by --no-secrets to guarantee that credential values never leak into
+    logs / clipboards / orchestrator output, regardless of which probe path
+    produced the dict."""
+    if isinstance(obj, dict):
+        redacted = {}
+        for k, v in obj.items():
+            kl = str(k).lower()
+            if any(needle in kl for needle in
+                   ("token", "secret", "password", "api_key", "apikey",
+                    "auth", "credential", "private_key", "client_secret")):
+                redacted[k] = "[REDACTED]" if v else None
+            else:
+                redacted[k] = _redact_secrets(v)
+        return redacted
+    if isinstance(obj, list):
+        return [_redact_secrets(x) for x in obj]
+    return obj
+
+
+def _probe_only(name, brand):
+    """Make a credential-safe reachability + auth probe of a single connector.
+    Returns one of: OK / UNAUTHENTICATED / RATE_LIMITED / NOT_FOUND / NETWORK_ERROR /
+    NOT_CONFIGURED, NEVER the credential value itself. Used by /validate-profile.
+
+    Implementation note: this delegates to check_connector(name) for the actual
+    call, then re-shapes the response to a credential-safe summary suitable for
+    logging."""
+    raw = check_connector(name)
+    if isinstance(raw, dict) and "error" in raw and "Unknown connector" in str(raw["error"]):
+        return {"connector": name, "status": "UNKNOWN_CONNECTOR", "brand": brand}
+    # Map the underlying check result to one of the safe statuses
+    status = "OK"
+    if isinstance(raw, dict):
+        if raw.get("error"):
+            err = str(raw["error"]).lower()
+            if "401" in err or "unauthor" in err or "invalid" in err and "key" in err:
+                status = "UNAUTHENTICATED"
+            elif "404" in err or "not found" in err:
+                status = "NOT_FOUND"
+            elif "429" in err or "rate" in err:
+                status = "RATE_LIMITED"
+            elif "connection" in err or "timeout" in err or "network" in err or "dns" in err:
+                status = "NETWORK_ERROR"
+            elif "not configured" in err or "missing" in err.lower():
+                status = "NOT_CONFIGURED"
+            else:
+                status = "ERROR"
+        elif raw.get("status") in {"OK", "ok", "ready", "configured", "healthy"}:
+            status = "OK"
+        elif raw.get("status"):
+            status = str(raw["status"]).upper()
+    return {
+        "connector": name,
+        "status": status,
+        "brand": brand,
+        "credential_value_in_response": False,
+        "note": "Probe-only check — credential values are never echoed in output.",
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description="Connector status and discovery")
     parser.add_argument("--action", required=True,
                         choices=["status", "list-available", "check", "setup-guide"])
     parser.add_argument("--name", help="Connector name (for check/setup-guide)")
     parser.add_argument("name_positional", nargs="?", help="Connector name (positional)")
+    # v3.7.6 — validate-profile skill support
+    parser.add_argument("--brand", help="Brand slug (context for probes; never written to output unless --probe-only)")
+    parser.add_argument("--connectors", help="Comma-separated connector subset (with --probe-only)")
+    parser.add_argument("--probe-only", action="store_true",
+                        help="Credential-safe reachability probe for /validate-profile. Returns status (OK / UNAUTHENTICATED / RATE_LIMITED / NOT_FOUND / NETWORK_ERROR / NOT_CONFIGURED) per connector without echoing credential values.")
+    parser.add_argument("--no-secrets", action="store_true",
+                        help="Walk the response object and redact any key that looks like a credential before printing. Use with any --action when the output may be logged or shared.")
     args = parser.parse_args()
 
     name = args.name or args.name_positional
 
-    if args.action == "status":
+    # v3.7.6 — credential-safe multi-connector probe path used by /validate-profile
+    if args.probe_only:
+        if args.connectors:
+            connector_names = [c.strip() for c in args.connectors.split(",") if c.strip()]
+        elif name:
+            connector_names = [name]
+        else:
+            connector_names = []
+        if not connector_names:
+            result = {"error": "--probe-only requires --connectors <comma-list> or --name <single>"}
+        else:
+            probes = [_probe_only(n, args.brand) for n in connector_names]
+            result = {"probe_mode": True, "brand": args.brand, "results": probes,
+                      "summary": {s: sum(1 for p in probes if p.get("status") == s)
+                                  for s in {p.get("status") for p in probes}}}
+    elif args.action == "status":
         result = status_dashboard()
     elif args.action == "list-available":
         result = list_available()
@@ -866,6 +950,9 @@ def main():
             result = setup_guide(name)
     else:
         result = {"error": f"Unknown action: {args.action}"}
+
+    if args.no_secrets:
+        result = _redact_secrets(result)
 
     print(json.dumps(result, indent=2))
 

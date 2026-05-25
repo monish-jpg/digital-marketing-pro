@@ -385,17 +385,50 @@ def get_crm_status(slug):
     }
 
 
+def _stub_action(action: str, brand: str, plan_path: str | None = None) -> dict:
+    """Structured contract for actions the campaign-audit and launch-campaign
+    skills depend on. See performance-monitor.py for the full rationale."""
+    schemas = {
+        "audit-workflows": {
+            "purpose": "List every active workflow / automation / sequence in the configured CRM, report orphaned workflows (no recent execution), broken connector links, duplicate-contact rate.",
+            "data_source": "CRM Workflows API (HubSpot / Salesforce / Pipedrive / Zoho) via the brand's configured connector.",
+            "manual_fallback": "Open the CRM > Workflows / Automation tab. Sort by last-execution-date. Anything > 60 days inactive is orphaned. Export the list to ~/.claude-marketing/{brand}/audits/crm-workflows.json.",
+            "fields_returned_when_implemented": ["workflow_id", "name", "trigger", "last_execution_at", "execution_count_30d", "broken_links", "owner"],
+        },
+        "create-campaign": {
+            "purpose": "Create a Campaign object in the configured CRM populated from the approved plan JSON (campaign_name, objective, start_date, end_date, owner, attribution_model). Returns the CRM's campaign_id so the launch orchestrator can wire downstream attribution.",
+            "data_source": "CRM Campaigns API (HubSpot Campaigns / Salesforce Campaign object / Pipedrive Insights / Zoho Campaigns).",
+            "manual_fallback": "Open the CRM > Campaigns > New Campaign. Copy fields from the plan JSON. Record the new Campaign ID back in the plan JSON.",
+            "fields_returned_when_implemented": ["crm_platform", "campaign_id", "campaign_name", "owner", "created_at"],
+            "plan_path_received": plan_path,
+        },
+    }
+    if action not in schemas:
+        return {"error": f"unknown stub action: {action}"}
+    return {
+        "status": "stub_implementation",
+        "action": action,
+        "brand": brand,
+        "version": "3.7.6",
+        "note": "Part of the campaign-audit / launch-campaign skill surface (v3.7.5). Action contract is stable; live implementation is staged across releases. Use manual_fallback or wire the listed CRM connector.",
+        **schemas[action],
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description="CRM data sync management for Digital Marketing Pro")
     parser.add_argument("--brand", required=True, help="Brand slug")
     parser.add_argument("--action", required=True,
                         choices=["prepare-contact", "prepare-deal", "check-dedup",
-                                 "log-synced", "get-sync-history", "get-crm-status"],
+                                 "log-synced", "get-sync-history", "get-crm-status",
+                                 # v3.7.6 — campaign-audit / launch-campaign skill surface
+                                 "audit-workflows", "create-campaign"],
                         help="Action to perform")
     parser.add_argument("--data", help="JSON data (for prepare/check/log actions)")
     parser.add_argument("--platform", help="Filter sync history by CRM platform")
     parser.add_argument("--type", dest="record_type", help="Filter by record type")
     parser.add_argument("--limit", type=int, default=50, help="Max items to return")
+    parser.add_argument("--plan", help="Path to approved campaign plan JSON (for create-campaign)")
     args = parser.parse_args()
 
     if args.action in ("prepare-contact", "prepare-deal", "check-dedup", "log-synced"):
@@ -422,6 +455,9 @@ def main():
 
     elif args.action == "get-crm-status":
         result = get_crm_status(args.brand)
+
+    elif args.action in {"audit-workflows", "create-campaign"}:
+        result = _stub_action(args.action, args.brand, plan_path=args.plan)
 
     json.dump(result, sys.stdout, indent=2)
     print()
