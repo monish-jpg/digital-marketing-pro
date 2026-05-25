@@ -243,6 +243,25 @@ For the full ~68-server stdio configuration (Google Ads, Meta Ads, GA4, GSC, Mix
 
 ---
 
+## Model curator — no hardcoded model ids (v3.7.4+)
+
+Frontier models change every ~6 weeks. Hardcoding `claude-sonnet-4-5-20250929` or `gemini-2.0-flash` across dozens of scripts means a provider deprecation silently 404s, the user blames the plugin, and the maintainer has to grep three repos. So we don't hardcode.
+
+- **`scripts/model_registry.json`** — single source of truth for every model id used by the plugin, with vendor, tier, modality, status, and `replacement_id` for deprecated entries.
+- **`scripts/resolve_model.py`** — Python module + CLI. Resolves human aliases (`latest-balanced-anthropic`, `latest-fast-anthropic`, `latest-text-openai`, `latest-vision-google`, `latest-image-google`, `latest-video-google`) to concrete ids at call time. Deprecated ids passed via `--model` auto-fall-forward to their replacement (with a stderr warning).
+- **`scripts/refresh_models.py`** — polls Anthropic / OpenAI / Google list endpoints with your API keys and reports drift versus the registry (NEW models in the provider catalog, STALE models in the registry).
+
+Every script that calls a provider model now accepts `--model` (or `--openai-model` / `--anthropic-model` for `scripts/ai-visibility-checker.py`) and the value is validated against the registry. See [`docs/MODEL-CURATOR.md`](docs/MODEL-CURATOR.md) for the full alias map, curation policy, and worked examples.
+
+```bash
+python scripts/resolve_model.py --alias latest-balanced-anthropic    # -> claude-sonnet-4-6
+python scripts/resolve_model.py --check gemini-2.0-flash              # -> deprecated (use gemini-3.5-flash)
+python scripts/resolve_model.py --list --vendor anthropic --status current
+python scripts/refresh_models.py                                      # drift report (needs API keys)
+```
+
+---
+
 ## Compliance — 16 jurisdictions, EU AI Act Article 50 ready
 
 DM Pro carries jurisdiction-specific compliance rules that auto-apply when a brand declares its target markets. Coverage:
