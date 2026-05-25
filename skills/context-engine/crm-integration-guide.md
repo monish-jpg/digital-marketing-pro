@@ -88,7 +88,7 @@ The most common pattern. The plugin is the source of truth for marketing data an
 |---|---|---|
 | Lead import from campaign | Campaign execution or form submission | Create Lead/Contact |
 | Deal update from pipeline analysis | Pipeline review or scoring change | Update Opportunity/Deal |
-| Campaign record creation | Campaign launch via `/digital-marketing-pro:launch-ad-campaign` | Create Campaign object |
+| Campaign record creation | Campaign launch via `/digital-marketing-pro:launch-campaign` (or `/digital-marketing-pro:launch-ad-campaign` for paid-ads only) | Create Campaign object |
 | Activity logging | Email send, ad click, webinar registration | Create Activity/Task |
 
 ```bash

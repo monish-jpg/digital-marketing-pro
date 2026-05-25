@@ -17,7 +17,7 @@ Follow these steps sequentially when onboarding a new client. Estimated total on
 | 5 | **Assign SOPs from library** | `/digital-marketing-pro:sop-library` | 5 min | Select applicable SOP templates per client's service package (content, paid media, reporting, CRM, SEO). Customize cadences. |
 | 6 | **Assign team members** | `/digital-marketing-pro:team-assign` | 5 min | Map roles: account manager, strategist, content creator, media buyer, analyst. Set notification preferences. |
 | 7 | **Set up reporting cadence** | Manual configuration | 5 min | Configure: weekly pulse (auto), monthly review (semi-auto), QBR (manual). Set delivery channels (Slack, email, Google Slides). |
-| 8 | **Run first campaign audit** | `/digital-marketing-pro:competitor-analysis` then `/digital-marketing-pro:performance-check` | 10-15 min | Audit existing campaigns across all active channels: pull competitor-context for benchmarking, then current performance metrics. Document current state, quick wins, and red flags in `output/{brand}/campaign-audit-{date}.md`. |
+| 8 | **Run first campaign audit** | `/digital-marketing-pro:campaign-audit` | 15-25 min | Cross-channel current-state inventory and triage (paid, organic, email, SEO, AEO, CRM, web analytics, compliance posture). Produces a healthy / quick-win / strategic-gap / 🔴 red-flag scoring per item plus an executive summary, saved to `~/Documents/DigitalMarketingPro/{brand}/audits/`. Run this BEFORE proposing anything new for the brand. |
 | 9 | **Create baseline metrics snapshot** | `/digital-marketing-pro:performance-check` | 5-10 min | Pull current metrics from all connected platforms. Store as the baseline for future comparison. Record in `performance/baseline-{date}.json`. |
 
 ### Post-Onboarding Verification Checklist
@@ -193,7 +193,7 @@ Every credential operation is logged:
 ### Best Practices
 
 - Use client-prefixed env var names when managing multiple profiles in the same environment: `ACME_SENDGRID_API_KEY`, `BETA_SENDGRID_API_KEY`.
-- After every credential change, re-run `/digital-marketing-pro:check` (the pre-publish gate) and `/digital-marketing-pro:status` to confirm connectivity to all integrations without exposing credential values in logs.
+- After every credential change, run `/digital-marketing-pro:validate-profile --brand {brand}` — it probes every connector referenced by the profile and reports pass / fail / error-class without ever printing credential values. Add `--connectors slack,hubspot` to probe only the rotated subset.
 - Rotate API keys quarterly. Log rotation dates in the credential profile metadata.
 - Never store credentials in the plugin directory, brand profile JSON, or any file under version control.
 - If a credential is suspected compromised: immediately rotate the key on the platform, update the profile, re-validate, and log the incident.

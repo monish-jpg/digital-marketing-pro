@@ -4,6 +4,30 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.7.5] — 2026-05-25
+
+**Three new skills shipped to close gaps from the v3.7.4 audit.** No breaking changes.
+
+### Added — 3 new skills (`skills/`)
+
+- **`validate-profile/SKILL.md`** — `/digital-marketing-pro:validate-profile`. The canonical "is this brand ready to ship work?" gate. Validates the brand profile is complete enough for production AND that every connector / MCP / credential it references is actually reachable — without ever printing credential values. Ten validation dimensions: required identity, voice profile, audience profile, guardrails (upgraded to BLOCKER for regulated industries), compliance-jurisdiction cross-check against `compliance-rules.md`, connector reachability (`--no-secrets` probes), MCP server health, credential storage, output-path writeability, model-curator currency. Emits both a human report and a machine-readable JSON summary. **Pre-requisite for `/engagement`, `/campaign-plan`, `/launch-campaign`.**
+- **`campaign-audit/SKILL.md`** — `/digital-marketing-pro:campaign-audit`. Cross-channel current-state audit covering paid search, paid social, retail media, email, organic social, content/SEO, AEO/GEO across the 6 AI surfaces (Google AI Mode + Perplexity + ChatGPT search + Claude search + Copilot + Gemini App), CRM/automation, web analytics, influencer/PR, compliance posture. Scores every item across four tiers (🟢 healthy / 🟡 quick win / 🟠 strategic gap / 🔴 red flag) with a configurable spend threshold for waste detection. Produces a single audit document with executive summary, per-channel inventory, cross-channel observations, compliance posture, AEO/GEO snapshot, quick-wins backlog, strategic gaps, red flags, and channels-not-running-that-should-be. Dual-copy save (internal tracking + user-visible `~/Documents/DigitalMarketingPro/{brand}/audits/`) mirroring the ContentForge v3.12.3 pattern.
+- **`launch-campaign/SKILL.md`** — `/digital-marketing-pro:launch-campaign`. Multi-channel launch orchestrator — broader than `launch-ad-campaign` (paid-ads only). Takes an approved campaign plan and walks the full 14-step activation in dependency order: CRM Campaign object → landing-page verify → email automation enable → paid search → paid social → retail media → organic social → influencer notification → PR send → internal kickoff → UTM tracking → attribution confirmation → day-1 watchdog → launch record. Refuses to start unless every prerequisite passes (`validate-profile` clean, plan status `approved`, assets reachable, conversion tracking live, EU AI Act Article 50 disclosure verified for EU launches). Dry-run preview mandatory before execution; per-step checkpoint after each action; no auto-retry on failure (day-1 retries create duplicate campaigns / doubled emails); dual-copy launch record.
+
+### Changed — context-engine guides reverted to real skill refs
+
+- **`skills/context-engine/agency-operations-guide.md`** step 8 now points at `/digital-marketing-pro:campaign-audit` directly (v3.7.4 used a workaround chain of `competitor-analysis` + `performance-check` because the skill didn't exist yet).
+- **`skills/context-engine/agency-operations-guide.md`** credential-rotation guidance now points at `/digital-marketing-pro:validate-profile --connectors ...` instead of the v3.7.4 workaround of `check` + `status`.
+- **`skills/context-engine/crm-integration-guide.md`** Campaign-object creation now references `/digital-marketing-pro:launch-campaign` (with `launch-ad-campaign` cited as the paid-ads-only subset).
+
+### Changed — counts
+
+- `150 skills` → `153 skills` across `README.md` hero + Architecture section + `docs/architecture.md` + `docs/getting-started.md` + `docs/claude-interfaces.md` + `.claude-plugin/plugin.json`. Reality matches: `ls skills/ | wc -l` returns 153.
+
+### Quality
+
+- Per-file content sweep (`_shared/sweep_skill_quality.py`) — **188 SKILL.md + 43 agents + 69 reference docs** clean. Zero issues across frontmatter, slash refs, deprecated model ids, dead MCP URLs, hardcoded paths.
+
 ## [3.7.4] — 2026-05-25
 
 **Model curator + correctness sweep.** Adds the model-selection infrastructure the suite was missing, plus a 13-finding correctness pass across scripts, skills, agents, and reference docs.

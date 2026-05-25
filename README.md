@@ -1,10 +1,10 @@
 # Digital Marketing Pro
 
-**The most comprehensive open-source AI marketing plugin** — 150 skills, 25 specialist agents, a canonical 12-Part Strategy Flow, and EU AI Act Article 50 readiness. Installs on **5 coding-agent surfaces** from a single repo: Claude Code, Claude Cowork, OpenAI Codex, Cursor, GitHub Copilot CLI, and Google Antigravity 2.0 (experimental).
+**The most comprehensive open-source AI marketing plugin** — 153 skills, 25 specialist agents, a canonical 12-Part Strategy Flow, and EU AI Act Article 50 readiness. Installs on **5 coding-agent surfaces** from a single repo: Claude Code, Claude Cowork, OpenAI Codex, Cursor, GitHub Copilot CLI, and Google Antigravity 2.0 (experimental).
 
 Built for digital marketing agencies, in-house teams running 50–200 brands, and consultancies that need consistent depth and auditable handoffs. Created by [Indranil Banerjee](https://indranil.in).
 
-[![Version](https://img.shields.io/badge/version-3.7.4-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.7.5-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=yellow)](https://github.com/indranilbanerjee/digital-marketing-pro/stargazers)
 [![Forks](https://img.shields.io/github/forks/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=blue)](https://github.com/indranilbanerjee/digital-marketing-pro/network/members)
@@ -28,7 +28,7 @@ Built for digital marketing agencies, in-house teams running 50–200 brands, an
 
 Most AI marketing tools generate isolated outputs — a campaign brief here, an email there. No canonical sequence, no shared state, no enforced structure. Result: inconsistent depth, missed dependencies, outputs that don't compound.
 
-**DM Pro runs every brand through the same 12 parts, producing the same files in the same order, with explicit dependency rules between them.** That's the whole product. Everything else — the 150 skills, 25 agents, 5-platform install, May-2026 compliance updates — exists to make that 12-Part Flow ship cleanly for real agencies on real client work.
+**DM Pro runs every brand through the same 12 parts, producing the same files in the same order, with explicit dependency rules between them.** That's the whole product. Everything else — the 153 skills, 25 agents, 5-platform install, May-2026 compliance updates — exists to make that 12-Part Flow ship cleanly for real agencies on real client work.
 
 | What this gives you that ad-hoc prompts don't | Why it matters |
 |---|---|
@@ -206,7 +206,7 @@ Marketing Strategist · Brand Guardian · Content Creator · Email Specialist ·
 
 Each agent has scoped responsibilities, explicit input/output contracts, and reads the Living Project Instruction File before acting.
 
-### 150 skills
+### 153 skills
 Skills are invoked by description match through the Skill tool, addressable as `/digital-marketing-pro:<skill-name>` from chat. Coverage: brand setup, content production (blog / ad / email / social / landing / video / PR / case study), SEO / AEO / GEO audits (6 platforms incl. Google AI Mode), competitor monitoring, campaign planning, channel-specific strategies, attribution, churn risk, lifecycle journeys, intelligence reports, eval framework, knowledge management, multi-brand operations, regional configuration, C2PA content provenance.
 
 ### 10 top-level commands
@@ -230,7 +230,7 @@ Plugin works fully without Python — all marketing knowledge, frameworks, agent
 
 | Mode | Size | Adds |
 |---|---|---|
-| **Knowledge-only** (default) | 0 MB | All 150 skills + 25 agents + 167 reference files |
+| **Knowledge-only** (default) | 0 MB | All 153 skills + 25 agents + 167 reference files |
 | **Lite** (`pip install nltk textstat`) | ~15 MB | Brand-voice scoring, content quality scoring, readability analysis |
 | **Full** (`pip install -r scripts/requirements.txt`) | ~50 MB | Competitor scraping, QR generation, AI visibility API checking, GEO tracking, C2PA signing |
 
@@ -445,7 +445,7 @@ MIT — see [LICENSE](LICENSE). Free to use commercially.
 
 ## Release notes
 
-**v3.7.1 (2026-05-24)** — Polish + discoverability pass. README rewritten for organic GitHub/AI-engine discoverability with social-proof badges, install matrix at the top, outcome-focused "What you get in 60 minutes" section, AEO/GEO/compliance keyword density, maintainer block with [indranil.in](https://indranil.in), and ⭐ CTAs. Stale asset counts swept across `docs/claude-interfaces.md` (13→25 agents, 117→167 reference files, 34→69 scripts, 42→10 commands), `docs/architecture.md` (149→150 skills), `docs/getting-started.md` (149→150 skills), `docs/competitor-intelligence.md` (117→167 reference files), `docs/cross-platform-install.md` (71→69 scripts), and `skills/context-engine/memory-architecture.md` (13→25 agents). plugin.json description corrected to 69 scripts (was 71). No functional changes; no breaking changes.
+**v3.7.1 (2026-05-24)** — Polish + discoverability pass. README rewritten for organic GitHub/AI-engine discoverability with social-proof badges, install matrix at the top, outcome-focused "What you get in 60 minutes" section, AEO/GEO/compliance keyword density, maintainer block with [indranil.in](https://indranil.in), and ⭐ CTAs. Stale asset counts swept across `docs/claude-interfaces.md` (13→25 agents, 117→167 reference files, 34→69 scripts, 42→10 commands), `docs/architecture.md` (149→153 skills), `docs/getting-started.md` (149→153 skills), `docs/competitor-intelligence.md` (117→167 reference files), `docs/cross-platform-install.md` (71→69 scripts), and `skills/context-engine/memory-architecture.md` (13→25 agents). plugin.json description corrected to 69 scripts (was 71). No functional changes; no breaking changes.
 
 **v3.7.0 (2026-05-24)** — Install-surface expansion to 5 platforms. GitHub Copilot CLI compatibility (no new manifest — auto-discovers `.claude-plugin/plugin.json`) + experimental `.antigravity/plugin.json` for Google Antigravity 2.0 CLI (launched 19 May 2026 replacing Gemini CLI). Cross-platform install guide expanded to all 5 platforms.
 
