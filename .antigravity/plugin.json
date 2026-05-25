@@ -1,7 +1,7 @@
 {
   "_status": "experimental \u2014 Antigravity 2.0 (launched 19 May 2026) has not yet published an open plugin manifest spec. This file mirrors the Gemini CLI Extensions format that Antigravity's `agy plugin import gemini` converter accepts. If you're on Antigravity CLI, the most reliable install path today is to first add the plugin as a Gemini CLI extension (or use the `agy plugin import` path); when Antigravity publishes a v2-native plugin manifest spec, this file will be updated to match. See docs/cross-platform-install.md for the current install workflow.",
   "name": "digital-marketing-pro",
-  "version": "3.7.8",
+  "version": "3.7.9",
   "description": "v3.7.5 ships 3 new skills closing the v3.7.4 audit gaps: /validate-profile (brand profile + connector health check, no credential exposure), /campaign-audit (cross-channel current-state inventory + 4-tier triage), /launch-campaign (multi-channel 14-step launch orchestrator with checkpointed activation). End-to-end digital marketing engagement methodology \u2014 150 portable Agent Skills, 12-Part Strategy Flow, EU AI Act Article 50 compliance, 6-platform AEO/GEO including Google AI Mode. Shared model curator (scripts/model_registry.json + resolve_model.py + refresh_models.py): single source of truth for every AI model id used by the plugin, with deprecated-id auto-fall-forward and a refresh_models.py drift report against live provider catalogs (Anthropic / OpenAI / Google). See docs/MODEL-CURATOR.md.",
   "author": {
     "name": "Indranil Banerjee",
