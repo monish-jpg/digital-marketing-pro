@@ -4,7 +4,7 @@
 
 Built for digital marketing agencies, in-house teams running 50–200 brands, and consultancies that need consistent depth and auditable handoffs. Created by [Indranil Banerjee](https://indranil.in).
 
-[![Version](https://img.shields.io/badge/version-3.7.7-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.7.8-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=yellow)](https://github.com/indranilbanerjee/digital-marketing-pro/stargazers)
 [![Forks](https://img.shields.io/github/forks/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=blue)](https://github.com/indranilbanerjee/digital-marketing-pro/network/members)
@@ -392,6 +392,13 @@ No — independent open-source plugin built by [Indranil Banerjee](https://indra
 ---
 
 ## Updating
+
+> **If you see "/plugin isn't available in this environment"** — you're in **claude.ai web chat**, which does NOT support `/plugin` slash commands. The plugin IS installed (your `dm:`-family skills work); it just can't be managed via slash command in web chat. Fix:
+>
+> 1. **Use the UI** — click the **Plugins** button at the bottom of the chat → **Manage plugins** → find Digital Marketing Pro → look for Update / Refresh / Remove. If no Update button, **Remove** then **Add plugin** → re-install from `indranilbanerjee/neels-plugins`. The re-pull fetches the latest version.
+> 2. **Or switch to Claude Code CLI / Desktop / Cowork** for plugin management — `npm install -g @anthropic-ai/claude-code` or download from [claude.com/code](https://claude.com/code). The plugin runs identically across every platform; you're choosing where to type management commands.
+>
+> Once you're on Claude Code CLI / Desktop / Cowork, the rest of this section applies.
 
 ```
 /plugin marketplace update neels-plugins

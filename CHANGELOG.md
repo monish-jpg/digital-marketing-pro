@@ -4,6 +4,14 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.7.8] — 2026-05-25
+
+**README fix for the "claude.ai web" gotcha.** User-team report from a CF v3.12.2-cycle WhatsApp screenshot: `/plugin update ...` produces `"/plugin isn't available in this environment"` when used in claude.ai web chat. The plugin is installed (skills show up correctly), but the `/plugin` slash command is not supported in claude.ai web — only in Claude Code CLI / Desktop / Cowork. Same gotcha applies to DMP and to the marketplace.
+
+### Changed
+
+- **`README.md`** — added a prominent "If you see /plugin isn't available in this environment" callout at the top of the Updating section. Recovery paths: (1) **Plugins** UI button at the bottom of the web chat → **Manage plugins** → Remove + Add for a re-pull, OR (2) switch to Claude Code CLI / Desktop / Cowork for the management commands.
+
 ## [3.7.7] — 2026-05-25
 
 **Direct fix for "dm pro also taking too long to process" (user-team feedback from the v3.12.2-cycle WhatsApp transcript) + an audit pass that caught 4 additional broken refs missed by v3.7.6.**
