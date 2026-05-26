@@ -4,6 +4,31 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.8.1] — 2026-05-27 (hotfix)
+
+**Cowork install hazard fix: empty `.mcp.json` so plugin enable doesn't cascade 14 OAuth prompts.**
+
+Live Cowork readiness testing surfaced two bugs the v3.8.0 release didn't catch (because the test was static, not against a Cowork install path):
+
+1. **`.mcp.json` was populated with 14 auto-connecting HTTP MCPs** (slack, canva, figma, hubspot, amplitude, notion, ahrefs, similarweb, klaviyo, google-calendar, gmail, stripe, asana, webflow). Cowork would auto-connect all 14 on plugin enable → cascade of OAuth prompts (most for services the user doesn't use) → broken UX. The plugin description has claimed "zero auto-connecting MCPs (opt-in via .mcp.json.connectors-reference)" since v3.1 (2026-05-03) — the live `.mcp.json` had silently drifted. This release matches reality to the documentation.
+2. **Two of those URLs were stale** (`gmail.mcp.claude.com`, `gcal.mcp.claude.com`) — both retired May 2026 and now return HTTP 404. Even if a user authorized those connectors, they would fail to connect.
+
+### Fixed
+
+- `.mcp.json` is now `{"_readme": "...", "mcpServers": {}}` matching the documented zero-auto-connect policy (same pattern ContentForge has used since v3.9.0). The full 37-entry catalog with corrected Gmail/Calendar URLs is already in `.mcp.json.connectors-reference` (unchanged).
+- Version bumped to 3.8.1 across all 5 manifests (`.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/`, `.github/plugin/`, `gemini-extension.json`).
+
+### Not changed
+
+- Zero changes to skills, agents, commands, scripts, hooks, the 37-entry connectors-reference, or any feature behavior. This is a one-file fix to one JSON file that was silently populated.
+- v3.8.0's 5-surface native manifests (Codex / Cursor / Copilot CLI / Antigravity) all unchanged.
+
+### Verified
+
+- Post-fix `.mcp.json` is `{"mcpServers": {}}` — zero auto-connecting MCPs (Cowork-safe install).
+- 14-entry catalog (with corrected URLs) intact in `.mcp.json.connectors-reference`.
+- All other manifests still parse cleanly.
+
 ## [3.8.0] — 2026-05-27
 
 **Real native manifests for 5 verified agent surfaces.** Ships verified-real manifests for OpenAI Codex, Google Antigravity 2.0, Cursor 2.5+, and GitHub Copilot CLI — replacing the v3.6/v3.7 era invented manifests that were correctly removed in v3.7.13.
