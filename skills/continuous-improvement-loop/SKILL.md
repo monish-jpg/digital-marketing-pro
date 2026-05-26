@@ -18,6 +18,10 @@ view-preference: both
 
 Part 12 is the continuous improvement loop that runs alongside live operations from go-live onwards. It aggregates market signals and operating signals into recommendations that feed back into the brand's product, offering, and service decisions.
 
+## Context efficiency
+
+Heavy skill. **Grep before Read** any referenced file, then `Read` only matched ranges with `offset` + `limit`. List `${CLAUDE_PLUGIN_DATA}/<brand>/` before opening files. On re-invocation mid-session, skip files already in context.
+
 This is **not a one-time activity**. It runs perpetually once Part 11 is complete, with formal output at each Quarterly Business Review (QBR) and ad-hoc output when significant signals warrant.
 
 ## Why this exists

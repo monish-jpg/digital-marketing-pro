@@ -7,6 +7,10 @@ description: "Build local SEO strategy. Use when: optimizing Google Business Pro
 
 ## When to Use This Skill
 
+## Context efficiency
+
+Heavy skill. **Grep before Read** any referenced file, then `Read` only matched ranges with `offset` + `limit`. List `${CLAUDE_PLUGIN_DATA}/<brand>/` before opening files. On re-invocation mid-session, skip files already in context.
+
 Activate this module when the user's request involves any of the following:
 
 - **Google Business Profile Optimization**: Setting up, optimizing, or auditing a Google Business Profile (categories, attributes, photos, posts, Q&A, products, services)

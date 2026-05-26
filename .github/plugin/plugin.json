@@ -1,7 +1,7 @@
 {
   "name": "digital-marketing-pro",
-  "description": "The most comprehensive open-source AI marketing plugin — 153 skills, 25 specialist agents, 12-Part Strategy Flow, EU AI Act Article 50 ready. Built for marketing agencies, in-house teams running 50–200 brands, and consultancies. Installable in GitHub Copilot CLI via `copilot plugin install indranilbanerjee/digital-marketing-pro`.",
-  "version": "3.8.1",
+  "description": "Open-source AI marketing plugin for agencies — 153 skills, 25 agents, 12-Part Strategy Flow, EU AI Act ready. Runs on Claude Code, Codex, Cursor, Antigravity.",
+  "version": "3.9.0",
   "author": {
     "name": "Indranil Banerjee",
     "email": "neel@neelverse.com",

@@ -18,6 +18,10 @@ view-preference: v1-only
 
 This skill produces the Part 5 deliverable: the Client Validation Document. It is the only point in the engagement where unbiased v1 findings are formally presented to the client for accept/reject/edit decisions.
 
+## Context efficiency
+
+Heavy skill. **Grep before Read** any referenced file, then `Read` only matched ranges with `offset` + `limit`. List `${CLAUDE_PLUGIN_DATA}/<brand>/` before opening files. On re-invocation mid-session, skip files already in context.
+
 This is the **one true stop** in the 12-Part flow. Nothing in Parts 6+ proceeds until this is signed off.
 
 ## What this document is

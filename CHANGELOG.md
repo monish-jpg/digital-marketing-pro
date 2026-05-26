@@ -4,6 +4,35 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.9.0] — 2026-05-27
+
+**Distribution & context-efficiency polish — discoverability + leaner skill loads.**
+
+### Changed
+
+- **Plugin descriptions trimmed to ~150 chars across all 5 manifests** (`.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/`, `.github/plugin/`, `gemini-extension.json`). The install-UI shown across Claude Code's Plugins panel, Codex marketplace browser, Cursor's `/add-plugin` listing, Copilot CLI, and Antigravity now reads as a single clear sentence rather than a multi-paragraph spec dump. Long-form positioning lives in README + `interface.longDescription` (Codex only). Inspired by the Understand-Anything distribution pattern (35k★ Mar–May 2026).
+- **README hero rewritten pain-first.** Opens with the real scenario the plugin solves ("Your agency just signed a 50-brand client. The previous agency left no playbook…") then states what the plugin does. The feature/spec sections immediately follow.
+- **GitHub repo topics curated to the 20-max with platform-skill topics added**: `cursor-plugin`, `copilot-cli-plugin`, `gemini-cli-extension`, `google-antigravity` joined `claude-code` / `claude-plugin` / `openai-codex` / `agent-skills` for cross-platform discoverability via GitHub's topic browser.
+- **Context-efficiency callout added to the 10 heaviest skills** (`four-core-documents`, `engagement-workflow`, `client-validation-document`, `continuous-improvement-loop`, `check`, `campaign-audit`, `growth-plan`, `local-seo`, `status`, `technical-seo`). Tells the agent to grep-before-read referenced files and use `offset` + `limit` on partial reads of brand state under `${CLAUDE_PLUGIN_DATA}/<brand>/` — preserves context window for the actual work.
+
+### Unchanged
+
+- 153 skills (frontmatter intact, names match folders, all pass Codex `[a-z0-9-]+` regex, all descriptions ≤ 1024 chars)
+- 25 specialist agents
+- 14 commands
+- 77 Python scripts (`connector_resolver.py`, `connector_executor.py`, shared model curator, etc.)
+- All v3.8.0 native platform manifests untouched aside from version bump + description trim
+- Zero global hooks, zero auto-connecting MCPs (`.mcp.json` remains gitignored — never published)
+
+### How to update
+
+```bash
+/plugin update digital-marketing-pro@neels-plugins
+/reload-plugins
+```
+
+If on Cowork / claude.ai / Desktop: Plugins panel → Update.
+
 ## [3.8.1] — 2026-05-27 (version bump; published state unchanged)
 
 **Correction (also 2026-05-27)**: the original v3.8.1 release notes claimed this fixed a Cowork install hazard from a populated `.mcp.json`. That was wrong. Re-checking after the release: **`.mcp.json` is gitignored in this repo** (see `.gitignore`) — it has never been committed and is not part of the published install bundle. My local copy had drifted to a populated state, but Cowork / Claude Code installs only see the published files, not my local dev artifacts. **The published v3.8.0 install state was already Cowork-safe** (plugin manifest references `.mcp.json` but the file is absent from the published bundle, which Claude Code/Cowork treats as "no auto-connecting MCPs"). v3.8.1 therefore ships zero functional change for installed users. The version bump remains so the suite-wide marketplace v3.7.1 + SF v1.9.1 (which DID add real new files) ship as a coordinated patch.

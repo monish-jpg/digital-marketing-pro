@@ -1,7 +1,7 @@
 {
   "name": "digital-marketing-pro",
-  "version": "3.8.1",
-  "description": "The most comprehensive open-source AI marketing plugin — 153 skills, 25 specialist agents, 12-Part Strategy Flow producing the Four Core Documents (61 explicit steps), Two-Views Model, Decision Matrix, Living Project Instruction File. Built for marketing agencies, in-house teams running 50–200 brands, and consultancies. EU AI Act Article 50 ready (C2PA content provenance signing). 6-platform AEO/GEO audit including Google AI Mode. 16 privacy-law jurisdictions. 14 HTTP MCP connectors (opt-in via .mcp.json.connectors-reference). 77 Python scripts. v3.8.0 (2026-05-27): native OpenAI Codex manifest with real published schema (replaces the invented schema correctly removed in v3.7.13). Same skills/ directory shared with .claude-plugin/ and gemini-extension.json (Agent Skills open standard).",
+  "version": "3.9.0",
+  "description": "Open-source AI marketing plugin for agencies — 153 skills, 25 agents, 12-Part Strategy Flow, EU AI Act ready. Runs on Claude Code, Codex, Cursor, Antigravity.",
   "author": {
     "name": "Indranil Banerjee",
     "url": "https://github.com/indranilbanerjee"
@@ -26,8 +26,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Digital Marketing Pro",
-    "shortDescription": "End-to-end AI marketing engagement methodology — 12-Part Strategy Flow, EU AI Act Article 50 ready, 6-platform AEO/GEO audit.",
-    "longDescription": "Digital Marketing Pro brings a canonical 12-Part Strategy Flow to OpenAI Codex via 153 portable Agent Skills. Run a full brand engagement (Stone-vs-Opinion intake → External Research → Four Core Documents → Competitive/Customer/Market analysis → Client Validation → Selective v2 re-runs → Preparation → Growth Plan + Yearly Planner → Channel fan-out → Execution artefacts → Creative briefs → Continuous improvement). Skills are platform-portable — same SKILL.md format used by Claude Code, Cursor, Antigravity, Copilot CLI. 14 opt-in HTTP MCP connectors (Slack, HubSpot, Notion, Stripe, Gmail, Google Calendar, Ahrefs, SimilarWeb, Klaviyo, Amplitude, Canva, Figma, Asana, Webflow) connect only when env vars are configured — zero global hooks, zero auto-connecting MCPs for clean multi-plugin coexistence. Built for marketing agencies, in-house teams running 50–200 brands, and consultancies. EU AI Act Article 50 ready (C2PA content provenance signing end-to-end tested against c2pa-python 0.32).",
+    "shortDescription": "Open-source AI marketing plugin for agencies — 153 skills, 25 agents, 12-Part Strategy Flow, EU AI Act ready. Runs on Claude Code, Codex, Cursor, Antigravity.",
+    "longDescription": "153 skills + 25 specialist agents + 12-Part Strategy Flow producing the Four Core Documents (61 explicit steps). For agencies, in-house teams running 50–200 brands, and consultancies. EU AI Act Article 50 ready (C2PA content provenance). 6-platform AEO/GEO audit including Google AI Mode. 16 privacy-law jurisdictions. 14 HTTP MCP connectors (opt-in). Single skills/ directory portable across Claude Code, Codex, Cursor, and Antigravity via the Agent Skills open standard.",
     "developerName": "Indranil Banerjee",
     "category": "Productivity",
     "capabilities": [

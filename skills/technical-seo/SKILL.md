@@ -7,6 +7,10 @@ description: "Deep technical SEO analysis. Use when: optimizing crawlability, Co
 
 ## When to Use This Skill
 
+## Context efficiency
+
+Heavy skill. **Grep before Read** any referenced file, then `Read` only matched ranges with `offset` + `limit`. List `${CLAUDE_PLUGIN_DATA}/<brand>/` before opening files. On re-invocation mid-session, skip files already in context.
+
 Activate this module when the user's request involves any of the following:
 
 - **Core Web Vitals**: Optimizing LCP, INP, or CLS scores; diagnosing page speed issues; interpreting CrUX data or PageSpeed Insights reports

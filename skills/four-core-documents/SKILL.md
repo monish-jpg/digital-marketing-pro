@@ -20,6 +20,10 @@ view-preference: v2-primary
 
 This skill produces Part 3 of the engagement methodology: the four documents that together define the brand at strategic depth. Every channel strategy, every creative brief, every piece of copy reads back to these.
 
+## Context efficiency
+
+Heavy skill. **Grep before Read** any referenced file, then `Read` only matched ranges with `offset` + `limit`. List `${CLAUDE_PLUGIN_DATA}/<brand>/` before opening files. On re-invocation mid-session, skip files already in context.
+
 **Specification:** [four-core-documents-spec.md](../context-engine/four-core-documents-spec.md) — the exact 61 steps across the four documents.
 
 **Engagement context:** [engagement-flow-methodology.md](../context-engine/engagement-flow-methodology.md) — where Part 3 fits in the 12-Part flow.

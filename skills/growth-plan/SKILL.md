@@ -18,6 +18,10 @@ view-preference: v2-primary
 
 The Growth Plan is the flagship client-facing deliverable. It synthesises every internal document produced in Parts 1–7 into a single 11-section narrative answering: *"How will we grow this business digitally, and what will it cost?"*
 
+## Context efficiency
+
+Heavy skill. **Grep before Read** any referenced file, then `Read` only matched ranges with `offset` + `limit`. List `${CLAUDE_PLUGIN_DATA}/<brand>/` before opening files. On re-invocation mid-session, skip files already in context.
+
 **Specification:** [growth-plan-template.md](../context-engine/growth-plan-template.md) — the canonical 11-section structure.
 
 ## Pre-conditions

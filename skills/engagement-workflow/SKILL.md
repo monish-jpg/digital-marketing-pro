@@ -20,6 +20,10 @@ view-preference: both
 
 This skill orchestrates the full marketing engagement using the 12-Part sequential methodology. Every brand engagement runs through the same 12 parts in sequence, producing a canonical set of files at each stage.
 
+## Context efficiency
+
+Heavy skill. **Grep before Read** any referenced file, then `Read` only matched ranges with `offset` + `limit`. List `${CLAUDE_PLUGIN_DATA}/<brand>/` before opening files. On re-invocation mid-session, skip files already in context.
+
 Read these references before producing output:
 - [engagement-flow-methodology.md](../context-engine/engagement-flow-methodology.md) — the full 12-Part flow
 - [two-views-model.md](../context-engine/two-views-model.md) — v1 / v2 architecture
