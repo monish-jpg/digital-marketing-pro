@@ -4,6 +4,23 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.7.12] — 2026-05-26
+
+**Code hygiene pass: eliminates the connector-registry duplicate + removes dead imports.** Zero behavior change — purely structural cleanup that prevents future drift between `connector-status.py` and the v3.7.10 `_connector_registry.py`.
+
+### Changed
+
+- **`scripts/connector-status.py`** refactored from 973 → 342 lines. The 600-line inline `CONNECTOR_REGISTRY` is gone; the file now imports `CONNECTOR_REGISTRY`, `_load_mcp_json`, `is_connector_configured`, and `redact_secrets` from `_connector_registry.py`. The local `_is_configured(name, info, servers)` adapter preserves the old (bool-returning) call-site signature on top of the new tuple-returning `is_connector_configured`. Adding a connector now means editing ONE file (`_connector_registry.py`) instead of two — the previous duplication was a 100% drift risk.
+- **`scripts/connector_resolver.py`** — removed 3 unused imports (`os`, `CONNECTOR_REGISTRY`, `PLUGIN_ROOT`) flagged by static analysis.
+- **`scripts/seo-executor.py`** — removed pre-existing unused `hashlib` import.
+- **`_shared/backfill_releases.py`** — removed unused `json` import.
+
+### Verified
+
+- Both DMP test harnesses still pass: `_shared/dmp_action_test_harness.py` (27/27 resolver scenarios) + `_shared/dmp_executor_test_harness.py` (17/17 mock-HTTP-server tests). Combined: 44/44, no regressions from v3.7.11.
+- All 4 `connector-status.py` actions (`status`, `list-available`, `check`, `setup-guide`) + `--probe-only` path verified working end-to-end after refactor.
+- `/digital-marketing-pro:doctor` returns the same readiness map as v3.7.11 (1 real / 8 manifest-ready / 5 stub-unconfigured = 14 total).
+
 ## [3.7.11] — 2026-05-26
 
 **Closes the resolver loop: actions can now actually fire HTTP requests from Python.** v3.7.10 introduced a resolver that returned a manifest of "what would be sent" when a connector was configured. v3.7.11 introduces `scripts/connector_executor.py` (stdlib `urllib.request`, no third-party deps) that takes that manifest and actually executes the request against the real API, with credential substitution, write-op gates, audit logging, and per-endpoint success-code handling.

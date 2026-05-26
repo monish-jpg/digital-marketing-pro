@@ -36,14 +36,11 @@ This module is imported by:
 from __future__ import annotations
 
 import json
-import os
 from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 from _connector_registry import (
-    CONNECTOR_REGISTRY,
-    PLUGIN_ROOT,
     _load_mcp_json,
     find_connector,
     is_connector_configured,
