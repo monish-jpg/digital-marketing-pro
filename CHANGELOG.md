@@ -4,6 +4,49 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.8.0] — 2026-05-27
+
+**Real native manifests for 5 verified agent surfaces.** Ships verified-real manifests for OpenAI Codex, Google Antigravity 2.0, Cursor 2.5+, and GitHub Copilot CLI — replacing the v3.6/v3.7 era invented manifests that were correctly removed in v3.7.13.
+
+### Per-surface manifest (verified-real schemas)
+
+| Surface | Manifest path | Schema source |
+|---|---|---|
+| Claude Code (CLI + IDE extensions) + Anthropic Cowork | `.claude-plugin/plugin.json` | Claude Code published format (unchanged from v3.7.13) |
+| OpenAI Codex (CLI + IDE + App) | `.codex-plugin/plugin.json` | `developers.openai.com/codex/plugins/build` |
+| Cursor 2.5+ | `.cursor-plugin/plugin.json` | `cursor.com/schemas/cursor-plugin/plugin.json` (JSON Schema draft-07) |
+| GitHub Copilot CLI | `.github/plugin/plugin.json` | `docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/plugins-creating`. Copilot also recognizes `.claude-plugin/plugin.json` as documented fallback path |
+| Google Antigravity 2.0 (CLI + IDE) | `gemini-extension.json` (at repo root, not `.antigravity/`) | Per Google's `gemini-cli-extensions/data-agent-kit-starter-pack` reference repo + `agy plugin import gemini` |
+
+### Added
+
+- **`gemini-extension.json`** at repo root — Antigravity manifest with `contextFileName: "AGENTS.md"` so Antigravity auto-loads the shared agent-context file. Same `skills/` directory shared with Claude Code + Codex + Cursor + Copilot via the Agent Skills open standard.
+- **`.codex-plugin/plugin.json`** — OpenAI Codex manifest with `interface` block (displayName, shortDescription, longDescription, category, capabilities, defaultPrompt list), points at shared `./skills/`.
+- **`.cursor-plugin/plugin.json`** — Cursor 2.5+ manifest per the published Cursor JSON Schema; declares skills + agents + commands + mcpServers pointing at the shared directories. Strict `additionalProperties: false` schema honored (no `$schema` field, repository as string URL).
+- **`.github/plugin/plugin.json`** — GitHub Copilot CLI manifest at the primary path. Plus the existing `.claude-plugin/plugin.json` works as 4th-priority Copilot fallback per Copilot's documented manifest search order.
+- **`AGENTS.md`** at repo root — auto-loaded by Codex + Antigravity + Copilot CLI + Cursor agent context chains. Mirrors what `CLAUDE.md` does for Claude Code: explains how to discover skills by description, lists canonical entry points, documents the file layout.
+
+### Verified
+
+- **190/190 skills across the suite pass the Codex `[a-z0-9-]` regex** (no underscores, no capitals; folder names match SKILL.md `name:` frontmatter; descriptions ≤ 1024 chars). 153 DMP + 21 CF + 16 SF.
+- **All 4 new JSON manifests parse cleanly** under `python3 -c "import json; json.load(open(F))"`.
+- **Test harnesses still pass**: `_shared/dmp_action_test_harness.py` (27/27) + `_shared/dmp_executor_test_harness.py` (17/17) = 44/44 combined, no regressions.
+
+### Not changed
+
+- Zero changes to `skills/`, `commands/`, `agents/`, `scripts/`, `hooks/hooks.json`, `.mcp.json`, `.mcp.json.connectors-reference`. Plugin behavior in Claude Code + Cowork **byte-identical** to v3.7.13.
+- 153 skills + 25 agents + 14 commands + 77 Python scripts + 14 HTTP MCP connectors + 167 reference files all unchanged.
+- Shared model curator (`scripts/model_registry.json` + `resolve_model.py` + `refresh_models.py`) unchanged.
+- Historical v3.6.0 / v3.7.0 (invented manifests) and v3.7.13 (honest cleanup) entries are intact below.
+
+### Caveats per platform
+
+- **Codex subagents** are TOML at `~/.codex/agents/*.toml`, not markdown — our `agents/*.md` are Claude-only as static files. On Codex use the `/agent` ad-hoc spawn or convert your most-used agents to TOML.
+- **Copilot CLI custom slash commands not yet supported** (open issues `github/copilot-cli#618` and `#1113`) — our `commands/*.md` files won't be discovered. Users invoke skills by natural-language intent on Copilot.
+- **Copilot CLI subagents** want `agents/*.agent.md` extension; our `agents/*.md` files are not auto-discovered.
+- **Antigravity slash commands** fold into skills during `agy plugin import gemini` — users invoke by intent.
+- **MCP env-var syntax differs**: Claude uses `${user_config.VAR}`, Codex/Antigravity use `$VAR`, Copilot requires per-server `type` field. Our `.mcp.json` ships empty so none of these bite.
+
 ## [3.7.13] — 2026-05-26
 
 **Honest positioning: removed invented multi-platform manifests. Zero functional change for Claude Code + Cowork users.**

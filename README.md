@@ -1,10 +1,10 @@
 # Digital Marketing Pro
 
-**The most comprehensive open-source AI marketing plugin** — 153 skills, 25 specialist agents, a canonical 12-Part Strategy Flow, and EU AI Act Article 50 readiness. Installs on **Claude Code** (CLI + IDE extensions) and **Anthropic Cowork**.
+**The most comprehensive open-source AI marketing plugin** — 153 skills, 25 specialist agents, a canonical 12-Part Strategy Flow, and EU AI Act Article 50 readiness. **Installs on 5 verified agent surfaces** from a single source repo: **Claude Code** (CLI + IDE extensions), **Anthropic Cowork**, **OpenAI Codex** (CLI + IDE + App), **Cursor 2.5+**, **GitHub Copilot CLI**, and **Google Antigravity 2.0** (CLI + IDE).
 
 Built for digital marketing agencies, in-house teams running 50–200 brands, and consultancies that need consistent depth and auditable handoffs. Created by [Indranil Banerjee](https://indranil.in).
 
-[![Version](https://img.shields.io/badge/version-3.7.13-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.8.0-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=yellow)](https://github.com/indranilbanerjee/digital-marketing-pro/stargazers)
 [![Forks](https://img.shields.io/github/forks/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=blue)](https://github.com/indranilbanerjee/digital-marketing-pro/network/members)
@@ -134,14 +134,18 @@ See the [Multi-Brand & Agency Guide](docs/multi-brand-guide.md) for the multi-cl
 
 ---
 
-## Supported surfaces
+## Supported surfaces (v3.8.0)
 
-| Platform | Install command | Status |
-|---|---|---|
-| **Claude Code** CLI + IDE extensions | `/plugin install digital-marketing-pro@neels-plugins` | Full support (canonical) |
-| **Anthropic Cowork** | Plugins UI → Add marketplace → `indranilbanerjee/neels-plugins` → Install | Full support (same `.claude-plugin/` files; no `/plugin` slash commands in Cowork) |
+| Platform | Install command | Manifest path | Status |
+|---|---|---|---|
+| **Claude Code** CLI + IDE extensions | `/plugin install digital-marketing-pro@neels-plugins` | `.claude-plugin/plugin.json` | Full support (canonical) |
+| **Anthropic Cowork** | Plugins UI → Add marketplace → `indranilbanerjee/neels-plugins` → Install | same `.claude-plugin/` files | Full support — no `/plugin` slash commands in Cowork (UI-only) |
+| **OpenAI Codex** CLI + IDE + App | `codex plugin marketplace add indranilbanerjee/neels-plugins` then `codex plugin install digital-marketing-pro@neels-plugins` | `.codex-plugin/plugin.json` (published OpenAI schema) | Full skills + MCP support |
+| **Cursor 2.5+** | In any Cursor Agent chat: `/add-plugin digital-marketing-pro@https://github.com/indranilbanerjee/digital-marketing-pro` | `.cursor-plugin/plugin.json` (published Cursor JSON Schema) | Full skills + agents + commands support |
+| **GitHub Copilot CLI** | `copilot plugin marketplace add indranilbanerjee/neels-plugins` then `copilot plugin install digital-marketing-pro@neels-plugins` | `.github/plugin/plugin.json` (Copilot CLI also recognizes `.claude-plugin/plugin.json` as fallback) | Full skills + MCP support; subagents need `.agent.md` extension (open issue); custom slash commands not yet supported in Copilot CLI |
+| **Google Antigravity 2.0** CLI + IDE | `agy plugin install https://github.com/indranilbanerjee/digital-marketing-pro` | `gemini-extension.json` (at repo root, per Google's reference pattern) | Full skills + hooks support; subagents need `/agent` CLI spawning; slash commands fold into skills via `agy plugin import gemini` |
 
-OpenAI Codex / Cursor / GitHub Copilot CLI / Google Antigravity 2.0 support is on the roadmap — research is complete (Antigravity uses `gemini-extension.json` at repo root; Codex uses the published OpenAI plugin schema at `.codex-plugin/plugin.json`) but real implementation is deferred. Until that work ships, those surfaces are **not** supported.
+**Why this works:** Agent Skills became an open standard in December 2025 (donated to the Agentic AI Foundation; adopted by ~40 agent products by May 2026). All 153 SKILL.md files in DM Pro are platform-portable as written. The sibling manifests are thin platform-specific wrappers around the same `skills/` directory — no skill duplication, no maintenance fork. The pattern is borrowed from Google's reference repo [`gemini-cli-extensions/data-agent-kit-starter-pack`](https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack).
 
 ---
 
@@ -176,6 +180,9 @@ OpenAI Codex / Cursor / GitHub Copilot CLI / Google Antigravity 2.0 support is o
 ## What's new in May 2026
 
 DM Pro is updated against the **actual May-2026 marketing ecosystem state** — Google I/O 2026, the active broad core algorithm update, EU AI Act draft implementing guidelines, Meta platform expansions, and the latest AI image/video model landscape. No "trained on 2024 data" surprises in your client outputs.
+
+**v3.8.0 — Real native manifests for 5 surfaces (May 27)**
+Ships verified-real manifests for OpenAI Codex (`.codex-plugin/plugin.json` per the published OpenAI schema), Google Antigravity 2.0 (`gemini-extension.json` at repo root per Google's `gemini-cli-extensions/data-agent-kit-starter-pack` reference), Cursor 2.5+ (`.cursor-plugin/plugin.json` per the verified Cursor JSON Schema), and GitHub Copilot CLI (`.github/plugin/plugin.json`; Copilot also recognizes `.claude-plugin/plugin.json` as documented fallback). Adds `AGENTS.md` at root (auto-loaded by Codex + Antigravity + Copilot CLI + Cursor). All 153 skills share via the Agent Skills open standard — no duplication.
 
 **v3.7.13 — Honest positioning (May 26)**
 Removed the v3.6 / v3.7 era invented manifests for OpenAI Codex (`.codex-plugin/`), Cursor (`.cursor-plugin/`), GitHub Copilot CLI, and Google Antigravity 2.0 (`.antigravity/`). Research confirmed those manifests did not match the platforms' actual install specs (Antigravity uses `gemini-extension.json` at repo root; Codex schema we hand-rolled was invented). Supported surfaces are now accurately advertised as Claude Code + Cowork only. Multi-platform support is on the roadmap — research saved at `memory/`.
@@ -422,7 +429,7 @@ Yes. Each brand has its own `~/.claude-marketing/<brand-slug>/` directory and Py
 Skip to `/digital-marketing-pro:campaign-plan`. Every individual surface (campaign / SEO / content / competitor / email / report) is independently runnable. The full engagement is the canonical path, not the only path.
 
 **Q: Will this work on Codex / Cursor / Copilot CLI / Antigravity?**
-Not yet. The v3.6 / v3.7 era manifests for those platforms were invented (they did not match the platforms' actual install specs) and were removed in v3.7.13. Real support is on the roadmap — research is complete (`memory/{antigravity,codex}-plugin-spec-may-2026.md`) but the build is deferred. Today, the plugin runs on Claude Code + Cowork only.
+Yes — v3.8.0 (2026-05-27) ships verified-real manifests for all four. See [Supported surfaces](#supported-surfaces-v380) above for per-platform install commands. The earlier v3.6 / v3.7 era manifests were invented (didn't match the platforms' actual install specs) and were correctly removed in v3.7.13; v3.8.0 replaces them with real native manifests against the published schemas (Antigravity: `gemini-extension.json` at repo root per Google's reference; Codex: real OpenAI schema; Cursor: verified Cursor 2.5+ JSON Schema; Copilot CLI: verified GitHub schema with `.claude-plugin/plugin.json` as documented fallback path).
 
 **Q: Is this an Anthropic product?**
 No — independent open-source plugin built by [Indranil Banerjee](https://indranil.in). MIT-licensed. Runs on Claude Code + Cowork.
@@ -520,7 +527,9 @@ MIT — see [LICENSE](LICENSE). Free to use commercially.
 
 ## Release notes
 
-**v3.7.13 (2026-05-26)** — Honest positioning. Removed v3.6 / v3.7 era invented manifests (`.codex-plugin/`, `.cursor-plugin/`, `.antigravity/`) + `docs/cross-platform-install.md`. Research confirmed they did not match the platforms' actual install specs. Real OpenAI Codex / Cursor / GitHub Copilot CLI / Google Antigravity 2.0 support is deferred to a future release; the research is saved at `memory/{antigravity,codex}-plugin-spec-may-2026.md`. Supported surfaces today: Claude Code + Cowork only. Zero changes to skills, agents, scripts, commands, hooks, or MCP — the plugin behaves identically in Claude Code + Cowork.
+**v3.8.0 (2026-05-27)** — Real native manifests for 5 surfaces. Ships verified-real `.codex-plugin/plugin.json` (per the published OpenAI schema), `gemini-extension.json` (at repo root, per Google's `gemini-cli-extensions/data-agent-kit-starter-pack` reference pattern), `.cursor-plugin/plugin.json` (per the verified Cursor 2.5+ JSON Schema), and `.github/plugin/plugin.json` (verified GitHub Copilot CLI schema; Copilot also recognizes `.claude-plugin/plugin.json` as documented fallback). Adds `AGENTS.md` at root (auto-loaded by Codex + Antigravity + Copilot + Cursor agent context chains). All 153 skills share via the Agent Skills open standard — no skill duplication. Replaces the v3.6/v3.7 era invented manifests correctly removed in v3.7.13. Pre-flight verified: 190/190 skills pass the Codex `[a-z0-9-]` regex AND the SKILL.md frontmatter `name` field matches each folder.
+
+**v3.7.13 (2026-05-26)** — Honest positioning. Removed v3.6 / v3.7 era invented manifests (`.codex-plugin/`, `.cursor-plugin/`, `.antigravity/`) + `docs/cross-platform-install.md`. Research confirmed they did not match the platforms' actual install specs. Zero functional changes; the plugin behaved identically in Claude Code + Cowork.
 
 **v3.7.1 (2026-05-24)** — Polish + discoverability pass. README rewritten for organic GitHub/AI-engine discoverability with social-proof badges, install matrix at the top, outcome-focused "What you get in 60 minutes" section, AEO/GEO/compliance keyword density, maintainer block with [indranil.in](https://indranil.in), and ⭐ CTAs. Stale asset counts swept across multiple docs. plugin.json description corrected to 69 scripts (was 71). No functional changes; no breaking changes.
 

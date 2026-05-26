@@ -1,0 +1,34 @@
+{
+  "name": "digital-marketing-pro",
+  "displayName": "Digital Marketing Pro",
+  "version": "3.8.0",
+  "description": "The most comprehensive open-source AI marketing plugin — 153 skills, 25 specialist agents, 12-Part Strategy Flow, EU AI Act Article 50 ready. Built for marketing agencies, in-house teams running 50–200 brands, and consultancies. Installable on Cursor 2.5+ via /add-plugin digital-marketing-pro@https://github.com/indranilbanerjee/digital-marketing-pro in any Agent chat.",
+  "author": {
+    "name": "Indranil Banerjee",
+    "email": "neel@neelverse.com"
+  },
+  "publisher": "indranilbanerjee",
+  "homepage": "https://indranil.in",
+  "repository": "https://github.com/indranilbanerjee/digital-marketing-pro",
+  "license": "MIT",
+  "keywords": [
+    "digital-marketing",
+    "marketing-strategy",
+    "marketing-automation",
+    "ai-marketing",
+    "seo",
+    "aeo",
+    "geo",
+    "compliance",
+    "eu-ai-act",
+    "c2pa",
+    "agency-operations",
+    "agent-skills"
+  ],
+  "category": "productivity",
+  "tags": ["marketing", "strategy", "compliance", "seo"],
+  "skills": "./skills/",
+  "agents": "./agents/",
+  "commands": "./commands/",
+  "mcpServers": "./.mcp.json"
+}
