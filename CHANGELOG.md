@@ -4,30 +4,25 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
-## [3.8.1] — 2026-05-27 (hotfix)
+## [3.8.1] — 2026-05-27 (version bump; published state unchanged)
 
-**Cowork install hazard fix: empty `.mcp.json` so plugin enable doesn't cascade 14 OAuth prompts.**
+**Correction (also 2026-05-27)**: the original v3.8.1 release notes claimed this fixed a Cowork install hazard from a populated `.mcp.json`. That was wrong. Re-checking after the release: **`.mcp.json` is gitignored in this repo** (see `.gitignore`) — it has never been committed and is not part of the published install bundle. My local copy had drifted to a populated state, but Cowork / Claude Code installs only see the published files, not my local dev artifacts. **The published v3.8.0 install state was already Cowork-safe** (plugin manifest references `.mcp.json` but the file is absent from the published bundle, which Claude Code/Cowork treats as "no auto-connecting MCPs"). v3.8.1 therefore ships zero functional change for installed users. The version bump remains so the suite-wide marketplace v3.7.1 + SF v1.9.1 (which DID add real new files) ship as a coordinated patch.
 
-Live Cowork readiness testing surfaced two bugs the v3.8.0 release didn't catch (because the test was static, not against a Cowork install path):
+### What actually changed
 
-1. **`.mcp.json` was populated with 14 auto-connecting HTTP MCPs** (slack, canva, figma, hubspot, amplitude, notion, ahrefs, similarweb, klaviyo, google-calendar, gmail, stripe, asana, webflow). Cowork would auto-connect all 14 on plugin enable → cascade of OAuth prompts (most for services the user doesn't use) → broken UX. The plugin description has claimed "zero auto-connecting MCPs (opt-in via .mcp.json.connectors-reference)" since v3.1 (2026-05-03) — the live `.mcp.json` had silently drifted. This release matches reality to the documentation.
-2. **Two of those URLs were stale** (`gmail.mcp.claude.com`, `gcal.mcp.claude.com`) — both retired May 2026 and now return HTTP 404. Even if a user authorized those connectors, they would fail to connect.
+- Version field bumped to 3.8.1 across all 5 manifests for marketplace coordination
+- CHANGELOG entry retained (this one) for the historical record + correction
 
-### Fixed
+### What did NOT change
 
-- `.mcp.json` is now `{"_readme": "...", "mcpServers": {}}` matching the documented zero-auto-connect policy (same pattern ContentForge has used since v3.9.0). The full 37-entry catalog with corrected Gmail/Calendar URLs is already in `.mcp.json.connectors-reference` (unchanged).
-- Version bumped to 3.8.1 across all 5 manifests (`.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/`, `.github/plugin/`, `gemini-extension.json`).
+- The published install bundle for DMP v3.8.0 → v3.8.1 is byte-identical for everything users see
+- `.mcp.json` was never in the published repo (gitignored since the policy was established)
+- Skills (153), agents (25), commands (14), scripts (77), hooks, the 37-entry `.mcp.json.connectors-reference` — all unchanged
+- v3.8.0's 5-surface native manifests untouched
 
-### Not changed
+### Lesson recorded to memory
 
-- Zero changes to skills, agents, commands, scripts, hooks, the 37-entry connectors-reference, or any feature behavior. This is a one-file fix to one JSON file that was silently populated.
-- v3.8.0's 5-surface native manifests (Codex / Cursor / Copilot CLI / Antigravity) all unchanged.
-
-### Verified
-
-- Post-fix `.mcp.json` is `{"mcpServers": {}}` — zero auto-connecting MCPs (Cowork-safe install).
-- 14-entry catalog (with corrected URLs) intact in `.mcp.json.connectors-reference`.
-- All other manifests still parse cleanly.
+`.mcp.json` is gitignored across all 3 plugins so credentials never get committed. Future "Cowork install hazard" checks must inspect the published GitHub artifact, not local dev state.
 
 ## [3.8.0] — 2026-05-27
 
