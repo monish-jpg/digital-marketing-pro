@@ -4,6 +4,45 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.7.13] — 2026-05-26
+
+**Honest positioning: removed invented multi-platform manifests. Zero functional change for Claude Code + Cowork users.**
+
+A May 2026 deep research pass (saved at `memory/antigravity-plugin-spec-may-2026.md` and `memory/codex-plugin-spec-may-2026.md`) confirmed that the v3.6 / v3.7 era `.codex-plugin/`, `.cursor-plugin/`, `.antigravity/` manifests and the GitHub Copilot CLI auto-discovery claim were all invented or unverified. They did not match the platforms' actual install specs:
+
+- **Antigravity** uses `gemini-extension.json` at repo root — not `.antigravity/plugin.json`. Google's reference repo (`gemini-cli-extensions/data-agent-kit-starter-pack`) and the `agy plugin import gemini` migrator both confirm this.
+- **OpenAI Codex** uses the `.codex-plugin/plugin.json` path (that part was right), but the schema we hand-rolled was invented. The real schema is published at `developers.openai.com/codex/plugins/build` and proven by `schuettc/codex-reviewer`.
+- **Cursor** plugin format we shipped was not a real Cursor manifest path.
+- **GitHub Copilot CLI** auto-discovery of `.claude-plugin/plugin.json` was unverified.
+
+Honest position from v3.7.13 onwards: **Claude Code (CLI + IDE extensions) + Anthropic Cowork.** Real OpenAI Codex / Cursor / GitHub Copilot CLI / Google Antigravity 2.0 support is on the roadmap with research complete — build deferred.
+
+### Removed
+
+- `.antigravity/plugin.json` — wrong path entirely. Real Antigravity manifest is `gemini-extension.json` at repo root.
+- `.codex-plugin/plugin.json` — path was right, schema was invented and would fail real Codex install.
+- `.cursor-plugin/plugin.json` — invented format.
+- `docs/cross-platform-install.md` — documented install commands that did not work.
+
+### Changed
+
+- `.claude-plugin/plugin.json` — description rewritten to advertise Claude Code + Cowork only. Misleading keywords dropped (`openai-codex`, `cursor-plugin`, `github-copilot`, `antigravity`). Version bumped to 3.7.13.
+- `README.md` — hero, badge row, quick start, "Installs on 5 coding-agent surfaces" matrix, "What's new" entries, FAQ entries, and "Release notes" entries all updated to reflect supported surfaces (Claude Code + Cowork). The "5 platforms" badge is gone.
+- `.github/PULL_REQUEST_TEMPLATE.md` — platform checkbox list reduced to Claude Code + Cowork.
+- `SECURITY.md` — scope and reporting fields updated to Claude Code + Cowork only.
+
+### Not changed
+
+- Zero changes to `skills/`, `commands/`, `agents/`, `scripts/`, `hooks/hooks.json`, `.mcp.json`, `.mcp.json.connectors-reference`. Plugin behavior in Claude Code + Cowork is byte-identical to v3.7.12.
+- 153 skills, 25 agents, 14 commands, 77 Python scripts, 14 HTTP MCP connectors, 167 reference files, shared model curator — all unchanged.
+- Historical CHANGELOG entries for v3.6.0, v3.7.0, v3.7.1 are intact below — they describe what was shipped at the time. v3.7.13 is the correction.
+
+### Verified
+
+- `.claude-plugin/plugin.json` parses cleanly (`python3 -c "import json; json.load(open('.claude-plugin/plugin.json'))"`).
+- Both DMP test harnesses still pass: `_shared/dmp_action_test_harness.py` (27/27) + `_shared/dmp_executor_test_harness.py` (17/17). 44/44 combined, no regressions from v3.7.12.
+- Shreea's beta-test flows (brand-setup, doctor, execute-action, validate-profile, campaign-audit, launch-campaign) untouched.
+
 ## [3.7.12] — 2026-05-26
 
 **Code hygiene pass: eliminates the connector-registry duplicate + removes dead imports.** Zero behavior change — purely structural cleanup that prevents future drift between `connector-status.py` and the v3.7.10 `_connector_registry.py`.

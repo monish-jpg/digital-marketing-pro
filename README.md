@@ -1,10 +1,10 @@
 # Digital Marketing Pro
 
-**The most comprehensive open-source AI marketing plugin** — 153 skills, 25 specialist agents, a canonical 12-Part Strategy Flow, and EU AI Act Article 50 readiness. Installs on **5 coding-agent surfaces** from a single repo: Claude Code, Claude Cowork, OpenAI Codex, Cursor, GitHub Copilot CLI, and Google Antigravity 2.0 (experimental).
+**The most comprehensive open-source AI marketing plugin** — 153 skills, 25 specialist agents, a canonical 12-Part Strategy Flow, and EU AI Act Article 50 readiness. Installs on **Claude Code** (CLI + IDE extensions) and **Anthropic Cowork**.
 
 Built for digital marketing agencies, in-house teams running 50–200 brands, and consultancies that need consistent depth and auditable handoffs. Created by [Indranil Banerjee](https://indranil.in).
 
-[![Version](https://img.shields.io/badge/version-3.7.12-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.7.13-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=yellow)](https://github.com/indranilbanerjee/digital-marketing-pro/stargazers)
 [![Forks](https://img.shields.io/github/forks/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=blue)](https://github.com/indranilbanerjee/digital-marketing-pro/network/members)
@@ -12,10 +12,9 @@ Built for digital marketing agencies, in-house teams running 50–200 brands, an
 [![Last commit](https://img.shields.io/github/last-commit/indranilbanerjee/digital-marketing-pro?logo=github)](https://github.com/indranilbanerjee/digital-marketing-pro/commits/main)
 [![Cowork](https://img.shields.io/badge/cowork-compatible-purple.svg)](docs/claude-interfaces.md#claude-cowork-full-support)
 [![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Article%2050%20ready-darkred.svg)](skills/context-engine/compliance-rules.md)
-[![5 platforms](https://img.shields.io/badge/installs%20on-5%20platforms-success.svg)](docs/cross-platform-install.md)
 
 ```bash
-# Install — one line on any of 5 supported platforms
+# Install — one line
 /plugin marketplace add indranilbanerjee/neels-plugins
 /plugin install digital-marketing-pro@neels-plugins
 ```
@@ -28,7 +27,7 @@ Built for digital marketing agencies, in-house teams running 50–200 brands, an
 
 Most AI marketing tools generate isolated outputs — a campaign brief here, an email there. No canonical sequence, no shared state, no enforced structure. Result: inconsistent depth, missed dependencies, outputs that don't compound.
 
-**DM Pro runs every brand through the same 12 parts, producing the same files in the same order, with explicit dependency rules between them.** That's the whole product. Everything else — the 153 skills, 25 agents, 5-platform install, May-2026 compliance updates — exists to make that 12-Part Flow ship cleanly for real agencies on real client work.
+**DM Pro runs every brand through the same 12 parts, producing the same files in the same order, with explicit dependency rules between them.** That's the whole product. Everything else — the 153 skills, 25 agents, May-2026 compliance updates — exists to make that 12-Part Flow ship cleanly for real agencies on real client work.
 
 | What this gives you that ad-hoc prompts don't | Why it matters |
 |---|---|
@@ -71,7 +70,7 @@ Cost: roughly **$15–40 in Claude API spend** for a full 12-part engagement usi
 /plugin install digital-marketing-pro@neels-plugins
 ```
 
-`/plugin` commands work in **Claude Code** (CLI + IDE at [claude.com/code](https://claude.com/code)) and **Anthropic Cowork**. In the standard Claude chat app (browser `claude.ai` OR the installed Claude Desktop app) plugins still install and run, but management is via the **Plugins** UI button at the bottom of the chat — not via `/plugin` slash commands. See the [Updating](#updating) section for the recovery procedure if you accidentally try a slash command in the chat UI. For Codex / Cursor / Copilot CLI / Antigravity install commands see [`docs/cross-platform-install.md`](docs/cross-platform-install.md).
+`/plugin` commands work in **Claude Code** (CLI + IDE at [claude.com/code](https://claude.com/code)) and **Anthropic Cowork**. In the standard Claude chat app (browser `claude.ai` OR the installed Claude Desktop app) plugins still install and run, but management is via the **Plugins** UI button at the bottom of the chat — not via `/plugin` slash commands. See the [Updating](#updating) section for the recovery procedure if you accidentally try a slash command in the chat UI.
 
 ### 2. Turn on auto-update (recommended)
 
@@ -135,19 +134,14 @@ See the [Multi-Brand & Agency Guide](docs/multi-brand-guide.md) for the multi-cl
 
 ---
 
-## Installs on 5 coding-agent surfaces (one repo, no fork)
+## Supported surfaces
 
 | Platform | Install command | Status |
 |---|---|---|
-| **Claude Code** CLI + Desktop + **Anthropic Cowork** | `/plugin install digital-marketing-pro@neels-plugins` | Full support (canonical) |
-| **OpenAI Codex** CLI | `codex plugin install indranilbanerjee/digital-marketing-pro` | Full support — skills + MCP + hooks + scripts |
-| **Cursor** IDE + CLI | `cursor plugin install indranilbanerjee/digital-marketing-pro` | Skills + hooks + scripts; MCP via Cursor's global `mcp.json` |
-| **GitHub Copilot CLI** | `copilot plugin install indranilbanerjee/digital-marketing-pro` | Full support — Copilot CLI auto-discovers `.claude-plugin/plugin.json` (no new manifest needed) |
-| **Google Antigravity 2.0** CLI | `agy plugin install indranilbanerjee/digital-marketing-pro` | **Experimental** — manifest format will firm up as Antigravity publishes v2-native spec |
+| **Claude Code** CLI + IDE extensions | `/plugin install digital-marketing-pro@neels-plugins` | Full support (canonical) |
+| **Anthropic Cowork** | Plugins UI → Add marketplace → `indranilbanerjee/neels-plugins` → Install | Full support (same `.claude-plugin/` files; no `/plugin` slash commands in Cowork) |
 
-**Why this works:** Agent Skills became an open standard in Dec 2025 (donated to the Agentic AI Foundation, adopted by 32+ tools by May 2026). All 150 SKILL.md files in DM Pro are platform-portable as written. The four sibling manifests (`.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/`, `.antigravity/`) are thin platform-specific wrappers around the same `skills/` directory — no skill duplication, no maintenance fork.
-
-Full per-platform install guide: [`docs/cross-platform-install.md`](docs/cross-platform-install.md).
+OpenAI Codex / Cursor / GitHub Copilot CLI / Google Antigravity 2.0 support is on the roadmap — research is complete (Antigravity uses `gemini-extension.json` at repo root; Codex uses the published OpenAI plugin schema at `.codex-plugin/plugin.json`) but real implementation is deferred. Until that work ships, those surfaces are **not** supported.
 
 ---
 
@@ -183,11 +177,8 @@ Full per-platform install guide: [`docs/cross-platform-install.md`](docs/cross-p
 
 DM Pro is updated against the **actual May-2026 marketing ecosystem state** — Google I/O 2026, the active broad core algorithm update, EU AI Act draft implementing guidelines, Meta platform expansions, and the latest AI image/video model landscape. No "trained on 2024 data" surprises in your client outputs.
 
-**v3.7.0 — Install-surface expansion (May 24)**
-GitHub Copilot CLI compatibility (free win — Copilot CLI auto-discovers `.claude-plugin/plugin.json` as one of its manifest paths). Experimental `.antigravity/plugin.json` for Google Antigravity 2.0 CLI (launched 19 May 2026, replacing Gemini CLI).
-
-**v3.6.0 — Cross-platform compatibility pack (May 24)**
-Added `.codex-plugin/plugin.json` and `.cursor-plugin/plugin.json` so DM Pro installs natively on OpenAI Codex and Cursor. Single `skills/` directory shared across all platform manifests.
+**v3.7.13 — Honest positioning (May 26)**
+Removed the v3.6 / v3.7 era invented manifests for OpenAI Codex (`.codex-plugin/`), Cursor (`.cursor-plugin/`), GitHub Copilot CLI, and Google Antigravity 2.0 (`.antigravity/`). Research confirmed those manifests did not match the platforms' actual install specs (Antigravity uses `gemini-extension.json` at repo root; Codex schema we hand-rolled was invented). Supported surfaces are now accurately advertised as Claude Code + Cowork only. Multi-platform support is on the roadmap — research saved at `memory/`.
 
 **v3.5.0 — May 2026 content modernisation (May 24)** — six discrete updates:
 1. **Google AI Mode** added as a 6th first-class AEO/GEO surface (default conversational search since Google I/O on 19 May 2026, ~1B MAUs, Gemini 3.5 Flash backbone). AI Mode vs AI Overviews citations diverge 40–60% on the same query — audit both. `scripts/geo-tracker.py` PLATFORMS list now includes `ai-mode`.
@@ -391,7 +382,6 @@ DM Pro's AEO/GEO skills (`/digital-marketing-pro:aeo-audit`, `:geo-monitor`, `:e
 | Guide | Description |
 |---|---|
 | [Getting Started](docs/getting-started.md) | Installation, first brand setup, first marketing task — with worked examples |
-| [Cross-Platform Install](docs/cross-platform-install.md) | Per-platform install for Claude Code, Codex, Cursor, Copilot CLI, Antigravity |
 | [Brand Guidelines](docs/brand-guidelines.md) | Importing voice guides, restrictions, channel styles, templates, agency SOPs |
 | [Multi-Brand & Agency Guide](docs/multi-brand-guide.md) | Multi-brand corporations and agency multi-client workflows |
 | [Strategy & KPI Mapping](docs/strategy-and-kpis.md) | Business objectives → KPI frameworks → campaign strategy → measurement loop |
@@ -432,10 +422,10 @@ Yes. Each brand has its own `~/.claude-marketing/<brand-slug>/` directory and Py
 Skip to `/digital-marketing-pro:campaign-plan`. Every individual surface (campaign / SEO / content / competitor / email / report) is independently runnable. The full engagement is the canonical path, not the only path.
 
 **Q: Will this work on Codex / Cursor / Copilot CLI / Antigravity?**
-Yes — see [Cross-platform install guide](docs/cross-platform-install.md). All four secondary platforms read the same `skills/` directory. Copilot CLI works with zero new files (it auto-discovers `.claude-plugin/plugin.json`). Antigravity is experimental until Google publishes its v2-native plugin spec.
+Not yet. The v3.6 / v3.7 era manifests for those platforms were invented (they did not match the platforms' actual install specs) and were removed in v3.7.13. Real support is on the roadmap — research is complete (`memory/{antigravity,codex}-plugin-spec-may-2026.md`) but the build is deferred. Today, the plugin runs on Claude Code + Cowork only.
 
 **Q: Is this an Anthropic product?**
-No — independent open-source plugin built by [Indranil Banerjee](https://indranil.in). MIT-licensed. Runs on Claude (and Codex, Cursor, Copilot CLI, Antigravity).
+No — independent open-source plugin built by [Indranil Banerjee](https://indranil.in). MIT-licensed. Runs on Claude Code + Cowork.
 
 **Q: I found a compliance rule that looks out of date.**
 [File an issue](https://github.com/indranilbanerjee/digital-marketing-pro/issues) with the citation. Privacy and AI law change quarterly — DM Pro is actively maintained against the May 2026 reality but enforcement actions and amendments keep coming.
@@ -530,11 +520,9 @@ MIT — see [LICENSE](LICENSE). Free to use commercially.
 
 ## Release notes
 
-**v3.7.1 (2026-05-24)** — Polish + discoverability pass. README rewritten for organic GitHub/AI-engine discoverability with social-proof badges, install matrix at the top, outcome-focused "What you get in 60 minutes" section, AEO/GEO/compliance keyword density, maintainer block with [indranil.in](https://indranil.in), and ⭐ CTAs. Stale asset counts swept across `docs/claude-interfaces.md` (13→25 agents, 117→167 reference files, 34→69 scripts, 42→10 commands), `docs/architecture.md` (149→153 skills), `docs/getting-started.md` (149→153 skills), `docs/competitor-intelligence.md` (117→167 reference files), `docs/cross-platform-install.md` (71→69 scripts), and `skills/context-engine/memory-architecture.md` (13→25 agents). plugin.json description corrected to 69 scripts (was 71). No functional changes; no breaking changes.
+**v3.7.13 (2026-05-26)** — Honest positioning. Removed v3.6 / v3.7 era invented manifests (`.codex-plugin/`, `.cursor-plugin/`, `.antigravity/`) + `docs/cross-platform-install.md`. Research confirmed they did not match the platforms' actual install specs. Real OpenAI Codex / Cursor / GitHub Copilot CLI / Google Antigravity 2.0 support is deferred to a future release; the research is saved at `memory/{antigravity,codex}-plugin-spec-may-2026.md`. Supported surfaces today: Claude Code + Cowork only. Zero changes to skills, agents, scripts, commands, hooks, or MCP — the plugin behaves identically in Claude Code + Cowork.
 
-**v3.7.0 (2026-05-24)** — Install-surface expansion to 5 platforms. GitHub Copilot CLI compatibility (no new manifest — auto-discovers `.claude-plugin/plugin.json`) + experimental `.antigravity/plugin.json` for Google Antigravity 2.0 CLI (launched 19 May 2026 replacing Gemini CLI). Cross-platform install guide expanded to all 5 platforms.
-
-**v3.6.0 (2026-05-24)** — Cross-platform compatibility pack. Added `.codex-plugin/plugin.json` and `.cursor-plugin/plugin.json`. Single `skills/` directory shared across Claude Code, Codex, Cursor. No skill duplication. Works because Agent Skills became an open standard (Dec 2025).
+**v3.7.1 (2026-05-24)** — Polish + discoverability pass. README rewritten for organic GitHub/AI-engine discoverability with social-proof badges, install matrix at the top, outcome-focused "What you get in 60 minutes" section, AEO/GEO/compliance keyword density, maintainer block with [indranil.in](https://indranil.in), and ⭐ CTAs. Stale asset counts swept across multiple docs. plugin.json description corrected to 69 scripts (was 71). No functional changes; no breaking changes.
 
 **v3.5.0 (2026-05-24)** — May-2026-ecosystem modernisation pass. Six discrete updates: (1) Google AI Mode as 6th AEO/GEO surface; (2) May 2026 broad core algorithm update triage; (3) EU AI Act Article 50 draft implementing guidelines (8 May; 3 June consultation; 2 Aug enforcement); (4) Meta Advantage+ Leads global + Threads ads + brand-safety filters; (5) Gemini Omni + Nano Banana Pro + Veo 3.1 in creative briefs; (6) Claude Code v2.1.149+ `/usage` per-brand cost tracking in agency dashboard.
 
