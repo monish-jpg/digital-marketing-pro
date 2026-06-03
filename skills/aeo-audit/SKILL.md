@@ -12,6 +12,10 @@ Evaluate the brand's visibility and accuracy across AI answer engines. Analyze h
 
 **AI Mode vs AI Overviews — why both matter:** AI Overviews are the summary block at the top of a classic Google SERP and trigger on a subset of queries. AI Mode is a conversational tab (and now the default search experience for opted-in users) backed by Gemini 3.5 Flash with deeper reasoning, follow-ups, and a different citation pattern. The two surfaces select different sources for the same query in 40–60% of cases observed since May 2026. Audit both.
 
+**Cross-reference with GSC AI Performance Report (rolled out 3 June 2026):** The Google Search Console AI Performance Report (UK rollout first, global to follow) gives you actual *impressions* in AI Overviews + AI Mode for verified properties. Synthetic probe results from this skill should be reconciled against GSC actuals — see `/digital-marketing-pro:gsc-ai-performance` for the workflow. Important caveat: the GSC report intentionally excludes click data; click-through attribution must come from GA4 (the new `AI Assistant` channel group, added 13 May 2026, captures `Medium=ai-assistant` referrals from ChatGPT/Gemini/Claude; see `/digital-marketing-pro:analytics-insights`).
+
+**Google's official position on AI optimization** (Google AI Optimization Guide, updated 15 May 2026): no `llms.txt`, no AI-specific schema, no separate AI eligibility gate. Pages eligible for snippets in classic Search are eligible for AI Features. Don't manufacture work around fictional ranking factors — `/digital-marketing-pro:aeo-geo` documents what *does* work (entity consistency, citation-worthy snippets, knowledge graph alignment).
+
 ## Input Required
 
 The user must provide (or will be prompted for):

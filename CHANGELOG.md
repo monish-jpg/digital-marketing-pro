@@ -4,6 +4,39 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.10.0] — 2026-06-04
+
+**June 2026 platform refresh — GSC AI Performance Report, Google Ads API v24, GA4 AI Assistant channel, C2PA 2.3/2.4, EU Code of Practice.**
+
+Six discrete updates triggered by genuine platform changes that shipped April–early June 2026. Cross-referenced against primary sources before any code change (workflow notes in CHANGELOG appendix).
+
+### Added
+
+- **New skill: `/digital-marketing-pro:gsc-ai-performance`** — query and interpret Google Search Console's new AI Performance Report (rolled out 3 June 2026, UK first). Combined AI Overviews + AI Mode impressions/pages/countries/devices/dates. No click data (use GA4 AI Assistant channel for attribution). New `scripts/gsc-ai-performance.py` reads exported CSV; API path returns a structured "not yet supported by Google" message with a recheck date stamp. Skill count 153 → **154**. Sources: [SEL 3 Jun 2026](https://searchengineland.com/google-search-console-ai-performance-reports-and-controls-to-block-your-content-in-ai-responses-479298).
+- **New reference doc: `skills/context-engine/eu-code-of-practice.md`** — voluntary EU Code of Practice on AI-generated content (page dated 22 May 2026). WG1 (providers, machine-readable marking) + WG2 (deployers, disclosure). Final publication targeted May–June 2026, applicable for AI Act Article 50 from 2 August 2026. Pairs with C2PA 2.4 `c2pa.ai-disclosure` assertion as the canonical deployer-side compliance path. Source: [EU Digital Strategy 22 May 2026](https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content).
+
+### Changed
+
+- **`skills/aeo-geo/SKILL.md`** — added Google's official position (no `llms.txt` needed, no special schema needed, standard Search eligibility = AI Features eligibility; Google AI Optimization Guide updated 15 May 2026), plus AI Overview → AI Mode follow-up flow, Personal Intelligence to ~200 countries / 98 languages, AI Information Agents for Pro/Ultra summer 2026 (all from [Google I/O 19 May 2026](https://blog.google/products-and-platforms/products/search/search-io-2026/)). Added Google-Extended user-agent for non-Search Google AI opt-out and noted the new in-Search-Console opt-out toggle.
+- **`skills/aeo-audit/SKILL.md`** — added cross-reference to new GSC AI Performance Report + GA4 AI Assistant channel; noted Google's official "no llms.txt / no AI-specific schema" position.
+- **`skills/c2pa-metadata/SKILL.md`** — added C2PA Content Credentials 2.3 expanded format support (live video, plain text, OGG Vorbis, large AVI, EXIF) and C2PA Spec 2.4 `c2pa.ai-disclosure` assertion (April 2026). Trust List now via the public C2PA Conformance Program.
+- **`skills/paid-advertising/SKILL.md` + `skills/paid-advertising/google-ads.md`** — Google Ads API **v24** (22 April 2026) breaking changes: `videos` + `logo_images` mandatory in `DemandGenVideoResponsiveAdInfo` + `VideoResponsiveAdInfo`; `Campaign.video_brand_safety_suitability` removed (moved to Customer level); `CallAd`/`CallAdInfo` fully removed. v23.1 (25 Feb 2026) added `text_guidelines.term_exclusions` + `messaging_restrictions` for AI-generated PMax/Search assets.
+- **`skills/analytics-insights/SKILL.md` + `skills/attribution-report/SKILL.md`** — GA4 added **AI Assistant** default channel group on 13 May 2026; `Medium=ai-assistant` for ChatGPT/Gemini/Claude referral traffic. Pair with GSC AI Performance Report (impressions, no clicks) for full AEO attribution picture.
+- **`.mcp.json.connectors-reference`** — Google Ads connector entry now flags v24 minimum.
+
+### Research workflow note
+
+Findings backed by direct WebFetch of primary sources after the deep-research workflow's adversarial-verification phase failed infrastructurally (subagent schema-call failures, not actual refutations). Each finding traced to a primary source on `developers.google.com`, `blog.google`, `support.google.com`, `digital-strategy.ec.europa.eu`, or `c2pa.org` / `spec.c2pa.org`. No third-party claim was accepted without primary verification — the user's "wrong claim wastes user time on a bad patch" constraint shaped the verification bar.
+
+### How to update
+
+```bash
+/plugin update digital-marketing-pro@neels-plugins
+/reload-plugins
+```
+
+If on Cowork / claude.ai / Desktop: Plugins panel → Update.
+
 ## [3.9.0] — 2026-05-27
 
 **Distribution & context-efficiency polish — discoverability + leaner skill loads.**
