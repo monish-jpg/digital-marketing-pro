@@ -4,6 +4,30 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.10.1] — 2026-06-04
+
+**Plugin icon + Codex composerIcon — preps DMP for awesome-codex-plugins listing.**
+
+### Added
+
+- `assets/icon.svg` — 512×512 SVG plugin icon (~0.9KB, well under the 50KB limit; clean bar chart with growth trend arrow on indigo background). Renders cleanly at 32×32 thanks to bold geometric shapes.
+- `.codex-plugin/plugin.json` `interface.composerIcon: "./assets/icon.svg"` — required field for the OpenAI Codex composer UI and for inclusion in the [awesome-codex-plugins](https://github.com/hashgraph-online/awesome-codex-plugins) curated list (375★, hashgraph-online org).
+
+### Changed
+
+- All 5 platform manifests bumped 3.10.0 → 3.10.1 (icon-only change; no skill content changes; existing installs work unchanged because `composerIcon` is additive).
+
+### Why this release exists
+
+Closes [#4](https://github.com/indranilbanerjee/digital-marketing-pro/issues/4) — community suggestion from @internet-dot to list DMP in the awesome-codex-plugins curated marketplace. The awesome-list's bundle structure requires `interface.composerIcon` + `assets/icon.svg` (or .png), neither of which DMP shipped previously. v3.10.1 adds both so the upstream PR to the awesome-list can reference real published assets.
+
+### How to update
+
+```bash
+/plugin update digital-marketing-pro@neels-plugins
+/reload-plugins
+```
+
 ## [3.10.0] — 2026-06-04
 
 **June 2026 platform refresh — GSC AI Performance Report, Google Ads API v24, GA4 AI Assistant channel, C2PA 2.3/2.4, EU Code of Practice.**

@@ -1,6 +1,6 @@
 {
   "name": "digital-marketing-pro",
-  "version": "3.10.0",
+  "version": "3.10.1",
   "description": "Open-source AI marketing plugin for agencies — 154 skills, 25 agents, 12-Part Strategy Flow, EU AI Act ready. Runs on Claude Code, Codex, Cursor, Antigravity.",
   "author": {
     "name": "Indranil Banerjee",
@@ -41,6 +41,7 @@
       "Run a 6-platform AEO/GEO audit for the brand's website.",
       "Build a campaign plan with budget, timeline, and KPIs.",
       "Generate an executive dashboard for the current client."
-    ]
+    ],
+    "composerIcon": "./assets/icon.svg"
   }
 }
