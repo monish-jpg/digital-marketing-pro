@@ -4,7 +4,7 @@
 
 Run `/digital-marketing-pro:engagement` against each brand. Same 12-Part Strategy Flow, same Four Core Documents, same 61-step structure — auditable across the entire portfolio in ~60 minutes per brand on Claude Opus 4.7. No more inconsistent depth between brands. No more "what did the last agency do?" mysteries. No more compliance gaps in regulated jurisdictions.
 
-Open-source AI marketing plugin — **154 skills, 25 specialist agents, EU AI Act Article 50 ready**. Built for marketing agencies, in-house teams running 50–200 brands, and consultancies. Installs on **Claude Code** (CLI + IDE), **Anthropic Cowork**, **OpenAI Codex**, **Cursor 2.5+**, **GitHub Copilot CLI**, and **Google Antigravity 2.0**. Created by [Indranil Banerjee](https://indranil.in).
+Open-source AI marketing plugin — **154 skills, 25 specialist agents, EU AI Act Article 50 ready**. Built for marketing agencies, in-house teams running 50–200 brands, and consultancies. Installs on **Claude Code** (CLI + IDE), **Anthropic Cowork**, **OpenAI Codex**, **Cursor 2.5+**, **GitHub Copilot CLI**, and **Google Antigravity 2.0**. Created by [Indranil Banerjee](https://indranil.in) · [LinkedIn](https://www.linkedin.com/in/askneelnow/) · [X](https://x.com/askneelnow).
 
 [![Version](https://img.shields.io/badge/version-3.10.0-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -179,9 +179,23 @@ See the [Multi-Brand & Agency Guide](docs/multi-brand-guide.md) for the multi-cl
 
 ---
 
-## What's new in May 2026
+## What's new
 
-DM Pro is updated against the **actual May-2026 marketing ecosystem state** — Google I/O 2026, the active broad core algorithm update, EU AI Act draft implementing guidelines, Meta platform expansions, and the latest AI image/video model landscape. No "trained on 2024 data" surprises in your client outputs.
+DM Pro is updated against the **actual current marketing ecosystem state** — June 2026 platform refresh, Google I/O 2026, the active broad core algorithm update, EU AI Act draft implementing guidelines, Meta platform expansions, and the latest AI image/video model landscape. No "trained on 2024 data" surprises in your client outputs.
+
+**v3.10.0 — June 2026 platform refresh (June 4)**
+Six discrete updates triggered by real platform changes April–early June 2026, every claim verified against primary sources:
+- **New skill `/digital-marketing-pro:gsc-ai-performance`** for the Google Search Console **AI Performance Report** rolled out 3 June 2026 (UK first, combined AI Overviews + AI Mode impressions/pages/countries/devices/dates, no click data, new in-Search-Console opt-out toggle). New `scripts/gsc-ai-performance.py` reads exported CSV; API path returns "not yet supported by Google" with a recheck date stamp.
+- **New reference doc** `skills/context-engine/eu-code-of-practice.md` for the **EU Code of Practice on AI-generated content** (page dated 22 May 2026, voluntary, WG1 providers + WG2 deployers, final code targeted May–June 2026, AI Act Article 50 applicable 2 August 2026).
+- **`aeo-geo` + `aeo-audit`** updated with Google's official position — no `llms.txt` needed, no AI-specific schema needed, standard Search eligibility = AI Features eligibility (AI Optimization Guide updated 15 May 2026). Plus Google-Extended directive, AI Overview → AI Mode follow-up flow, Personal Intelligence to ~200 countries / 98 languages, AI Information Agents for AI Pro/Ultra summer 2026.
+- **`c2pa-metadata`** — C2PA Content Credentials 2.3 (released 9 Feb 2026: live video, plain text, OGG Vorbis, large AVI, EXIF) + C2PA Spec 2.4 `c2pa.ai-disclosure` assertion (April 2026) for Article 50 deployer compliance.
+- **`paid-advertising` + `google-ads.md`** — Google Ads API **v24** (22 April 2026) breaking changes: `videos`+`logo_images` mandatory in `DemandGenVideoResponsiveAdInfo` + `VideoResponsiveAdInfo`, `Campaign.video_brand_safety_suitability` moved to Customer level, `CallAd`/`CallAdInfo` removed. v23.1 added `text_guidelines.term_exclusions` + `messaging_restrictions` for AI-generated PMax/Search assets.
+- **`analytics-insights` + `attribution-report`** — GA4 added **AI Assistant** default channel group on 13 May 2026 (`Medium=ai-assistant` for ChatGPT/Gemini/Claude referral traffic).
+
+Skill count: 153 → **154**. 191/191 skills still pass Codex `[a-z0-9-]+` regex.
+
+**v3.9.0 — Distribution & context-efficiency polish (May 27)**
+Trimmed install-UI descriptions to ~150 chars across all 5 platform manifests + 4 marketplaces (was 600–2000 chars). Rewrote READMEs pain-first. Added platform-skill GitHub topics (`cursor-plugin`, `copilot-cli-plugin`, `gemini-cli-extension`, `google-antigravity`) for cross-platform discoverability. Inserted context-efficiency callouts in the 10 heaviest skills (grep-before-read, `${CLAUDE_PLUGIN_DATA}` directory-list-before-open, offset+limit on partial reads).
 
 **v3.8.0 — Real native manifests for 5 surfaces (May 27)**
 Ships verified-real manifests for OpenAI Codex (`.codex-plugin/plugin.json` per the published OpenAI schema), Google Antigravity 2.0 (`gemini-extension.json` at repo root per Google's `gemini-cli-extensions/data-agent-kit-starter-pack` reference), Cursor 2.5+ (`.cursor-plugin/plugin.json` per the verified Cursor JSON Schema), and GitHub Copilot CLI (`.github/plugin/plugin.json`; Copilot also recognizes `.claude-plugin/plugin.json` as documented fallback). Adds `AGENTS.md` at root (auto-loaded by Codex + Antigravity + Copilot CLI + Cursor). All 154 skills share via the Agent Skills open standard — no duplication.
