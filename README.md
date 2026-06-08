@@ -6,18 +6,18 @@ Run `/digital-marketing-pro:engagement` against each brand. Same 12-Part Strateg
 
 Open-source AI marketing plugin — **158 skills, 25 specialist agents, EU AI Act Article 50 ready, Cowork team-persistent**. Built for marketing agencies, in-house teams running 50–200 brands, and consultancies. Installs on **Claude Code** (CLI + IDE), **Anthropic Cowork**, **OpenAI Codex**, **Cursor 2.5+**, **GitHub Copilot CLI**, and **Google Antigravity 2.0**. Created by [Indranil Banerjee](https://indranil.in) · [LinkedIn](https://www.linkedin.com/in/askneelnow/) · [X](https://x.com/askneelnow).
 
-[![Version](https://img.shields.io/badge/version-3.13.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.13.1-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=yellow)](https://github.com/indranilbanerjee/digital-marketing-pro/stargazers)
 [![Forks](https://img.shields.io/github/forks/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=blue)](https://github.com/indranilbanerjee/digital-marketing-pro/network/members)
 [![Issues](https://img.shields.io/github/issues/indranilbanerjee/digital-marketing-pro?logo=github)](https://github.com/indranilbanerjee/digital-marketing-pro/issues)
 [![Last commit](https://img.shields.io/github/last-commit/indranilbanerjee/digital-marketing-pro?logo=github)](https://github.com/indranilbanerjee/digital-marketing-pro/commits/main)
-[![Tests](https://img.shields.io/badge/tests-70%2F70%20passing-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-114%2F114%20passing-brightgreen.svg)](tests/)
 [![Platforms](https://img.shields.io/badge/platforms-8%20native%20%2B%2035%20Agent%20Skills-success.svg)](#works-on-40-agent-harnesses-via-the-agent-skills-open-standard)
-[![Cowork](https://img.shields.io/badge/cowork-team%20persistent-purple.svg)](#supported-surfaces-v3130)
+[![Cowork](https://img.shields.io/badge/cowork-team%20persistent-purple.svg)](#supported-surfaces-v3131)
 [![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Article%2050%20ready-darkred.svg)](skills/context-engine/compliance-rules.md)
 
-> 🆕 **Just shipped — v3.13.0 (June 9, 2026):** Native **Hermes Agent** + **OpenClaw** support · works on **40+ agent harnesses** via the Agent Skills open standard · 70-test stdlib suite (up from 49). [Read what's new →](#whats-new) · [Full changelog →](CHANGELOG.md)
+> 🆕 **Just shipped — v3.13.1 (June 9, 2026):** Test infrastructure hardening (70 → **114 tests**) · new **Troubleshooting** section covers all 8 platforms · **5-minute non-developer install path** for marketers · release-consistency tests catch cross-manifest drift automatically. [Read what's new →](#whats-new) · [Full changelog →](CHANGELOG.md)
 
 ```bash
 # Install — one line
@@ -58,6 +58,24 @@ Open-source AI marketing plugin — **158 skills, 25 specialist agents, EU AI Ac
 | Tests | **49 stdlib unittest** | unknown | unknown | 271 incl. SSRF/DNS coverage |
 | License | **MIT — no telemetry, no seats** | Proprietary | Proprietary | MIT |
 | Maintainer responsiveness | Direct via [@askneelnow](https://linkedin.com/in/askneelnow) | Anthropic queue | Composio queue | Community |
+
+---
+
+## Get started in 5 minutes (non-developer path)
+
+**Are you a marketer, agency owner, or content lead who doesn't live in a terminal?** Here's the fastest path:
+
+1. **Open [Anthropic Cowork](https://claude.com/cowork)** in your browser (no installation, no terminal, no command line). Sign up free if you don't have an account.
+2. **Click your profile menu → Settings → Plugins → Add Marketplace.** Paste: `indranilbanerjee/neels-plugins`
+3. **Find "Digital Marketing Pro" in the list → click Install.**
+4. **Type in chat:** *"Let's set up a brand for ACME Corp"* — Claude will walk you through brand setup (voice, audience, jurisdiction, competitors).
+5. **Then ask:** *"Run a full marketing engagement for ACME"* — and watch ~50–60 strategy documents get produced over the next ~60 minutes.
+
+That's it. You never touched a command line. Your team Drive will hold the outputs. Re-open Cowork tomorrow and pick up where you left off.
+
+**If you're more technical**, see [Quick start](#quick-start) below for the Claude Code CLI install (one terminal command).
+
+**For team usage (agencies running 50+ brands)**, also run `/digital-marketing-pro:cowork-setup` once so brand state persists across Cowork sessions via your team's Google Drive.
 
 ---
 
@@ -225,7 +243,7 @@ Output: real API calls fired against your stack with audit logging at `~/.claude
 
 ---
 
-## Supported surfaces (v3.13.0)
+## Supported surfaces (v3.13.1)
 
 | Platform | Install command | Manifest path | Status |
 |---|---|---|---|
@@ -687,7 +705,7 @@ Yes. Each brand has its own `~/.claude-marketing/<brand-slug>/` directory and Py
 Skip to `/digital-marketing-pro:campaign-plan`. Every individual surface (campaign / SEO / content / competitor / email / report) is independently runnable. The full engagement is the canonical path, not the only path.
 
 **Q: Will this work on Codex / Cursor / Copilot CLI / Antigravity?**
-Yes — verified-real native manifests ship for all 8 surfaces (CC, Cowork, Codex, Cursor, Copilot CLI, Antigravity, Hermes Agent, OpenClaw). See [Supported surfaces](#supported-surfaces-v3130) above for per-platform install commands.
+Yes — verified-real native manifests ship for all 8 surfaces (CC, Cowork, Codex, Cursor, Copilot CLI, Antigravity, Hermes Agent, OpenClaw). See [Supported surfaces](#supported-surfaces-v3131) above for per-platform install commands.
 
 **Q: I run my team on Anthropic Cowork. Does brand state persist between sessions?**
 Yes — but you need to run `/digital-marketing-pro:cowork-setup` once per team first (v3.12.0). Cowork's per-session filesystem is ephemeral, and `${CLAUDE_PLUGIN_DATA}` is too ([open issue #51398](https://github.com/anthropics/claude-code/issues/51398)). The setup wizard routes brand profiles + plans + reports through a Google Drive MCP so everything survives across sessions and is shared across the team. Multi-team isolation via per-team folder names.
@@ -700,6 +718,66 @@ No — independent open-source plugin built by [Indranil Banerjee](https://indra
 
 **Q: I found a compliance rule that looks out of date.**
 [File an issue](https://github.com/indranilbanerjee/digital-marketing-pro/issues) with the citation. Privacy and AI law change quarterly — DM Pro is actively maintained against the May 2026 reality but enforcement actions and amendments keep coming.
+
+---
+
+## Troubleshooting
+
+Common install + first-run issues across all 8 supported platforms, with the fix.
+
+### Claude Code + Cowork
+
+**"/plugin isn't available in this environment"**
+You're in the standard Claude chat app (browser `claude.ai` or the Claude Desktop app). The `/plugin` slash command only works in **Claude Code** (the dev CLI/IDE at [claude.com/code](https://claude.com/code)) and **Anthropic Cowork**. Everywhere else, plugins install via the UI: click the **Plugins** button at the bottom of the chat. See [Updating](#updating) for the full recovery procedure.
+
+**"Plugin installed but slash commands not showing"**
+Run `/reload-plugins` (Claude Code) or restart the Cowork chat session. If still missing, the installed version may be older than v2.1.157 — your Claude Code build needs to be on **v2.1.157 or newer** (DMP declares `requiredMinimumVersion: 2.1.157` in plugin.json). Run `claude --version` and update via `npm install -g @anthropic-ai/claude-code`.
+
+**"Brand profile vanishes between Cowork sessions"**
+Cowork's filesystem is per-session ephemeral — `~/.claude-marketing/` AND `${CLAUDE_PLUGIN_DATA}` both reset at session end ([open issue #51398](https://github.com/anthropics/claude-code/issues/51398)). Fix: run `/digital-marketing-pro:cowork-setup` once per team — it routes brand state through a Google Drive MCP so profiles survive across sessions and your whole team sees them. See [v3.12.0 release notes](#whats-new) for the why-and-how.
+
+**"`/digital-marketing-pro:doctor` says urgent (model registry stale)"**
+The model registry hasn't been refreshed for 60+ days — frontier models shift every ~6 weeks so deprecated IDs may start 404-ing. Fix: `ANTHROPIC_API_KEY=... OPENAI_API_KEY=... GEMINI_API_KEY=... python scripts/refresh_models.py`. The script polls each provider's `/v1/models` endpoint and reports drift versus our registry.
+
+### OpenAI Codex / Cursor / GitHub Copilot CLI / Antigravity
+
+**"Skills install but commands not discovered"**
+These platforms read SKILL.md by description match — invoke via natural language (*"Run a competitor analysis on stripe.com"*) rather than typing a slash command. Slash commands (`/digital-marketing-pro:<name>`) are a Claude Code convention; on other surfaces the agent picks up the skill from intent.
+
+**"Codex says skill name failed regex check"**
+Codex enforces `[a-z0-9-]+` on skill names. All 158 DMP skill names pass this regex (verified in the test suite). If you see this error, it's likely a personal skill you added — rename it to lowercase + hyphens only.
+
+**"Cursor `/add-plugin` returns 'plugin not found'"**
+Use the full Git URL form: `/add-plugin digital-marketing-pro@https://github.com/indranilbanerjee/digital-marketing-pro`. Cursor's marketplace integration is fastest, but the Git URL form always works.
+
+### Hermes Agent
+
+**"`hermes plugins install ...` finishes but no skills appear"**
+The plugin needs to be enabled after install: `hermes plugins enable digital-marketing-pro`. Then verify with `hermes plugins list`. If the adapter's `register()` returned silently with no skills, run the audit: `cd ~/.hermes/plugins/digital-marketing-pro && python __init__.py` — it'll print the discovered skill count + first 5 skills, confirming the clone got the full `skills/` tree.
+
+**"register_skill error in Hermes logs"**
+Check Hermes version: this plugin targets **v0.15.2+**. Run `hermes --version`. Older builds may have a different `ctx` API surface — the adapter degrades gracefully (logs an error, doesn't crash) but won't register skills. Upgrade Hermes to the latest public preview.
+
+### OpenClaw
+
+**"OpenClaw can't find the plugin manifest"**
+Use the `git:` install scheme: `openclaw plugins install git:github.com/indranilbanerjee/digital-marketing-pro`. If you used another scheme and it failed, the fallback is: `cd ~/.openclaw/plugins && git clone https://github.com/indranilbanerjee/digital-marketing-pro && openclaw plugins enable digital-marketing-pro`.
+
+**"OpenClaw uses Claude bundle but loses some features"**
+OpenClaw auto-detects our `.claude-plugin/plugin.json` as a Claude-compatible bundle, but the native `openclaw.plugin.json` gives first-class discoverability. Both load the same 158 skills from `./skills`. Verify with `openclaw plugins inspect digital-marketing-pro --runtime --json`.
+
+### General (any platform)
+
+**"Tests in `tests/` fail when I `git clone` locally"**
+Run `python tests/run_all.py` from the repo root. All 111 tests are stdlib-only — no `pip install` needed. If they fail, the most likely cause is a Python version mismatch (DMP supports Python 3.8+) or a clone that omitted some `skills/` subdirectories. Try `git clone --depth=1` again.
+
+**"`/digital-marketing-pro:doctor` shows my action as stub_unconfigured"**
+That action needs an MCP connector configured. Run `python scripts/connector-status.py --action setup-guide --name <connector-name>` for the exact setup snippet. Add it to your `.mcp.json` under `mcpServers`, restart your agent, and the action becomes `manifest_ready`. See [Connector-aware action resolver](#connector-aware-action-resolver-v3710) for the full readiness model.
+
+**"Where do my brand files actually go?"**
+Run `/digital-marketing-pro:output-folder` — it prints the active output directory and (on local Claude Code) opens it in your OS file manager. Default: `~/.claude-marketing/<brand-slug>/` for working state + `~/Documents/DigitalMarketingPro/<brand>/` for finished deliverables. Both configurable via `output-folder`.
+
+**Still stuck?** [Open an issue](https://github.com/indranilbanerjee/digital-marketing-pro/issues) with the exact error message + platform name + version. We respond within a few days.
 
 ---
 

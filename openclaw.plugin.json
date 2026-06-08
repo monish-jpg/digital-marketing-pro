@@ -2,8 +2,10 @@
   "id": "digital-marketing-pro",
   "name": "Digital Marketing Pro",
   "description": "Open-source AI marketing plugin for agencies & in-house teams — 158 skills, 25 specialist agents, 12-Part Strategy Flow, Cowork team-persistent, EU AI Act Article 50 ready.",
-  "version": "3.13.0",
-  "skills": ["./skills"],
+  "version": "3.13.1",
+  "skills": [
+    "./skills"
+  ],
   "configSchema": {
     "type": "object",
     "additionalProperties": false,

@@ -4,6 +4,73 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.13.1] — 2026-06-09
+
+**Test infrastructure hardening + user-friendliness polish — no runtime changes.**
+
+Triggered by user push-back: "you have the testing infrastructure, so test everything properly and make sure everything works awesomely. Also make sure the documentation and problem decisions are properly updated so you are friendly, discoverable, and user-friendly."
+
+### Added — Tests (70 → 114, all passing)
+
+Three new test modules expand the safety net so cross-manifest drift, README staleness, and Hermes/OpenClaw edge cases get caught at CI rather than in production:
+
+- **`tests/test_release_consistency.py`** (25 new tests) — the highest-leverage addition. Tests fail when:
+  - The 7 platform manifests (5 Claude-family + Hermes + OpenClaw) get out of version sync
+  - The Hermes `plugin.yaml` version disagrees with `__init__.py`'s `PLUGIN_VERSION` constant
+  - The README version badge falls behind plugin.json
+  - The CHANGELOG's latest entry doesn't match the current plugin version (caught a stale entry during this release)
+  - The test-count badge in the README is stale (caught and fixed 3 times during this release as new tests were added)
+  - All Claude-family manifests' descriptions don't match each other verbatim
+  - The skill-count claim in any description doesn't match `ls skills | wc -l`
+  - An install command for any of the 8 native platforms goes missing from the README
+  - A critical section (Who this is for, Compare table, Real workflows, Supported surfaces, Agent Skills 40+, What's new, FAQ, **Get started in 5 minutes**, **Troubleshooting**) goes missing
+  - A README internal anchor link points at a non-existent heading
+  - The Troubleshooting section fails to cover all 8 native platforms by name
+- **`tests/test_hermes_edge_cases.py`** (10 new tests) — Hermes adapter resilience under adverse conditions:
+  - Missing `skills/` directory entirely → adapter logs and returns cleanly
+  - Empty `skills/` directory → no skills registered, no crash
+  - Skill directory present but no `SKILL.md` inside → silently skipped
+  - Skills with no YAML frontmatter → falls back to dirname + empty description
+  - Skills with broken YAML → adapter doesn't propagate the parse failure
+  - `ctx.register_skill` itself raises on one skill → others still register
+  - `ctx` is `None` → adapter returns without crashing (Hermes API drift insurance)
+  - Two skills with the same `name:` in frontmatter → both register (Hermes namespaces them)
+  - The live production adapter's `audit()` returns all expected fields
+  - `audit()` first-5 skills all have populated name + description
+- **Hardening to `tests/test_openclaw_manifest.py`** (6 new tests) — deeper schema validation:
+  - `configSchema.type` is `"object"`
+  - `configSchema.additionalProperties` is `false` (lockdown)
+  - `configSchema.properties` block is present (so JSON Schema validators don't treat undefined as "any")
+  - `id` is kebab-case (matches OpenClaw URL-slug requirement)
+  - `id` matches `.claude-plugin/plugin.json`'s `name` field (cross-manifest consistency)
+  - Every entry in `skills` array is a relative path AND exists on disk
+
+### Added — README polish (user-friendliness pass)
+
+- **New "Get started in 5 minutes (non-developer path)"** section at the top of the README. For marketers, agency owners, content leads who don't live in a terminal: 5-step path through Cowork — no installation, no command line, no Git. From "I clicked a marketplace link" to "Claude is producing a full 12-Part Strategy Flow" in 5 minutes.
+- **New "Troubleshooting"** section above Updating. Covers the 8 common install + first-run issues for each native platform: Claude Code + Cowork (slash command unavailable, slash commands not showing, brand profile vanishing, doctor stale), Codex / Cursor / Copilot CLI / Antigravity (slash commands not invoking, Codex regex failure, Cursor `/add-plugin` URL form), Hermes Agent (`enable` step, register_skill error), OpenClaw (manifest-not-found, Claude bundle vs native), plus general (test failures, doctor reporting stub_unconfigured, "where do my files go?"). Each issue has the exact command to fix it.
+
+### Changed
+
+- All 5 platform manifests + `plugin.yaml` + `__init__.py` `PLUGIN_VERSION` + `openclaw.plugin.json` bumped to v3.13.1 in lock-step (every step is now verified by the release-consistency test suite).
+- README badges: version 3.13.0 → 3.13.1, tests 70/70 → **114/114**.
+- README hero "Just shipped" callout rewritten to highlight test-infra hardening.
+- Supported surfaces anchor: `v3130` → `v3131`.
+- AGENTS.md test count: 70 → 114.
+
+### Why no breaking changes
+
+Zero runtime files touched. Only tests + docs + manifest version strings. Claude Code + Cowork behavior is byte-identical to v3.13.0. Same multi-manifest coexistence pattern; same skills, same agents, same scripts.
+
+### Test results
+- `python tests/run_all.py` — **114/114 passing**
+- All 6 JSON manifests + 1 YAML manifest + Python adapter constant agree on version `3.13.1`
+- All 9 critical README sections present
+- All 8 platform install commands present in README
+- All 8 platforms covered in Troubleshooting section
+- All README internal anchors resolve
+- No description drift across the 5 Claude-family manifests
+
 ## [3.13.0] — 2026-06-09
 
 **Multi-harness expansion: native Hermes Agent + OpenClaw + 40+ Agent Skills platforms documented.**
