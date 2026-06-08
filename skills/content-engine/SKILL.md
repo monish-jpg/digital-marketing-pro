@@ -180,6 +180,53 @@ For quick requests (e.g., "write me a LinkedIn post"), infer reasonable defaults
 - **Situation**: Content in Arabic, Hebrew, Farsi, Urdu, or other right-to-left languages
 - **Approach**: Flag RTL implications early in the process. Content structure, CTA placement, and visual hierarchy all reverse. Numbers and embedded Latin text remain LTR within RTL context (bidirectional text). Recommend native-speaker review for all RTL content. Design templates must support RTL layouts. Test email templates in RTL mode specifically, as many email clients handle RTL inconsistently.
 
+## Numbered output convention
+
+All content-engine outputs go to `${CLAUDE_PLUGIN_DATA}/{brand}/seo/content-engine/{YYYY-MM-DD}/{slug}/`:
+
+```
+00-input.md                topic, target keyword, intent, format, source brief (from keyword-cluster?)
+01-research.md             source list, key data points, expert quotes, competitor references
+02-outline.md              H1, H2/H3 structure with target word counts per section
+03-draft-v1.md             first complete draft
+04-fact-check.md           per-claim verification + citations
+05-humanize.md             AI-pattern detection + rewrite log
+06-brand-voice-check.md    voice score (formality/energy/humor/authority) vs brand profile
+07-seo-checklist.md        title, meta, schema, internal links, image alt text
+08-quality-scorecard.md    the gates below
+09-publish-ready.md        final clean copy + handoff metadata
+PLAN.md                    summary + publish instructions
+```
+
+## Quality scorecard
+
+| Gate | What it checks |
+|---|---|
+| **brand_voice_match** | `06-brand-voice-check.md` shows ≤ 1.5 point deviation from brand profile on each axis (formality/energy/humor/authority) |
+| **fact_check_clean** | `04-fact-check.md` shows 0 unverified claims and ≥ 1 citation per factual statement |
+| **humanize_passed** | `05-humanize.md` shows AI-pattern density below the brand-specific threshold (default: under 10% of paragraphs flagged) |
+| **seo_complete** | `07-seo-checklist.md` shows title ≤ 60 chars, meta 150-160 chars, ≥ 1 schema type, ≥ 3 internal links, all images have alt text |
+| **eu_disclosure_if_ai** | If the brand has `target_markets` including EU AND the content is AI-generated, `09-publish-ready.md` carries the required Article 50 disclosure (machine-readable + visible) |
+
+`status: ready` requires all five gates pass.
+
+## Chain handoffs
+
+- **Upstream:** `/digital-marketing-pro:content-brief` (preferred — pre-researched) or `/digital-marketing-pro:keyword-cluster` (`06-pillar-pages.md` becomes content briefs)
+- **Downstream:**
+  - `/digital-marketing-pro:publish-blog` — pushes the publish-ready draft to the CMS
+  - `/digital-marketing-pro:social-strategy` — repurposes the article across platforms (or hand to `contentforge:social-adapt` if ContentForge is installed)
+  - `/digital-marketing-pro:check` — final pre-publish gate
+  - `/digital-marketing-pro:c2pa-metadata` — if AI-generated images accompany the article and EU markets are targeted
+
+## Tips & caveats
+
+- **Brand voice deviation tolerance is per-axis, not aggregate.** A piece that's 1 point off on every axis is not the same as 4 points off on humor alone — the latter is a fail even if the average looks OK.
+- **Humanize step is not a guarantee** against AI-detection tools — it's a probabilistic improvement. For pieces that MUST pass an explicit AI-detection gate, use the ContentForge pipeline (`contentforge:create-content`) which has the 29-pattern catalog + self-critique meta-pass.
+- **Fact-check is content's most-skipped gate.** Don't ship a piece with "0 unverified" only because no one looked. Run `/digital-marketing-pro:verify-claims` against the draft if you didn't have a fact-checker in the loop.
+- **For pillar content,** target the upper bound of word count (3000+ for SaaS, 5000+ for B2B research) — pillar pages need depth for topical authority. For spoke content, the lower bound is fine.
+- **Don't write the meta description last.** Write it FIRST, before the article — it's the answer to "what's this page's promise?" Writing it last produces post-hoc summaries that don't drive click intent.
+
 ## Related Skills
 
 - **Audience Intelligence** — For persona-specific content targeting and messaging that resonates with defined segments

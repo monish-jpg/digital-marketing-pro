@@ -40,6 +40,40 @@ Google rolled out a new **GSC AI Performance Report** on **3 June 2026** ([Searc
 3. Apply industry-specific guidance from `skills/context-engine/industry-profiles.md` (YMYL industries may want opt-out toggled ON until E-E-A-T audit is clean)
 4. Reference `skills/context-engine/compliance-rules.md` for jurisdiction-specific rules (EU markets — see `skills/context-engine/eu-code-of-practice.md` for Article 50 transparency context)
 
+## Numbered output convention
+
+All outputs go to `${CLAUDE_PLUGIN_DATA}/{brand}/seo/gsc-ai-performance/{YYYY-MM-DD}/`:
+
+```
+00-input.md                  brand domain, GSC access status, UK-cohort flag, date range
+01-access-check.md           verification result; if no access, instructions for adding the user
+02-export.csv                raw CSV export from GSC (preserved for reproducibility)
+03-script-output.json        gsc-ai-performance.py summary (impressions, pages, countries, devices)
+04-reconciliation.md         vs aeo-audit synthetic probe results — gap analysis
+05-opt-out-decision.md       y/n on the in-SC opt-out toggle, with rationale
+06-quality-scorecard.md      the gates below
+PLAN.md                      single-page summary with tracking cadence
+```
+
+## Quality scorecard
+
+| Gate | What it checks |
+|---|---|
+| **gsc_access_verified** | User has confirmed Search Console verified ownership for the brand domain |
+| **export_completeness** | CSV has ≥ 1 day of data + at minimum the impressions column |
+| **cohort_documented** | `00-input.md` notes whether the brand is in the UK rollout (data live) or pending global rollout (no data yet — wait) |
+| **reconciliation_done** | `04-reconciliation.md` cross-references against the brand's most recent aeo-audit |
+
+If the brand isn't in the UK rollout yet, the gate framework still applies but `export_completeness` will be `fail` until Google rolls out globally — that's expected, not a regression.
+
+## Chain handoffs
+
+- **Upstream:** `/digital-marketing-pro:brand-setup` for property verification
+- **Downstream:**
+  - `/digital-marketing-pro:aeo-geo` — optimization based on what's surfacing (or not)
+  - `/digital-marketing-pro:seo-drift` — month-over-month tracking using the exported CSVs
+  - `/digital-marketing-pro:analytics-insights` — GA4 AI Assistant channel attribution closes the click-side gap
+
 ## Process
 
 1. **Access check** — confirm the user has Google Search Console verified access for the brand's domain. If the brand is in the UK rollout cohort, the report is live; otherwise it will appear when global rollout reaches them.

@@ -4,6 +4,47 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.11.0] — 2026-06-04
+
+**SEO skill expansion + workflow discipline — 3 new skills, dispatcher orchestration, numbered-output convention, quality scorecards, Tips & caveats.**
+
+### Added — 3 new skills + 3 supporting Python scripts
+
+- **`/digital-marketing-pro:keyword-cluster`** — build pillar+spokes content architecture from seed keywords with SERP-overlap clustering (Jaccard ≥ 0.4 default) or lexical fallback. Four-gate quality scorecard (cannibalisation / orphan / coverage / anchor_diversity) plus a fragmentation-warning soft signal. New `scripts/keyword_cluster.py` (stdlib only) — tested end-to-end with synthetic SERP data + edge cases.
+- **`/digital-marketing-pro:backlink-gap`** — find domains linking to your competitors but not to you, prioritised by DR + link-overlap count + traffic + topical relevance. Four-gate scorecard (data_freshness / sample_size / competitor_coverage / link_overlap_signal). New `scripts/backlink_gap.py` — handles Ahrefs / Semrush / SE Ranking / Moz export formats via column auto-detection.
+- **`/digital-marketing-pro:seo-drift`** — compare two SEO snapshots (GSC classic, GSC AI Performance Report, rank tracker, AEO probe) and surface biggest movers per metric with auto-classification (growth / decline / reshuffle / stable / new / lost). Four-gate scorecard. New `scripts/seo_drift.py` — handles GSC-shape data + arbitrary join keys via `--join-on`.
+
+Skill count: 154 → **157**. 194/194 skills still pass Codex `[a-z0-9-]+` regex.
+
+### Changed — dispatcher pattern + numbered output convention
+
+- **`/digital-marketing-pro:seo-plan` upgraded with Confirm-Then-Dispatch + pillar scoring**:
+  - Step D0: auto-detect fresh specialist outputs in `${CLAUDE_PLUGIN_DATA}/{brand}/seo/` (≤30 days)
+  - Step D1: never silently re-runs specialists — single Y/N prompt (default N) with cost estimate before fan-out
+  - Step D2: scores 4 pillars (Technical / Content / Topical / AI Search) 1-10 from specialist outputs
+  - Step D3: the **lowest-scoring pillar drives the lead theme** of the next quarter's roadmap
+- **Numbered intermediate-file output convention** applied to: `seo-plan`, `seo-audit`, `aeo-audit`, `gsc-ai-performance`, `content-engine`. Each skill writes `00-input.md`, `01-...md`, …, `PLAN.md` under `${CLAUDE_PLUGIN_DATA}/{brand}/seo/{workflow}/{date}/` — downstream skills consume the numbered files (not the endpoint), enabling resumable workflows and auditable intermediate state.
+- **Quality scorecards** added to `seo-plan`, `seo-audit`, `aeo-audit`, `gsc-ai-performance`, `content-engine` — every output passes named gates before being declared `status: ready`.
+- **Tips & caveats sections** added to 10 SEO skills total: the 5 above plus `tech-seo-audit`, `keyword-research`, `local-seo`, `content-decay-scan`, `aeo-geo`.
+- **README — new "How the SEO skills chain together" section** documents 4 canonical workflows: agency onboarding, quarterly review, content production, backlink campaign.
+
+### Unchanged
+
+- 25 specialist agents
+- 14+3 = **17 commands** (the 3 new skills add the same number of commands)
+- All v3.10.x platform manifests (icon, composerIcon) untouched aside from version bump
+- All v3.10.0 platform-refresh content (GSC AI Performance Report skill, EU Code of Practice doc, C2PA 2.3/2.4, Google Ads API v24, GA4 AI Assistant channel) preserved
+- Zero global hooks, zero auto-connecting MCPs (`.mcp.json` remains gitignored)
+
+### How to update
+
+```bash
+/plugin update digital-marketing-pro@neels-plugins
+/reload-plugins
+```
+
+If on Cowork / claude.ai / Desktop: Plugins panel → Update.
+
 ## [3.10.1] — 2026-06-04
 
 **Plugin icon + Codex composerIcon — preps DMP for awesome-codex-plugins listing.**

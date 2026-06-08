@@ -195,6 +195,16 @@ If the user cannot provide all context, proceed with what is available and flag 
 - **Situation**: AI platforms frequently update their models, retrieval methods, and citation behavior
 - **Approach**: Treat all AEO/GEO strategies as living processes, not one-time optimizations. Build monitoring into every engagement. When a major platform update occurs (new model release, retrieval system change, AI Overview format change), re-run the visibility audit for priority queries. Document observed behavior changes and update the workflow accordingly. Maintain a changelog of platform updates and their observed impact on brand visibility.
 
+## Tips & caveats
+
+- **Google's official position (15 May 2026):** no `llms.txt`, no AI-specific schema, no separate AI eligibility gate. Don't manufacture work around fictional ranking factors — schema + entity consistency + citation-worthy formatting are what works.
+- **AI Mode citation patterns differ from AI Overviews 40-60% of the time** on the same query. Audit and optimise for both, treating them as distinct surfaces.
+- **Entity consistency across Knowledge Graph, Wikidata, Wikipedia, LinkedIn, Crunchbase is the single highest-leverage AEO investment** — more impactful than schema tweaks.
+- **AI citations are stickier than blue-link rankings** but slower to win. Expect 3-6 months of consistent work before measurable shift.
+- **Don't try to "trick" AI into citing you** with stuffed content or fake authority signals. AI platforms detect and demote this faster than traditional search.
+- **`Google-Extended` (robots.txt) opts out of Google's *other* AI systems** (Gemini training, Vertex grounding) — distinct from the in-Search-Console toggle for AI Overviews/AI Mode (rolled out 3 Jun 2026 via `/digital-marketing-pro:gsc-ai-performance`).
+- **EU markets** require Article 50 disclosure on AI-generated content (applicable 2 Aug 2026) — see `skills/context-engine/eu-code-of-practice.md`.
+
 ## Related Skills
 
 - **Content Engine** — For creating and optimizing the actual content that drives AI citations

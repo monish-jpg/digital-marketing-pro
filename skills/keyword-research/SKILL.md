@@ -55,6 +55,15 @@ A structured keyword strategy document containing:
 - Seasonal or trending keyword opportunities with timing recommendations
 - Internal linking opportunities between keyword clusters and existing content
 
+## Tips & caveats
+
+- **Search volume from any provider is an estimate.** Ahrefs, Semrush, GSC, SE Ranking all disagree by 20-50% on the same keyword. Use ranges, not point estimates.
+- **Keyword difficulty (KD) is a heuristic, not a measurement.** A KD of 60 means "competitive" — not "impossible". A small brand with niche authority can rank for KD-70 keywords against generalist KD-30 sites.
+- **Long-tail isn't always lower-volume.** With AI search rewriting queries, the actual click-driving query may differ from the seed. Always check the *resulting* query a user typed via GSC, not the rank-tracker assumption.
+- **Hand off to `/digital-marketing-pro:keyword-cluster`** once you have ≥ 20 raw keywords. Clustering before writing is what produces topical authority, not keyword lists.
+- **Don't research the same keyword set quarterly.** Re-research only when business model, target market, or competitive landscape changes. Otherwise the deltas are noise.
+- **Intent classification beats volume.** A "buy [product]" query at 200/mo is worth more than "what is [product]" at 5000/mo for most commercial brands.
+
 ## Agents Used
 
 - **seo-specialist** -- Keyword research, volume and difficulty estimation, SERP analysis, content gap identification, and priority scoring

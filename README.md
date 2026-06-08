@@ -4,9 +4,9 @@
 
 Run `/digital-marketing-pro:engagement` against each brand. Same 12-Part Strategy Flow, same Four Core Documents, same 61-step structure — auditable across the entire portfolio in ~60 minutes per brand on Claude Opus 4.7. No more inconsistent depth between brands. No more "what did the last agency do?" mysteries. No more compliance gaps in regulated jurisdictions.
 
-Open-source AI marketing plugin — **154 skills, 25 specialist agents, EU AI Act Article 50 ready**. Built for marketing agencies, in-house teams running 50–200 brands, and consultancies. Installs on **Claude Code** (CLI + IDE), **Anthropic Cowork**, **OpenAI Codex**, **Cursor 2.5+**, **GitHub Copilot CLI**, and **Google Antigravity 2.0**. Created by [Indranil Banerjee](https://indranil.in) · [LinkedIn](https://www.linkedin.com/in/askneelnow/) · [X](https://x.com/askneelnow).
+Open-source AI marketing plugin — **157 skills, 25 specialist agents, EU AI Act Article 50 ready**. Built for marketing agencies, in-house teams running 50–200 brands, and consultancies. Installs on **Claude Code** (CLI + IDE), **Anthropic Cowork**, **OpenAI Codex**, **Cursor 2.5+**, **GitHub Copilot CLI**, and **Google Antigravity 2.0**. Created by [Indranil Banerjee](https://indranil.in) · [LinkedIn](https://www.linkedin.com/in/askneelnow/) · [X](https://x.com/askneelnow).
 
-[![Version](https://img.shields.io/badge/version-3.10.1-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.11.0-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=yellow)](https://github.com/indranilbanerjee/digital-marketing-pro/stargazers)
 [![Forks](https://img.shields.io/github/forks/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=blue)](https://github.com/indranilbanerjee/digital-marketing-pro/network/members)
@@ -29,7 +29,7 @@ Open-source AI marketing plugin — **154 skills, 25 specialist agents, EU AI Ac
 
 Most AI marketing tools generate isolated outputs — a campaign brief here, an email there. No canonical sequence, no shared state, no enforced structure. Result: inconsistent depth, missed dependencies, outputs that don't compound.
 
-**DM Pro runs every brand through the same 12 parts, producing the same files in the same order, with explicit dependency rules between them.** That's the whole product. Everything else — the 154 skills, 25 agents, May-2026 compliance updates — exists to make that 12-Part Flow ship cleanly for real agencies on real client work.
+**DM Pro runs every brand through the same 12 parts, producing the same files in the same order, with explicit dependency rules between them.** That's the whole product. Everything else — the 157 skills, 25 agents, May-2026 compliance updates — exists to make that 12-Part Flow ship cleanly for real agencies on real client work.
 
 | What this gives you that ad-hoc prompts don't | Why it matters |
 |---|---|
@@ -136,7 +136,7 @@ See the [Multi-Brand & Agency Guide](docs/multi-brand-guide.md) for the multi-cl
 
 ---
 
-## Supported surfaces (v3.10.0)
+## Supported surfaces (v3.11.0)
 
 | Platform | Install command | Manifest path | Status |
 |---|---|---|---|
@@ -198,7 +198,7 @@ Skill count: 153 → **154**. 191/191 skills still pass Codex `[a-z0-9-]+` regex
 Trimmed install-UI descriptions to ~150 chars across all 5 platform manifests + 4 marketplaces (was 600–2000 chars). Rewrote READMEs pain-first. Added platform-skill GitHub topics (`cursor-plugin`, `copilot-cli-plugin`, `gemini-cli-extension`, `google-antigravity`) for cross-platform discoverability. Inserted context-efficiency callouts in the 10 heaviest skills (grep-before-read, `${CLAUDE_PLUGIN_DATA}` directory-list-before-open, offset+limit on partial reads).
 
 **v3.8.0 — Real native manifests for 5 surfaces (May 27)**
-Ships verified-real manifests for OpenAI Codex (`.codex-plugin/plugin.json` per the published OpenAI schema), Google Antigravity 2.0 (`gemini-extension.json` at repo root per Google's `gemini-cli-extensions/data-agent-kit-starter-pack` reference), Cursor 2.5+ (`.cursor-plugin/plugin.json` per the verified Cursor JSON Schema), and GitHub Copilot CLI (`.github/plugin/plugin.json`; Copilot also recognizes `.claude-plugin/plugin.json` as documented fallback). Adds `AGENTS.md` at root (auto-loaded by Codex + Antigravity + Copilot CLI + Cursor). All 154 skills share via the Agent Skills open standard — no duplication.
+Ships verified-real manifests for OpenAI Codex (`.codex-plugin/plugin.json` per the published OpenAI schema), Google Antigravity 2.0 (`gemini-extension.json` at repo root per Google's `gemini-cli-extensions/data-agent-kit-starter-pack` reference), Cursor 2.5+ (`.cursor-plugin/plugin.json` per the verified Cursor JSON Schema), and GitHub Copilot CLI (`.github/plugin/plugin.json`; Copilot also recognizes `.claude-plugin/plugin.json` as documented fallback). Adds `AGENTS.md` at root (auto-loaded by Codex + Antigravity + Copilot CLI + Cursor). All 157 skills share via the Agent Skills open standard — no duplication.
 
 **v3.7.13 — Honest positioning (May 26)**
 Removed the v3.6 / v3.7 era invented manifests for OpenAI Codex (`.codex-plugin/`), Cursor (`.cursor-plugin/`), GitHub Copilot CLI, and Google Antigravity 2.0 (`.antigravity/`). Research confirmed those manifests did not match the platforms' actual install specs (Antigravity uses `gemini-extension.json` at repo root; Codex schema we hand-rolled was invented). Supported surfaces are now accurately advertised as Claude Code + Cowork only. Multi-platform support is on the roadmap — research saved at `memory/`.
@@ -215,6 +215,63 @@ See [CHANGELOG.md](CHANGELOG.md) for the full release history.
 
 ---
 
+## How the SEO skills chain together
+
+Most SEO work uses 3-5 skills in sequence rather than one mega-skill. The plugin is designed so that each skill produces numbered intermediate files (`01-...md`, `02-...md`, …, `PLAN.md`) under `${CLAUDE_PLUGIN_DATA}/{brand}/seo/{workflow}/{date}/` — downstream skills read those numbered files, not the endpoint, so you can re-run any single step without redoing the whole chain.
+
+**Agency onboarding workflow** (week 1 of a new client engagement):
+
+```
+1. /digital-marketing-pro:brand-setup
+2. /digital-marketing-pro:competitor-analysis        ← picks the right competitors for everything downstream
+3. Run all in parallel:
+   /digital-marketing-pro:tech-seo-audit             ← baseline technical health
+   /digital-marketing-pro:aeo-audit                  ← baseline AI visibility
+   /digital-marketing-pro:backlink-gap               ← link prospects (needs competitors from step 2)
+   /digital-marketing-pro:gsc-ai-performance         ← GSC AI Performance Report (3 Jun 2026)
+4. /digital-marketing-pro:keyword-cluster            ← pillar+spokes architecture from aeo-audit content gaps
+5. /digital-marketing-pro:seo-plan                   ← DISPATCHER — reads all of the above, scores 4 pillars,
+                                                       the weakest pillar drives the lead theme of Q1's roadmap
+```
+
+**Quarterly review workflow:**
+
+```
+1. /digital-marketing-pro:gsc-ai-performance         ← fresh GSC AI export
+2. /digital-marketing-pro:seo-drift                  ← compare this quarter vs last (auto-classifies gainers,
+                                                       losers, reshuffles, new keys, lost keys)
+3. Branch by finding:
+   - High decline → /digital-marketing-pro:seo-audit + /digital-marketing-pro:content-decay-scan
+   - High reshuffle → /digital-marketing-pro:aeo-geo (intent realignment)
+   - High growth → /digital-marketing-pro:content-engine (amplification briefs)
+4. /digital-marketing-pro:seo-plan                   ← re-run dispatcher with fresh inputs;
+                                                       lead theme may shift to a different pillar
+```
+
+**Content production workflow:**
+
+```
+1. /digital-marketing-pro:keyword-cluster            ← from your seed list
+2. /digital-marketing-pro:content-brief              ← per pillar from the cluster plan
+3. /digital-marketing-pro:content-engine             ← drafts with brand voice + fact-check + humanize + SEO checklist
+4. /digital-marketing-pro:check                      ← pre-publish gate (hallucination + brand voice + structure)
+5. /digital-marketing-pro:publish-blog               ← push to CMS
+6. /digital-marketing-pro:c2pa-metadata              ← if EU markets are targeted and AI images accompany
+```
+
+**Backlink campaign workflow:**
+
+```
+1. /digital-marketing-pro:competitor-analysis
+2. /digital-marketing-pro:backlink-gap               ← gap-vs-competitors with link-prospect priority scoring
+3. /digital-marketing-pro:digital-pr                 ← consumes the prospect shortlist + outreach templates
+4. /digital-marketing-pro:pr-pitch                   ← drafts individual pitches per prospect
+```
+
+Each skill has a **quality scorecard** that must pass before its `PLAN.md` is declared ready, and every heavy skill carries a **Tips & caveats** section with the common pitfalls. The `seo-plan` dispatcher uses **Confirm-Then-Dispatch** — it never silently re-runs expensive specialists, always asking explicitly with cost estimate before fanning out.
+
+---
+
 ## Architecture — what's actually in the box
 
 ### 25 specialist agents
@@ -222,7 +279,7 @@ Marketing Strategist · Brand Guardian · Content Creator · Email Specialist ·
 
 Each agent has scoped responsibilities, explicit input/output contracts, and reads the Living Project Instruction File before acting.
 
-### 154 skills
+### 157 skills
 Skills are invoked by description match through the Skill tool, addressable as `/digital-marketing-pro:<skill-name>` from chat. Coverage: brand setup, content production (blog / ad / email / social / landing / video / PR / case study), SEO / AEO / GEO audits (6 platforms incl. Google AI Mode), competitor monitoring, campaign planning, channel-specific strategies, attribution, churn risk, lifecycle journeys, intelligence reports, eval framework, knowledge management, multi-brand operations, regional configuration, C2PA content provenance.
 
 ### 14 top-level commands
@@ -250,7 +307,7 @@ Plugin works fully without Python — all marketing knowledge, frameworks, agent
 
 | Mode | Size | Adds |
 |---|---|---|
-| **Knowledge-only** (default) | 0 MB | All 154 skills + 25 agents + 167 reference files |
+| **Knowledge-only** (default) | 0 MB | All 157 skills + 25 agents + 167 reference files |
 | **Lite** (`pip install nltk textstat`) | ~15 MB | Brand-voice scoring, content quality scoring, readability analysis |
 | **Full** (`pip install -r scripts/requirements.txt`) | ~50 MB | Competitor scraping, QR generation, AI visibility API checking, GEO tracking, C2PA signing |
 
@@ -543,7 +600,7 @@ MIT — see [LICENSE](LICENSE). Free to use commercially.
 
 ## Release notes
 
-**v3.8.0 (2026-05-27)** — Real native manifests for 5 surfaces. Ships verified-real `.codex-plugin/plugin.json` (per the published OpenAI schema), `gemini-extension.json` (at repo root, per Google's `gemini-cli-extensions/data-agent-kit-starter-pack` reference pattern), `.cursor-plugin/plugin.json` (per the verified Cursor 2.5+ JSON Schema), and `.github/plugin/plugin.json` (verified GitHub Copilot CLI schema; Copilot also recognizes `.claude-plugin/plugin.json` as documented fallback). Adds `AGENTS.md` at root (auto-loaded by Codex + Antigravity + Copilot + Cursor agent context chains). All 154 skills share via the Agent Skills open standard — no skill duplication. Replaces the v3.6/v3.7 era invented manifests correctly removed in v3.7.13. Pre-flight verified: 190/190 skills pass the Codex `[a-z0-9-]` regex AND the SKILL.md frontmatter `name` field matches each folder.
+**v3.8.0 (2026-05-27)** — Real native manifests for 5 surfaces. Ships verified-real `.codex-plugin/plugin.json` (per the published OpenAI schema), `gemini-extension.json` (at repo root, per Google's `gemini-cli-extensions/data-agent-kit-starter-pack` reference pattern), `.cursor-plugin/plugin.json` (per the verified Cursor 2.5+ JSON Schema), and `.github/plugin/plugin.json` (verified GitHub Copilot CLI schema; Copilot also recognizes `.claude-plugin/plugin.json` as documented fallback). Adds `AGENTS.md` at root (auto-loaded by Codex + Antigravity + Copilot + Cursor agent context chains). All 157 skills share via the Agent Skills open standard — no skill duplication. Replaces the v3.6/v3.7 era invented manifests correctly removed in v3.7.13. Pre-flight verified: 190/190 skills pass the Codex `[a-z0-9-]` regex AND the SKILL.md frontmatter `name` field matches each folder.
 
 **v3.7.13 (2026-05-26)** — Honest positioning. Removed v3.6 / v3.7 era invented manifests (`.codex-plugin/`, `.cursor-plugin/`, `.antigravity/`) + `docs/cross-platform-install.md`. Research confirmed they did not match the platforms' actual install specs. Zero functional changes; the plugin behaved identically in Claude Code + Cowork.
 
