@@ -4,6 +4,29 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.12.1] — 2026-06-08
+
+**Documentation + discoverability polish — no runtime changes.**
+
+Triggered by user push-back: "have you done audits properly? marketing copies have to be beautiful, proper, and worthy. We get a lot of searches, and our plugin gets visible through searches on Google, GitHub, etc., so harden it more properly so that our plugin can be much more visible."
+
+### Added
+- **README "Who this is for"** — audience-segmented use cases for marketing agencies, in-house teams, automation builders (n8n / Zapier / Make / Pipedream), solo consultants, growth / product marketers, and compliance-led marketers. Each row shows the exact slash command to start with and the concrete outcome.
+- **README "How does this compare?"** — comparison table vs Anthropic Marketing (official), Composio Marketing, and claude-seo. Columns: skills count · methodology · multi-brand · EU AI Act · real API execution · Cowork persistence · cross-platform install · tests · license · maintainer responsiveness.
+- **README "Real workflows you'd actually run"** — 6 concrete copy-paste workflow examples (new-client onboarding, quarterly business review, SEO sprint, marketing automation flow, pre-publish compliance gate, AI creative brief with EU disclosure) showing exact slash command sequences and expected outputs.
+- **README "Recent releases" callout** at the top — surfaces the latest version + 1-line description + links to "What's new" anchor and full CHANGELOG. Updated on every release so visitors see freshness at a glance instead of scrolling 180 lines.
+- **Two new FAQ entries**: (1) Cowork brand state persistence — explains the `${CLAUDE_PLUGIN_DATA}` Cowork bug and the cowork-setup fix; (2) Model freshness — explains the curator + fallbackModel chain and why users don't need to update DMP when new models ship.
+- **Tests badge** on the README (49/49 passing).
+- **GitHub repo description** updated: was claiming 150 skills, now 158 with "Cowork team-persistent" + audience callout ("for agencies & in-house teams") for Google search snippet.
+- **GitHub topics refreshed** with SEO-targeted additions: `claude-skills`, `marketing-agency`. Dropped less-searched `ai-agents` and broad `compliance` (kept `eu-ai-act` which is more specific).
+
+### Changed
+- README "Supported surfaces" version anchor fixed (was pointing at the stale v3.8.0 ID).
+- Version badge bumped to v3.12.1.
+
+### Why no runtime version bump
+All 158 skills + 25 agents + 84 scripts unchanged. Only docs + manifest metadata + GitHub-side description / topics changed. Patch-level (3.12.0 → 3.12.1) follows SemVer convention for documentation-only updates that ship with the plugin bundle.
+
 ## [3.12.0] — 2026-06-08
 
 **Cowork persistence, fallback models, model-freshness, tests — research-grounded hardening pass.**

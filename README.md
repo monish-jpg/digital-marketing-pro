@@ -6,14 +6,17 @@ Run `/digital-marketing-pro:engagement` against each brand. Same 12-Part Strateg
 
 Open-source AI marketing plugin — **158 skills, 25 specialist agents, EU AI Act Article 50 ready, Cowork team-persistent**. Built for marketing agencies, in-house teams running 50–200 brands, and consultancies. Installs on **Claude Code** (CLI + IDE), **Anthropic Cowork**, **OpenAI Codex**, **Cursor 2.5+**, **GitHub Copilot CLI**, and **Google Antigravity 2.0**. Created by [Indranil Banerjee](https://indranil.in) · [LinkedIn](https://www.linkedin.com/in/askneelnow/) · [X](https://x.com/askneelnow).
 
-[![Version](https://img.shields.io/badge/version-3.11.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.12.1-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=yellow)](https://github.com/indranilbanerjee/digital-marketing-pro/stargazers)
 [![Forks](https://img.shields.io/github/forks/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=blue)](https://github.com/indranilbanerjee/digital-marketing-pro/network/members)
 [![Issues](https://img.shields.io/github/issues/indranilbanerjee/digital-marketing-pro?logo=github)](https://github.com/indranilbanerjee/digital-marketing-pro/issues)
 [![Last commit](https://img.shields.io/github/last-commit/indranilbanerjee/digital-marketing-pro?logo=github)](https://github.com/indranilbanerjee/digital-marketing-pro/commits/main)
-[![Cowork](https://img.shields.io/badge/cowork-compatible-purple.svg)](docs/claude-interfaces.md#claude-cowork-full-support)
+[![Tests](https://img.shields.io/badge/tests-49%2F49%20passing-brightgreen.svg)](tests/)
+[![Cowork](https://img.shields.io/badge/cowork-team%20persistent-purple.svg)](#supported-surfaces-v3120)
 [![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Article%2050%20ready-darkred.svg)](skills/context-engine/compliance-rules.md)
+
+> 🆕 **Just shipped — v3.12.0 (June 8, 2026):** Cowork team persistence via Drive MCP routing · `fallbackModel` resilience chain · model-registry freshness in `/doctor` · 49-test stdlib suite. [Read what's new →](#whats-new) · [Full changelog →](CHANGELOG.md)
 
 ```bash
 # Install — one line
@@ -22,6 +25,38 @@ Open-source AI marketing plugin — **158 skills, 25 specialist agents, EU AI Ac
 ```
 
 > If this saves you time, [give it a star ⭐](https://github.com/indranilbanerjee/digital-marketing-pro/stargazers) — it's the single thing that helps other marketers find it.
+
+---
+
+## Who this is for
+
+| If you're a... | Run this | What you get |
+|---|---|---|
+| 🏢 **Marketing agency** managing 50–200 brands | `/digital-marketing-pro:engagement` per brand, then `/digital-marketing-pro:cowork-setup` for team Drive persistence | Same 12-Part Strategy Flow audited across every brand. New-hire onboarding goes from 6 weeks to 6 hours. Per-brand AI cost rollup via `:agency-dashboard`. |
+| 👔 **In-house marketing team** (B2B SaaS · e-commerce · fintech · healthtech) | `/digital-marketing-pro:engagement` once to anchor strategy, then `:content-engine` + `:campaign-plan` for ongoing work | A single canonical strategy doc, monthly stakeholder reports via `:performance-report`, content + campaigns that tie back to the strategy instead of drifting. |
+| 🚀 **Marketing automation builder** (n8n · Zapier · Make · Pipedream · custom) | `/digital-marketing-pro:doctor` to see what's wired, `:execute-action` to fire real API calls | 8 verified HTTP connectors executing end-to-end (Slack · HubSpot · Klaviyo · SendGrid · Brevo · Customer.io · Mailchimp · Ahrefs); 25 OAuth connectors via MCP manifest. Stdlib only, no third-party deps. |
+| 💼 **Solo consultant** or freelance marketer | `/digital-marketing-pro:engagement` per client | 50–60 canonical files per client engagement in ~60 minutes for $15–40 of API spend. Same depth on every project. Installs on Codex / Cursor / Copilot CLI / Antigravity if you don't live in Claude. |
+| 📈 **Growth team** / product marketer | `:funnel-architect` → `:analytics-insights` → `:attribution-model` → `:churn-risk` → `:retention-loops` | Journey design + measurement + retention + churn — all aligned to the strategy document, not isolated outputs. MMM + incrementality testing baked in. |
+| 🛡 **Compliance-led marketer** (EU · UK · India · Brazil · California) | `/digital-marketing-pro:check` before publishing anything | C2PA content provenance, EU AI Act Article 50 disclosure, GDPR + CCPA + DPDPA + LGPD across 16 jurisdictions, deepfake disclosure clauses on every AI creative brief. |
+
+---
+
+## How does this compare?
+
+| | **Digital Marketing Pro** | Anthropic Marketing (official) | Composio Marketing | claude-seo (community) |
+|---|---|---|---|---|
+| Skills count | **158** | ~7 | ~12 | 25 SEO-only sub-skills |
+| Specialist agents | **25** | 0 | 0 | 18 SEO-only |
+| Has a methodology | **Yes — 12-Part Strategy Flow (61 explicit steps)** | No | No | No |
+| Multi-brand / agency support | **Yes — per-brand state, brand-switch, agency-dashboard** | No | No | No |
+| EU AI Act Article 50 ready | **Yes — C2PA + deepfake disclosure + 16 jurisdictions** | No | No | Partial |
+| Cowork team persistence | **Yes — Drive MCP routing (v3.12.0)** | Cowork-native | Composio cloud | n/a |
+| Real API execution | **Yes — 8 connectors live, 25 manifest-ready** | OAuth via plugin | OAuth via Composio | Optional DataForSEO / Firecrawl |
+| 6-platform AEO/GEO audit | **Yes — incl. Google AI Mode (May 2026)** | No | No | Yes (AEO + GEO) |
+| Cross-platform install | **5 surfaces — CC + Cowork + Codex + Cursor + Copilot CLI + Antigravity** | Cowork only | Cowork + Codex | CC + Codex |
+| Tests | **49 stdlib unittest** | unknown | unknown | 271 incl. SSRF/DNS coverage |
+| License | **MIT — no telemetry, no seats** | Proprietary | Proprietary | MIT |
+| Maintainer responsiveness | Direct via [@askneelnow](https://linkedin.com/in/askneelnow) | Anthropic queue | Composio queue | Community |
 
 ---
 
@@ -133,6 +168,59 @@ Or jump straight to one workflow:
 ```
 
 See the [Multi-Brand & Agency Guide](docs/multi-brand-guide.md) for the multi-client switching workflow.
+
+---
+
+## Real workflows you'd actually run
+
+### 🆕 New-client onboarding (agency, week 1)
+```
+/digital-marketing-pro:brand-setup "ACME Corp"        # interactive: voice, audience, channels, jurisdiction
+/digital-marketing-pro:competitor-analysis            # multi-dimensional deep-dive on top 5 competitors
+/digital-marketing-pro:engagement                     # full 12-Part Strategy Flow (~60 min on Opus 4.7)
+/digital-marketing-pro:check  engagements/.../03-four-core/*.md   # pre-publish gate before client review
+```
+Output: ~50–60 canonical files. Cost: $15–40 in API spend. Time saved: ~3 weeks of senior-strategist labor.
+
+### 📊 Quarterly business review (in-house, last week of quarter)
+```
+/digital-marketing-pro:performance-report   --period=Q2-2026
+/digital-marketing-pro:attribution-report   --period=Q2-2026 --model=data-driven
+/digital-marketing-pro:competitor-monitor   --since=2026-04-01    # 87 signals captured
+/digital-marketing-pro:continuous-improvement-loop --quarter=Q2-2026
+```
+Output: stakeholder-ready Q2 review with anomalies, attribution shift, competitor moves, and next-quarter recommendations.
+
+### 🎯 SEO sprint (any audience, 1 week)
+```
+/digital-marketing-pro:seo-plan                       # 4-pillar scorecard; weakest pillar drives the theme
+/digital-marketing-pro:keyword-cluster  seeds.csv     # SERP-overlap clustering into pillar+spokes
+/digital-marketing-pro:backlink-gap  acme.com competitor1.com competitor2.com
+/digital-marketing-pro:content-engine                 # draft the top 3 pillar pages
+/digital-marketing-pro:check  drafts/*.md             # hallucination + brand voice + claims gate
+/digital-marketing-pro:seo-drift  baseline.csv current.csv     # 30 days later, what moved
+```
+
+### 🤖 Marketing automation flow (builders)
+```
+/digital-marketing-pro:doctor                         # which actions are live vs need connector setup
+/digital-marketing-pro:execute-action --action diagnostic --execute            # GA4 + GSC pull
+/digital-marketing-pro:execute-action --action audit-current --execute         # workflow state check
+/digital-marketing-pro:execute-action --action enable-automation --confirm     # Klaviyo flow activate
+```
+Output: real API calls fired against your stack with audit logging at `~/.claude-marketing/{brand}/executions/`. Combine with n8n / Make / Zapier for human-in-the-loop approval gates.
+
+### 🛡 Pre-publish compliance gate (every campaign)
+```
+/digital-marketing-pro:check  campaign.md --full      # hallucination + voice + claims + jurisdictions
+/digital-marketing-pro:c2pa-metadata  hero.png        # sign image with provenance for EU Article 50
+```
+
+### 🎨 AI creative brief with EU disclosure (every AI-generated asset)
+```
+/digital-marketing-pro:ai-creative-instructions   --model=nano-banana-pro
+/digital-marketing-pro:influencer-creator         # FTC + EU deepfake clauses baked in
+```
 
 ---
 
@@ -524,7 +612,13 @@ Yes. Each brand has its own `~/.claude-marketing/<brand-slug>/` directory and Py
 Skip to `/digital-marketing-pro:campaign-plan`. Every individual surface (campaign / SEO / content / competitor / email / report) is independently runnable. The full engagement is the canonical path, not the only path.
 
 **Q: Will this work on Codex / Cursor / Copilot CLI / Antigravity?**
-Yes — v3.8.0 (2026-05-27) ships verified-real manifests for all four. See [Supported surfaces](#supported-surfaces-v380) above for per-platform install commands. The earlier v3.6 / v3.7 era manifests were invented (didn't match the platforms' actual install specs) and were correctly removed in v3.7.13; v3.8.0 replaces them with real native manifests against the published schemas (Antigravity: `gemini-extension.json` at repo root per Google's reference; Codex: real OpenAI schema; Cursor: verified Cursor 2.5+ JSON Schema; Copilot CLI: verified GitHub schema with `.claude-plugin/plugin.json` as documented fallback path).
+Yes — verified-real native manifests ship for all 5 surfaces. See [Supported surfaces](#supported-surfaces-v3120) above for per-platform install commands. Antigravity: `gemini-extension.json` at repo root per Google's reference; Codex: real OpenAI schema; Cursor: verified Cursor 2.5+ JSON Schema; Copilot CLI: verified GitHub schema with `.claude-plugin/plugin.json` as documented fallback path.
+
+**Q: I run my team on Anthropic Cowork. Does brand state persist between sessions?**
+Yes — but you need to run `/digital-marketing-pro:cowork-setup` once per team first (v3.12.0). Cowork's per-session filesystem is ephemeral, and `${CLAUDE_PLUGIN_DATA}` is too ([open issue #51398](https://github.com/anthropics/claude-code/issues/51398)). The setup wizard routes brand profiles + plans + reports through a Google Drive MCP so everything survives across sessions and is shared across the team. Multi-team isolation via per-team folder names.
+
+**Q: What happens when a new Claude / OpenAI / Google model ships? Do I need to update the plugin?**
+No — the plugin uses a shared model curator (`scripts/resolve_model.py`) that resolves aliases (`latest-balanced-anthropic`, `latest-text-google`, etc.) at call time. When a model is deprecated, the curator auto-falls-forward to the replacement. `/digital-marketing-pro:doctor` reports registry age and severity (`ok` <60d / `warn` 60-119d / `urgent` ≥120d); when stale it prints the exact `python scripts/refresh_models.py` invocation to poll the provider APIs for drift. Plus `settings.json.example` ships a `fallbackModel` chain so Claude Code transparently swaps models on overload.
 
 **Q: Is this an Anthropic product?**
 No — independent open-source plugin built by [Indranil Banerjee](https://indranil.in). MIT-licensed. Runs on Claude Code + Cowork.
