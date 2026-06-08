@@ -136,7 +136,7 @@ digital-marketing-pro/
 │   ├── import-guidelines/SKILL.md     # Guideline import (v1.3.0)
 │   ├── import-sop/SKILL.md           # SOP import (v1.3.0)
 │   ├── import-template/SKILL.md      # Template import (v1.3.0)
-│   └── [153 skills total]/             # 141 atomic skills + 6 v3.0 methodology skills + 2 v3.2 quality-and-status skills + 1 v3.4 c2pa-metadata skill
+│   └── [157 skills total]/             # 141 atomic skills + 6 v3.0 methodology skills + 2 v3.2 quality-and-status skills + 1 v3.4 c2pa-metadata skill
 │       └── SKILL.md                   # Skill definition
 ├── docs/                              # Documentation
 ├── README.md

@@ -4,13 +4,13 @@ This file is auto-loaded by OpenAI Codex, Google Antigravity, GitHub Copilot CLI
 
 ## What this plugin is
 
-Digital Marketing Pro is a comprehensive open-source AI marketing plugin shipping **153 skills, 25 specialist agents, a 12-Part Strategy Flow, and EU AI Act Article 50 readiness**. Built for marketing agencies, in-house teams running 50–200 brands, and consultancies.
+Digital Marketing Pro is a comprehensive open-source AI marketing plugin shipping **157 skills, 25 specialist agents, a 12-Part Strategy Flow, and EU AI Act Article 50 readiness**. Built for marketing agencies, in-house teams running 50–200 brands, and consultancies.
 
-**Supported surfaces (v3.8.0):** Claude Code (CLI + IDE extensions), Anthropic Cowork, OpenAI Codex (CLI + IDE + App), Google Antigravity 2.0 (CLI + IDE).
+**Supported surfaces (v3.11.0):** Claude Code (CLI + IDE extensions), Anthropic Cowork, OpenAI Codex (CLI + IDE + App), Cursor 2.5+, GitHub Copilot CLI, Google Antigravity 2.0 (CLI + IDE).
 
 ## How to use it as an agent
 
-1. **Discover skills by description.** All 153 skills auto-discover via SKILL.md frontmatter (`name:` + `description:`). Match user intent to skill description.
+1. **Discover skills by description.** All 157 skills auto-discover via SKILL.md frontmatter (`name:` + `description:`). Match user intent to skill description.
 2. **Run skills by routing user requests to the matching SKILL.md.** Read the skill body for instructions, scripts to run, references to pull.
 3. **Skill bodies may reference Python scripts at `scripts/<name>.py`** — invoke via Bash / `run_shell_command`.
 4. **HTTP MCP connectors are opt-in.** See `.mcp.json.connectors-reference` for the full catalog (Slack, HubSpot, Notion, Gmail, Google Calendar, Stripe, Ahrefs, SimilarWeb, Klaviyo, Amplitude, Canva, Figma, Asana, Webflow). User must configure env vars or set up MCP servers before they connect.
@@ -34,7 +34,7 @@ Digital Marketing Pro is a comprehensive open-source AI marketing plugin shippin
 
 ## Files in this repo
 
-- `skills/<name>/SKILL.md` — 153 Agent Skills (the surface area). Each is byte-portable across all supported surfaces.
+- `skills/<name>/SKILL.md` — 157 Agent Skills (the surface area). Each is byte-portable across all supported surfaces.
 - `agents/<name>.md` — 25 specialist agent definitions (Claude Code subagent format; on Codex use TOML conversion at `~/.codex/agents/`, on Antigravity use `/agent` ad-hoc spawn).
 - `commands/<name>.md` — Claude Code slash commands (`/digital-marketing-pro:<name>`). On other surfaces invoke via natural-language intent — the SKILL.md routing picks up the same handler.
 - `scripts/*.py` — 77 Python helpers (optional, run when Python 3.8+ is present). Includes `connector_resolver.py` + `connector_executor.py` (8 executable HTTP connectors) + `resolve_model.py` (shared model curator).

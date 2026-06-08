@@ -8,7 +8,7 @@ This plugin works in both **Claude Code** and **Claude Cowork** with full featur
 
 ## Overview
 
-Digital Marketing Pro comprises **153 skills**, **25 specialist agents**, **10 top-level slash commands**, **69 Python scripts**, **14 HTTP MCP connectors**, and **167 reference knowledge files**. Hooks ship empty by default (as of v3.1+) for clean multi-plugin coexistence; the prior 3-phase hook configuration is preserved at `hooks/hooks-reference.example.json` for users who want to re-enable specific lifecycle events.
+Digital Marketing Pro comprises **157 skills**, **25 specialist agents**, **17 top-level slash commands**, **69 Python scripts**, **14 HTTP MCP connectors**, and **167 reference knowledge files**. Hooks ship empty by default (as of v3.1+) for clean multi-plugin coexistence; the prior 3-phase hook configuration is preserved at `hooks/hooks-reference.example.json` for users who want to re-enable specific lifecycle events.
 
 The plugin uses the standard Claude plugin format: `.claude-plugin/plugin.json` manifest, `skills/` directories with SKILL.md frontmatter, `agents/` for specialist agents, `hooks/hooks.json` for lifecycle automation, `scripts/` for Python execution, and `.mcp.json` for live data integrations. This format is supported by both Claude Code and Claude Cowork.
 
@@ -21,12 +21,12 @@ Everything works. Claude Code is the original target platform, and every feature
 ### What works
 
 - **Hooks**: Empty by default as of v3.1+ for clean multi-plugin coexistence. Prior SessionStart / PreToolUse / SessionEnd hook configuration preserved at `hooks/hooks-reference.example.json` — re-enable per-event by copying entries into `hooks/hooks.json` if you want automated brand context injection, content-compliance interception, or insight persistence.
-- **Skills and Commands**: All 10 top-level `/digital-marketing-pro:` slash commands available. All 153 skills (organized into modules like content-engine, seo-audit, aeo-geo, agency-dashboard, compliance, etc.) auto-discoverable via SKILL.md frontmatter routing.
+- **Skills and Commands**: All 17 top-level `/digital-marketing-pro:` slash commands available. All 157 skills (organized into modules like content-engine, seo-audit, aeo-geo, agency-dashboard, compliance, etc.) auto-discoverable via SKILL.md frontmatter routing.
 - **Agents**: All 25 specialist agents activate based on conversation context (Marketing Strategist, Content Creator, SEO Specialist, Media Buyer, Analytics Analyst, Brand Guardian, Competitive Intel, PR Outreach, Growth Engineer, Influencer Manager, Email Specialist, CRO Specialist, Social Media Manager, Agency Operations, Marketing Scientist, Localization Specialist, Performance Monitor, Quality Assurance, Memory Manager, CRM Manager, Journey Orchestrator, Intelligence Curator, Competitor Intelligence, Market Intelligence, Execution Coordinator).
 - **Scripts**: All 69 Python scripts run natively — covering brand management, content scoring, campaign tracking, email testing, A/B testing, social optimization, technical SEO auditing, local SEO checking, ROI calculation, budget optimization, CLV analysis, revenue forecasting, GEO/AEO visibility tracking, C2PA content provenance, and more. Requires Python 3.8+ with optional dependencies.
 - **MCP**: 14 HTTP MCP connectors available when env vars are configured (Slack, Canva, Figma, HubSpot, Amplitude, Notion, Ahrefs, SimilarWeb, Klaviyo, Google Calendar, Gmail, Stripe, Asana, Webflow). Additional Cowork-compatible aggregator paths (Pipedream, Composio, Zapier, Make.com) catalogued in `.mcp.json.connectors-reference`.
 - **Memory**: Full persistent brand memory at `~/.claude-marketing/`. Brand profiles, campaign data, audience segments, competitor intelligence, content libraries, and marketing insights all persist across sessions.
-- **Reference Knowledge**: All 167 reference files loaded automatically across the 153 skills.
+- **Reference Knowledge**: All 167 reference files loaded automatically across the 157 skills.
 
 ### What a session looks like
 

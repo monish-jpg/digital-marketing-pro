@@ -90,7 +90,7 @@ After running either command, you should see output similar to this:
 ```
 Installing plugin: digital-marketing-pro v3.0.0
   - 16 marketing modules loaded
-  - 153 skills + 10 top commands registered (/digital-marketing-pro:*)
+  - 157 skills + 17 top commands registered (/digital-marketing-pro:*)
   - 25 specialist agents available
   - 14 HTTP connectors + 68 npx integrations configured
   - 3 event hooks configured (SessionStart, PreToolUse, SessionEnd)
@@ -563,7 +563,7 @@ printed                  (just ask for things)        session
 
 ## 9. Python Dependencies (Optional)
 
-Digital Marketing Pro is designed to work at full capability without Python. All 25 specialist agents, 10 top-level commands, and 153 skills function using the plugin's built-in reference knowledge (167 reference files). Python adds bonus scoring and automation features (and the engagement-state, dm-status, auto-save-insight, and eval scripts that power the v3.0 methodology + v3.2 quality gates — install Python if you plan to use the engagement workflow or the /digital-marketing-pro:check + /digital-marketing-pro:status commands).
+Digital Marketing Pro is designed to work at full capability without Python. All 25 specialist agents, 17 top-level commands, and 157 skills function using the plugin's built-in reference knowledge (167 reference files). Python adds bonus scoring and automation features (and the engagement-state, dm-status, auto-save-insight, and eval scripts that power the v3.0 methodology + v3.2 quality gates — install Python if you plan to use the engagement workflow or the /digital-marketing-pro:check + /digital-marketing-pro:status commands).
 
 ### Three dependency modes
 
@@ -679,7 +679,7 @@ To check platform-level integrations: Open Claude Desktop → Settings → Integ
 
 ## 11. Available Commands
 
-Digital Marketing Pro provides 153 skills + 10 top-level commands, all prefixed with `/digital-marketing-pro:`. You can type these directly in your Claude Code session.
+Digital Marketing Pro provides 157 skills + 17 top-level commands, all prefixed with `/digital-marketing-pro:`. You can type these directly in your Claude Code session.
 
 ### Pre-Publish Quality + Status (v3.2)
 
@@ -863,7 +863,7 @@ Slash commands are useful for structured, templated outputs. But you can also ju
 "I need to respond to negative reviews on Google"
 ```
 
-The plugin's skills will activate based on the intent of your request, whether or not you use a slash command. The 153 skills + 10 top commands simply give you a direct shortcut to a specific workflow.
+The plugin's skills will activate based on the intent of your request, whether or not you use a slash command. The 157 skills + 17 top commands simply give you a direct shortcut to a specific workflow.
 
 ---
 
