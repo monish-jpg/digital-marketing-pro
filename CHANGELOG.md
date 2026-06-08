@@ -4,6 +4,73 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.13.0] — 2026-06-09
+
+**Multi-harness expansion: native Hermes Agent + OpenClaw + 40+ Agent Skills platforms documented.**
+
+Triggered by user push-back: "how can I make this plugin compatible with Hermes agents or OpenClaw agents, or something like that? Is there any possibility?"
+
+Research first, then build. Verified every claim against primary sources before any code shipped:
+- [Hermes Agent plugin spec (Nous Research)](https://hermes-agent.nousresearch.com/docs/guides/build-a-hermes-plugin) — confirmed `plugin.yaml` + `__init__.py` at repo root, `ctx.register_skill(name, path)` signature, Hermes Desktop v0.15.2 public preview June 2 2026
+- [OpenClaw native manifest spec](https://docs.openclaw.ai/plugins/manifest) — confirmed `id` + `configSchema` required, `skills` field accepts paths relative to plugin root, OpenClaw also auto-detects Claude-compatible bundles
+- [Agent Skills open standard client showcase](https://agentskills.io) — confirmed 41 platforms officially adopted (up from ~32 in March 2026)
+
+### Added — Native Hermes Agent plugin
+
+- **`plugin.yaml`** at repo root — Hermes-native manifest. Fields: `name`, `version`, `description`, `author`, `license`, `homepage`, `provides_tools: []`, `provides_hooks: []`, `requires_env: []`. Zero env vars required, zero global hooks (matches our policy on every other platform).
+- **`__init__.py`** at repo root — Python adapter exposing `register(ctx)` that Hermes calls at plugin load. The function walks our `skills/` directory, parses YAML frontmatter for `name` + `description`, and registers each of the 158 skills via `ctx.register_skill(name, path_to_SKILL_md)`. **Defensive coding throughout** — stdlib only, no third-party Python dependencies; if Hermes' API surface differs from the documented spec, the adapter logs and degrades gracefully rather than crashing (Hermes guarantees "crashes disable the plugin but don't crash Hermes" — we go further and never raise). Includes an `audit()` introspection function so a Hermes user can sanity-check the adapter before installing: `python __init__.py` prints the discovered skill count + first 5 skill names.
+- Install command: `hermes plugins install indranilbanerjee/digital-marketing-pro`.
+- Verified: registers all 158 skills against a mock Hermes context in the test suite.
+
+### Added — Native OpenClaw manifest
+
+- **`openclaw.plugin.json`** at repo root — minimal-but-complete OpenClaw native manifest. Required fields: `id` (`digital-marketing-pro`) + `configSchema` (empty object with `additionalProperties: false`). Optional fields populated: `name`, `description`, `version`, `skills: ["./skills"]`. The `skills` field tells OpenClaw to walk our `./skills` directory for SKILL.md files — same directory every other platform uses.
+- Install command: `openclaw plugins install git:github.com/indranilbanerjee/digital-marketing-pro`.
+- Backward-compatibility note: OpenClaw also auto-detects our existing `.claude-plugin/plugin.json` as a Claude-compatible bundle, so we'd work without `openclaw.plugin.json` — but shipping the native manifest enables ClawHub marketplace eligibility + first-class discoverability.
+
+### Added — "Works on 40+ agent harnesses" README section
+
+Documentation of explicit compatibility with **35 additional platforms** via the Agent Skills open standard (no platform-specific manifest needed; agents discover SKILL.md by walking a directory tree). Tier-1 list: Goose · OpenHands · OpenCode · Junie · Gemini CLI · Roo Code · Cline / Windsurf · Kiro · Amp · Letta · Mux · Factory · Workshop · Tabnine · Mistral Vibe · Emdash · Superconductor · Ona · VT Code · Qodo · Piebald · Autohand Code CLI · pi · Command Code · TRAE · Firebender · bub · fast-agent · nanobot · Vita · Snowflake Cortex Code · Databricks Genie Code · Laravel Boost · Spring AI · Agentman · Google AI Edge Gallery.
+
+### Added — Tests (49 → 70)
+
+- **`tests/test_hermes_adapter.py`** — 13 new tests covering: `plugin.yaml` exists at repo root + has required fields (name / version / semver / description), `provides_tools` block explicit, `provides_hooks: []` enforces zero-hooks policy, `requires_env: []` enforces zero install-time env vars, adapter `__init__.py` imports without error, `register()` function exists + is callable, `audit()` works + discovers 158 skills, `register()` against mock ctx registers all 158 skills, `register()` degrades gracefully when ctx is missing `register_skill` method, plugin version matches between `plugin.yaml` and `__init__.py`.
+- **`tests/test_openclaw_manifest.py`** — 8 new tests covering: manifest exists at repo root, `id` field is canonical, `configSchema` required with `additionalProperties: false`, `skills` field points at `./skills` AND that directory has 100+ SKILL.md files, version matches the canonical Claude Code manifest, name + description present + substantive, no hooks declared, no unexpected top-level fields.
+- All 70 tests passing: `python tests/run_all.py`.
+
+### Changed
+
+- All 5 platform manifests bumped to v3.13.0 with description: "Open-source AI marketing plugin for agencies & in-house teams — 158 skills, 25 agents, 12-Part Strategy Flow, Cowork team-persistent, EU AI Act Article 50 ready. Runs on Claude Code, Codex, Cursor, Copilot CLI, Antigravity, Hermes Agent, OpenClaw + 40+ Agent Skills platforms."
+- README "Supported surfaces" table now has 8 rows (Claude Code · Cowork · Codex · Cursor · Copilot CLI · Antigravity · **Hermes Agent** · **OpenClaw**), up from 6.
+- Recent-release callout at top of README updated.
+- Version badge: 3.12.1 → 3.13.0.
+- New "Platforms" badge: "8 native + 35 Agent Skills".
+- Test badge: "49/49" → "70/70".
+- AGENTS.md updated with new surfaces + repo root file inventory.
+
+### Why no breaking changes
+
+`plugin.yaml`, `__init__.py`, and `openclaw.plugin.json` sit at the repo root but are isolated to their respective platforms:
+
+| File | Read by | NOT read by |
+|---|---|---|
+| `plugin.yaml` | Hermes Agent | Claude Code, Cowork, Codex, Cursor, Copilot CLI, Antigravity, OpenClaw |
+| `__init__.py` | Hermes Agent (calls `register(ctx)`) | Everyone else (Claude Code doesn't auto-execute Python files) |
+| `openclaw.plugin.json` | OpenClaw native install path | Everyone else (Claude Code only reads `.claude-plugin/plugin.json`) |
+
+The three new files add ~10KB to the install bundle. Auto-connecting MCPs unchanged (still empty `.mcp.json`). Global hooks unchanged (still empty `hooks/hooks.json`). Skill descriptions unchanged. Claude Code + Cowork behavior is byte-identical to v3.12.1.
+
+### Verified
+
+- `python tests/run_all.py` — 70/70 passing
+- `python scripts/skill-line-check.py` — all 158 skills under 500-line threshold
+- `python __init__.py` — Hermes adapter audit shows 158 skills discovered
+- Mock Hermes `ctx` test — all 158 skills register successfully
+- Bad-ctx test — adapter degrades gracefully without crashing
+- All 8 platform manifest files (5 DMP + native Hermes + native OpenClaw) parse as valid JSON / YAML
+
+Skill count: 158 unchanged. Test count: **49 → 70**. Native platforms: **6 → 8**. Documented Agent Skills coverage: **6 → 41+**.
+
 ## [3.12.1] — 2026-06-08
 
 **Documentation + discoverability polish — no runtime changes.**
