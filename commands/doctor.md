@@ -1,5 +1,5 @@
 ---
-description: "Per-action readiness diagnostic. Shows which campaign-audit and launch-campaign actions are live (manifest-ready) vs blocked (stub-unconfigured) in the current environment, with one-step setup hints for the blocked ones."
+description: "Per-action readiness diagnostic. Shows which campaign-audit and launch-campaign actions are live (manifest-ready) vs blocked (stub-unconfigured) in the current environment, with one-step setup hints for the blocked ones. Now includes model-registry freshness + Cowork+Drive routing status."
 argument-hint: "[--brand <slug>] [--action <id>] [--channel <name>] [--json] [--summary]"
 allowed-tools: Bash Read
 ---
@@ -34,6 +34,9 @@ Resolves every action in the campaign-audit and launch-campaign skill surfaces a
 1. **Summary line** — count of actions in each of the three modes
 2. **Per-action table** — action name, mode, operation type, configured connector or list of candidate connectors
 3. **Unlock guide** — for any stub-unconfigured action, the exact next step
+4. **Environment block** — detected surface (`claude-code-windows` / `claude-code-mac` / `claude-code-linux` / `cowork-sandbox`)
+5. **Model curator block** — registry age + severity (`ok` <60d, `warn` 60-119d, `urgent` >=120d), with the exact `refresh_models.py` command when stale
+6. **Cowork+Drive routing block** — only meaningful in Cowork. Shows whether `/digital-marketing-pro:cowork-setup` has been run; flags `urgent` when Cowork is detected but routing is missing (brand state would vanish at session end)
 
 ## See also
 

@@ -2,6 +2,7 @@
 description: "Run the unified pre-publish quality gate on marketing content (hallucination + brand voice + structure + claims). Use before publishing any marketing copy."
 argument-hint: "<file-or-content> [--full|--compliance] [--brand <slug>] [--evidence <path>] [--schema <name>]"
 allowed-tools: Read Bash Glob Grep
+disable-model-invocation: true
 ---
 
 # /digital-marketing-pro:check — Pre-Publish Quality Gate

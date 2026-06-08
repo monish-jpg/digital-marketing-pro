@@ -235,3 +235,12 @@ For anomaly investigation, prioritize speed. Ask for the specific metric, timefr
 - **AEO/GEO Intelligence** — For tracking AI visibility metrics and incorporating AI citation data into the measurement framework
 - **Audience Intelligence** — For validating persona hypotheses with behavioral data and building data-driven segments
 - **Digital PR & Authority** — For measuring earned media impact, backlink acquisition, and share of voice
+
+## Context efficiency
+
+This skill's reference docs (`skills/<this-skill>/*.md`) sum to ~30-50KB. Don't load them eagerly — pick targeted sections:
+
+- **Grep before Read.** Find the keyword or section heading first, then Read with `offset` + `limit` to pull just that range.
+- **Walk `${CLAUDE_SKILL_DIR}` once.** Use a single directory listing to see what's there, then Read only the files that match your current step.
+- **One source at a time.** If the workflow says "consult three reference files," read them sequentially after deciding what you need from each. Bulk-loading all three blows the per-skill 5K-token budget that auto-compaction reserves.
+- **Strip noise from CSV inputs.** If the input is a large CSV, grep the header line first to pick columns, then process row-by-row — do not Read the whole file into context.

@@ -4,6 +4,47 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.12.0] — 2026-06-08
+
+**Cowork persistence, fallback models, model-freshness, tests — research-grounded hardening pass.**
+
+Triggered by user push-back on a self-audit-only recommendation: actual web research surfaced that `${CLAUDE_PLUGIN_DATA}` is NOT persistent across Cowork sessions (GitHub issue #51398, April 2026). The earlier planned path-migration would NOT have fixed the bug. Solution: route brand state through a Drive MCP, mirroring ContentForge's `cf-cowork-setup` pattern.
+
+### Added
+
+- **`/digital-marketing-pro:cowork-setup` skill + command.** New `skills/cowork-setup/SKILL.md` walks through a 6-step Cowork team-setup: detect sandbox → verify Drive MCP → create canonical Drive folder (`<root>/_brands/`, `_runs/`, `_plans/`) → store per-team config → confirm routing expectations → optionally chain into `brand-setup`. Multi-team isolation via per-team folder names. Falls back to local-only mode on Claude Code.
+- **`scripts/plugin-metadata.py`** — environment + asset probes. Detects Cowork vs local Claude Code, reports plugin version + skill / agent / command / script counts + connector availability.
+- **`scripts/drive-sync-state.py`** — Cowork+Drive routing ledger. Manages three concerns: per-team Drive root config (`~/.claude-marketing/_cowork-config.json`), per-brand profile sync state (SHA-256 hash compare to detect drift), per-run checkpoint sync pending lists. Agent reads pending lists after each phase and uses Drive MCP for actual transfers.
+- **`scripts/skill-line-check.py`** — CI guard for the documented 500-line SKILL.md guideline. Default warn at 400, error at 500. All 158 skills currently under threshold (heaviest: `four-core-documents` at 368).
+- **`settings.json.example`** — recommended user settings with `fallbackModel` 3-model resilience chain (Sonnet 4.7 → Sonnet 4.6 → Haiku 4.5), `requiredMinimumVersion`, `skillOverrides`, OTel resource attrs.
+- **`tests/` directory** — 49 stdlib-unittest tests covering `resolve_model.py`, `drive-sync-state.py`, `plugin-metadata.py`, `skill-line-check.py`, `connector_resolver.py`. Drive-sync tests run against a tempdir HOME so they never touch the real `~/.claude-marketing/`. Run with `python tests/run_all.py`. **All 49 passing.**
+
+### Changed
+
+- **`.claude-plugin/plugin.json`** — bumped to v3.12.0, added `"requiredMinimumVersion": "2.1.157"` (Claude Code refuses to load DMP on older builds; landed in CC v2.1.163 June 4 2026). Updated description from 157 to 158 skills + "Cowork-ready" badge.
+- **`/digital-marketing-pro:doctor`** now reports two additional sections beyond the per-action readiness map: **Model curator status** (registry age + severity bands: `ok` <60d, `warn` 60-119d, `urgent` >=120d, with the exact `refresh_models.py` invocation when stale), and **Cowork+Drive routing status** (flags `urgent` when Cowork is detected but `cowork-setup` hasn't run, so users see the brand-state-vanishes-at-session-end risk before it bites).
+- **`disable-model-invocation: true`** added to the 5 true side-effect commands: `execute-action`, `cowork-setup`, `resume`, `check`, `output-folder`. Their descriptions no longer load into the model's per-session description listing, saving context budget. `brand-setup`, `doctor`, `status` deliberately left open — those are natural-language entry points users expect Claude to be able to invoke.
+- **Fixed 3 "Read all" eager-load anti-patterns** in `skills/growth-plan/SKILL.md`, `skills/client-validation-document/SKILL.md`, `skills/continuous-improvement-loop/SKILL.md`. Replaced with explicit grep-first + targeted Read with offset+limit guidance that respects the per-skill 5K-token auto-compaction budget.
+- **Added `## Context efficiency` sections** to 3 more top-heaviest SKILL.md files (`seo-plan`, `content-engine`, `analytics-insights`), bringing the total to 16 / top-16 heaviest skills with explicit context-efficiency guidance.
+- **All 5 platform manifests bumped** to v3.12.0 with consistent "Cowork-persistent" badge and 158-skills count.
+- **README + AGENTS.md updated** with v3.12.0 release block, Cowork-specific routing note, and corrected counts (158 skills / 18 commands / 84 scripts).
+
+### Verified against primary sources
+
+- [Claude Code changelog May–Jun 2026](https://code.claude.com/docs/en/changelog) for `fallbackModel` (v2.1.152), `requiredMinimumVersion` (v2.1.163), `disable-model-invocation` semantics, `/reload-skills`, `SessionStart` hook `reloadSkills: true`, per-skill `usage` breakdown
+- [Claude Code Skills docs](https://code.claude.com/docs/en/skills) for the 500-line SKILL.md guideline, the 1,536-char description+when_to_use cap, the 5K-token / 25K-budget auto-compaction rules
+- [GitHub issue #51398](https://github.com/anthropics/claude-code/issues/51398) confirming `${CLAUDE_PLUGIN_DATA}` is NOT persistent across Cowork sessions
+- [GitHub issue #39686](https://github.com/anthropics/claude-code/issues/39686) (silently-injected skills) confirming that users penalize plugins that waste tokens
+- [build-to-launch Claude Code plugins review](https://buildtolaunch.substack.com/p/best-claude-code-plugins-tested-review) confirming that reviewers KEEP plugins with multi-skill chains (DMP's pattern) and SKIP plugins with always-on hooks (we ship zero) or "wrong data presented as polished" (our connector-resolver + executor guards against this)
+
+### Test results
+
+- `python tests/run_all.py` — **49 / 49 passing**
+- `python scripts/skill-line-check.py` — **158 / 158 skills under 500-line threshold** (heaviest `four-core-documents` at 368)
+- `python scripts/action-doctor.py` — clean readiness map + new model + Cowork sections work end-to-end on Windows
+
+Skill count: 157 → **158** (`cowork-setup` added). 192/192 skills still pass Codex `[a-z0-9-]+` regex. Script count: 81 → **84**.
+
 ## [3.11.0] — 2026-06-04
 
 **SEO skill expansion + workflow discipline — 3 new skills, dispatcher orchestration, numbered-output convention, quality scorecards, Tips & caveats.**

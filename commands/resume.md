@@ -1,6 +1,7 @@
 ---
 description: Resume a long-running DMP workflow (engagement / campaign-plan / content-engine / seo-audit / competitor-analysis / campaign-audit / launch-campaign) that was interrupted partway through
 argument-hint: "[workflow] [run-id] (both optional — omit to auto-pick latest in-progress)"
+disable-model-invocation: true
 ---
 
 # Resume Interrupted Workflow

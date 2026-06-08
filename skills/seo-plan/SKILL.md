@@ -274,3 +274,12 @@ This skill is both a consumer (of specialists) and a producer (of the master pla
 - **Don't run this on Day 1 of an engagement.** Run the specialists first so the dispatcher has fresh inputs. The first `seo-plan` run on a new brand will mostly be Phase 0 (Discovery) work.
 - **For YMYL clients,** add E-E-A-T as a 5th pillar manually (the standard 4-pillar scoring doesn't separately weight authority signals).
 - **The 30-day freshness window is a default,** not a rule. For high-velocity industries (news, SaaS launches), shorten to 14 days. For slow-moving categories (manufacturing, B2B services), 60 days is fine.
+
+## Context efficiency
+
+This skill's reference docs (`skills/<this-skill>/*.md`) sum to ~30-50KB. Don't load them eagerly — pick targeted sections:
+
+- **Grep before Read.** Find the keyword or section heading first, then Read with `offset` + `limit` to pull just that range.
+- **Walk `${CLAUDE_SKILL_DIR}` once.** Use a single directory listing to see what's there, then Read only the files that match your current step.
+- **One source at a time.** If the workflow says "consult three reference files," read them sequentially after deciding what you need from each. Bulk-loading all three blows the per-skill 5K-token budget that auto-compaction reserves.
+- **Strip noise from CSV inputs.** If the input is a large CSV, grep the header line first to pick columns, then process row-by-row — do not Read the whole file into context.

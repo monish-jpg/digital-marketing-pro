@@ -1,6 +1,7 @@
 ---
 description: Print + open the user-visible DMP output folder for a brand (~/Documents/DigitalMarketingPro/{brand}/). Direct answer to "where did my engagement deliverables save?"
 argument-hint: "[brand] [workflow] (both optional — defaults to active brand, all workflows)"
+disable-model-invocation: true
 ---
 
 # Output Folder
