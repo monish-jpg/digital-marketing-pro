@@ -88,6 +88,34 @@ class TestRegistryAge(unittest.TestCase):
         self.assertGreater(len(reg["aliases"]), 0)
 
 
+class TestEvolinkAliasResolution(unittest.TestCase):
+    def test_resolves_text_evolink(self):
+        result = resolve_model.resolve("latest-text-evolink")
+        self.assertTrue(result.startswith("gpt-"),
+                        f"expected a gpt-* variant, got {result}")
+
+    def test_resolves_balanced_evolink(self):
+        result = resolve_model.resolve("latest-balanced-evolink")
+        self.assertTrue(result.startswith("deepseek"),
+                        f"expected a deepseek variant, got {result}")
+
+    def test_resolves_fast_evolink(self):
+        result = resolve_model.resolve("latest-fast-evolink")
+        self.assertTrue(result.startswith("deepseek"),
+                        f"expected a deepseek variant, got {result}")
+
+    def test_evolink_check_current(self):
+        status, _ = resolve_model.check("gpt-5.2")
+        self.assertEqual(status, "current")
+
+    def test_evolink_vendor_filter(self):
+        models = resolve_model.list_models(vendor="evolink")
+        self.assertGreater(len(models), 0,
+                           "expected at least one evolink model in registry")
+        for m in models:
+            self.assertEqual(m["vendor"], "evolink")
+
+
 class TestListFilter(unittest.TestCase):
     def test_filter_by_vendor(self):
         models = resolve_model.list_models(vendor="anthropic")

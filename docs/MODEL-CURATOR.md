@@ -62,8 +62,29 @@ python scripts/resolve_model.py --list --vendor anthropic --status current
 | `latest-video-google` | Veo 3.1 |
 | `latest-video-wavespeed` | Kling v3.0 Pro |
 | `latest-image-character-higgsfield` | Higgsfield Soul v2 |
+| `latest-text-evolink` | GPT-5.2 (via Evolink) |
+| `latest-balanced-evolink` | DeepSeek V4 Pro (via Evolink) |
+| `latest-fast-evolink` | DeepSeek V4 Flash (via Evolink) |
 
 Run `python scripts/resolve_model.py --aliases` to list the live mappings.
+
+---
+
+## Evolink vendor
+
+[EvoLink](https://evolink.ai) is a multi-provider API gateway that aggregates models from OpenAI, Anthropic, Google, DeepSeek, Doubao, MiniMax, and more through a single API key. The `evolink` vendor entries in the registry cover models that are **primarily or exclusively accessible through Evolink** — DeepSeek, Doubao, MiniMax families — plus Evolink's own `evolink-auto` smart router.
+
+**API compatibility:** OpenAI-compatible (`https://direct.evolink.ai/v1/chat/completions`). Set `EVOLINK_API_KEY` in your environment. Models from other vendors (GPT-5, Claude, Gemini) already tracked under `openai`/`anthropic`/`google` are also proxied by Evolink — use the existing vendor entries and configure the Evolink endpoint as the base URL for those SDKs.
+
+**Keeping the registry fresh:** `refresh_models.py` calls Evolink's `GET /v1/models` when `EVOLINK_API_KEY` is set.
+
+```bash
+# See all Evolink-curated models
+python scripts/resolve_model.py --list --vendor evolink
+
+# Resolve an Evolink alias
+python scripts/resolve_model.py --alias latest-text-evolink
+```
 
 ---
 

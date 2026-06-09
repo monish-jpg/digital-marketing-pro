@@ -17,6 +17,7 @@ Requires (per provider) one or more of:
   ANTHROPIC_API_KEY   — calls https://api.anthropic.com/v1/models
   OPENAI_API_KEY      — calls https://api.openai.com/v1/models
   GEMINI_API_KEY      — calls https://generativelanguage.googleapis.com/v1beta/models
+  EVOLINK_API_KEY     — calls https://direct.evolink.ai/v1/models
 
 Usage:
     python refresh_models.py            # report drift
@@ -91,6 +92,19 @@ def list_gemini() -> set[str] | None:
     }
 
 
+def list_evolink() -> set[str] | None:
+    key = os.environ.get("EVOLINK_API_KEY")
+    if not key:
+        return None
+    data = _http_get(
+        "https://direct.evolink.ai/v1/models",
+        {"Authorization": f"Bearer {key}"},
+    )
+    if not data:
+        return None
+    return {m.get("id") for m in data.get("data", []) if m.get("id")}
+
+
 def diff(registry_ids: set[str], live_ids: set[str]) -> dict[str, list[str]]:
     return {
         "missing_from_registry": sorted(live_ids - registry_ids),
@@ -124,6 +138,7 @@ def main() -> int:
         ("anthropic", list_anthropic),
         ("openai", list_openai),
         ("google", list_gemini),
+        ("evolink", list_evolink),
     ):
         live = fetcher()
         if live is None:
@@ -151,7 +166,7 @@ def main() -> int:
               f"(next review due: {report['registry_next_review_due']})")
         if "timestamp_bumped" in report:
             print(f"  -> timestamp bumped to {report['timestamp_bumped']}")
-        for v in ("anthropic", "openai", "google"):
+        for v in ("anthropic", "openai", "google", "evolink"):
             r = report.get(v, {})
             print(f"\n{v.upper()}: {r.get('status')}")
             if r.get("status") == "checked":

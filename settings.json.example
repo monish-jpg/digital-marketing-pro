@@ -18,6 +18,8 @@
     "indranilbanerjee/neels-plugins"
   ],
 
+  "_evolink_comment": "EvoLink (evolink.ai) is a multi-provider API gateway — one key unlocks GPT-5, DeepSeek V4, Doubao Seed 2.0, MiniMax M3, and more. The model curator scripts (resolve_model.py, refresh_models.py) read EVOLINK_API_KEY from the environment (NOT from this settings file — set it in your shell profile or .env). Use --vendor evolink to list Evolink-curated models. Aliases: latest-text-evolink / latest-balanced-evolink / latest-fast-evolink. See docs/MODEL-CURATOR.md.",
+
   "_otel_comment": "OpenTelemetry (v2.1.161) labels every metric datapoint with these key/value pairs. Use to slice metrics by client, brand, or team. Optional.",
   "OTEL_RESOURCE_ATTRIBUTES": "team=marketing,plugin=digital-marketing-pro"
 }
