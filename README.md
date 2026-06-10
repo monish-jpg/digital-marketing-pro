@@ -17,7 +17,7 @@ Open-source AI marketing plugin — **158 skills, 25 specialist agents, EU AI Ac
 [![Cowork](https://img.shields.io/badge/cowork-team%20persistent-purple.svg)](#supported-surfaces-v3131)
 [![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Article%2050%20ready-darkred.svg)](skills/context-engine/compliance-rules.md)
 
-> 🆕 **Just shipped — v3.13.1 (June 9, 2026):** Test infrastructure hardening (70 → **119 tests**) · new **Troubleshooting** section covers all 8 platforms · **5-minute non-developer install path** for marketers · release-consistency tests catch cross-manifest drift automatically. [Read what's new →](#whats-new) · [Full changelog →](CHANGELOG.md)
+> 🆕 **Just shipped — v3.13.1 (June 9, 2026):** Test infrastructure hardening (114 → **119 tests**) · new **Troubleshooting** section covers all 8 platforms · **5-minute non-developer install path** for marketers · release-consistency tests catch cross-manifest drift automatically. [Read what's new →](#whats-new) · [Full changelog →](CHANGELOG.md)
 
 ```bash
 # Install — one line
