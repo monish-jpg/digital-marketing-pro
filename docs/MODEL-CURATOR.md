@@ -63,7 +63,7 @@ python scripts/resolve_model.py --list --vendor anthropic --status current
 | `latest-video-wavespeed` | Kling v3.0 Pro |
 | `latest-image-character-higgsfield` | Higgsfield Soul v2 |
 | `latest-text-evolink` | GPT-5.2 (via Evolink) |
-| `latest-balanced-evolink` | DeepSeek V4 Pro (via Evolink) |
+| `latest-balanced-evolink` | DeepSeek Chat (via Evolink) |
 | `latest-fast-evolink` | DeepSeek V4 Flash (via Evolink) |
 
 Run `python scripts/resolve_model.py --aliases` to list the live mappings.
@@ -84,6 +84,9 @@ python scripts/resolve_model.py --list --vendor evolink
 
 # Resolve an Evolink alias
 python scripts/resolve_model.py --alias latest-text-evolink
+
+# Poll Evolink's live model catalog
+EVOLINK_API_KEY=... python scripts/refresh_models.py
 ```
 
 ---
@@ -98,7 +101,7 @@ python scripts/resolve_model.py --registry-age
 # -> last_updated: 2026-05-25 (0 days ago). next_review_due: 2026-08-25
 
 # Poll the provider catalogs and report drift (no writes)
-ANTHROPIC_API_KEY=... OPENAI_API_KEY=... GEMINI_API_KEY=... python scripts/refresh_models.py
+ANTHROPIC_API_KEY=... OPENAI_API_KEY=... GEMINI_API_KEY=... EVOLINK_API_KEY=... python scripts/refresh_models.py
 
 # After a manual curation pass, bump the timestamp
 python scripts/refresh_models.py --bump-timestamp

@@ -129,14 +129,14 @@ def _model_curator_status():
             f"Model registry is {age} days old (>{REGISTRY_STALE_ERROR_DAYS} = URGENT). "
             "Frontier models shift ~every 6 weeks; deprecated IDs will start returning 404 silently."
         )
-        action = "ANTHROPIC_API_KEY=... OPENAI_API_KEY=... GEMINI_API_KEY=... python scripts/refresh_models.py"
+        action = "ANTHROPIC_API_KEY=... OPENAI_API_KEY=... GEMINI_API_KEY=... EVOLINK_API_KEY=... python scripts/refresh_models.py"
     elif age >= REGISTRY_STALE_WARN_DAYS:
         severity = "warn"
         message = (
             f"Model registry is {age} days old (>{REGISTRY_STALE_WARN_DAYS} = stale). "
             "Run refresh_models.py to check provider drift before any high-volume run."
         )
-        action = "ANTHROPIC_API_KEY=... OPENAI_API_KEY=... GEMINI_API_KEY=... python scripts/refresh_models.py"
+        action = "ANTHROPIC_API_KEY=... OPENAI_API_KEY=... GEMINI_API_KEY=... EVOLINK_API_KEY=... python scripts/refresh_models.py"
 
     return {
         "available": True,

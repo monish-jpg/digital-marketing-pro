@@ -458,7 +458,7 @@
     "latest-video-wavespeed": "kwaivgi/kling-v3.0-pro/image-to-video",
     "latest-image-character-higgsfield": "higgsfield-soul-v2",
     "latest-text-evolink": "gpt-5.2",
-    "latest-balanced-evolink": "deepseek-v4-pro",
+    "latest-balanced-evolink": "deepseek-chat",
     "latest-fast-evolink": "deepseek-v4-flash"
   }
 }

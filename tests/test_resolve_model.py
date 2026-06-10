@@ -96,8 +96,11 @@ class TestEvolinkAliasResolution(unittest.TestCase):
 
     def test_resolves_balanced_evolink(self):
         result = resolve_model.resolve("latest-balanced-evolink")
-        self.assertTrue(result.startswith("deepseek"),
-                        f"expected a deepseek variant, got {result}")
+        self.assertEqual(result, "deepseek-chat")
+        balanced_ids = {
+            m["id"] for m in resolve_model.list_models(vendor="evolink", tier="balanced")
+        }
+        self.assertIn(result, balanced_ids)
 
     def test_resolves_fast_evolink(self):
         result = resolve_model.resolve("latest-fast-evolink")
