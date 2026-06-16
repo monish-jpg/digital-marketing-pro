@@ -44,7 +44,7 @@ Create one normalized row per public post or reply used in the sample:
    mention counts and source links.
 3. If connector coverage is incomplete, use approved alternatives: user-provided
    exports, platform search exports, compliant public datasets, reviewed URL
-   lists, or an installed OpenClaw collection helper.
+   lists, or an installed collection helper such as TweetClaw.
 4. Optional helper: [TweetClaw](https://github.com/Xquik-dev/tweetclaw)
    (`@xquik/tweetclaw` on npm)
    can collect public X/Twitter evidence packets for tweet search, reply search,
