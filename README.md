@@ -12,12 +12,12 @@ Open-source AI marketing plugin — **158 skills, 25 specialist agents, EU AI Ac
 [![Forks](https://img.shields.io/github/forks/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=blue)](https://github.com/indranilbanerjee/digital-marketing-pro/network/members)
 [![Issues](https://img.shields.io/github/issues/indranilbanerjee/digital-marketing-pro?logo=github)](https://github.com/indranilbanerjee/digital-marketing-pro/issues)
 [![Last commit](https://img.shields.io/github/last-commit/indranilbanerjee/digital-marketing-pro?logo=github)](https://github.com/indranilbanerjee/digital-marketing-pro/commits/main)
-[![Tests](https://img.shields.io/badge/tests-114%2F114%20passing-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-119%2F119%20passing-brightgreen.svg)](tests/)
 [![Platforms](https://img.shields.io/badge/platforms-8%20native%20%2B%2035%20Agent%20Skills-success.svg)](#works-on-40-agent-harnesses-via-the-agent-skills-open-standard)
 [![Cowork](https://img.shields.io/badge/cowork-team%20persistent-purple.svg)](#supported-surfaces-v3131)
 [![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Article%2050%20ready-darkred.svg)](skills/context-engine/compliance-rules.md)
 
-> 🆕 **Just shipped — v3.13.1 (June 9, 2026):** Test infrastructure hardening (70 → **114 tests**) · new **Troubleshooting** section covers all 8 platforms · **5-minute non-developer install path** for marketers · release-consistency tests catch cross-manifest drift automatically. [Read what's new →](#whats-new) · [Full changelog →](CHANGELOG.md)
+> 🆕 **Just shipped — v3.13.1 (June 9, 2026):** Test infrastructure hardening (114 → **119 tests**) · new **Troubleshooting** section covers all 8 platforms · **5-minute non-developer install path** for marketers · release-consistency tests catch cross-manifest drift automatically. [Read what's new →](#whats-new) · [Full changelog →](CHANGELOG.md)
 
 ```bash
 # Install — one line
@@ -599,7 +599,7 @@ Frontier models change every ~6 weeks. Hardcoding `claude-sonnet-4-5-20250929` o
 
 - **`scripts/model_registry.json`** — single source of truth for every model id used by the plugin, with vendor, tier, modality, status, and `replacement_id` for deprecated entries.
 - **`scripts/resolve_model.py`** — Python module + CLI. Resolves human aliases (`latest-balanced-anthropic`, `latest-fast-anthropic`, `latest-text-openai`, `latest-vision-google`, `latest-image-google`, `latest-video-google`) to concrete ids at call time. Deprecated ids passed via `--model` auto-fall-forward to their replacement (with a stderr warning).
-- **`scripts/refresh_models.py`** — polls Anthropic / OpenAI / Google list endpoints with your API keys and reports drift versus the registry (NEW models in the provider catalog, STALE models in the registry).
+- **`scripts/refresh_models.py`** — polls Anthropic / OpenAI / Google / Evolink list endpoints with your API keys and reports drift versus the registry (NEW models in the provider catalog, STALE models in the registry).
 
 Every script that calls a provider model now accepts `--model` (or `--openai-model` / `--anthropic-model` for `scripts/ai-visibility-checker.py`) and the value is validated against the registry. See [`docs/MODEL-CURATOR.md`](docs/MODEL-CURATOR.md) for the full alias map, curation policy, and worked examples.
 
@@ -737,7 +737,7 @@ Run `/reload-plugins` (Claude Code) or restart the Cowork chat session. If still
 Cowork's filesystem is per-session ephemeral — `~/.claude-marketing/` AND `${CLAUDE_PLUGIN_DATA}` both reset at session end ([open issue #51398](https://github.com/anthropics/claude-code/issues/51398)). Fix: run `/digital-marketing-pro:cowork-setup` once per team — it routes brand state through a Google Drive MCP so profiles survive across sessions and your whole team sees them. See [v3.12.0 release notes](#whats-new) for the why-and-how.
 
 **"`/digital-marketing-pro:doctor` says urgent (model registry stale)"**
-The model registry hasn't been refreshed for 60+ days — frontier models shift every ~6 weeks so deprecated IDs may start 404-ing. Fix: `ANTHROPIC_API_KEY=... OPENAI_API_KEY=... GEMINI_API_KEY=... python scripts/refresh_models.py`. The script polls each provider's `/v1/models` endpoint and reports drift versus our registry.
+The model registry hasn't been refreshed for 60+ days — frontier models shift every ~6 weeks so deprecated IDs may start 404-ing. Fix: `ANTHROPIC_API_KEY=... OPENAI_API_KEY=... GEMINI_API_KEY=... EVOLINK_API_KEY=... python scripts/refresh_models.py`. The script polls each provider's `/v1/models` endpoint and reports drift versus our registry.
 
 ### OpenAI Codex / Cursor / GitHub Copilot CLI / Antigravity
 
@@ -769,7 +769,7 @@ OpenClaw auto-detects our `.claude-plugin/plugin.json` as a Claude-compatible bu
 ### General (any platform)
 
 **"Tests in `tests/` fail when I `git clone` locally"**
-Run `python tests/run_all.py` from the repo root. All 114 tests are stdlib-only — no `pip install` needed. If they fail, the most likely cause is a Python version mismatch (DMP supports Python 3.8+) or a clone that omitted some `skills/` subdirectories. Try `git clone --depth=1` again.
+Run `python tests/run_all.py` from the repo root. All 119 tests are stdlib-only — no `pip install` needed. If they fail, the most likely cause is a Python version mismatch (DMP supports Python 3.8+) or a clone that omitted some `skills/` subdirectories. Try `git clone --depth=1` again.
 
 **"`/digital-marketing-pro:doctor` shows my action as stub_unconfigured"**
 That action needs an MCP connector configured. Run `python scripts/connector-status.py --action setup-guide --name <connector-name>` for the exact setup snippet. Add it to your `.mcp.json` under `mcpServers`, restart your agent, and the action becomes `manifest_ready`. See [Connector-aware action resolver](#connector-aware-action-resolver-v3710) for the full readiness model.
