@@ -100,6 +100,63 @@ class TestVersionConsistency(unittest.TestCase):
         self.assertEqual(m.group(1), self.canonical,
                          f"CHANGELOG latest entry is v{m.group(1)} but canonical is {self.canonical}")
 
+    def test_readme_supported_surfaces_heading_matches_canonical(self):
+        """`## Supported surfaces (vX.Y.Z)` must lock-step with canonical version.
+
+        Added in v3.14.1 after v3.14.0 shipped with this heading stuck at v3.13.1.
+        CF + SF tests already had this check; DMP didn't.
+        """
+        text = README.read_text(encoding="utf-8")
+        m = re.search(r"^## Supported surfaces \(v(\d+\.\d+\.\d+)\)", text, re.MULTILINE)
+        self.assertIsNotNone(
+            m, "'## Supported surfaces (vX.Y.Z)' section heading not found")
+        self.assertEqual(
+            m.group(1), self.canonical,
+            f"Supported-surfaces heading says v{m.group(1)} but canonical is {self.canonical}")
+
+    def test_readme_supported_surfaces_anchor_links_match_canonical(self):
+        """Any `#supported-surfaces-v…` anchor in the README must point at the
+        slugified current-version heading. Added in v3.14.1 after v3.14.0 shipped
+        with the Cowork badge anchor still on `#supported-surfaces-v3131`.
+        """
+        text = README.read_text(encoding="utf-8")
+        # Slugify the current canonical version the same way GitHub does:
+        # "## Supported surfaces (v3.14.1)" → "supported-surfaces-v3141"
+        canonical_slug = "supported-surfaces-v" + self.canonical.replace(".", "")
+        # Find all `#supported-surfaces-v…` anchors
+        anchors_found = set(re.findall(r"#(supported-surfaces-v[0-9]+)", text))
+        if not anchors_found:
+            self.skipTest("No #supported-surfaces-v… anchors in README")
+        stale = anchors_found - {canonical_slug}
+        self.assertEqual(
+            stale, set(),
+            f"Stale supported-surfaces anchors: {sorted(stale)}. "
+            f"Expected only {canonical_slug!r} (matches canonical v{self.canonical})."
+        )
+
+    def test_readme_whats_new_section_includes_canonical_version(self):
+        """The README "What's new" section must include an entry for the
+        currently-shipping version. Added in v3.14.1 after v3.14.0 shipped with
+        the latest "What's new" entry still pointing at v3.13.0.
+        """
+        text = README.read_text(encoding="utf-8")
+        whats_new_start = text.find("## What's new")
+        if whats_new_start == -1:
+            self.skipTest("README has no '## What's new' section")
+        # Take everything from "## What's new" to the next top-level `##` heading
+        section = text[whats_new_start:]
+        next_h2 = re.search(r"\n## [^\n]", section[15:])  # skip the "## What's new" line itself
+        if next_h2:
+            section = section[:15 + next_h2.start()]
+        # Look for v{canonical} as a bold header, plain text, or H3 (matches the
+        # styles used historically: "**vX.Y.Z — …**", "### vX.Y.Z (date)", etc.)
+        canonical_ref = f"v{self.canonical}"
+        self.assertIn(
+            canonical_ref, section,
+            f"'What's new' section in README has no entry mentioning v{self.canonical}. "
+            f"Latest entry is stale — add a new bullet/entry before shipping."
+        )
+
 
 class TestDescriptionConsistency(unittest.TestCase):
     """All 5 Claude-family manifests should share the same description verbatim."""

@@ -6,18 +6,18 @@ Run `/digital-marketing-pro:engagement` against each brand. Same 12-Part Strateg
 
 Open-source AI marketing plugin — **158 skills, 25 specialist agents, EU AI Act Article 50 ready, Cowork team-persistent**. Built for marketing agencies, in-house teams running 50–200 brands, and consultancies. Installs on **Claude Code** (CLI + IDE), **Anthropic Cowork**, **OpenAI Codex**, **Cursor 2.5+**, **GitHub Copilot CLI**, **Google Antigravity 2.0**, **Hermes Agent**, and **OpenClaw** + 35+ Agent Skills platforms. Created by [Indranil Banerjee](https://indranil.in) · [LinkedIn](https://www.linkedin.com/in/askneelnow/) · [X](https://x.com/askneelnow).
 
-[![Version](https://img.shields.io/badge/version-3.14.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.14.1-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=yellow)](https://github.com/indranilbanerjee/digital-marketing-pro/stargazers)
 [![Forks](https://img.shields.io/github/forks/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=blue)](https://github.com/indranilbanerjee/digital-marketing-pro/network/members)
 [![Issues](https://img.shields.io/github/issues/indranilbanerjee/digital-marketing-pro?logo=github)](https://github.com/indranilbanerjee/digital-marketing-pro/issues)
 [![Last commit](https://img.shields.io/github/last-commit/indranilbanerjee/digital-marketing-pro?logo=github)](https://github.com/indranilbanerjee/digital-marketing-pro/commits/main)
-[![Tests](https://img.shields.io/badge/tests-120%2F120%20passing-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-123%2F123%20passing-brightgreen.svg)](tests/)
 [![Platforms](https://img.shields.io/badge/platforms-8%20native%20%2B%2035%20Agent%20Skills-success.svg)](#works-on-40-agent-harnesses-via-the-agent-skills-open-standard)
-[![Cowork](https://img.shields.io/badge/cowork-team%20persistent-purple.svg)](#supported-surfaces-v3131)
+[![Cowork](https://img.shields.io/badge/cowork-team%20persistent-purple.svg)](#supported-surfaces-v3141)
 [![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Article%2050%20ready-darkred.svg)](skills/context-engine/compliance-rules.md)
 
-> 🆕 **Just shipped — v3.14.0 (June 28, 2026):** **June market-refresh sweep** — model registry rebuilt (47 entries verified against Anthropic/OpenAI/Google primary docs) · **Meta Graph API bumped v20 → v24** (pre-v24 deprecated June 9) · **Google Ads v24.1 + v24.2** documented · **EU AI Act Code of Practice** second-draft refresh ahead of Aug 2 deadline · **resolver now auto-rewrites `retired` model IDs** (Gemini 2.0 / Veo 2/3 / preview image variants) · **EvoLink vendor** (multi-provider gateway) added to model curator. 120 tests passing. [Read what's new →](#whats-new) · [Full changelog →](CHANGELOG.md)
+> 🆕 **Just shipped — v3.14.1 (June 28, 2026):** README sync patch — fixed 4 stale version refs that escaped v3.14.0 (Cowork badge anchor, `## Supported surfaces` heading, 2nd internal anchor, missing What's new entries) + extended `tests/test_release_consistency.py` so this drift class is caught in CI from now on. v3.14.0 (also today) brought the **June market-refresh sweep** — model registry rebuilt (47 entries verified against Anthropic/OpenAI/Google primary docs), Meta Graph API bumped v20 → v24, Google Ads v24.1 + v24.2 documented, EU AI Act Code of Practice second-draft refresh, resolver now auto-rewrites `retired` model IDs, EvoLink vendor added. 123 tests passing. [Read what's new →](#whats-new) · [Full changelog →](CHANGELOG.md)
 
 ```bash
 # Install — one line
@@ -243,7 +243,7 @@ Output: real API calls fired against your stack with audit logging at `~/.claude
 
 ---
 
-## Supported surfaces (v3.13.1)
+## Supported surfaces (v3.14.1)
 
 | Platform | Install command | Manifest path | Status |
 |---|---|---|---|
@@ -354,6 +354,32 @@ If you run into a platform-specific install snag, file a [GitHub issue](https://
 ## What's new
 
 DM Pro is updated against the **actual current marketing ecosystem state** — June 2026 platform refresh, Google I/O 2026, the active broad core algorithm update, EU AI Act draft implementing guidelines, Meta platform expansions, and the latest AI image/video model landscape. No "trained on 2024 data" surprises in your client outputs.
+
+**v3.14.1 — README sync + test-infra extension (June 28)**
+Patch release fixing 4 stale references in this README that escaped the v3.14.0 ship: the Cowork badge anchor, the `## Supported surfaces` heading, a second internal anchor, and the missing v3.13.1 + v3.14.0 entries in this very section. Plus extended `tests/test_release_consistency.py` to lock the Supported-surfaces heading to the canonical version + verify all anchor links to `#supported-surfaces-v…` match — so this drift class can never reach a release again. No runtime change.
+
+**v3.14.0 — June 2026 market-refresh sweep (June 28)**
+Comprehensive ecosystem-change audit against primary vendor docs. Every claim verified against Anthropic / OpenAI / Google AI / Google Ads / EU Commission primary sources before any code change.
+
+- **Meta Graph API bumped v20.0 → v24.0** in `scripts/connector_resolver.py` (4 callsites). All pre-v24 Meta Marketing API calls were scheduled to fail 2026-06-09 — our v20 hits would have started returning HTTP 400/410. Affected: campaigns / posts / feed / campaign-updates endpoints.
+- **Model registry rebuilt to 47 entries** verified against [platform.claude.com](https://platform.claude.com/docs/en/about-claude/model-deprecations), [developers.openai.com](https://developers.openai.com/api/docs/deprecations), [ai.google.dev/gemini-api/docs/deprecations](https://ai.google.dev/gemini-api/docs/deprecations). New active flagships: **Claude Opus 4.8** (now Anthropic's recommended), **GPT-5.5 family**, **gpt-image-2**, **Gemini 3.1 Pro Preview**, **Gemini 3.1 Flash-Lite**, **Veo 3.1 Preview**, **Nano Banana Pro (GA gemini-3-pro-image)**, **Nano Banana 2 (GA gemini-3.1-flash-image with video-to-image)**. Newly deprecated: **full GPT-5 family** + **o3 family** (shutdown 2026-12-11), **Gemini 2.5 family** (shutdown 2026-10-16), **Imagen 4** (2026-06-15). Newly retired and routed to replacements automatically: **Gemini 2.0 family** (shutdown 2026-06-01), **Gemini 3 preview image variants** (shutdown 2026-06-25), **Veo 2.0/3.0/3.0-Fast** (shutdown 2026-06-30).
+- **Resolver now auto-rewrites `retired` model IDs** to their `replacement_id` unconditionally (was previously only `deprecated` status). Means cached config pointing at dead model IDs gets routed to a working replacement instead of HTTP 404. New test `test_retired_falls_forward_unconditionally` covers this.
+- **`python scripts/resolve_model.py --check-params <file>` scanner** flags any Python file passing `temperature` / `top_p` / `top_k` near Claude Opus 4.7+ targets (those return HTTP 400). Pre-flight scan of all 3 plugins' `scripts/*.py` was clean.
+- **18 aliases re-pointed.** `latest-text-anthropic` → claude-opus-4-8, `latest-text-openai` → gpt-5.5, `latest-image-photoreal-google` → gemini-3-pro-image (Imagen 4 was deprecated path), `latest-video-google` → veo-3.1-generate-preview, `latest-image-google` → gemini-3-pro-image (was retired preview ID).
+- **Google Ads API v24.1 + v24.2 documented** in `skills/paid-advertising/google-ads.md`. v24.1 added 4 new experiment types (`ADOPT_AI_MAX`, `ADOPT_BROAD_MATCH_KEYWORDS`, `OPTIMIZE_ASSETS`, `PMAX_REPLACEMENT_SHOPPING`) + `mobile_device_platform` segment. v24.2 added `GENERATE_LANDING_PAGE_TEXT` asset automation + first-class Local Services Ads (`AssetGroup.google_local_services_info`) + beta `MultiPartyAuthReview` for regulated verticals.
+- **EU AI Act Code of Practice second-draft refresh** in `skills/context-engine/eu-code-of-practice.md`. Section 1 (Providers) now consolidates around two-layered marking (secured metadata required + watermarking required); C2PA explicitly satisfies the metadata layer. Section 2 (Deployers) dropped the AI-generated-vs-AI-assisted taxonomy entirely in favor of design + placement requirements for icons/labels/disclaimers on deepfakes + text publications on matters of public interest. Added operational readiness checklist for 2026-08-02 Article 50 applicability date.
+- **Google I/O 2026 additions**: `skills/aeo-audit/SKILL.md` adds callout for **Google Information Agents** (AI Pro/Ultra subscriber feature launching summer 2026) as future 7th probe target alongside ChatGPT/Perplexity/AI Mode/AI Overviews/Gemini/Copilot. `skills/local-seo/SKILL.md` adds **2026 priority section** for Google **Agentic Booking expansion** to local services / home repair / beauty / pet care with three opt-in requirements (GBP scheduling integration, `AvailabilityFeed` structured data, Service-catalog price transparency).
+- **EvoLink vendor support** added to model curator (via community PR merged during this release): multi-provider API gateway aggregating DeepSeek/Doubao/MiniMax through a single API key. 3 new aliases (`latest-text-evolink`, `latest-balanced-evolink`, `latest-fast-evolink`).
+- **`docs/MODEL-CURATOR.md` refresh** with current alias resolutions + new § "Parameter compatibility — Claude Opus 4.7 and later" explaining the HTTP 400 risk.
+
+Test count: 114 → **120**. Native platforms unchanged at 8.
+
+**v3.13.1 — Test infrastructure hardening + user-friendliness polish (June 9)**
+Triggered by user push-back: "you have the testing infrastructure, so test everything properly and make sure everything works awesomely."
+
+- **Tests expanded 70 → 114** with three new test modules: `test_release_consistency.py` (25 tests) catches version drift / README badge staleness / CHANGELOG out-of-sync / install commands going missing / critical sections going missing / broken anchor links; `test_hermes_edge_cases.py` (10 tests) for adapter resilience under bad ctx / None / SDK surface drift; plus assorted top-ups.
+- **Troubleshooting section** added to README covering common install issues for all 8 native platforms (Claude Code / Cowork / Codex / Cursor / Copilot CLI / Antigravity / Hermes / OpenClaw).
+- **5-minute non-developer install path** added to README for marketers who don't want to read 60K of docs to get started.
 
 **v3.13.0 — Multi-harness expansion: native Hermes + OpenClaw + 40 Agent Skills platforms (June 9)**
 Verified-real native manifests for two more agent harnesses, plus documented compatibility with 35 additional platforms via the Agent Skills open standard. Every claim verified against primary sources (the Hermes plugin docs at [hermes-agent.nousresearch.com](https://hermes-agent.nousresearch.com/docs/guides/build-a-hermes-plugin), the OpenClaw manifest spec at [docs.openclaw.ai](https://docs.openclaw.ai/plugins/manifest), the Agent Skills client showcase at [agentskills.io](https://agentskills.io)).
@@ -705,7 +731,7 @@ Yes. Each brand has its own `~/.claude-marketing/<brand-slug>/` directory and Py
 Skip to `/digital-marketing-pro:campaign-plan`. Every individual surface (campaign / SEO / content / competitor / email / report) is independently runnable. The full engagement is the canonical path, not the only path.
 
 **Q: Will this work on Codex / Cursor / Copilot CLI / Antigravity?**
-Yes — verified-real native manifests ship for all 8 surfaces (CC, Cowork, Codex, Cursor, Copilot CLI, Antigravity, Hermes Agent, OpenClaw). See [Supported surfaces](#supported-surfaces-v3131) above for per-platform install commands.
+Yes — verified-real native manifests ship for all 8 surfaces (CC, Cowork, Codex, Cursor, Copilot CLI, Antigravity, Hermes Agent, OpenClaw). See [Supported surfaces](#supported-surfaces-v3141) above for per-platform install commands.
 
 **Q: I run my team on Anthropic Cowork. Does brand state persist between sessions?**
 Yes — but you need to run `/digital-marketing-pro:cowork-setup` once per team first (v3.12.0). Cowork's per-session filesystem is ephemeral, and `${CLAUDE_PLUGIN_DATA}` is too ([open issue #51398](https://github.com/anthropics/claude-code/issues/51398)). The setup wizard routes brand profiles + plans + reports through a Google Drive MCP so everything survives across sessions and is shared across the team. Multi-team isolation via per-team folder names.

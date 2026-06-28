@@ -4,6 +4,41 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.14.1] — 2026-06-28
+
+**README sync patch + test-coverage extension. Catches the drift class v3.14.0 shipped with.**
+
+After v3.14.0 shipped, the user flagged that the README still showed `## Supported surfaces (v3.13.1)`, a stale Cowork badge anchor pointing at `#supported-surfaces-v3131`, a second internal anchor with the same problem, and a "What's new" section whose latest entry was still v3.13.0 — three releases out of date. The release-consistency test suite covered most cross-manifest drift but had test-coverage gaps on these three specific README facets (CF + SF tests already had the section-heading lock; DMP didn't).
+
+### Fixed (DMP README)
+
+- `## Supported surfaces (v3.13.1)` → `(v3.14.1)` (line 246)
+- Cowork badge anchor `#supported-surfaces-v3131` → `#supported-surfaces-v3141` (line 17)
+- Second internal anchor in FAQ section, same fix (line 708)
+- Added 3 missing What's new entries to README: **v3.14.1**, **v3.14.0**, **v3.13.1**
+
+### Added (DMP `tests/test_release_consistency.py`, +3 tests)
+
+- **`test_readme_supported_surfaces_heading_matches_canonical`** — locks `## Supported surfaces (vX.Y.Z)` heading to the canonical version. Mirrors what CF + SF tests already had.
+- **`test_readme_supported_surfaces_anchor_links_match_canonical`** — verifies any `#supported-surfaces-v…` anchor link in the README matches the slugified canonical version. Catches the Cowork-badge-anchor class of drift.
+- **`test_readme_whats_new_section_includes_canonical_version`** — verifies the README "What's new" section actually mentions the currently-shipping version. Catches the "shipped 3 versions, forgot to update the section" class of drift.
+
+Test count: 120 → **123**. All passing.
+
+### Changed
+
+- All 9 DMP version declarations 3.14.0 → 3.14.1
+- README test badge bumped 120 → 123
+- README hero callout updated for v3.14.1
+- README "What's new" gains a v3.14.1 entry
+
+### Notes
+
+- Pre-flight: ran the new tests against the v3.14.0 README state — confirmed they would have caught all 4 staleness issues. So the regression is now structurally prevented.
+- Zero runtime change.
+
+---
+
 ## [3.14.0] — 2026-06-28
 
 **June 2026 market-refresh sweep — model registry rebuilt, Meta API bumped, Google Ads v24.1+v24.2 documented, EU Code of Practice second draft incorporated.**
