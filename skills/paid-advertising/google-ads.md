@@ -2,18 +2,48 @@
 
 ## API version notes (June 2026)
 
-If you're writing code or constructing API requests against the Google Ads API, target **v24** (released 22 April 2026). Key v23→v24 breaking changes for ad construction:
+If you're writing code or constructing API requests against the Google Ads API, target **v24.2** (released 24 June 2026 — current latest). v24.0 was the last release with breaking changes; v24.1 and v24.2 are non-breaking additive releases.
+
+### v24.2 (24 June 2026 — current)
+
+Non-breaking additions:
+
+| What | Where | Why it matters for ads ops |
+|---|---|---|
+| `AssetAutomationType.GENERATE_LANDING_PAGE_TEXT` | New enum value on the asset-automation API for Demand Gen video ads | Lets PMax/Demand Gen auto-generate the landing-page text variants that Google's asset gen needs — fewer manual writes per campaign |
+| `AssetGroup.google_local_services_info` | New field on `AssetGroup` | First-class Local Services Ads (LSA) support inside the standard API. Plumbers / electricians / cleaners / locksmiths / lawyers etc. can now manage LSA from the same API surface as PMax |
+| `MultiPartyAuthReview` resource + `MultiPartyAuthReviewService` (beta) | New API resource | Lets advertisers and their agencies coordinate Multi-Party Authorization reviews via API — relevant for regulated verticals (finance, health, political ads) |
+
+### v24.1 (13 May 2026)
+
+Non-breaking additions:
+
+| What | Where | Why it matters for ads ops |
+|---|---|---|
+| 4 new experiment types: `ADOPT_AI_MAX`, `ADOPT_BROAD_MATCH_KEYWORDS`, `OPTIMIZE_ASSETS`, `PMAX_REPLACEMENT_SHOPPING` | `ExperimentType` enum | Official Google-recommended A/B framework for migrating to AI Max + broad match + Performance Max replacing standard Shopping. **Run `ADOPT_AI_MAX` before any AI Max rollout** — gives you statistically-clean lift numbers vs the baseline |
+| `mobile_device_platform` segment | Reporting segments | Split campaign-/ad-/keyword-level performance by iOS vs Android. First time the OS split has been first-class in the API |
+
+### v24 (22 April 2026) — last release with breaking changes
 
 | Object | Change | Effect |
 |---|---|---|
 | `DemandGenVideoResponsiveAdInfo` | `videos` and `logo_images` now REQUIRED | Requests without both fields fail |
-| `VideoResponsiveAdInfo` | `videos` and `logo_images` now REQUIRED | Requests without both fields fail |
+| `VideoResponsiveAdInfo` | `videos`, `logo_images`, and `business_name` now REQUIRED | Requests without all three fields fail |
 | `Campaign.video_brand_safety_suitability` | REMOVED — moved to Customer level | Set the control once on the Customer object, not per-campaign |
 | `CallAd` / `CallAdInfo` | REMOVED (deprecation completed) | Use Call Assets instead |
 
-v23.1 (25 February 2026) added `text_guidelines.term_exclusions` and `text_guidelines.messaging_restrictions` to AI-generated assets in **Performance Max** and **Search** — use these to pipe a brand's banned-word list and approved messaging directly into PMax's asset-gen guardrails.
+### v23.1 (25 February 2026)
+
+Added `text_guidelines.term_exclusions` and `text_guidelines.messaging_restrictions` to AI-generated assets in **Performance Max** and **Search** — use these to pipe a brand's banned-word list and approved messaging directly into PMax's asset-gen guardrails.
 
 Source: [Google Ads API release notes](https://developers.google.com/google-ads/api/docs/release-notes).
+
+### Adoption recommendation
+
+If you have time before your next ship:
+- **Upgrade clients to v24.2** to unlock Local Services Ads + landing-page-text generation
+- **Wire `ADOPT_AI_MAX` experiments** (v24.1) into any AI Max migration plan — Google's preferred lift-measurement path
+- **Add `mobile_device_platform` segmentation** to any iOS-vs-Android performance reports (v24.1)
 
 ## Campaign Types Overview
 

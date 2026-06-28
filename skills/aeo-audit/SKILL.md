@@ -16,6 +16,8 @@ Evaluate the brand's visibility and accuracy across AI answer engines. Analyze h
 
 **Google's official position on AI optimization** (Google AI Optimization Guide, updated 15 May 2026): no `llms.txt`, no AI-specific schema, no separate AI eligibility gate. Pages eligible for snippets in classic Search are eligible for AI Features. Don't manufacture work around fictional ranking factors — `/digital-marketing-pro:aeo-geo` documents what *does* work (entity consistency, citation-worthy snippets, knowledge graph alignment).
 
+**Information Agents (Google AI Pro / Ultra, summer 2026 launch):** Google announced at I/O 2026 a new class of persistent agents that continuously monitor web / news / real-time data for subscribers and deliver synthesized updates with actionable capabilities. Once these go live, they become a **7th probe target** for this skill (alongside ChatGPT / Perplexity / AI Mode / AI Overviews / Gemini / Copilot). Until then, treat AI Mode as the proxy — agents are powered by the same Gemini 3.5 Flash backbone. Source: [blog.google/search-io-2026](https://blog.google/products-and-platforms/products/search/search-io-2026/).
+
 ## Input Required
 
 The user must provide (or will be prompted for):

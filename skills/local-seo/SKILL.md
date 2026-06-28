@@ -11,6 +11,23 @@ description: "Build local SEO strategy. Use when: optimizing Google Business Pro
 
 Heavy skill. **Grep before Read** any referenced file, then `Read` only matched ranges with `offset` + `limit`. List `${CLAUDE_PLUGIN_DATA}/<brand>/` before opening files. On re-invocation mid-session, skip files already in context.
 
+## 2026 priority — Google Agentic Booking expansion
+
+At I/O 2026 Google expanded its **agentic booking flow** beyond restaurants to:
+
+- **Local services** (cleaners, electricians, plumbers, handymen)
+- **Home repair** (general contractors, HVAC, appliance repair)
+- **Beauty** (hair salons, spas, nail studios)
+- **Pet care** (groomers, walkers, vets)
+
+If your brand is in any of these 4 verticals, agentic booking is now a high-leverage local-SEO investment. Three things matter for opt-in:
+
+1. **Google Business Profile must accept bookings.** Either via Google's direct integration with supported scheduling vendors (Booksy, Vagaro, Square Appointments, Resy, Tock, etc.) or via Reserve with Google.
+2. **`AvailabilityFeed` structured data must be served** so the AI agent can reason about open slots without making the call. See `skills/context-engine/schema-templates.json` for the `LocalBusiness` + `Reservation` + `AvailabilityFeed` pairing.
+3. **Pricing transparency in Service catalog** — agents prefer businesses that list price ranges; opaque pricing pushes the agent to the next option.
+
+Source: [blog.google/search-io-2026](https://blog.google/products-and-platforms/products/search/search-io-2026/). Combine with Google Ads API v24.2's new `AssetGroup.google_local_services_info` field (see `skills/paid-advertising/google-ads.md`) for the paid-side complement.
+
 Activate this module when the user's request involves any of the following:
 
 - **Google Business Profile Optimization**: Setting up, optimizing, or auditing a Google Business Profile (categories, attributes, photos, posts, Q&A, products, services)

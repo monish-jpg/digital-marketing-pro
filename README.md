@@ -6,18 +6,18 @@ Run `/digital-marketing-pro:engagement` against each brand. Same 12-Part Strateg
 
 Open-source AI marketing plugin — **158 skills, 25 specialist agents, EU AI Act Article 50 ready, Cowork team-persistent**. Built for marketing agencies, in-house teams running 50–200 brands, and consultancies. Installs on **Claude Code** (CLI + IDE), **Anthropic Cowork**, **OpenAI Codex**, **Cursor 2.5+**, **GitHub Copilot CLI**, **Google Antigravity 2.0**, **Hermes Agent**, and **OpenClaw** + 35+ Agent Skills platforms. Created by [Indranil Banerjee](https://indranil.in) · [LinkedIn](https://www.linkedin.com/in/askneelnow/) · [X](https://x.com/askneelnow).
 
-[![Version](https://img.shields.io/badge/version-3.13.1-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.14.0-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=yellow)](https://github.com/indranilbanerjee/digital-marketing-pro/stargazers)
 [![Forks](https://img.shields.io/github/forks/indranilbanerjee/digital-marketing-pro?style=flat&logo=github&color=blue)](https://github.com/indranilbanerjee/digital-marketing-pro/network/members)
 [![Issues](https://img.shields.io/github/issues/indranilbanerjee/digital-marketing-pro?logo=github)](https://github.com/indranilbanerjee/digital-marketing-pro/issues)
 [![Last commit](https://img.shields.io/github/last-commit/indranilbanerjee/digital-marketing-pro?logo=github)](https://github.com/indranilbanerjee/digital-marketing-pro/commits/main)
-[![Tests](https://img.shields.io/badge/tests-119%2F119%20passing-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-120%2F120%20passing-brightgreen.svg)](tests/)
 [![Platforms](https://img.shields.io/badge/platforms-8%20native%20%2B%2035%20Agent%20Skills-success.svg)](#works-on-40-agent-harnesses-via-the-agent-skills-open-standard)
 [![Cowork](https://img.shields.io/badge/cowork-team%20persistent-purple.svg)](#supported-surfaces-v3131)
 [![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Article%2050%20ready-darkred.svg)](skills/context-engine/compliance-rules.md)
 
-> 🆕 **Just shipped — v3.13.1 (June 9, 2026):** Test infrastructure hardening (114 → **119 tests**) · new **Troubleshooting** section covers all 8 platforms · **5-minute non-developer install path** for marketers · release-consistency tests catch cross-manifest drift automatically. [Read what's new →](#whats-new) · [Full changelog →](CHANGELOG.md)
+> 🆕 **Just shipped — v3.14.0 (June 28, 2026):** **June market-refresh sweep** — model registry rebuilt (47 entries verified against Anthropic/OpenAI/Google primary docs) · **Meta Graph API bumped v20 → v24** (pre-v24 deprecated June 9) · **Google Ads v24.1 + v24.2** documented · **EU AI Act Code of Practice** second-draft refresh ahead of Aug 2 deadline · **resolver now auto-rewrites `retired` model IDs** (Gemini 2.0 / Veo 2/3 / preview image variants) · **EvoLink vendor** (multi-provider gateway) added to model curator. 120 tests passing. [Read what's new →](#whats-new) · [Full changelog →](CHANGELOG.md)
 
 ```bash
 # Install — one line

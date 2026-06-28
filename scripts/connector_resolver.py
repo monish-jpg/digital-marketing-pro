@@ -144,7 +144,7 @@ def _manifest_inventory(connector_name, brand, kwargs):
         },
         "meta-marketing": {
             "method": "GET",
-            "url": "https://graph.facebook.com/v20.0/act_{META_AD_ACCOUNT_ID}/campaigns",
+            "url": "https://graph.facebook.com/v24.0/act_{META_AD_ACCOUNT_ID}/campaigns",
             "params": {
                 "fields": "id,name,status,daily_budget,updated_time,insights{spend,actions}",
                 "date_preset": "last_30d",
@@ -252,7 +252,7 @@ def _manifest_cadence(connector_name, brand, kwargs):
     endpoints = {
         "meta-graph": {
             "method": "GET",
-            "url": "https://graph.facebook.com/v20.0/{META_PAGE_ID}/posts",
+            "url": "https://graph.facebook.com/v24.0/{META_PAGE_ID}/posts",
             "params": {
                 "fields": "id,created_time,message,insights.metric(post_engaged_users,post_impressions)",
                 "since": "{90_days_ago_unix}",
@@ -464,7 +464,7 @@ def _manifest_schedule_posts(connector_name, brand, kwargs):
     endpoints = {
         "meta-graph": {
             "method": "POST",
-            "url": "https://graph.facebook.com/v20.0/{META_PAGE_ID}/feed",
+            "url": "https://graph.facebook.com/v24.0/{META_PAGE_ID}/feed",
             "params": {"access_token": "{META_PAGE_ACCESS_TOKEN}"},
             "body_template": {"message": "{post.copy}", "published": "false",
                               "scheduled_publish_time": "{post.scheduled_unix}"},
@@ -654,7 +654,7 @@ def _manifest_launch_ads(connector_name, brand, kwargs):
         },
         "meta-marketing": {
             "method": "POST",
-            "url": "https://graph.facebook.com/v20.0/{campaign_id}",
+            "url": "https://graph.facebook.com/v24.0/{campaign_id}",
             "params": {"access_token": "{META_ACCESS_TOKEN}", "status": "ACTIVE"},
         },
         "linkedin-marketing": {

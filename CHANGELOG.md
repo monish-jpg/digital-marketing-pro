@@ -4,6 +4,98 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.14.0] — 2026-06-28
+
+**June 2026 market-refresh sweep — model registry rebuilt, Meta API bumped, Google Ads v24.1+v24.2 documented, EU Code of Practice second draft incorporated.**
+
+Triggered by user request: *"do a proper cross-check of what's new in the market and what new or old things in the digital marketing plugin need to be updated or upgraded… check what might have degraded in our skills, plugins, or other technologies."* All findings verified against primary sources (platform.claude.com, developers.openai.com, ai.google.dev, developers.google.com, blog.google, digital-strategy.ec.europa.eu).
+
+### Fixed — broken integrations users would have hit today
+
+- **Meta Graph API bumped v20.0 → v24.0** across `scripts/connector_resolver.py` (4 callsites: `/campaigns`, `/posts`, `/feed`, campaign updates). Per Meta's deprecation policy all pre-v24 Marketing API calls were scheduled to fail by 2026-06-09 — our v20 hits would have started returning HTTP 400/410.
+- **Retired Gemini preview models routed to GA replacements** (these endpoints stopped responding 2026-06-25):
+  - `gemini-3-pro-image-preview` → `gemini-3-pro-image` (Nano Banana Pro GA 2026-05-28)
+  - `gemini-3.1-flash-image-preview` → `gemini-3.1-flash-image` (Nano Banana 2 GA 2026-05-28)
+- **Veo 2.0 / Veo 3.0 / Veo 3.0-Fast routed to Veo 3.1 preview** ahead of their 2026-06-30 shutdown — handled automatically via the `latest-video-google` alias.
+- **Gemini 2.0 Flash family marked `retired`** (shutdown 2026-06-01, already past).
+- **Imagen 4 marked `deprecated`** with replacement `gemini-3-pro-image` (Google announced deprecation 2026-06-15).
+
+### Added — resolver now handles `retired` status
+
+`scripts/resolve_model.py` previously only fell forward for `deprecated` models. The new logic unconditionally rewrites `retired` model IDs to their `replacement_id` — even when `allow_deprecated=True` — because retired models no longer respond at the API layer. New test `test_retired_falls_forward_unconditionally` covers this.
+
+### Added — `--check-params` scanner for Anthropic param 400 protection
+
+Claude Opus 4.7 and Opus 4.8 reject `temperature`, `top_p`, and `top_k` with HTTP 400 when set to a non-default value. New `python scripts/resolve_model.py --check-params <file>` scans a Python file for these kwargs near Opus 4.7+ targets (explicit IDs or `latest-text-anthropic` alias use) and exits 1 if found. Pre-flight scanned all 3 plugins' `scripts/*.py` — clean.
+
+### Added — model registry rebuilt against Anthropic / OpenAI / Google primary docs
+
+Net registry growth: 27 → 47 entries. Notable additions:
+
+- **Anthropic active:** `claude-opus-4-8` (now recommended frontier), `claude-opus-4-6`, `claude-opus-4-5-20251101`; corrected `claude-sonnet-4-5-20250929` from mis-marked deprecated → still active per [Anthropic deprecations page](https://platform.claude.com/docs/en/about-claude/model-deprecations).
+- **Anthropic deprecated:** `claude-opus-4-1-20250805` (deprecated 2026-06-05, retiring 2026-08-05), `claude-sonnet-4-20250514` + `claude-opus-4-20250514` (retired 2026-06-15).
+- **OpenAI new flagships:** `gpt-5.5`, `gpt-5.5-pro`, `gpt-5.4-mini`, `gpt-5.4-nano`, `gpt-image-2`.
+- **OpenAI deprecated:** entire GPT-5 family + o3 / o3-pro (announced 2026-06-11, shutdown 2026-12-11).
+- **Google new actives:** `gemini-3-pro-image` (GA), `gemini-3.1-flash-image` (GA, with video-to-image), `gemini-3.1-pro-preview`, `gemini-3.1-flash-lite`, `veo-3.1-generate-preview`.
+- **Google deprecated:** Gemini 2.5 Pro / Flash / Flash-Lite (shutdown 2026-10-16).
+- **Removed:** speculative `claude-sonnet-4-7` entry that was never in Anthropic's active list.
+
+All 18 aliases re-pointed to current models. Notable: `latest-text-anthropic` now → `claude-opus-4-8` (was 4.7), `latest-text-openai` now → `gpt-5.5` (was gpt-5), `latest-image-photoreal-google` now → `gemini-3-pro-image` (was deprecated `imagen-4`).
+
+Registry `last_updated` bumped to 2026-06-28; `next_review_due` 2026-09-28.
+
+### Added — Google Ads API v24.1 + v24.2 documentation
+
+`skills/paid-advertising/google-ads.md` now covers all three v24.x releases:
+
+- **v24.0** (2026-04-22) — original breaking changes (videos/logo_images required on Demand Gen + Video responsive ads)
+- **v24.1** (2026-05-13) — 4 new experiment types (`ADOPT_AI_MAX` / `ADOPT_BROAD_MATCH_KEYWORDS` / `OPTIMIZE_ASSETS` / `PMAX_REPLACEMENT_SHOPPING`) + `mobile_device_platform` segment for iOS/Android reporting
+- **v24.2** (2026-06-24) — `GENERATE_LANDING_PAGE_TEXT` asset automation enum + first-class Local Services Ads (LSA) support via `AssetGroup.google_local_services_info` + beta `MultiPartyAuthReview` for regulated verticals
+
+Adoption recommendation section added — recommends `ADOPT_AI_MAX` experiment as the canonical lift-measurement path before any AI Max rollout.
+
+### Added — EU Code of Practice second-draft refresh
+
+`skills/context-engine/eu-code-of-practice.md` rewritten against the [European Commission second draft (5 March 2026)](https://digital-strategy.ec.europa.eu/en/library/commission-publishes-second-draft-code-practice-marking-and-labelling-ai-generated-content). The second draft made two material changes from the first:
+
+1. **Section 1 (Providers)** consolidated around **two-layered marking** (secured metadata required + watermarking required; fingerprinting/logging optional). C2PA explicitly satisfies the metadata layer.
+2. **Section 2 (Deployers)** **dropped the AI-generated-vs-AI-assisted taxonomy** in favor of design + placement requirements for icons/labels/disclaimers on deepfakes + text publications on matters of public interest. Simplified exemptions for artistic / satirical / fictional / editorially-controlled content.
+
+Added an **operational readiness checklist** for the **2026-08-02 Article 50 applicability date** (5 weeks away): brand profile review, c2pa_auto_sign enablement, disclosure-language drafting in EU languages, platform-roundtrip verification, signatory decision.
+
+### Added — Google I/O 2026 announcements surfaced in SEO/AEO skills
+
+- `skills/aeo-audit/SKILL.md` — added callout for **Google Information Agents** (AI Pro/Ultra subscriber feature launching summer 2026) as the 7th probe target once live.
+- `skills/local-seo/SKILL.md` — added **2026 priority section** for **Google Agentic Booking expansion** to 4 new verticals (local services, home repair, beauty, pet care). Three opt-in requirements documented: GBP scheduling integration, `AvailabilityFeed` structured data, Service-catalog price transparency.
+
+### Added — Suite-wide `docs/MODEL-CURATOR.md` refresh
+
+All 3 plugins (DMP/CF/SF) ship the same updated `docs/MODEL-CURATOR.md`:
+
+- Aliases table refreshed to show current resolutions
+- New § **Parameter compatibility — Claude Opus 4.7 and later** explains the HTTP 400 risk and points to the new `--check-params` scanner
+- Notes which Google models were retired June 25/30 with replacement IDs
+
+### Tests
+
+- DMP: 114 → **115 passing** (new `test_retired_falls_forward_unconditionally`)
+- CF: 53/53 passing (model registry distribution validated)
+- SF: 54/54 passing (resolver still routes `latest-video-google` correctly)
+- Suite total: 222 tests across the 3 plugins
+
+### Changed
+
+- All 9 DMP version declarations bumped 3.13.1 → 3.14.0 (.claude-plugin, .codex-plugin, .cursor-plugin, .github/plugin, gemini-extension, openclaw.plugin, plugin.yaml, __init__.py, package.json)
+- README test badge bumped 114 → 115
+- README "Just shipped" callout rewritten for v3.14.0
+
+### Notes
+
+- `model_registry.json` schema unchanged; new fields (`deprecation_date`, `shutdown_date`, `tentative_retirement`) are additive and ignored by older callers.
+- Meta Graph version `v24.0` hardcoded for now — future refactor to extract a `META_GRAPH_API_VERSION` constant would simplify the next bump.
+
+---
+
 ## [3.13.1] — 2026-06-09
 
 **Test infrastructure hardening + user-friendliness polish — no runtime changes.**
