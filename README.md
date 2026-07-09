@@ -573,7 +573,7 @@ Two user-team complaints from the v3.7.5 cycle drove this release: "dm pro is ta
 /digital-marketing-pro:output-folder <brand> <workflow>    # drill down
 ```
 
-**Implementation:** `scripts/checkpoint-manager.py` (per-step storage + atomic writes, stdlib only) + `scripts/output-publisher.py` (dual-copy publish + `where` + `open` subcommands). Mirrors the ContentForge v3.12.3 / v3.12.4 patterns. Verified end-to-end with `_shared/dmp_engagement_simulation.py` (dev-only harness, not shipped in the repo) — 5 scenarios (clean 12-part run / interrupt-resume / 3 parallel workflows / quality-gate fail / all 8 workflows accepted) all pass in ~6 seconds.
+**Implementation:** `scripts/checkpoint-manager.py` (per-step storage + atomic writes, stdlib only) + `scripts/output-publisher.py` (dual-copy publish + `where` + `open` subcommands), mirroring the ContentForge dual-copy pattern. The engagement/checkpoint state machine ships tests in `tests/test_engagement_state.py` + `tests/test_checkpoint_roundtrip.py`; a fuller 5-scenario end-to-end simulation (clean 12-part run / interrupt-resume / parallel workflows / quality-gate fail / all-workflows-accepted) was used during development but is a dev tool, not shipped in the repo.
 
 ---
 
@@ -595,7 +595,7 @@ Check what's live in your environment any time:
 /digital-marketing-pro:doctor --action inventory --channel google_ads  # drill in
 ```
 
-**Test coverage:** `_shared/dmp_action_test_harness.py` (dev-only harness, not shipped in the repo) exercises all 14 actions across 27 scenarios (unconfigured + configured + local-execution variants) — all pass.
+**Test coverage:** the resolver's action layer ships tests in `tests/test_connector_resolver.py`. A fuller 27-scenario development harness (14 actions × unconfigured / configured / local-execution variants) was used while building this out, but it is a dev tool and is not shipped in the repo.
 
 **Implementation:** `scripts/_connector_registry.py` (catalog of 33 connectors, 11 categories, `is_connector_configured()` probe) + `scripts/connector_resolver.py` (`ACTION_SPECS` map + per-action manifest builders + local executors) + `scripts/action-doctor.py` (the doctor command's underlying script).
 
@@ -620,7 +620,7 @@ The v3.7.10 resolver returned a manifest of "what would be sent." v3.7.11 adds `
 
 **Safety gates:** read ops auto-execute with `--execute`; write ops require both `--execute --confirm`; missing env vars block with `setup_hint_credential`; unresolved `{VAR}` placeholders block before the request fires. Every fired call logs to `~/.claude-marketing/{brand}/executions/`.
 
-**Test coverage:** `_shared/dmp_executor_test_harness.py` (dev-only harness, not shipped in the repo) runs 17 tests against a stdlib `http.server` mock — verifies actual HTTP send-and-receive (not just shape inspection): the 8 connector-specific tests (incl. Slack body.ok post-check + Klaviyo vnd.api+json + Brevo lowercase header + Mailchimp Basic), 6 safety-gate tests, and 1 data-substitution test. All pass.
+**Test coverage:** end-to-end HTTP send-and-receive for the 8 connectors (Slack `body.ok` post-check, Klaviyo vnd.api+json, Brevo lowercase header, Mailchimp Basic, plus the safety gates and data substitution) was validated during development against a stdlib `http.server` mock. That mock harness is a dev tool and is not shipped in the repo; the shipped suite covers the resolver layer via `tests/test_connector_resolver.py`.
 
 ---
 
