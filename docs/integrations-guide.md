@@ -1,8 +1,8 @@
 # Integrations & CRM Guide
 
-> **Digital Marketing Pro** v2.7.0 | For marketing operations managers
+> **Digital Marketing Pro** v3.15.0 | For marketing operations managers
 >
-> This guide covers all 68 MCP integrations available in the plugin, how to configure them, how to manage credentials across multiple clients, and what the plugin can do with or without live connections.
+> This guide covers the 68-server MCP connector catalog shipped in `.mcp.json.example` (the live `.mcp.json` ships **empty** — nothing auto-connects), how to configure them, how to manage credentials across multiple clients, and what the plugin can do with or without live connections.
 
 ---
 
@@ -50,14 +50,14 @@ In practical terms: instead of you manually pulling a GA4 report, pasting it int
 
 ### How the Plugin Uses MCP
 
-The plugin ships with a `.mcp.json` configuration file that defines 68 MCP server connections. Each one maps to a marketing platform or productivity tool. None of them are active by default. They activate only when you set the required environment variables for that service.
+The plugin ships an **empty** `.mcp.json` (`{"mcpServers":{}}`) — nothing is pre-configured and nothing auto-connects. A catalog of 68 MCP server definitions is provided in `.mcp.json.example` (npx/stdio transports), and an HTTP-connector catalog in `.mcp.json.connectors-reference`. You opt in by copying the entries you want into `.mcp.json` (or renaming the example file). Each one maps to a marketing platform or productivity tool and activates only when you set the required environment variables for that service.
 
-This is the key design principle: **the plugin works fully without any integrations enabled.** All 16 skill modules, 170+ reference knowledge files (148 v2.x + 23 v3.0 methodology + framework refs), scoring scripts, brand voice analysis, compliance checking, campaign planning features, and the v3.0 12-Part engagement methodology + v3.2 quality gates operate entirely offline using built-in benchmarks and reference data. MCP integrations layer real data on top of that foundation.
+This is the key design principle: **the plugin works fully without any integrations enabled.** All 16 skill modules, 169 reference knowledge files (including the v3.0 methodology + framework refs), scoring scripts, brand voice analysis, compliance checking, campaign planning features, and the v3.0 12-Part engagement methodology + v3.2 quality gates operate entirely offline using built-in benchmarks and reference data. MCP integrations layer real data on top of that foundation.
 
 ### What Happens Under the Hood
 
-1. When Claude Code starts a session, it reads `.mcp.json` and attempts to start each configured MCP server.
-2. If the required environment variables for a server are set, the server starts and Claude gains access to that platform's data.
+1. When Claude Code starts a session, it reads `.mcp.json` and attempts to start each server you have enabled there. The shipped file is empty, so nothing starts until you opt a server in from `.mcp.json.example` or `.mcp.json.connectors-reference`.
+2. If the required environment variables for an enabled server are set, the server starts and Claude gains access to that platform's data.
 3. If the variables are missing, the server silently skips. No errors, no broken functionality.
 4. During the session, when a module needs data (for example, the `analytics-insights` module building a performance report), it checks whether the relevant MCP connection is available. If it is, it pulls real data. If not, it falls back to industry benchmarks from `industry-profiles.md`.
 
@@ -1398,29 +1398,6 @@ You: Run Core Web Vitals checks on our top 20 landing pages and flag any failing
 
 ---
 
-#### Brandwatch
-
-**What it enables:** Social listening, brand mention monitoring, sentiment analysis, and competitive conversation tracking. Powers the `competitor-monitor`, `anomaly-scan`, and reputation management workflows.
-
-**Required environment variables:**
-
-| Variable | Description |
-|---|---|
-| `BRANDWATCH_API_KEY` | Brandwatch API key |
-| `BRANDWATCH_PROJECT_ID` | Your Brandwatch project ID |
-
-**Where to get credentials:**
-1. Go to Brandwatch > API Settings
-2. Generate an API key for your project
-3. Enterprise subscription required for full API access
-
-**Example usage:**
-```
-You: Monitor brand sentiment across social channels and flag any emerging reputation issues
-```
-
----
-
 #### DataForSEO
 
 **What it enables:** Live SERP data, keyword research with search volume and difficulty, backlink profiles with spam scoring, on-page analysis (Lighthouse + content parsing), content analysis, competitor domain analysis, business listings search, AI visibility checking across ChatGPT and other LLMs, and LLM mention tracking. Powers the `seo-audit`, `keyword-research`, `competitor-analysis`, `page-analysis`, `rank-monitor`, `competitor-pages`, and `geo-monitor` commands with live data instead of estimates.
@@ -1538,7 +1515,6 @@ You: Pull our Pardot prospect engagement scores and identify the top 50 leads re
 | Figma | `FIGMA_ACCESS_TOKEN` | -- |
 | Moz | `MOZ_ACCESS_ID`, `MOZ_SECRET_KEY` | -- |
 | Google PageSpeed | `PAGESPEED_API_KEY` | -- |
-| Brandwatch | `BRANDWATCH_API_KEY`, `BRANDWATCH_PROJECT_ID` | -- |
 | Marketo | `MARKETO_CLIENT_ID`, `MARKETO_CLIENT_SECRET`, `MARKETO_MUNCHKIN_ID` | -- |
 | Pardot | `PARDOT_BUSINESS_UNIT_ID`, `SALESFORCE_ACCESS_TOKEN`, `SALESFORCE_INSTANCE_URL` | Salesforce SSO |
 
@@ -1701,10 +1677,11 @@ export HUBSPOT_ACCESS_TOKEN="pat-na1-client-b-token"
 Maintain separate MCP configuration files per client and swap the active one.
 
 ```bash
-# One-time setup: create per-client configs
-cp .mcp.json .mcp-acme-corp.json      # Edit with Acme Corp's credentials
-cp .mcp.json .mcp-techflow.json        # Edit with TechFlow's credentials
-cp .mcp.json .mcp-greenleaf.json       # Edit with GreenLeaf's credentials
+# One-time setup: create per-client configs from the connector catalog
+# (the shipped .mcp.json is empty, so start from the example catalog and trim per client)
+cp .mcp.json.example .mcp-acme-corp.json      # Edit with Acme Corp's servers + credentials
+cp .mcp.json.example .mcp-techflow.json        # Edit with TechFlow's servers + credentials
+cp .mcp.json.example .mcp-greenleaf.json       # Edit with GreenLeaf's servers + credentials
 
 # Before starting a session for Acme Corp
 cp .mcp-acme-corp.json .mcp.json
@@ -1939,4 +1916,4 @@ When connecting MCP integrations that access personal data (especially GA4, HubS
 
 ---
 
-*Digital Marketing Pro v2.7.0 -- Integrations & CRM Guide*
+*Digital Marketing Pro v3.15.0 -- Integrations & CRM Guide*

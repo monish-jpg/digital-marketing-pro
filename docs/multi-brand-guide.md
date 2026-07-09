@@ -258,7 +258,7 @@ With the profile complete, every future request for this client uses their full 
 
 ### A Day in the Life
 
-**9:00 AM -- Session starts, last active client loads automatically**
+**9:00 AM -- Session starts; the last active client is still selected. Run `/digital-marketing-pro:status` for its summary**
 
 ```
 === DIGITAL MARKETING PRO ===
@@ -468,7 +468,7 @@ If your agency manages two competitors in the same industry:
 | Create a new brand (full) | `/digital-marketing-pro:brand-setup --full` |
 | List all brands | `/digital-marketing-pro:switch-brand` (no argument) |
 | Switch active brand | `/digital-marketing-pro:switch-brand {slug}` |
-| View active brand summary | Start a new session or ask "What brand is active?" |
+| View active brand summary | Run `/digital-marketing-pro:status` or ask "What brand is active?" |
 | Update existing brand | `/digital-marketing-pro:brand-setup` while brand is active |
 | Archive a brand | Rename directory to `_archived-{slug}` |
 | Restore an archived brand | Rename directory back to `{slug}` |

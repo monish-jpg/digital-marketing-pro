@@ -1,6 +1,6 @@
 # Historical Data & Campaign Memory
 
-**Version 3.0.0** | A guide to how Digital Marketing Pro remembers, learns, and applies past marketing work
+**Version 3.15.0** | A guide to how Digital Marketing Pro remembers, learns, and applies past marketing work
 
 Digital Marketing Pro does not start from scratch every session. It builds a persistent memory of your campaigns, performance metrics, and strategic learnings --- then uses that history to make every future recommendation sharper. v3.0 extends this with a per-engagement version history (every source document carries its v1.0 → v2.0 → v2.1 lineage) and the Living Project Instruction File. This guide explains what gets saved, how it informs new work, and how to query and manage your marketing data over time.
 
@@ -58,7 +58,7 @@ Performance snapshots also never expire. The full history is preserved.
 
 ### Session Insights
 
-At the end of every marketing session, the SessionEnd hook automatically saves 1 to 3 key learnings from the work you did. You do not trigger this manually --- it happens in the background when your session closes.
+Marketing agents distil 1 to 3 key learnings from the work you do and save them to `insights.json`. As of v3.1+ this is opt-in: enable `auto_save_insights: true` in the brand profile so agents save as they go, run `/digital-marketing-pro:sync-memory` to flush learnings on demand, or re-enable the reference SessionEnd hook (ships disabled — see [docs/v3.2-opt-ins.md](v3.2-opt-ins.md)) to capture automatically at session end.
 
 What gets stored:
 
@@ -380,7 +380,7 @@ The underscore prefix is a convention that keeps archived brands out of the acti
 Sometimes you want a clean slate for part of a brand's data without losing everything.
 
 **Reset insights only** (start fresh with learnings):
-Delete `insights.json`. The file will be recreated automatically the next time the SessionEnd hook saves an insight.
+Delete `insights.json`. The file will be recreated automatically the next time an insight is saved (via ambient capture, `/digital-marketing-pro:sync-memory`, or the re-enabled SessionEnd hook).
 
 **Reset campaign history** (remove all campaign records):
 Delete `campaigns/_index.json` and all campaign JSON files in the `campaigns/` directory. Performance snapshots in `performance/` can be deleted separately or kept.
@@ -435,10 +435,10 @@ These formats are stable across plugin versions. Your data will remain readable 
 
 Digital Marketing Pro builds marketing intelligence over time through three persistent data types: campaign plans that capture your strategic decisions, performance snapshots that track results, and session insights that distill learnings. The intelligence layer reads this history before every recommendation and writes new learnings after every session, creating a continuous improvement loop that makes the plugin more valuable the longer you use it.
 
-You do not need to manage any of this manually. Campaigns save when you create them. Performance saves when you analyze it. Insights save when your session ends. The data lives at `~/.claude-marketing/brands/{slug}/`, survives plugin updates, and is yours to back up, archive, or reset as needed.
+You do not need to manage most of this manually. Campaigns save when you create them. Performance saves when you analyze it. Insights save via ambient capture (`auto_save_insights: true`) or when you run `/digital-marketing-pro:sync-memory`. The data lives at `~/.claude-marketing/brands/{slug}/`, survives plugin updates, and is yours to back up, archive, or reset as needed.
 
 The best marketing teams learn from their own data. This system makes sure nothing gets lost.
 
 ---
 
-*Digital Marketing Pro v1.9.0 --- Built for marketing professionals who want strategy and execution that stays on-brand, every time.*
+*Digital Marketing Pro v3.15.0 --- Built for marketing professionals who want strategy and execution that stays on-brand, every time.*

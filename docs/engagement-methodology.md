@@ -1,8 +1,8 @@
 # The Engagement Methodology Guide
 
-**Plugin version: 3.2.0 | Methodology version: 3.2** | A user-facing guide to running marketing engagements with Digital Marketing Pro
+**Plugin version: 3.15.0 | Methodology version: 3.2** | A user-facing guide to running marketing engagements with Digital Marketing Pro
 
-> The 12-Part methodology itself was introduced in v3.0 and remains structurally unchanged through v3.2. v3.2 adds two adjacent commands that pair well with the engagement workflow: **`/digital-marketing-pro:check`** (pre-publish quality gate for any deliverable produced inside an engagement) and **`/digital-marketing-pro:status`** (engagement progress + brand snapshot). See [docs/v3.2-opt-ins.md](v3.2-opt-ins.md) for the full v3.2 additions.
+> The 12-Part methodology itself was introduced in v3.0 and remains structurally unchanged through v3.15. v3.2 adds two adjacent commands that pair well with the engagement workflow: **`/digital-marketing-pro:check`** (pre-publish quality gate for any deliverable produced inside an engagement) and **`/digital-marketing-pro:status`** (engagement progress + brand snapshot). See [docs/v3.2-opt-ins.md](v3.2-opt-ins.md) for the full v3.2 additions.
 
 This guide explains the 12-Part engagement methodology introduced in v3.0 — what it is, when to use it, and exactly how to run a complete engagement from intake through continuous improvement.
 

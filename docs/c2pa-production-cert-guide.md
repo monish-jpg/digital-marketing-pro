@@ -60,9 +60,12 @@ Once you have `cert.pem` and `key.pem` from any of the four authorities above:
     --input asset.png --output signed.png \
     --brand "Acme Corp" --generator "Vertex AI Nano Banana Pro" \
     --ai-claim ai-generated-content \
+    --ai-disclosure \
     --signing-cert /secure/c2pa-prod-cert.pem \
     --signing-key /secure/c2pa-prod-key.pem
 ```
+
+`--ai-disclosure` adds the **C2PA 2.4 `c2pa.ai-disclosure` assertion** alongside the IPTC digital-source-type claim — the machine-readable marking the EU AI Act Article 50 deployer pathway relies on. Include it on every production sign of AI-generated assets bound for EU markets.
 
 ### SocialForge
 

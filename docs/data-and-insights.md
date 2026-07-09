@@ -191,15 +191,15 @@ The plugin does not start from scratch. Every campaign informs the next one.
 
 The plugin builds a persistent knowledge base of marketing learnings that compounds over time. This happens both automatically and through explicit commands.
 
-### Automatic Saving (SessionEnd Hook)
+### Insight Saving (opt-in ambient capture)
 
-Every session where marketing work happens, the SessionEnd hook fires and:
+Marketing agents distil 1-3 key learnings from a session and save each via `campaign-tracker.py --action save-insight`. As of v3.1+ this is opt-in rather than a global hook — choose whichever fits your workflow:
 
-1. Summarizes 1-3 key learnings from the session
-2. Saves each via `campaign-tracker.py --action save-insight`
-3. Tells you what was saved before the session closes
+1. Set `auto_save_insights: true` in the brand profile and agents save learnings as they go (via `auto-save-insight.py`)
+2. Run `/digital-marketing-pro:sync-memory` to flush session learnings on demand
+3. Re-enable the reference SessionEnd hook (ships disabled by default — see [docs/v3.2-opt-ins.md](v3.2-opt-ins.md)) to save automatically at session end
 
-You do not need to do anything. The plugin handles this on its own.
+Each save summarizes the learning and reports what was recorded.
 
 ### Insight Types
 
@@ -551,7 +551,7 @@ The sweet spot is using the plugin's data layer for **institutional knowledge** 
 
 ---
 
-*Digital Marketing Pro v3.0.0 -- Data Analysis & Insights Guide*
+*Digital Marketing Pro v3.15.0 -- Data Analysis & Insights Guide*
 
 ---
 

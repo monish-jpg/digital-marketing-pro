@@ -113,7 +113,7 @@ Frontier model landscape shifts roughly every 6 weeks. Treat any entry older tha
 ```bash
 # Check how stale the registry is
 python scripts/resolve_model.py --registry-age
-# -> last_updated: 2026-05-25 (0 days ago). next_review_due: 2026-08-25
+# -> last_updated: 2026-06-28 (0 days ago). next_review_due: 2026-09-28
 
 # Poll the provider catalogs and report drift (no writes)
 ANTHROPIC_API_KEY=... OPENAI_API_KEY=... GEMINI_API_KEY=... EVOLINK_API_KEY=... python scripts/refresh_models.py

@@ -64,7 +64,7 @@ Each import asks whether to merge with or replace existing content.
 
 Once imported, guidelines are enforced automatically across all plugin modules and commands:
 
-1. **Session start**: The brand summary now shows guideline counts alongside voice scores and channel info
+1. **Status snapshot**: The brand summary (`/digital-marketing-pro:status`, or session start if you enable the SessionStart hook) shows guideline counts alongside voice scores and channel info
 2. **Content creation**: Every module checks restrictions before generating content. Banned words are flagged, restricted claims get qualifications, mandatory disclaimers are appended
 3. **Channel-specific output**: When creating content for a specific channel (LinkedIn post, Instagram caption, email), channel styles override the base voice settings
 4. **Content review**: The Brand Guardian agent checks all content against guidelines before approval
@@ -243,7 +243,7 @@ Templates are brand-specific. Acme Corp may want a different report format than 
 
 ### Check What's Configured
 
-At session start, the brand summary shows:
+Run `/digital-marketing-pro:status` (or enable the SessionStart hook) to see the brand summary, which shows:
 
 ```
 Guidelines: 41 rules across 4 categories · 15 restrictions · 3 templates · 2 SOPs

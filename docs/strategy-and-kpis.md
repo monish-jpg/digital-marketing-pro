@@ -42,10 +42,10 @@ Each stage in this loop maps to a specific part of the plugin:
 | **Campaign Strategy** | Translate KPI gaps into phased campaign plans with budget allocation | Campaign Orchestrator module (budget-allocation.md, channel-strategy.md) |
 | **Execution** | Produce content, launch ads, send emails, build funnels | Content Engine, Paid Advertising, Email Marketing modules |
 | **Measurement** | Track performance against KPI targets, detect anomalies | `/digital-marketing-pro:performance-report` command + `campaign-tracker.py` |
-| **Insights** | Extract learnings from what worked and what did not | SessionEnd auto-save hook + `campaign-tracker.py --action save-insight` |
+| **Insights** | Extract learnings from what worked and what did not | `auto-save-insight.py` (opt-in) or `/digital-marketing-pro:sync-memory` + `campaign-tracker.py --action save-insight` |
 | **Refined Strategy** | Next planning cycle uses historical insights to improve | Campaign Orchestrator reads past campaign data and insights |
 
-The critical insight is that the **Insights** stage is not optional. Without it, every planning cycle starts from scratch. With it, every cycle builds on accumulated institutional knowledge. The plugin automates this through the SessionEnd hook, which saves key learnings to `~/.claude-marketing/brands/{slug}/insights.json` at the end of every working session where marketing decisions were made.
+The critical insight is that the **Insights** stage is not optional. Without it, every planning cycle starts from scratch. With it, every cycle builds on accumulated institutional knowledge. The plugin captures these learnings to `~/.claude-marketing/brands/{slug}/insights.json` — on demand via `/digital-marketing-pro:sync-memory`, automatically when you set `auto_save_insights: true` in the brand profile (agents then save as they go), or at session end if you re-enable the reference SessionEnd hook (it ships disabled by default; see [docs/v3.2-opt-ins.md](v3.2-opt-ins.md)).
 
 ---
 
@@ -287,22 +287,21 @@ The `campaign-tracker.py` script stores these in `~/.claude-marketing/brands/gre
 
 ## 6. Step 5: Close the Loop
 
-This is the step that transforms a one-time campaign into a compounding marketing system. The plugin's SessionEnd hook automatically captures learnings from every working session and stores them for future use.
+This is the step that transforms a one-time campaign into a compounding marketing system. The plugin captures learnings from your working sessions and stores them for future use. As of v3.1+ this is opt-in rather than automatic: enable `auto_save_insights: true` in the brand profile (agents save as they go), run `/digital-marketing-pro:sync-memory` on demand, or re-enable the reference SessionEnd hook (ships disabled — see [docs/v3.2-opt-ins.md](v3.2-opt-ins.md)).
 
 ### How Insights Get Saved
 
-When a session where marketing work was done comes to an end, the SessionEnd hook triggers:
+With ambient capture enabled (`auto_save_insights: true`), or when you run `/digital-marketing-pro:sync-memory`, the plugin saves session learnings:
 
 ```
-(Session ends)
-SessionEnd hook: Saving 2 insights for greenpeak-outdoors...
+Saving 2 insights for greenpeak-outdoors...
 - "Post-purchase email sequence with usage tips drives 3x higher reorder
    rate than discount-only emails"
 - "Loyalty program enrollment improves 40% when offered at checkout vs.
    standalone landing page"
 ```
 
-Under the hood, the hook runs `campaign-tracker.py --action save-insight` for each learning. Insights are stored in `insights.json` as a rolling buffer of the 200 most recent entries. Each insight includes:
+Under the hood, `auto-save-insight.py` / `campaign-tracker.py --action save-insight` records each learning. Insights are stored in `insights.json` as a rolling buffer of the 200 most recent entries. Each insight includes:
 
 - **type** — what kind of learning (session_learning, campaign_result, competitive_observation)
 - **insight** — the actual finding in plain language
@@ -479,7 +478,7 @@ The strategy-to-measurement loop is not a theoretical framework. It is the actua
 | Plan campaigns | Describe the KPI gap you want to close | Produces phased campaign strategy with budget allocation tied to KPIs |
 | Execute | Create content and launch campaigns | Scores content against your adaptive weights; tracks campaigns |
 | Measure | Run `/digital-marketing-pro:performance-report` | Compares results to targets, detects anomalies, generates recommendations |
-| Learn | End your session | Auto-saves insights; next session starts with accumulated knowledge |
+| Learn | Enable ambient capture or run `/digital-marketing-pro:sync-memory` | Saves insights; next session starts with accumulated knowledge |
 
 The goal is not to automate strategy. Strategy requires human judgment about where to compete, what risks to take, and which trade-offs to accept. The goal is to ensure that judgment is always informed by structured data, and that every decision you make adds to a growing base of institutional knowledge rather than disappearing into a Slack thread.
 
@@ -487,4 +486,4 @@ Start with `/digital-marketing-pro:brand-setup`. Define your goals. Let the KPI 
 
 ---
 
-*This guide is part of the Digital Marketing Pro plugin (v1.9.0). For the complete KPI tree reference, see `skills/analytics-insights/kpi-frameworks.md`. For industry benchmark data across 22 industries, see `skills/context-engine/industry-profiles.md`.*
+*This guide is part of the Digital Marketing Pro plugin (v3.15.0). For the complete KPI tree reference, see `skills/analytics-insights/kpi-frameworks.md`. For industry benchmark data across 22 industries, see `skills/context-engine/industry-profiles.md`.*

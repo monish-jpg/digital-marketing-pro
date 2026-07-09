@@ -4,7 +4,7 @@
 
 This document describes the internal architecture of the Digital Marketing Pro plugin for developers and contributors. It covers file structure, the WAT framework mapping, component anatomy, the hook system, script conventions, data persistence, adaptive scoring, the v3.0 methodology layer, and extension points.
 
-> **v3.0 note:** v3.0 introduces a methodology orchestration layer on top of the v2.x foundation. Sections 1–11 cover the v2.x architecture that remains unchanged. Section 12 is dedicated to the v3.0 methodology layer (engagement workflow, Two-Views Model, Decision Matrix, Update-Back Rule, Living Project Instruction File, engagement-state script).
+> **v3.0 note:** v3.0 introduces a methodology orchestration layer on top of the v2.x foundation. Sections 1–11 cover the v2.x architecture that remains unchanged. Section 18 is dedicated to the v3.0 methodology layer (engagement workflow, Two-Views Model, Decision Matrix, Update-Back Rule, Living Project Instruction File, engagement-state script).
 
 ---
 
@@ -41,11 +41,10 @@ digital-marketing-pro/
 │   ├── marketing-scientist.md         # NEW in v2.1.0
 │   ├── market-intelligence.md         # NEW in v2.1.0
 │   ├── intelligence-curator.md        # NEW in v2.1.0
-│   ├── competitor-intelligence.md     # NEW in v2.1.0
 │   ├── journey-orchestrator.md        # NEW in v2.1.0
 │   ├── quality-assurance.md           # NEW in v2.2.0
 │   └── localization-specialist.md     # NEW in v2.2.0
-├── scripts/                           # 68 Python scripts + requirements (65 v2.x + engagement-state.py v3.0 + dm-status.py + auto-save-insight.py v3.2)
+├── scripts/                           # 86 Python scripts + requirements
 │   ├── setup.py                       # Brand management, initialization
 │   ├── campaign-tracker.py            # Campaign persistence + violation tracking
 │   ├── adaptive-scorer.py             # Context-aware scoring weights
@@ -112,7 +111,7 @@ digital-marketing-pro/
 │   ├── prompt-ab-tester.py          # Prompt variation quality comparison (v2.2.0)
 │   ├── language-router.py           # Translation service routing (v2.2.0)
 │   └── requirements.txt               # Python dependencies
-├── skills/                            # 149 skill directories (141 atomic + 6 v3.0 methodology + 2 v3.2 quality-and-status)
+├── skills/                            # 158 skill directories
 │   ├── context-engine/                # Shared intelligence layer
 │   │   ├── SKILL.md
 │   │   ├── industry-profiles.md       # 22 industries
@@ -145,11 +144,11 @@ digital-marketing-pro/
 └── LICENSE
 ```
 
-**Total: ~402 files** (383 plugin files + 16 documentation/repo files + 3 issue templates).
+**Total: ~530 files** (skills, agents, commands, and scripts, plus documentation, repo-hygiene, and issue-template files).
 
 The 16 modules are: content-engine, campaign-orchestrator, paid-advertising, analytics-insights, aeo-geo, audience-intelligence, cro, digital-pr, funnel-architect, growth-engineering, influencer-creator, reputation-management, emerging-channels, technical-seo, local-seo, and marketing-automation.
 
-The 115 commands include the original 68 from v2.0.0, 34 from v2.1.0, and 13 from v2.2.0 covering SEO execution, competitor monitoring, revenue simulation, GEO monitoring, creative intelligence, synthetic audiences, journey orchestration, evaluation/QA, and multilingual support.
+The 158 skills accumulated across releases, covering strategy, content, SEO/AEO/GEO, paid media, analytics, CRO, execution, competitor monitoring, revenue simulation, GEO monitoring, creative intelligence, synthetic audiences, journey orchestration, evaluation/QA, multilingual support, and the v3.0 engagement methodology.
 
 The 24 agents are: marketing-strategist, content-creator, seo-specialist, analytics-analyst, brand-guardian, media-buyer, growth-engineer, influencer-manager, competitive-intel, pr-outreach, email-specialist, cro-specialist, social-media-manager, execution-coordinator, performance-monitor-agent, crm-manager, memory-manager, agency-operations, marketing-scientist, market-intelligence, intelligence-curator, journey-orchestrator, quality-assurance, and localization-specialist. (The former `competitor-intelligence` agent merged into `competitive-intel` with a `mode: snapshot|monitoring` input.)
 
@@ -169,13 +168,13 @@ SKILL.md files serve as workflow definitions. Each one specifies:
 - **What to output** -- structured deliverable format
 - **Which agents to invoke** -- specialist agents required for this workflow
 
-`hooks.json` defines the session lifecycle (SessionStart, PreToolUse, SessionEnd) that wraps all workflows with brand context injection and compliance checking.
+`hooks.json` *can* define a session lifecycle (SessionStart, PreToolUse, SessionEnd) that wraps workflows with brand context injection and compliance checking, but ships **empty** (`{"hooks":{}}`) by default — see Section 7. The reference configuration lives in `hooks/hooks-reference.example.json`.
 
-Together, SKILL.md files and hooks form the "instructions" layer that the AI agent reads and follows.
+Together, SKILL.md files (and any hooks the user opts back in) form the "instructions" layer that the AI agent reads and follows.
 
 ### Agents (agents/*.md)
 
-Twenty-five specialist agents with distinct expertise areas and behavior rules. Each agent:
+Twenty-four specialist agents with distinct expertise areas and behavior rules. Each agent:
 
 1. Loads brand context before producing any output (Rule 1 in every agent)
 2. Follows domain-specific guidelines (8-11 behavior rules including guideline enforcement)
@@ -190,7 +189,7 @@ Multiple agents can collaborate on a single task. For example, the `/digital-mar
 
 ### Tools (scripts/*.py)
 
-Sixty-five Python scripts handle deterministic execution: scoring, formatting, data persistence, and analysis. Every script:
+Eighty-six Python scripts handle deterministic execution: scoring, formatting, data persistence, and analysis. Every script:
 
 - Accepts CLI arguments via argparse
 - Produces JSON output to stdout
@@ -341,7 +340,7 @@ N. Check brand guidelines for content. [Load guidelines/_manifest.json,
 | media-buyer | Ad platforms, budget, bidding, targeting | ROAS, CPM/CPC modeling | utm-generator, content-scorer, headline-analyzer, ad-budget-pacer, budget-optimizer |
 | growth-engineer | PLG, referrals, viral loops, retention | AARRR, ICE scoring, cohort analysis | content-scorer, utm-generator |
 | influencer-manager | Creator partnerships, UGC, briefs | Tier frameworks, FTC compliance | social-post-formatter, content-scorer, brand-voice-scorer |
-| competitive-intel | Competitor analysis, market positioning | Perceptual maps, SWOT, gap analysis | competitor-scraper, keyword-clusterer |
+| competitive-intel | Competitor analysis, market positioning, ongoing monitoring (mode: snapshot \| monitoring) | Perceptual maps, SWOT, gap analysis, change detection | competitor-scraper, keyword-clusterer, competitor-tracker, narrative-mapper, audience-simulator |
 | pr-outreach | Media relations, press releases, pitches | Newsjacking, PESO model | content-scorer, readability-analyzer, headline-analyzer |
 | email-specialist | Email marketing, deliverability, automation | Lifecycle, RFM, A/B testing | email-preview, content-scorer, readability-analyzer, brand-voice-scorer, headline-analyzer, adaptive-scorer, email-subject-tester, spam-score-checker, send-time-optimizer |
 | cro-specialist | CRO, landing pages, A/B testing, pricing | Hypothesis testing, Bayesian analysis | content-scorer, headline-analyzer, readability-analyzer, adaptive-scorer, sample-size-calculator, significance-tester, form-analyzer |
@@ -354,7 +353,6 @@ N. Check brand guidelines for content. [Load guidelines/_manifest.json,
 | marketing-scientist | Revenue simulation, churn prediction, statistical modeling | Monte Carlo, Bayesian inference, predictive analytics | revenue-simulator, churn-predictor, growth-loop-modeler |
 | market-intelligence | Macro signals, market trends, competitive landscape shifts | Trend detection, signal aggregation, market mapping | macro-signal-tracker, competitor-tracker, intelligence-graph |
 | intelligence-curator | Compound intelligence synthesis, cross-domain pattern detection | Intelligence graph, cross-agent synthesis, insight ranking | intelligence-graph, narrative-mapper, campaign-health-monitor |
-| competitor-intelligence | Ongoing competitor monitoring, share of voice, competitive alerts | Change detection, competitive scoring, narrative analysis | competitor-tracker, narrative-mapper, audience-simulator |
 | journey-orchestrator | Customer journey design, lifecycle stage transitions, experience optimization | Journey mapping, touchpoint orchestration, lifecycle automation | journey-engine, campaign-health-monitor, churn-predictor |
 | quality-assurance | Content evaluation, hallucination detection, quality regression tracking | Multi-dimensional scoring, claim verification, regression analysis | hallucination-detector, claim-verifier, output-validator, eval-runner, quality-tracker, eval-config-manager, prompt-ab-tester |
 | localization-specialist | Translation routing, transcreation, cultural adaptation, multilingual SEO | Language detection, translation quality scoring, cultural dimensions | language-router |
@@ -389,7 +387,9 @@ The shared intelligence layer lives at `skills/context-engine/` and provides ref
 
 ## 7. Hook System
 
-Three lifecycle hooks are defined in `hooks/hooks.json`. They wrap every Claude Code session with brand context injection, compliance checking, and insight persistence.
+> **Shipped state (v3.1.0+):** `hooks/hooks.json` ships **empty** (`{"hooks":{}}`) — the plugin registers **zero** global hooks. Claude Code plugin hooks have no per-directory or per-project scoping, so an always-on hook would fire on *every* operation in *every* project, not just DMP work. The three lifecycle hooks below document the **reference** behavior preserved in `hooks/hooks-reference.example.json`; those responsibilities now live at other layers (per-agent brand-compliance instructions, manual `python "${CLAUDE_PLUGIN_ROOT}/scripts/setup.py"` invocation, and per-agent MCP-write approval flows). Copy an entry from the reference file into the `hooks` object to opt back in.
+
+When enabled, these three reference lifecycle hooks wrap a Claude Code session with brand context injection, compliance checking, and insight persistence.
 
 ### SessionStart (type: command)
 
@@ -422,7 +422,7 @@ Three lifecycle hooks are defined in `hooks/hooks.json`. They wrap every Claude 
 
 ## 8. Script Architecture
 
-All 68 scripts in `scripts/` follow consistent conventions.
+All 86 scripts in `scripts/` follow consistent conventions.
 
 ### Conventions
 
@@ -463,7 +463,6 @@ The shipped `.mcp.json` is **empty** (`{"mcpServers":{}}`, gitignored) — nothi
 |--------|---------|---------|
 | google-analytics | @anthropic/mcp-google-analytics | GA4 traffic, conversions, audience data |
 | google-search-console | @anthropic/mcp-google-search-console | Rankings, queries, CTR for SEO |
-| google-looker-studio | mcp-google-looker-studio | Dashboard data, report embedding |
 | mixpanel | mcp-mixpanel | Product analytics, event tracking, funnels (v2.0.0) |
 | amplitude | mcp-amplitude | Behavioral analytics, cohort analysis, experiments (v2.0.0) |
 | bigquery | mcp-bigquery | Data warehouse queries, marketing data exports (v2.0.0) |
@@ -606,7 +605,6 @@ The shipped `.mcp.json` is **empty** (`{"mcpServers":{}}`, gitignored) — nothi
 |--------|---------|---------|
 | moz | mcp-moz | Moz domain authority, keyword research, link analysis |
 | google-pagespeed | mcp-google-pagespeed | PageSpeed Insights, Core Web Vitals, performance scores |
-| brandwatch | mcp-brandwatch | Social listening, brand monitoring, sentiment analysis |
 
 **Marketing Automation (v2.1.0)**
 
@@ -641,7 +639,7 @@ The shipped `.mcp.json` is **empty** (`{"mcpServers":{}}`, gitignored) — nothi
 }
 ```
 
-All 67 server credentials are referenced via `${ENV_VAR}` placeholders. Servers only activate when the corresponding environment variables are set. No credentials are stored in plugin code. The plugin works fully without any MCP servers enabled -- they add live data capabilities but are not required.
+All 65 server credentials are referenced via `${ENV_VAR}` placeholders. Servers only activate when the corresponding environment variables are set. No credentials are stored in plugin code. The plugin works fully without any MCP servers enabled -- they add live data capabilities but are not required.
 
 ---
 
@@ -791,9 +789,9 @@ All execution actions require explicit human approval before any external write 
 | High | Ad campaign, budget >$100/day, bulk email, SMS | Explicit budget/data confirmation |
 | Critical | Ad >$1000/day, email >10k recipients, regulated industry | Double confirmation |
 
-### Execution Safety Gate (PreToolUse Hook)
+### Execution Safety Gate (reference PreToolUse Hook — disabled by default)
 
-The `mcp_.*` PreToolUse matcher intercepts all MCP tool calls and checks:
+The `mcp_.*` PreToolUse matcher is part of the reference hook set (shipped disabled; see Section 7). The same write-approval guarantee is enforced at the agent layer and by `disable-model-invocation` on execution skills even with hooks off. When enabled, the matcher intercepts all MCP tool calls and checks:
 1. Is this a WRITE operation? (READ operations pass through immediately)
 2. Has the user explicitly approved this specific action?
 3. Has content passed brand compliance review?
@@ -877,7 +875,7 @@ The eval layer ensures content quality through automated multi-dimensional scori
 
 ### Eval Flow
 1. Content created by content-creator agent
-2. Write|Edit hook scans for hallucination indicators in real-time
+2. Content-producer agents run a built-in hallucination check before returning drafts (the reference Write|Edit hook, disabled by default, can scan on save if re-enabled — see Section 7)
 3. eval-runner.py runs full or quick eval (6 or 3 dimensions)
 4. Composite score computed with configurable weights → letter grade (A+ through F)
 5. quality-tracker.py logs result for trend tracking
@@ -924,7 +922,7 @@ These are rules that must not be broken when extending the plugin:
 4. **Persistent data in ~/.claude-marketing/ only.** The plugin directory may be cached, relocated, or reinstalled. User data must survive that.
 5. **JSON output from scripts.** All script output must be machine-parseable JSON so the AI agent can consume it programmatically.
 6. **SKILL.md frontmatter required.** Every skill directory must have a SKILL.md with `name` and `description` in YAML frontmatter for Claude Code's skill discovery.
-7. **PreToolUse must not block non-marketing work.** The compliance hook must respond `SKIP` for any file that is not marketing content.
+7. **PreToolUse must not block non-marketing work.** If the compliance hook is ever re-enabled (it ships disabled — see Section 7), it must respond `SKIP` for any file that is not marketing content.
 8. **Execution requires approval.** Every action that writes to an external platform must be explicitly approved by the user in the current conversation. No automated execution without human confirmation.
 9. **Credential isolation.** Agency credential profiles must never leak data between brands. Each brand's credentials are stored separately and switched explicitly.
 
@@ -936,7 +934,7 @@ Added in v2.5.1, these frontmatter fields enhance the skill experience in Claude
 
 ### argument-hint
 
-Provides autocomplete placeholder text in the Skills UI. Added to all 55 user-invocable skills.
+Provides autocomplete placeholder text in the Skills UI. Added to all 67 user-invocable skills.
 
 ```yaml
 argument-hint: "[URL]"                           # seo-audit
@@ -958,7 +956,7 @@ Prevents Claude from auto-triggering a skill. The user must explicitly type `/di
 disable-model-invocation: true
 ```
 
-**Execution skills (17):** publish-blog, send-email-campaign, launch-ad-campaign, schedule-social, send-report, send-sms, send-notification, data-export, data-import, crm-sync, lead-import, pipeline-update, segment-audience, seo-implement, launch-plan, live-dashboard, credential-switch
+**Execution skills (18):** publish-blog, send-email-campaign, launch-ad-campaign, schedule-social, send-report, send-sms, send-notification, data-export, data-import, crm-sync, lead-import, pipeline-update, segment-audience, seo-implement, launch-plan, live-dashboard, credential-switch, redirect-manager
 
 This is a defense-in-depth measure alongside the MCP write approval hook (Section 7). The hook catches MCP writes at the tool level; `disable-model-invocation` catches them at the skill level.
 
@@ -991,11 +989,11 @@ When adding evals to new skills, follow this pattern and include 2-3 test cases 
 
 ---
 
-## 12. v3.0 — The Engagement Methodology Layer
+## 18. v3.0 — The Engagement Methodology Layer
 
 v3.0 introduces a methodology orchestration layer on top of the v2.x foundation. This section covers the new components introduced in v3.0.
 
-### 12.1 New Files Added in v3.0
+### 18.1 New Files Added in v3.0
 
 ```
 digital-marketing-pro/
@@ -1038,7 +1036,7 @@ digital-marketing-pro/
     └── engagement-methodology.md                    # NEW: user-facing methodology guide
 ```
 
-### 12.2 Component Architecture
+### 18.2 Component Architecture
 
 The methodology layer flows from the `/digital-marketing-pro:engagement` command (entry point) through the `engagement-workflow` skill (orchestrator), which delegates to part-specific skills. All persistence flows through `scripts/engagement-state.py` to the engagement directory tree.
 
@@ -1051,7 +1049,7 @@ Components:
 - **Persistence engine:** `scripts/engagement-state.py` — atomic JSON writes; 14 subcommands; the only authorised writer of `_engagement.json`
 - **Storage:** `~/.claude-marketing/brands/{brand}/engagements/{id}/` — canonical directory tree
 
-### 12.3 _engagement.json — State Schema
+### 18.3 _engagement.json — State Schema
 
 ```json
 {
@@ -1105,7 +1103,7 @@ Components:
 }
 ```
 
-### 12.4 Part Status Lifecycle
+### 18.4 Part Status Lifecycle
 
 ```
 not_started -> in_progress -> (completed | awaiting_input | blocked | deferred)
@@ -1115,7 +1113,7 @@ not_started -> in_progress -> (completed | awaiting_input | blocked | deferred)
 
 Valid statuses: `not_started`, `in_progress`, `awaiting_input`, `blocked`, `completed`, `deferred`.
 
-### 12.5 Decision Matrix Rules
+### 18.5 Decision Matrix Rules
 
 The Decision Matrix in `engagement-state.py` implements these rules (per `skills/context-engine/decision-matrix-rerun.md`):
 
@@ -1132,14 +1130,14 @@ The Decision Matrix in `engagement-state.py` implements these rules (per `skills
 
 The triggered re-run set is the union of all matched triggers' re-run lists.
 
-### 12.6 Storage Conventions
+### 18.6 Storage Conventions
 
 - **Atomic writes:** `engagement-state.py` writes to `<filename>.tmp` and renames atomically. Prevents partial writes corrupting JSON.
 - **Versioning:** v1.0 -> v1.1 (minor v1 correction) -> v2.0 (Part 6 re-run) -> v2.1 (Update-Back correction). Old versions are preserved as separate files; nothing is overwritten.
 - **JSON I/O contract:** every `engagement-state.py` command returns JSON to stdout. Errors go to stderr with exit code 1. Skills consume the JSON output programmatically.
 - **CLAUDE_PLUGIN_DATA respected:** when set, the workspace is `$CLAUDE_PLUGIN_DATA/digital-marketing-pro/`; otherwise falls back to `~/.claude-marketing/`.
 
-### 12.7 Skill Frontmatter Conventions for v3.0
+### 18.7 Skill Frontmatter Conventions for v3.0
 
 The 6 new methodology skills declare two new frontmatter fields:
 
@@ -1158,7 +1156,7 @@ view-preference: v2-primary   # v1-only / v1-primary / v2-only / v2-primary / bo
 
 Existing v2.x skills do not require these fields. They are additive for skills that participate in the engagement workflow.
 
-### 12.8 Living Project Instruction File Update Triggers
+### 18.8 Living Project Instruction File Update Triggers
 
 The LIF is auto-updated when:
 
@@ -1170,7 +1168,7 @@ The LIF is auto-updated when:
 
 Skills should never hand-edit the LIF body. Always go through `engagement-state.py lif-log-change` for change-log entries; the LIF body sections are auto-maintained by the engagement-state script.
 
-### 12.9 Backward Compatibility
+### 18.9 Backward Compatibility
 
 v3.0 is purely additive. Specifically:
 
@@ -1182,7 +1180,7 @@ v3.0 is purely additive. Specifically:
 
 A user can adopt the methodology selectively: brand A may use the full engagement workflow; brand B may continue with one-off commands. Both work in the same plugin installation.
 
-### 12.10 Where to Read More
+### 18.10 Where to Read More
 
 - **User-facing guide:** [docs/engagement-methodology.md](engagement-methodology.md)
 - **Methodology specification:** [skills/context-engine/engagement-flow-methodology.md](../skills/context-engine/engagement-flow-methodology.md)
@@ -1194,7 +1192,7 @@ A user can adopt the methodology selectively: brand A may use the full engagemen
 - **Engagement state script source:** `scripts/engagement-state.py`
 - **Engagement command:** `commands/engagement.md`
 
-### 12.11 Adding New Methodology Components
+### 18.11 Adding New Methodology Components
 
 Pattern for adding a new context-engine reference doc:
 

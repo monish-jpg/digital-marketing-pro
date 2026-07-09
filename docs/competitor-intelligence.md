@@ -1,6 +1,6 @@
 # Competitor Intelligence Guide
 
-**Digital Marketing Pro v1.9.0** | Turning publicly available data into strategic advantage
+**Digital Marketing Pro v3.15.0** | Turning publicly available data into strategic advantage
 
 Competitor intelligence is not about copying what others do. It is about understanding the market landscape well enough to make smarter decisions --- identifying gaps your competitors have missed, anticipating their next moves, and positioning your brand where competition is weakest and opportunity is highest.
 
@@ -432,7 +432,7 @@ Each playbook provides a decision framework rather than a rigid script. The plug
 
 ## 6. Keeping Intelligence Current
 
-Competitive intelligence degrades fast. A competitor can launch a new channel, change pricing, or shift positioning in a matter of weeks. The plugin supports both structured review cadences and real-time monitoring.
+Competitive intelligence degrades fast. A competitor can launch a new channel, change pricing, or shift positioning in a matter of weeks. The plugin supports both structured review cadences and real-time monitoring. Ongoing monitoring runs through the competitive-intel agent's `mode: monitoring` (the former standalone competitor-intelligence agent merged into competitive-intel); one-off teardowns use `mode: snapshot`.
 
 ### Review frequency by competitor tier
 
@@ -498,7 +498,7 @@ If you have either (or both) of these integrations configured, the plugin's comp
 
 ### Automatic insight persistence
 
-Every time you run a competitive analysis or discuss competitors, the plugin's SessionEnd hook saves relevant insights via `campaign-tracker.py`. These are stored in your brand's `insights.json` file at `~/.claude-marketing/brands/{slug}/`. In your next session, these insights are loaded as part of your brand context, so the plugin remembers what it learned.
+Every time you run a competitive analysis or discuss competitors, the competitive-intel agent persists relevant insights via `campaign-tracker.py`, and you can flush session learnings on demand with `/digital-marketing-pro:sync-memory`. (If you re-enable the reference SessionEnd hook — it ships disabled by default — this save runs automatically at session end.) These are stored in your brand's `insights.json` file at `~/.claude-marketing/brands/{slug}/`. In your next session, these insights are loaded as part of your brand context, so the plugin remembers what it learned.
 
 Examples of automatically saved insights:
 
@@ -623,4 +623,4 @@ Each cycle makes the system smarter. Insights saved today become context for tom
 
 ---
 
-*Digital Marketing Pro v1.9.0 --- Competitive intelligence that turns market awareness into strategic advantage.*
+*Digital Marketing Pro v3.15.0 --- Competitive intelligence that turns market awareness into strategic advantage.*

@@ -7,7 +7,7 @@
 **Submitter:** Indranil Banerjee — neel@neelverse.com
 **Repository:** https://github.com/indranilbanerjee/digital-marketing-pro
 **Marketplace:** https://github.com/indranilbanerjee/neels-plugins
-**Last updated:** 2026-07-08
+**Last updated:** 2026-07-09
 
 This file is the **submission packet** for the Anthropic Software Directory. It is **not** the directory listing — that is submitted via the form at https://platform.claude.com/plugins/submit. This packet pre-stages every input the form will ask for so the actual submission takes 5 minutes, not 5 hours.
 
@@ -47,7 +47,7 @@ Built for digital marketing agencies managing 50–200 brands, in-house marketin
 
 Walks the brand through Stone-vs-Opinion intake (Part 1) → unbiased external research (Part 2) → Four Core Documents covering Business & SBU Analysis, Segmentation, Brand Positioning, DMFlow (Part 3, 61 steps) → competitive/customer/market analysis (Part 4) → Client Validation Document (Part 5) → selective v2 re-runs per the Decision Matrix (Part 6) → preparation documents (Part 7) → Growth Plan + 12-month Yearly Planner (Part 8) → channel strategy fan-out across 7 families and up to 17 channels (Part 9, parallel-dispatched) → execution artefacts (Part 10) → AI creative instructions (Part 11) → continuous improvement loop (Part 12). Outputs ~50–60 canonical files in `~/.claude-marketing/<brand>/engagements/<slug>/`.
 
-**Expected duration:** 2–5 hours of conversation across a full engagement; ~$30–80 in Claude API costs using Opus 4.7.
+**Expected duration:** 2–5 hours of conversation across a full engagement; ~$30–80 in Claude API costs using Opus 4.8.
 
 ### Use case 2 — Pre-publish quality gate for EU-targeted AI content
 
@@ -128,7 +128,7 @@ The Anthropic Verified badge requires additional manual quality and safety revie
 
 If applying for Verified, additional materials to prepare:
 - Security review of `embed-c2pa.py` (handles signing keys — should describe key-management expectations)
-- Privacy review of brand-profile.json schema (handles brand data — confirm no PII transmission outside Claude API)
+- Privacy review of profile.json schema (handles brand data — confirm no PII transmission outside Claude API)
 - Code review of `eval-runner.py` (the `/check` gate that BLOCKs publication — quality is load-bearing)
 
 ## 11. Screenshots to include with submission

@@ -115,7 +115,7 @@ rm -rf ~/.claude-marketing/
 
 ## 3. Command Tests
 
-Test all 10 top-level commands visible in the Customize panel (7 v2.5 commands + /digital-marketing-pro:engagement v3.0 + /digital-marketing-pro:check + /digital-marketing-pro:status v3.2).
+DM Pro ships 18 top-level commands (all prefixed `/digital-marketing-pro:`). This section details the 7 highest-priority commands; the remaining commands follow the same invocation pattern.
 
 ### 3.1 `/brand-setup`
 
@@ -201,7 +201,7 @@ Test all 10 top-level commands visible in the Customize panel (7 v2.5 commands +
 
 ## 4. Skill Tests
 
-DM Pro has 149 skills (141 atomic + 6 v3.0 methodology skills + 2 v3.2 quality-and-status skills). Test a representative sample from each module.
+DM Pro has 158 skills. Test a representative sample from each module.
 
 ### Context & Setup Module
 
@@ -316,7 +316,7 @@ DM Pro has 149 skills (141 atomic + 6 v3.0 methodology skills + 2 v3.2 quality-a
 
 ## 5. Agent Tests
 
-DM Pro has 25 specialist agents. Verify they register correctly and respond when invoked by skills.
+DM Pro has 24 specialist agents. Verify they register correctly and respond when invoked by skills.
 
 ### Agent Registration
 
@@ -329,28 +329,27 @@ DM Pro has 25 specialist agents. Verify they register correctly and respond when
 | 1 | agency-operations | `/digital-marketing-pro:agency-dashboard`, `/digital-marketing-pro:client-report`, `/digital-marketing-pro:team-assign` |
 | 2 | analytics-analyst | `/digital-marketing-pro:analytics-insights`, `/digital-marketing-pro:anomaly-scan`, `/digital-marketing-pro:attribution-model` |
 | 3 | brand-guardian | `/digital-marketing-pro:eval-content`, brand compliance checks |
-| 4 | competitive-intel | `/digital-marketing-pro:competitor-analysis`, `/digital-marketing-pro:share-of-voice` |
-| 5 | competitor-intelligence | `/digital-marketing-pro:competitor-monitor`, `/digital-marketing-pro:competitor-alerts` |
-| 6 | content-creator | `/digital-marketing-pro:content-engine`, `/digital-marketing-pro:content-brief`, `/digital-marketing-pro:content-repurpose` |
-| 7 | crm-manager | `/digital-marketing-pro:crm-sync`, `/digital-marketing-pro:pipeline-update`, `/digital-marketing-pro:lead-import` |
-| 8 | cro-specialist | `/digital-marketing-pro:cro`, `/digital-marketing-pro:landing-page-audit`, `/digital-marketing-pro:funnel-audit` |
-| 9 | email-specialist | `/digital-marketing-pro:email-sequence`, `/digital-marketing-pro:send-email-campaign` |
-| 10 | execution-coordinator | `/digital-marketing-pro:launch-ad-campaign`, `/digital-marketing-pro:publish-blog`, `/digital-marketing-pro:schedule-social` |
-| 11 | growth-engineer | `/digital-marketing-pro:growth-engineering`, `/digital-marketing-pro:loop-detect` |
-| 12 | influencer-manager | `/digital-marketing-pro:influencer-brief`, `/digital-marketing-pro:influencer-creator` |
-| 13 | intelligence-curator | `/digital-marketing-pro:intelligence-report`, `/digital-marketing-pro:learn` |
-| 14 | journey-orchestrator | `/digital-marketing-pro:journey-design`, `/digital-marketing-pro:funnel-architect` |
-| 15 | localization-specialist | `/digital-marketing-pro:translate-content`, `/digital-marketing-pro:localize-campaign` |
-| 16 | market-intelligence | `/digital-marketing-pro:market-weather`, `/digital-marketing-pro:emerging-channels` |
-| 17 | marketing-scientist | `/digital-marketing-pro:simulate`, `/digital-marketing-pro:attribution-report` |
-| 18 | marketing-strategist | `/digital-marketing-pro:campaign-plan`, `/digital-marketing-pro:launch-plan` |
-| 19 | media-buyer | `/digital-marketing-pro:media-plan`, `/digital-marketing-pro:paid-advertising`, `/digital-marketing-pro:budget-tracker` |
-| 20 | memory-manager | `/digital-marketing-pro:save-knowledge`, `/digital-marketing-pro:recall`, `/digital-marketing-pro:sync-memory` |
-| 21 | performance-monitor-agent | `/digital-marketing-pro:performance-check`, `/digital-marketing-pro:anomaly-scan` |
-| 22 | pr-outreach | `/digital-marketing-pro:pr-pitch`, `/digital-marketing-pro:digital-pr`, `/digital-marketing-pro:crisis-response` |
-| 23 | quality-assurance | `/digital-marketing-pro:eval-suite`, `/digital-marketing-pro:quality-report` |
-| 24 | seo-specialist | `/digital-marketing-pro:seo-audit`, `/digital-marketing-pro:keyword-research`, `/digital-marketing-pro:tech-seo-audit` |
-| 25 | social-media-manager | `/digital-marketing-pro:social-strategy`, `/digital-marketing-pro:schedule-social` |
+| 4 | competitive-intel | `/digital-marketing-pro:competitor-analysis`, `/digital-marketing-pro:share-of-voice`, `/digital-marketing-pro:competitor-monitor`, `/digital-marketing-pro:competitor-alerts` (mode: snapshot\|monitoring) |
+| 5 | content-creator | `/digital-marketing-pro:content-engine`, `/digital-marketing-pro:content-brief`, `/digital-marketing-pro:content-repurpose` |
+| 6 | crm-manager | `/digital-marketing-pro:crm-sync`, `/digital-marketing-pro:pipeline-update`, `/digital-marketing-pro:lead-import` |
+| 7 | cro-specialist | `/digital-marketing-pro:cro`, `/digital-marketing-pro:landing-page-audit`, `/digital-marketing-pro:funnel-audit` |
+| 8 | email-specialist | `/digital-marketing-pro:email-sequence`, `/digital-marketing-pro:send-email-campaign` |
+| 9 | execution-coordinator | `/digital-marketing-pro:launch-ad-campaign`, `/digital-marketing-pro:publish-blog`, `/digital-marketing-pro:schedule-social` |
+| 10 | growth-engineer | `/digital-marketing-pro:growth-engineering`, `/digital-marketing-pro:loop-detect` |
+| 11 | influencer-manager | `/digital-marketing-pro:influencer-brief`, `/digital-marketing-pro:influencer-creator` |
+| 12 | intelligence-curator | `/digital-marketing-pro:intelligence-report`, `/digital-marketing-pro:learn` |
+| 13 | journey-orchestrator | `/digital-marketing-pro:journey-design`, `/digital-marketing-pro:funnel-architect` |
+| 14 | localization-specialist | `/digital-marketing-pro:translate-content`, `/digital-marketing-pro:localize-campaign` |
+| 15 | market-intelligence | `/digital-marketing-pro:market-weather`, `/digital-marketing-pro:emerging-channels` |
+| 16 | marketing-scientist | `/digital-marketing-pro:simulate`, `/digital-marketing-pro:attribution-report` |
+| 17 | marketing-strategist | `/digital-marketing-pro:campaign-plan`, `/digital-marketing-pro:launch-plan` |
+| 18 | media-buyer | `/digital-marketing-pro:media-plan`, `/digital-marketing-pro:paid-advertising`, `/digital-marketing-pro:budget-tracker` |
+| 19 | memory-manager | `/digital-marketing-pro:save-knowledge`, `/digital-marketing-pro:recall`, `/digital-marketing-pro:sync-memory` |
+| 20 | performance-monitor-agent | `/digital-marketing-pro:performance-check`, `/digital-marketing-pro:anomaly-scan` |
+| 21 | pr-outreach | `/digital-marketing-pro:pr-pitch`, `/digital-marketing-pro:digital-pr`, `/digital-marketing-pro:crisis-response` |
+| 22 | quality-assurance | `/digital-marketing-pro:eval-suite`, `/digital-marketing-pro:quality-report` |
+| 23 | seo-specialist | `/digital-marketing-pro:seo-audit`, `/digital-marketing-pro:keyword-research`, `/digital-marketing-pro:tech-seo-audit` |
+| 24 | social-media-manager | `/digital-marketing-pro:social-strategy`, `/digital-marketing-pro:schedule-social` |
 
 **Checks:**
 - [ ] All 24 agents have valid frontmatter (`name` in kebab-case + `description`)
@@ -361,7 +360,7 @@ DM Pro has 25 specialist agents. Verify they register correctly and respond when
 
 ## 6. Script Tests
 
-DM Pro has 68 Python scripts (65 v2.x + engagement-state.py v3.0 + dm-status.py + auto-save-insight.py v3.2). Test key scripts that are critical to plugin operation.
+DM Pro has ~86 Python scripts. Test key scripts that are critical to plugin operation.
 
 ### 6.1 Core Scripts
 
@@ -589,7 +588,7 @@ Run this after any changes to verify nothing is broken.
 
 ### Commands
 
-- [ ] All 10 commands appear in Customize panel (7 v2.5 + /digital-marketing-pro:engagement v3.0 + /digital-marketing-pro:check + /digital-marketing-pro:status v3.2)
+- [ ] All 18 commands appear in Customize panel (all prefixed `/digital-marketing-pro:`)
 - [ ] `/brand-setup` completes full setup flow
 - [ ] `/campaign-plan` generates multi-channel plan with budget
 - [ ] `/seo-audit` produces comprehensive report
@@ -602,7 +601,7 @@ Run this after any changes to verify nothing is broken.
 
 - [ ] `/digital-marketing-pro:help` shows complete, accurate information
 - [ ] `/digital-marketing-pro:integrations` shows 14 HTTP connectors with correct status
-- [ ] All 149 skills respond to invocation (spot check at minimum)
+- [ ] All 158 skills respond to invocation (spot check at minimum)
 - [ ] Skills handle missing connectors gracefully
 
 ### Skill Platform Features
@@ -623,14 +622,14 @@ Run this after any changes to verify nothing is broken.
 
 ### Versioning Consistency
 
-- [ ] `plugin.json` version = 2.5.1
-- [ ] `hooks.json` version string matches
-- [ ] `README.md` version = 2.5.1
-- [ ] Marketplace entry version = 2.5.1
+- [ ] `plugin.json` version = 3.15.0
+- [ ] `hooks/hooks.json` ships `{"hooks":{}}` (empty; no version string to sync)
+- [ ] `README.md` version = 3.15.0
+- [ ] Marketplace entry version for `digital-marketing-pro` = 3.15.0
 - [ ] `24 agents` in all descriptions
-- [ ] `149 skills` in all descriptions (141 atomic + 6 v3.0 methodology + 2 v3.2 quality-and-status)
-- [ ] `10 commands` in all descriptions (7 v2.5 + /digital-marketing-pro:engagement v3.0 + /digital-marketing-pro:check + /digital-marketing-pro:status v3.2)
-- [ ] `68 scripts` in all descriptions (65 v2.x + engagement-state.py + dm-status.py + auto-save-insight.py)
+- [ ] `158 skills` in all descriptions
+- [ ] `18 commands` in all descriptions
+- [ ] `~86 scripts` in all descriptions
 - [ ] `14 HTTP connectors` in all descriptions
 
 ---

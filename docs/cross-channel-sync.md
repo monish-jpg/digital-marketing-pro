@@ -429,7 +429,7 @@ The quarterly review is not just a report. It feeds back into the plugin's plann
 
 **Format optimization.** Knowing that Instagram Reels outperform Carousels on engagement (3.4% vs. 2.1%) while Carousels outperform on conversion (2.4% vs. 1.8%) lets you assign the right format to the right campaign phase. Reels for awareness phases, Carousels for conversion phases.
 
-**Insight accumulation.** These findings are saved via the SessionEnd hook to `insights.json`, so the next time you plan a campaign, the plugin already knows that UGC content outperforms studio creative on Instagram, that email is your most efficient channel, and that LinkedIn works for B2B partnership campaigns but is not cost-effective for direct consumer acquisition.
+**Insight accumulation.** These findings are saved to `insights.json` (via ambient capture when `auto_save_insights: true`, or on demand with `/digital-marketing-pro:sync-memory`), so the next time you plan a campaign, the plugin already knows that UGC content outperforms studio creative on Instagram, that email is your most efficient channel, and that LinkedIn works for B2B partnership campaigns but is not cost-effective for direct consumer acquisition.
 
 ### The Compounding Effect of Quarterly Reviews
 
@@ -459,7 +459,7 @@ The plugin prevents this by enforcing a shared architecture:
 | `/digital-marketing-pro:content-calendar` | Synchronized editorial calendar | Timing is coordinated, not accidental |
 | `/digital-marketing-pro:campaign-plan` | Phased multi-channel campaign plans | Each channel knows its role in each phase |
 | `/digital-marketing-pro:performance-report` | Cross-channel performance comparison | Reallocation decisions based on data |
-| SessionEnd Auto-Save | Insights preserved for future planning | Next campaign is smarter than the last |
+| Insight capture (`auto_save_insights` / `/sync-memory`) | Insights preserved for future planning | Next campaign is smarter than the last |
 
 The goal is not to make every channel say the same thing in the same way. It is to make every channel say the right thing in the right way for that platform, while staying connected to the same strategy, the same brand, and the same measurement system.
 
@@ -467,4 +467,4 @@ Start with `/digital-marketing-pro:campaign-plan` to build your next cross-chann
 
 ---
 
-*This guide is part of the Digital Marketing Pro plugin (v1.9.0). For channel selection matrices and synergy maps, see `skills/campaign-orchestrator/channel-strategy.md`. For platform specifications and character limits, see `skills/context-engine/platform-specs.md`. For UTM naming conventions, see `skills/campaign-orchestrator/utm-tracking.md`.*
+*This guide is part of the Digital Marketing Pro plugin (v3.15.0). For channel selection matrices and synergy maps, see `skills/campaign-orchestrator/channel-strategy.md`. For platform specifications and character limits, see `skills/context-engine/platform-specs.md`. For UTM naming conventions, see `skills/campaign-orchestrator/utm-tracking.md`.*

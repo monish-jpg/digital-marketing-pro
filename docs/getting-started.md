@@ -1,6 +1,6 @@
 # Getting Started with Digital Marketing Pro
 
-**Version 3.2.0** | A plugin for Claude Code and Claude Cowork
+**Version 3.15.0** | A plugin for Claude Code and Claude Cowork
 
 Digital Marketing Pro transforms Claude into a marketing command center that knows your brand, understands your industry, and produces strategy and content that sounds like you wrote it. v3.0 adds a **12-Part Engagement Methodology** that orchestrates the plugin into a sequential workflow producing ~50–60 traceable files per engagement. This guide walks you through installation, brand setup, your first marketing task, and your first full engagement.
 
@@ -35,7 +35,7 @@ That is it. Everything else is optional.
 **Optional but nice to have:**
 
 - **Python 3.8 or newer** --- unlocks advanced scoring features like brand voice analysis and content readability. The plugin works perfectly without Python; you just get bonus capabilities if it is installed.
-- **No API keys required** --- the plugin ships with 170+ reference knowledge files that power all 16 marketing modules (the v3.0 release added 23 methodology + framework reference docs to the original 148). The optional MCP integrations (14 HTTP connectors that work in Cowork, plus 68 npx integrations for Claude Code) use your own account credentials and can be configured later. Run `/digital-marketing-pro:integrations` to see which connectors are available and `/digital-marketing-pro:connect <name>` for step-by-step setup.
+- **No API keys required** --- the plugin ships with 169 reference knowledge files that power all 16 marketing modules (including the v3.0 methodology and framework reference docs). The optional MCP integrations (14 HTTP connectors that work in Cowork, plus 68 npx integrations for Claude Code) use your own account credentials and can be configured later. Run `/digital-marketing-pro:integrations` to see which connectors are available and `/digital-marketing-pro:connect <name>` for step-by-step setup.
 
 > **Bottom line:** If you can run Claude Code or Claude Cowork, you can use this plugin right now.
 
@@ -93,7 +93,7 @@ Installing plugin: digital-marketing-pro v3.15.0
   - 158 skills + 18 top commands registered (/digital-marketing-pro:*)
   - 24 specialist agents available
   - 14 HTTP connectors + 68 npx integrations configured
-  - 3 event hooks configured (SessionStart, PreToolUse, SessionEnd)
+  - Hooks ship empty (opt-in SessionStart/PreToolUse/SessionEnd reference config in hooks/hooks-reference.example.json)
   - 12-Part Engagement Methodology available (run /digital-marketing-pro:engagement to start)
 
 Plugin "digital-marketing-pro" installed successfully.
@@ -107,11 +107,13 @@ If you see an error instead, verify that your Claude Code installation is up to 
 
 ## 3. First Run --- What Happens
 
-The moment you start a new session in Claude Code or Cowork after installing the plugin, a few things happen automatically behind the scenes. You do not need to do anything --- this is just so you understand what is going on.
+When you start a new session in Claude Code or Cowork after installing the plugin, you pull your brand context into the session. Here is what that looks like.
 
-### The startup sequence
+> **Note (v3.1+):** Hooks ship **empty** by default, so nothing runs automatically on session start — this keeps the plugin from interfering with non-marketing work in other projects. The brand banner below appears when you run `/digital-marketing-pro:status` (or the first time any skill loads brand context). To have it injected automatically at the start of *every* session, copy the `SessionStart` entry from `hooks/hooks-reference.example.json` into `hooks/hooks.json`.
 
-1. **SessionStart hook fires** --- the plugin's event system detects that a new session has begun.
+### The startup sequence (when the SessionStart hook is enabled, or you run `/digital-marketing-pro:status`)
+
+1. **The trigger** --- either the SessionStart hook fires (if you re-enabled it) or you run `/digital-marketing-pro:status`.
 
 2. **The setup script runs** --- it checks for dependencies and looks for your active brand profile (`setup.py --check-deps --summary`).
 
@@ -346,7 +348,7 @@ Every response is automatically shaped by your brand profile. You never have to 
 
 ### SEO Execution
 
-Use `/digital-marketing-pro:seo-implement` to update meta tags, deploy schema, and create redirects directly on WordPress or Webflow. `/digital-marketing-pro:rank-monitor` sets up ongoing keyword tracking. `/digital-marketing-pro:serp-tracker` monitors SERP features including AI Overviews.
+Use `/digital-marketing-pro:seo-implement` to update meta tags, deploy schema, and create redirects directly on WordPress or Webflow. `/digital-marketing-pro:rank-monitor` sets up ongoing keyword tracking, and `/digital-marketing-pro:rank-monitor --features` monitors SERP features including AI Overviews (the former `serp-tracker` skill merged into it).
 
 ### Competitor Monitoring
 
@@ -374,7 +376,7 @@ Use `/digital-marketing-pro:focus-group` to run simulated focus groups from CRM 
 
 ### Quick Start
 1. **Evaluate any content**: `/digital-marketing-pro:eval-content` — runs the full 6-dimension eval suite
-2. **Check for hallucinations**: Automatic — the Write|Edit hook scans content in real-time
+2. **Check for hallucinations**: Built into the 4 content-producer agents, which run a mandatory hallucination check before returning drafts. (You can also re-enable the reference Write|Edit hook to scan on every file save — it ships disabled; see `hooks/hooks-reference.example.json`.)
 3. **Verify claims**: `/digital-marketing-pro:verify-claims` with an evidence file for claims-heavy content
 4. **Track quality over time**: `/digital-marketing-pro:quality-report` for trends and regression alerts
 5. **Configure thresholds**: `/digital-marketing-pro:eval-config` to set brand-specific quality standards
@@ -510,11 +512,13 @@ The methodology is supported by 23 reference documents in `skills/context-engine
 
 ## 8. Understanding the Session Lifecycle
 
-Digital Marketing Pro operates across three phases in every Claude Code or Cowork session. Understanding this lifecycle helps you get the most out of the plugin.
+Digital Marketing Pro can operate across three lifecycle phases in a Claude Code or Cowork session. Understanding this lifecycle helps you get the most out of the plugin.
+
+> **Note (v3.1+):** These three lifecycle hooks ship **disabled** (`hooks/hooks.json` is empty) so the plugin never interferes with non-marketing work in other projects. The reference configuration is preserved in `hooks/hooks-reference.example.json` — copy the entries you want back into `hooks/hooks.json` to get the automatic behavior described below. With hooks off, the same outcomes are available on demand: brand context loads when a skill runs (or via `/digital-marketing-pro:status`), content is checked by the content-producer agents' built-in hallucination gate, and you save insights with `/digital-marketing-pro:sync-memory`.
 
 ### Phase 1: Session Start
 
-**What happens:** The SessionStart hook fires and loads your active brand context into the session.
+**What happens:** When enabled, the SessionStart hook fires and loads your active brand context into the session.
 
 **What this means for you:** From the very first message you type, Claude already knows your brand name, voice settings, industry, compliance requirements, target audience, active channels, competitors, and current goals. You never have to re-explain who you are or what your brand sounds like.
 
@@ -534,7 +538,7 @@ Digital Marketing Pro operates across three phases in every Claude Code or Cowor
 
 ### Phase 3: Session End
 
-**What happens:** The SessionEnd hook fires and saves key marketing insights from the session to your brand profile. This includes things like:
+**What happens:** When enabled, the SessionEnd hook fires and saves key marketing insights from the session to your brand profile. This includes things like:
 
 - New audience insights discovered during persona research
 - Competitor intelligence gathered during analysis
@@ -578,10 +582,10 @@ Digital Marketing Pro is designed to work at full capability without Python. All
 This is what you get out of the box. No setup required.
 
 You have access to:
-- All 16 marketing modules with 170+ reference knowledge files (including 23 v3.0 methodology references)
-- All **147** `/digital-marketing-pro:` slash commands (including the v3.0 engagement workflow)
+- All 16 marketing modules with 169 reference knowledge files (including the v3.0 methodology references)
+- All 158 skills + 18 top-level `/digital-marketing-pro:` commands (including the v3.0 engagement workflow)
 - All 24 specialist agents
-- Brand profiling, session hooks, and campaign tracking
+- Brand profiling and campaign tracking (session hooks are opt-in — see the Session Lifecycle section)
 - Industry benchmarks, compliance rules, and platform specifications
 - The 12-Part engagement methodology (the engagement-state script requires Python — see below)
 
@@ -615,7 +619,7 @@ This adds everything in Lite mode, plus:
 
 ### How to check your current mode
 
-The brand summary banner shown at session start includes a Python status line:
+The brand summary banner (from `/digital-marketing-pro:status`, or at session start if you enabled the SessionStart hook) includes a Python status line:
 
 ```
 Python: not installed          (knowledge-only mode)
@@ -657,8 +661,8 @@ Example output:
 
  ...
 
-Connected: 14 HTTP | Available: 33 npx
-Skills fully unlocked: 87/141 | Skills with enhanced capabilities: **141/141**
+Connected: 14 HTTP | Available: 68 npx
+Skills fully unlocked: 87/158 | Skills with enhanced capabilities: **158/158**
 ```
 
 ### Setting up a new connector

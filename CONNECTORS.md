@@ -30,7 +30,7 @@ Some services are connected at the **Claude platform level** rather than through
 | Service | Platform integration | MCP alternative |
 |---------|---------------------|-----------------|
 | Google Drive | Yes — connect in Settings → Integrations | Also available via npx (`mcp-google-drive`) |
-| Google Docs | Yes — connect in Settings → Integrations | Also available via npx (`mcp-google-docs`) |
+| Google Docs | Yes — connect in Settings → Integrations | — (no standalone npx server; covered by the Google Drive integration) |
 
 Platform-level integrations work even if they don't appear in the `/digital-marketing-pro:integrations` connector dashboard.
 
@@ -40,8 +40,8 @@ The following categories require local npx/stdio MCP servers. They work in Claud
 
 | Category | Available via npx | When HTTP becomes available |
 |----------|------------------|---------------------------|
-| Productivity | Google Drive, Google Sheets, Google Docs | Google Drive/Docs also available as platform integration |
-| Advertising | Google Ads, Meta Ads, LinkedIn Ads, TikTok Ads | **Recommended: use a unified ads MCP** (see "Unified ads MCPs" section below) instead of one stdio server per platform. Synter covers 14 platforms in one endpoint; Ryze covers Google + Meta + GA4 with confirmation patterns; Northbeam is self-hosted. All three are HTTP and Cowork-compatible. Per-platform OAuth still applies. |
+| Productivity | Google Drive, Google Sheets | Google Drive/Docs also available as platform integration |
+| Advertising | Google Ads, Meta Ads, LinkedIn Ads, TikTok Ads | **Recommended: use a unified ads MCP** (see "Unified ads MCPs" section below) instead of one stdio server per platform. Synter covers 7 platforms in one endpoint; Ryze covers Google + Meta + GA4 with confirmation patterns; Northbeam is self-hosted. All three are HTTP and Cowork-compatible. Per-platform OAuth still applies. |
 | Analytics | Google Analytics, Google Search Console | Connect via Connectors panel when available |
 | Social media | Buffer, Twitter/X, LinkedIn | Connect via Connectors panel when available |
 | SMS/Messaging | Twilio | Connect via Connectors panel when available |
