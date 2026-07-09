@@ -15,6 +15,10 @@ Usage:
 import argparse
 import json
 import sys
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Benchmark data: industry -> audience_type -> top 3 send windows
@@ -337,12 +341,10 @@ def main():
     result = get_recommendations(args.industry, args.audience_type, tz_offset)
 
     if "error" in result:
-        json.dump(result, sys.stdout, indent=2)
-        print()
+        _common.finish(result)
         sys.exit(1)
 
-    json.dump(result, sys.stdout, indent=2)
-    print()
+    _common.finish(result)
 
 
 if __name__ == "__main__":

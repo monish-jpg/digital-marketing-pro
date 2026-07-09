@@ -18,8 +18,7 @@ Design constraints:
   * Per-endpoint success codes are honored (Slack 200+body.ok, SendGrid 202,
     HubSpot POST 201, Klaviyo 200, etc.)
   * Timeouts default to 30 s; configurable
-
-Tested against a mock HTTP server in _shared/dmp_action_test_harness.py.
+  * Secrets are redacted from all returned output via redact_secrets().
 
 API:
     execute_manifest(http_request, env=None, data=None, timeout=30) -> dict
@@ -411,6 +410,35 @@ def _check_success(result: dict, profile: dict) -> dict:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Secret redaction (applied to ALL returned output)
+# ─────────────────────────────────────────────────────────────────────────────
+
+_SECRET_QS = re.compile(
+    r"(?i)\b(access_token|refresh_token|token|api[_-]?key|apikey|key|secret|"
+    r"password|developer-token|auth)=[^&\s\"']+")
+_BEARER = re.compile(r"(?i)(Bearer|Basic)\s+[A-Za-z0-9._\-+/=]+")
+
+
+def _redact_str(s: str) -> str:
+    s = _SECRET_QS.sub(lambda m: f"{m.group(1)}=REDACTED", s)
+    s = _BEARER.sub(lambda m: f"{m.group(1)} REDACTED", s)
+    return s
+
+
+def redact_secrets(obj):
+    """Recursively redact secret-looking tokens from executor output so a
+    partially-substituted URL / header (e.g. the missing_credential branch that
+    echoes the substituted request) never leaks a live credential."""
+    if isinstance(obj, str):
+        return _redact_str(obj)
+    if isinstance(obj, dict):
+        return {k: redact_secrets(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [redact_secrets(v) for v in obj]
+    return obj
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Action-level executor (resolves THEN executes)
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -577,8 +605,10 @@ if __name__ == "__main__":
             pass
 
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--action", required=True, help="action_id to execute")
-    parser.add_argument("--brand", required=True)
+    # --action / --brand are NOT required: the --list-* flags must be reachable
+    # without them (M1). Requiredness is enforced below only for execution.
+    parser.add_argument("--action", help="action_id to execute")
+    parser.add_argument("--brand")
     parser.add_argument("--execute", action="store_true",
                         help="actually fire the request (default: dry-run / resolve only)")
     parser.add_argument("--confirm", action="store_true",
@@ -601,7 +631,20 @@ if __name__ == "__main__":
         print(json.dumps({"oauth_only_connectors": list_oauth_only_connectors()}, indent=2))
         sys.exit(0)
 
-    data = json.loads(args.data) if args.data else None
+    # For an actual execution, --action and --brand are required.
+    if not args.action or not args.brand:
+        print(json.dumps({"error": "--action and --brand are required (unless using "
+                                   "--list-executable / --list-oauth-only)"}, indent=2))
+        sys.exit(1)
+
+    # Guard the JSON parse so a malformed --data reports cleanly instead of
+    # crashing with an uncaught traceback (M1).
+    try:
+        data = json.loads(args.data) if args.data else None
+    except json.JSONDecodeError as exc:
+        print(json.dumps({"error": f"invalid JSON in --data: {exc}"}, indent=2))
+        sys.exit(1)
+
     extra_kwargs = {}
     if args.channel:
         extra_kwargs["channel"] = args.channel
@@ -613,4 +656,17 @@ if __name__ == "__main__":
     result = execute_action(args.action, args.brand,
                             execute=args.execute, confirm=args.confirm,
                             data=data, timeout=args.timeout, **extra_kwargs)
+    # Redact any secrets that may have leaked into the output (e.g. a
+    # substituted URL echoed by the missing_credential branch), then exit
+    # non-zero when the execution reported failure (M1) so $? is trustworthy.
+    result = redact_secrets(result)
     print(json.dumps(result, indent=2, default=str))
+    _success = True
+    if isinstance(result, dict):
+        if "error" in result:
+            _success = False
+        elif result.get("execution", {}).get("success") is False:
+            _success = False
+        elif result.get("success") is False:
+            _success = False
+    sys.exit(0 if _success else 1)

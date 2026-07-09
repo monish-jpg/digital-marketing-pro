@@ -1,0 +1,51 @@
+# Tessl skill-review rubric for Digital Marketing Pro.
+# Encodes the scoring dimensions the `tessl review` CLI applies to changed SKILL.md files.
+# Each dimension is scored 0-10; the overall score is the weighted mean. Adjust weights to taste.
+# (Structure follows the Tessl rubric shape — verify field names against the current Tessl docs
+#  if the CLI rejects a key.)
+
+version: 1
+name: digital-marketing-pro-skill-rubric
+
+# Skills scoring below this overall value get flagged in the PR comment (advisory, non-blocking).
+fail_threshold: 70
+
+dimensions:
+  - id: clarity
+    weight: 0.20
+    description: >-
+      Purpose and "when to use" are unambiguous. A reader can tell in one paragraph
+      what the skill does and when it fires.
+
+  - id: structure
+    weight: 0.15
+    description: >-
+      Follows the DMP SKILL.md template — frontmatter (name + description),
+      Purpose, Input Required, Process, Output, Agents Used. Sections are in order
+      and non-empty.
+
+  - id: script_contract_accuracy
+    weight: 0.20
+    description: >-
+      Every script invocation matches the target script's real argparse — correct
+      --action / flags, no phantom actions or flags. Scripts are called as
+      `python "${CLAUDE_PLUGIN_ROOT}/scripts/<name>.py" ...` (no bare `scripts/`, no `python3`).
+
+  - id: truthfulness
+    weight: 0.20
+    description: >-
+      No fabricated capabilities, no fictional npm/MCP packages presented as real,
+      no uncited statistics attributed to real organizations. Overclaims are hedged;
+      simulated output is labeled; example numbers are marked SYNTHETIC.
+
+  - id: compliance_currency
+    weight: 0.10
+    description: >-
+      Regulatory and platform facts are current (EU AI Act Article 50, C2PA 2.3/2.4,
+      privacy-law jurisdictions, API versions). Volatile guidance is date-stamped.
+
+  - id: safety_gating
+    weight: 0.15
+    description: >-
+      Execution skills carry an explicit approval gate ("## Execution gate") and
+      never proceed on ambiguous input. Read-only skills declare read-only behavior.

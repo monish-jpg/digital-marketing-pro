@@ -1,7 +1,7 @@
 ---
 description: "Wire DMP for Anthropic Cowork team usage: verifies Cowork sandbox, checks for a Drive MCP, creates the canonical Drive folder layout, and persists the team's routing config. Run once per team."
 argument-hint: "[--brand <name>] [--drive-root <folder-name>]"
-disable-model-invocation: true
+disable-model-invocation: false
 ---
 
 # /digital-marketing-pro:cowork-setup

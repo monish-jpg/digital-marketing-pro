@@ -11,7 +11,7 @@ Generate marketing content drafts tailored to a specific content type, audience,
 
 ## Trigger
 
-User runs `/content-engine` or asks to draft, write, create, or optimize marketing content.
+User runs `/digital-marketing-pro:content-engine` or asks to draft, write, create, or optimize marketing content.
 
 ## Inputs
 
@@ -127,15 +127,15 @@ After drafting, automatically evaluate:
 
 Ask: "Would you like me to:
 - Revise any section or adjust the tone?
-- Create variations for A/B testing? (`/prompt-test`)
-- Evaluate quality with the full scoring framework? (`/eval-content`)
-- Adapt this content for other channels? (`/content-repurpose`)
-- Create an email sequence from this content? (`/email-sequence`)
-- Generate social media posts to promote this? (`/social-strategy`)"
+- Create variations for A/B testing? (`/digital-marketing-pro:prompt-test`)
+- Evaluate quality with the full scoring framework? (`/digital-marketing-pro:eval-content`)
+- Adapt this content for other channels? (`/digital-marketing-pro:content-repurpose`)
+- Create an email sequence from this content? (`/digital-marketing-pro:email-sequence`)
+- Generate social media posts to promote this? (`/digital-marketing-pro:social-strategy`)"
 
-## Execution discipline — parallel dispatch (v3.4)
+## Execution discipline — parallel dispatch
 
-When `/content-engine` is invoked to produce **multiple content formats from a single brief** (e.g. "draft a launch blog post + 3 social posts + email teaser + ad copy"), dispatch the per-format generations in **one message with parallel `Task` calls**. Each format reads the same brief, applies the same brand voice, but produces an independent draft — there is no cross-dependency between, say, the LinkedIn post and the email teaser.
+When `/digital-marketing-pro:content-engine` is invoked to produce **multiple content formats from a single brief** (e.g. "draft a launch blog post + 3 social posts + email teaser + ad copy"), dispatch the per-format generations in **one message with parallel `Task` calls**. Each format reads the same brief, applies the same brand voice, but produces an independent draft — there is no cross-dependency between, say, the LinkedIn post and the email teaser.
 
 Sequence the steps that DO have dependencies:
 1. SME calibration + brief refinement (sequential — single pass)

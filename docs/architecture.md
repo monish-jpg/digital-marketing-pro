@@ -1,6 +1,6 @@
 # Technical Architecture Reference
 
-**Digital Marketing Pro** -- Claude Code Plugin v3.0.0
+**Digital Marketing Pro** -- Claude Code Plugin v3.15.0
 
 This document describes the internal architecture of the Digital Marketing Pro plugin for developers and contributors. It covers file structure, the WAT framework mapping, component anatomy, the hook system, script conventions, data persistence, adaptive scoring, the v3.0 methodology layer, and extension points.
 
@@ -13,13 +13,13 @@ This document describes the internal architecture of the Digital Marketing Pro p
 ```
 digital-marketing-pro/
 ├── .claude-plugin/
-│   └── plugin.json                    # Plugin manifest (v3.0.0; full 2026 spec with $schema, homepage, repository, license, keywords)
-├── .mcp.json                          # 14 HTTP connectors (auto-loaded)
-├── .mcp.json.example                  # 68 npx servers (opt-in for Claude Code)
+│   └── plugin.json                    # Plugin manifest (2026 spec: homepage, repository as a STRING url, license, keywords — NO $schema key, and repository is a string not a {type,url} object, per the plugin spec)
+├── .mcp.json                          # ships EMPTY {"mcpServers":{}} — gitignored, zero auto-connecting MCPs
+├── .mcp.json.example                  # illustrative npx catalog (opt-in; verify packages before use — see its _warning)
 ├── hooks/
-│   └── hooks.json                     # 3 lifecycle hooks
-├── commands/                          # 8 top-level commands (7 v2.x + /digital-marketing-pro:engagement v3.0)
-├── agents/                            # 25 specialist agents
+│   └── hooks.json                     # ships EMPTY {"hooks":{}} — zero global hooks
+├── commands/                          # 18 top-level commands
+├── agents/                            # 24 specialist agents
 │   ├── marketing-strategist.md
 │   ├── content-creator.md
 │   ├── seo-specialist.md
@@ -136,7 +136,7 @@ digital-marketing-pro/
 │   ├── import-guidelines/SKILL.md     # Guideline import (v1.3.0)
 │   ├── import-sop/SKILL.md           # SOP import (v1.3.0)
 │   ├── import-template/SKILL.md      # Template import (v1.3.0)
-│   └── [157 skills total]/             # 141 atomic skills + 6 v3.0 methodology skills + 2 v3.2 quality-and-status skills + 1 v3.4 c2pa-metadata skill
+│   └── [158 skills total]/             # atomic skills + methodology + quality/status + compliance skills
 │       └── SKILL.md                   # Skill definition
 ├── docs/                              # Documentation
 ├── README.md
@@ -151,7 +151,7 @@ The 16 modules are: content-engine, campaign-orchestrator, paid-advertising, ana
 
 The 115 commands include the original 68 from v2.0.0, 34 from v2.1.0, and 13 from v2.2.0 covering SEO execution, competitor monitoring, revenue simulation, GEO monitoring, creative intelligence, synthetic audiences, journey orchestration, evaluation/QA, and multilingual support.
 
-The 25 agents are: marketing-strategist, content-creator, seo-specialist, analytics-analyst, brand-guardian, media-buyer, growth-engineer, influencer-manager, competitive-intel, pr-outreach, email-specialist, cro-specialist, social-media-manager, execution-coordinator, performance-monitor-agent, crm-manager, memory-manager, agency-operations, marketing-scientist, market-intelligence, intelligence-curator, competitor-intelligence, journey-orchestrator, quality-assurance, and localization-specialist.
+The 24 agents are: marketing-strategist, content-creator, seo-specialist, analytics-analyst, brand-guardian, media-buyer, growth-engineer, influencer-manager, competitive-intel, pr-outreach, email-specialist, cro-specialist, social-media-manager, execution-coordinator, performance-monitor-agent, crm-manager, memory-manager, agency-operations, marketing-scientist, market-intelligence, intelligence-curator, journey-orchestrator, quality-assurance, and localization-specialist. (The former `competitor-intelligence` agent merged into `competitive-intel` with a `mode: snapshot|monitoring` input.)
 
 ---
 
@@ -451,7 +451,9 @@ Brand profiles follow schema version `1.0.0` (defined in `setup.py` as `SCHEMA_V
 
 ## 9. MCP Configuration
 
-`.mcp.json` defines 14 HTTP MCP connectors that work in both Cowork and Claude Code. The `.mcp.json.example` file contains the full 67-server npx configuration for Claude Code users who want additional integrations.
+The shipped `.mcp.json` is **empty** (`{"mcpServers":{}}`, gitignored) — nothing auto-connects. The tables below are the *conceptual* connector catalog. The HTTP catalog lives in `.mcp.json.connectors-reference`; the npx catalog in `.mcp.json.example`.
+
+> **Package verification required.** The `Package` column below is illustrative and **not all names are verified on npm** — several are known-fictional (e.g. `@anthropic/mcp-google-analytics`, `mcp-salesforce`, `mcp-supermemory`/`graphiti-mcp`, `@notionhq/mcp-server`). See the `_warning` field in `.mcp.json.example` for the verified-vs-fictional breakdown. `npx` runs remote code, so verify any package on npm before use, or prefer `/digital-marketing-pro:add-integration` for a custom MCP path.
 
 ### Server List
 

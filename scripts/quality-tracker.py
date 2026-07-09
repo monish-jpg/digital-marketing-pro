@@ -37,8 +37,12 @@ from collections import defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
 from statistics import mean
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
-BRANDS_DIR = Path.home() / ".claude-marketing" / "brands"
+BRANDS_DIR = _common.brands_root()
 ACTIVE_BRAND_FILE = BRANDS_DIR / "_active-brand.json"
 
 SCORE_DIMENSIONS = [
@@ -527,8 +531,7 @@ def main():
     elif args.action == "get-worst":
         result = action_get_worst(slug, args.limit, args.content_type, args.days)
 
-    json.dump(result, sys.stdout, indent=2)
-    print()
+    _common.finish(result)
 
 
 if __name__ == "__main__":

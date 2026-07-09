@@ -1,5 +1,5 @@
 ---
-description: "Run a marketing engagement using the 12-Part methodology. Subcommands: start, next, status, validate, re-run-decision, update-back, lif-show, file-tree, list-engagements."
+description: "Run a marketing engagement using the 12-Part methodology. Subcommands: start, next, status, validate, re-run-decision, update-back, lif-show, file-tree, list-engagements, four-core, growth-plan, yearly-planner, loop."
 argument-hint: "<subcommand> [args]"
 allowed-tools: Read Write Edit Bash Glob Grep
 ---
@@ -23,55 +23,7 @@ Initialise a new engagement. Creates the directory tree, writes `_engagement.jso
 
 **Pre-condition:** Brand profile must exist at `~/.claude-marketing/brands/{brand-slug}/profile.json`. If not, run `/digital-marketing-pro:brand-setup` first.
 
-**Checkpointing (v3.7.7+):** After validating the pre-condition, the `start` subcommand opens a checkpoint run so an interruption mid-engagement can be resumed instead of restarted:
-
-```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/scripts/checkpoint-manager.py init \
-    --brand "{brand_slug}" --workflow engagement --topic "{engagement_id}"
-```
-
-The returned `run_id` is recorded in `_engagement.json` so subsequent `next` / `four-core` / `validate` / etc. subcommands can save their part outputs to the right run.
-
-### Checkpointing — required for resumable engagement runs (v3.7.7+)
-
-After each part completes (and passes its quality gate), the part owner saves its output:
-
-```bash
-# Part 1 (after stone-vs-opinion intake completes):
-python3 ${CLAUDE_PLUGIN_ROOT}/scripts/checkpoint-manager.py save \
-    --brand "{brand}" --run-id "{run_id}" \
-    --step 1 --content-file "{path_to_part1_deliverable}" --extension md
-
-# Part 3 (after Four Core Documents):
-python3 ${CLAUDE_PLUGIN_ROOT}/scripts/checkpoint-manager.py save \
-    --brand "{brand}" --run-id "{run_id}" \
-    --step 3 --content-file "{path_to_growth_plan}" --extension md
-
-# ...repeat for each part as it completes
-```
-
-If the run is interrupted (context exhaustion, user cancel, machine sleep), the user can resume with `/digital-marketing-pro:resume` — that command reloads every saved part and continues from the next un-checkpointed part. **This is the direct fix for the user-team feedback that "dm pro also taking too long to process"** — the workflow itself is not faster, but a single interruption no longer means losing 30+ minutes of work.
-
-After the final part (Part 12 activation), publish every artifact to the user-visible output folder:
-
-```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/scripts/output-publisher.py publish-run \
-    --brand "{brand}" --run-id "{run_id}"
-
-python3 ${CLAUDE_PLUGIN_ROOT}/scripts/checkpoint-manager.py finalize \
-    --brand "{brand}" --run-id "{run_id}" --status completed
-```
-
-Then point the user at the visible folder so they can find the 50-60 files:
-
-```
-✅ Engagement {engagement_id} complete for {brand}.
-
-   📂 All deliverables are at:
-      ~/Documents/DigitalMarketingPro/{brand}/engagement/{YYYY-MM}/
-
-   Open with /digital-marketing-pro:output-folder {brand}
-```
+**Checkpointing & resume:** The full checkpoint protocol — open a run on `start`, save each part as it completes, run `/digital-marketing-pro:check --full` before the Part 5 and Part 8 deliverables, then publish and finalize at the end — lives in the skill. See [engagement-workflow/SKILL.md](../skills/engagement-workflow/SKILL.md) § *Checkpointing & Resume* (the single source of truth). Each part's checkpoint saves **that part's own deliverable path** (Part 3 saves the Four Core Documents, Part 8 saves the Growth Plan — never a placeholder for a different part). An interrupted run resumes with `/digital-marketing-pro:resume`, and the finished files land in the visible output folder (`/digital-marketing-pro:output-folder {brand}`).
 
 ### `/digital-marketing-pro:engagement status [brand-slug] [engagement-id]`
 
@@ -117,9 +69,9 @@ Show the engagement directory file tree.
 
 List all engagements (optionally filtered by brand).
 
-### `/digital-marketing-pro:engagement four-core <brand-slug> <engagement-id> [--doc 3.X] [--view v2]`
+### `/digital-marketing-pro:engagement four-core <brand-slug> <engagement-id> [--doc 3.X] [--view v2] [--combined]`
 
-Produce the Four Core Documents (Part 3). Shorthand for invoking the `four-core-documents` skill.
+Produce the Four Core Documents (Part 3). Shorthand for invoking the `four-core-documents` skill. Flags: `--doc` (single id `3.1` or comma-separated `"3.1,3.3"`), `--view v2` (Part 6 re-runs), `--combined` (stitch all four into the 3.C executive reference).
 
 ### `/digital-marketing-pro:engagement growth-plan <brand-slug> <engagement-id>`
 

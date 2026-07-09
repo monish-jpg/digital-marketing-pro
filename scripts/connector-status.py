@@ -143,6 +143,10 @@ def check_connector(name):
             if conn["transport"] == "http":
                 result["url"] = conn.get("url", "")
                 result["setup"] = "HTTP connector — auto-connects via OAuth when you first use it"
+            elif conn.get("package_status") == "no-known-npm-package":
+                result["package"] = None
+                result["package_status"] = conn["package_status"]
+                result["setup"] = conn.get("note", "No verified MCP package — use /digital-marketing-pro:add-integration.")
             else:
                 result["package"] = conn.get("package", "")
                 result["env_vars"] = conn.get("env_vars", [])
@@ -193,6 +197,15 @@ def setup_guide(name):
                         f"{name} is configured. Use any of these skills to activate it: "
                         + ", ".join(f"/dm:{s}" for s in conn["skills_unlocked"])
                     )
+            elif conn.get("package_status") == "no-known-npm-package":
+                guide["transport"] = "unavailable"
+                guide["package"] = None
+                guide["package_status"] = conn["package_status"]
+                guide["steps"] = [
+                    conn.get("note", "No verified MCP package on npm for this connector."),
+                    f"Use /digital-marketing-pro:add-integration {name} to wire a custom MCP server you trust.",
+                    "npx runs remote code — verify any package on npm before adding it to .mcp.json.",
+                ]
             else:
                 guide["transport"] = "npx"
                 guide["package"] = conn.get("package", "")

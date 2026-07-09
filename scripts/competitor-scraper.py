@@ -8,6 +8,10 @@ import sys
 import time
 import random
 from urllib.parse import urlparse, urljoin
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
 try:
     import requests
@@ -212,8 +216,7 @@ def main():
         sys.exit(1)
 
     result = scrape_url(args.url.strip())
-    json.dump(result, sys.stdout, indent=2)
-    print()
+    _common.finish(result)
 
 
 if __name__ == "__main__":

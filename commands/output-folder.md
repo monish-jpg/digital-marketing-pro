@@ -1,12 +1,12 @@
 ---
 description: Print + open the user-visible DMP output folder for a brand (~/Documents/DigitalMarketingPro/{brand}/). Direct answer to "where did my engagement deliverables save?"
 argument-hint: "[brand] [workflow] (both optional — defaults to active brand, all workflows)"
-disable-model-invocation: true
+disable-model-invocation: false
 ---
 
 # Output Folder
 
-Show the user where DMP actually saves the finished workflow deliverables, and (when supported) open that folder in the OS file manager. This is the answer to "where are my 50 engagement files?" — a real question from the v3.12.2-cycle user-team feedback ("dm pro also taking too long to process" was partly about not knowing whether anything had finished saving).
+Show the user where DMP actually saves the finished workflow deliverables, and (when supported) open that folder in the OS file manager. This is the answer to "where are my 50 engagement files?" — a real question from user-team feedback ("dm pro also taking too long to process" was partly about not knowing whether anything had finished saving).
 
 ## Trigger
 
@@ -14,9 +14,9 @@ User runs `/digital-marketing-pro:output-folder`, or asks any variant of "where 
 
 ## Background
 
-DMP writes two copies of every workflow artifact (v3.7.7+):
+DMP writes two copies of every workflow artifact:
 
-1. **Internal tracking copy** at `~/.claude-marketing/{brand}/output/{workflow}/{run_id}/...`. This is the system-of-record for `/digital-marketing-pro:status`, the checkpoint manager, audit history. It lives inside a dotfolder that Windows hides by default.
+1. **Internal tracking copy** at `~/.claude-marketing/brands/{brand}/output/{workflow}/{run_id}/...` (or `$CLAUDE_PLUGIN_DATA/digital-marketing-pro/brands/{brand}/output/...` when that env var is set). This is the system-of-record for `/digital-marketing-pro:status`, the checkpoint manager, audit history. It lives inside a dotfolder that Windows hides by default.
 2. **User-visible published copy** at `~/Documents/DigitalMarketingPro/{brand}/{workflow}/{YYYY-MM}/{filename}` (or wherever `$DIGITAL_MARKETING_PRO_PUBLISH_DIR` points). This is the one to surface.
 
 The published copy was added specifically because users running the 12-Part engagement workflow couldn't find the 50-60 deliverable files it produces. They were saving — just somewhere Explorer hid by default.
@@ -39,7 +39,7 @@ If the user supplied a workflow argument (e.g. `engagement`, `campaign-plan`, `s
 Use `scripts/output-publisher.py where` to resolve and report — it returns both the visible path AND the internal tracking path AND whether the env var override is active:
 
 ```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/scripts/output-publisher.py where \
+python "${CLAUDE_PLUGIN_ROOT}/scripts/output-publisher.py" where \
     --brand "{brand}" \
     --workflow "{workflow_or_omit}"
 ```
@@ -64,7 +64,7 @@ Show the user:
 Use `scripts/output-publisher.py open` for the actual file-manager invocation (Windows `start` / macOS `open` / Linux `xdg-open`):
 
 ```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/scripts/output-publisher.py open \
+python "${CLAUDE_PLUGIN_ROOT}/scripts/output-publisher.py" open \
     --brand "{brand}" \
     --workflow "{workflow_or_omit}"
 ```

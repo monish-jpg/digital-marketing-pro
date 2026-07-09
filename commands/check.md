@@ -2,14 +2,14 @@
 description: "Run the unified pre-publish quality gate on marketing content (hallucination + brand voice + structure + claims). Use before publishing any marketing copy."
 argument-hint: "<file-or-content> [--full|--compliance] [--brand <slug>] [--evidence <path>] [--schema <name>]"
 allowed-tools: Read Bash Glob Grep
-disable-model-invocation: true
+disable-model-invocation: false
 ---
 
 # /digital-marketing-pro:check — Pre-Publish Quality Gate
 
 Runs the unified evaluation suite on marketing content. Wraps `scripts/eval-runner.py` and produces a single pass / warn / blocked decision with actionable issues.
 
-This is the canonical pre-publish gate for any marketing content (blog posts, ad copy, emails, social posts, landing pages, press releases). In v3.0 and earlier, the same checks ran automatically as a global PreToolUse hook on every Write/Edit operation in every project. In v3.1 that hook was removed because it fired across all plugins and projects regardless of context. v3.2 introduces this command as the explicit replacement.
+This is the canonical pre-publish gate for any marketing content (blog posts, ad copy, emails, social posts, landing pages, press releases). An earlier version ran the same checks automatically as a global PreToolUse hook on every Write/Edit operation in every project; that hook was removed because it fired across all plugins and projects regardless of context. This command is the explicit, intentional replacement.
 
 ## Quick examples
 
@@ -52,7 +52,7 @@ The command returns a unified report with:
 - **WARN** → no CRITICAL issues but at least one WARNING; user should address before publishing
 - **BLOCKED** → at least one CRITICAL issue (e.g., placeholder URL, fabricated statistic in headline, missing required disclaimer for regulated industry, **missing C2PA provenance manifest on an AI-generated asset in an EU-targeted campaign**); content cannot publish until fixed
 
-## EU AI Act Article 50 — C2PA verification (added v3.4)
+## EU AI Act Article 50 — C2PA verification
 
 For assets flagged as AI-generated (file metadata or accompanying `--evidence` JSON declares `ai_generated: true`) AND brand profile `target_markets` include any EU/EEA jurisdiction, the gate runs C2PA verification on the asset and treats a missing or invalid manifest as a CRITICAL issue. Article 50 applies from **2 Aug 2026** — penalty up to EUR 15M or 3% global turnover. To embed a manifest, use `/digital-marketing-pro:c2pa-metadata`.
 

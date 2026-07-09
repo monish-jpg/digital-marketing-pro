@@ -28,7 +28,7 @@ User runs `/digital-marketing-pro:keyword-cluster` or asks for:
 ## Process
 
 1. Load brand context + auto-apply industry / compliance rules
-2. Optionally expand seeds via brand's keyword-research MCP (`/keyword-research`) if input is < 20 keywords
+2. Optionally expand seeds via brand's keyword-research MCP (`/digital-marketing-pro:keyword-research`) if input is < 20 keywords
 3. Filter seeds by min-volume / max-KD / banned-word lists
 4. Fetch top-10 SERPs per keyword via connected rank-tracker (with budget guard at 500-credit threshold)
 5. Run `scripts/keyword_cluster.py` with SERP mode (or lexical fallback)

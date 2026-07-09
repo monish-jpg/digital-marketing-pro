@@ -19,6 +19,10 @@ import argparse
 import json
 import sys
 from pathlib import Path
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Linear regression (least squares)
@@ -454,8 +458,7 @@ def main():
             growth_assumption=args.growth_assumption,
             seasonality=seasonality,
         )
-        json.dump(result, sys.stdout, indent=2)
-        print()
+        _common.finish(result)
     except Exception as exc:
         json.dump({"error": f"Forecasting failed: {exc}"}, sys.stdout, indent=2)
         print()

@@ -28,8 +28,12 @@ import math
 import sys
 from datetime import datetime
 from pathlib import Path
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
-BRANDS_DIR = Path.home() / ".claude-marketing" / "brands"
+BRANDS_DIR = _common.brands_root()
 
 MOVE_TYPES = ["price-cut", "feature-launch", "rebrand",
               "category-creation", "market-entry", "partnership"]
@@ -553,8 +557,7 @@ def main():
     elif args.action == "summary":
         result = summary_action(args.brand)
 
-    json.dump(result, sys.stdout, indent=2)
-    print()
+    _common.finish(result)
 
 
 if __name__ == "__main__":

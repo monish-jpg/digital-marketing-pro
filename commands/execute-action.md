@@ -2,7 +2,7 @@
 description: "Actually fire a campaign-audit / launch-campaign action against its real API (vs returning a manifest). Reads credentials from env vars (no OAuth flow). Read ops auto-execute with --execute; write ops require --confirm. Logs every execution to the audit trail."
 argument-hint: "--action <id> [--brand <slug>] [--execute] [--confirm] [--channel <name>] [--data <json>] [--dry-run]"
 allowed-tools: Bash Read
-disable-model-invocation: true
+disable-model-invocation: false
 ---
 
 # /digital-marketing-pro:execute-action — Fire an Action Against Real API
@@ -15,7 +15,7 @@ Resolves an action via `connector_resolver` and (optionally) executes it via `co
 |------------|-------------|
 | no flags | Dry-run: returns the resolved manifest (same as `/digital-marketing-pro:doctor --action <id>`) — no HTTP call |
 | `--execute` only | Read ops fire immediately. Write ops are BLOCKED with `execute_blocked_reason`. |
-| `--execute --confirm` | Write ops also fire. Execution is logged to `~/.claude-marketing/{brand}/executions/`. |
+| `--execute --confirm` | Write ops also fire. Execution is logged to `~/.claude-marketing/brands/{brand}/executions/`. |
 
 ## Which connectors execute end-to-end via Python
 
@@ -69,7 +69,7 @@ SLACK_BOT_TOKEN=xoxb-xxx \
 4. **Missing env var** -> blocked with `setup_hint_credential` naming the var
 5. **Unconfigured connector** -> blocked at resolver level (mode=stub_unconfigured)
 6. **Unresolved placeholder** -> request NEVER sent (would have leaked literal `{VAR}` text)
-7. **Every fired call** -> logged to `~/.claude-marketing/{brand}/executions/exec-{connector}-{action}-{ts}.json`
+7. **Every fired call** -> logged to `~/.claude-marketing/brands/{brand}/executions/exec-{connector}-{action}-{ts}.json`
 
 ## See also
 
@@ -77,10 +77,9 @@ SLACK_BOT_TOKEN=xoxb-xxx \
 - [scripts/connector_resolver.py](../scripts/connector_resolver.py) — the resolver
 - [scripts/action-doctor.py](../scripts/action-doctor.py) — readiness diagnostic (no execution)
 - [/digital-marketing-pro:doctor](doctor.md) — per-action readiness map
-- [_shared/dmp_executor_test_harness.py](../../_shared/dmp_executor_test_harness.py) — 17-test mock-server harness covering the 8 executable connectors + all 6 safety gates
 
 ## Run
 
 ```bash
-python scripts/connector_executor.py "$@"
+python "${CLAUDE_PLUGIN_ROOT}/scripts/connector_executor.py" "$@"
 ```

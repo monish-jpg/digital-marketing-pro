@@ -253,7 +253,7 @@ The Performance Report command follows a structured process:
 
 2. **Retrieves campaign history** — runs `campaign-tracker.py --brand greenpeak-outdoors --action list-campaigns` to pull all active campaigns and their associated KPIs.
 
-3. **Ingests performance data** — you provide current metrics through paste, CSV, or connected MCP data sources (GA4, Google Ads, Meta, etc. via the 12 pre-configured MCP servers).
+3. **Ingests performance data** — you provide current metrics through paste, CSV, or connected MCP data sources (GA4, Google Ads, Meta, etc. via MCP data sources you have connected (none ship pre-configured; the shipped `.mcp.json` is empty)).
 
 4. **Calculates KPIs** — core calculations per channel: traffic, conversions, revenue, ROAS, CPA, engagement, growth rates.
 

@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Cluster keywords by semantic similarity and search intent using word overlap."""
+"""Cluster keywords by semantic similarity and search intent using word overlap.
+
+DEPRECATED (v3.15.0): this word-overlap clusterer is superseded by
+keyword_cluster.py (SERP-overlap clustering used by the keyword-cluster skill).
+It does word-overlap only — it does NOT produce search volume, keyword
+difficulty, or trends. The file is retained for backward compatibility but is
+no longer referenced by any skill; new work should call keyword_cluster.py.
+"""
 
 import argparse
 import json
@@ -7,6 +14,10 @@ import re
 import sys
 from collections import defaultdict
 from pathlib import Path
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
 # Intent classification modifiers
 INTENT_MODIFIERS = {
@@ -184,8 +195,7 @@ def main():
         "clusters": output_clusters,
     }
 
-    json.dump(result, sys.stdout, indent=2)
-    print()
+    _common.finish(result)
 
 
 if __name__ == "__main__":

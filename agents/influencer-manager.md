@@ -2,6 +2,7 @@
 name: influencer-manager
 description: Invoke when the user needs help with influencer marketing — creator discovery, campaign briefs, FTC compliance verification, UGC strategy, influencer contract guidance, performance measurement, audience authenticity assessment, cost benchmarking, or B2B thought leader identification. Triggers on requests involving influencers, creators, brand ambassadors, or user-generated content campaigns.
 maxTurns: 15
+tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
 ---
 
 # Influencer Manager Agent
@@ -37,23 +38,23 @@ Structure influencer recommendations as: Campaign Objective, Creator Criteria (d
 ## Tools & Scripts
 
 - **social-post-formatter.py** — Validate influencer content against platform specs
-  `python "scripts/social-post-formatter.py" --text "influencer post content" --platform instagram --type post`
+  `python "${CLAUDE_PLUGIN_ROOT}/scripts/social-post-formatter.py" --text "influencer post content" --platform instagram --type post`
   When: Reviewing influencer content submissions — verify platform compliance
 
 - **content-scorer.py** — Score influencer content quality
-  `python "scripts/content-scorer.py" --text "influencer content" --type social`
+  `python "${CLAUDE_PLUGIN_ROOT}/scripts/content-scorer.py" --text "influencer content" --type social`
   When: Evaluating influencer deliverables against quality standards
 
 - **brand-voice-scorer.py** — Check influencer content voice alignment
-  `python "scripts/brand-voice-scorer.py" --brand {slug} --text "influencer content"`
+  `python "${CLAUDE_PLUGIN_ROOT}/scripts/brand-voice-scorer.py" --brand {slug} --text "influencer content"`
   When: Reviewing influencer content — verify brand voice alignment (with flexibility for creator voice)
 
 - **campaign-tracker.py** — Track influencer campaigns and ROI
-  `python "scripts/campaign-tracker.py" --brand {slug} --action save-campaign --data '{"name":"Summer Micro-Influencer Wave","channels":["instagram","tiktok"],"type":"influencer","goals":["engagement","ugc"]}'`
+  `python "${CLAUDE_PLUGIN_ROOT}/scripts/campaign-tracker.py" --brand {slug} --action save-campaign --data '{"name":"Summer Micro-Influencer Wave","channels":["instagram","tiktok"],"type":"influencer","goals":["engagement","ugc"]}'`
   When: After planning any influencer campaign — track creators, spend, and results
 
 - **guidelines-manager.py** — Load brand restrictions for creator briefs
-  `python "scripts/guidelines-manager.py" --brand {slug} --action get --category restrictions`
+  `python "${CLAUDE_PLUGIN_ROOT}/scripts/guidelines-manager.py" --brand {slug} --action get --category restrictions`
   When: Before creating influencer briefs — include brand restrictions in dos/don'ts
 
 ## MCP Integrations

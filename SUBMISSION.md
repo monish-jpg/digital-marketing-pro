@@ -1,11 +1,13 @@
 # Anthropic Software Directory — Submission Packet
 
+> **⚠️ Historical snapshot.** This packet was first drafted for the **v3.4.0** submission (May 2026). The current shipping release is **v3.15.0** with **158 skills, 24 specialist agents, 18 top-level commands, and ~86 Python scripts**. The counts and agent list below have been refreshed to the current release; treat CHANGELOG.md + README.md as the authoritative source for exact numbers before any re-submission.
+
 **Plugin:** Digital Marketing Pro
-**Version at submission:** 3.4.0
+**Current version:** 3.15.0 (originally submitted at 3.4.0)
 **Submitter:** Indranil Banerjee — neel@neelverse.com
 **Repository:** https://github.com/indranilbanerjee/digital-marketing-pro
 **Marketplace:** https://github.com/indranilbanerjee/neels-plugins
-**Last updated:** 2026-05-16
+**Last updated:** 2026-07-08
 
 This file is the **submission packet** for the Anthropic Software Directory. It is **not** the directory listing — that is submitted via the form at https://platform.claude.com/plugins/submit. This packet pre-stages every input the form will ask for so the actual submission takes 5 minutes, not 5 hours.
 
@@ -13,13 +15,13 @@ This file is the **submission packet** for the Anthropic Software Directory. It 
 
 ## 1. One-line description (for the directory card)
 
-> Multi-agent digital marketing methodology — 12-Part Strategy Flow, Four Core Documents, 25 specialist agents, 16 industry profiles, 16 privacy-law jurisdictions. For agencies and in-house teams.
+> Multi-agent digital marketing methodology — 12-Part Strategy Flow, Four Core Documents, 24 specialist agents, 16 industry profiles, 16 privacy-law jurisdictions. For agencies and in-house teams.
 
 ## 2. Long description (for the directory detail page)
 
 Digital Marketing Pro is an end-to-end engagement methodology for marketing teams running on Claude Code & Cowork. Every brand engagement runs through a canonical 12-Part Strategy Flow producing the Four Core Documents (61 explicit steps), the Two-Views Model (v1 unbiased + v2 client-validated), the Decision Matrix for selective re-runs, the Update-Back Rule for in-life corrections, and a Living Project Instruction File that keeps all downstream skills synchronized to the latest source-of-truth.
 
-The plugin ships 25 specialist agents (marketing strategist, brand guardian, content creator, email specialist, social-media manager, PR outreach, SEO specialist, CRO, analytics analyst, marketing scientist, competitor intelligence, campaign orchestrator, crisis communicator, synthetic-audience moderator, creative director, channel specialist, paid-media planner, influencer relations, MarTech architect, GEO/AEO intelligence, multilingual coordinator, agency operations, pricing strategist, partnership development, attribution analyst), 149 skills, 70 Python scripts, 10 top-level commands, 14 HTTP MCP connectors, 16 industry profiles (pharma, BFSI, healthcare, legal, real estate, technology, B2B SaaS, e-commerce, consumer goods, education, and more), and 16 privacy-law jurisdictions including the EU AI Act Article 50 (C2PA provenance for AI-generated marketing assets, applicable 2 Aug 2026), DPDP Act Phase II (effective 13 Nov 2026), CCPA ADMT amendments, NY synthetic-performer law, and FTC May 2026 endorsement guidance.
+The plugin ships 24 specialist agents (marketing-strategist, content-creator, seo-specialist, analytics-analyst, brand-guardian, media-buyer, growth-engineer, influencer-manager, competitive-intel, pr-outreach, email-specialist, cro-specialist, social-media-manager, execution-coordinator, performance-monitor-agent, crm-manager, memory-manager, agency-operations, marketing-scientist, market-intelligence, intelligence-curator, journey-orchestrator, quality-assurance, localization-specialist), 158 skills, ~86 Python scripts, 18 top-level commands, 14 HTTP MCP connectors (opt-in), 16 industry profiles (pharma, BFSI, healthcare, legal, real estate, technology, B2B SaaS, e-commerce, consumer goods, education, and more), and 16 privacy-law jurisdictions including the EU AI Act Article 50 (C2PA provenance for AI-generated marketing assets, applicable 2 Aug 2026), DPDP Act Phase II (effective 13 Nov 2026), CCPA ADMT amendments, NY synthetic-performer law, and FTC May 2026 endorsement guidance.
 
 Built for digital marketing agencies managing 50–200 brands, in-house marketing teams with high content volume, content operations in regulated industries, and enterprise brands requiring consistent quality at scale. Multi-plugin coexistence by design (zero global hooks, zero auto-connecting MCP servers). Full Cowork compatibility — all 14 connectors are HTTP, Python scripts run natively.
 
@@ -84,11 +86,9 @@ Each brand has its own `~/.claude-marketing/<brand-slug>/` directory with isolat
 
 ## 6. Testing account / sample data
 
-**Testing account:** Reviewers can install the plugin from the public marketplace at `indranilbanerjee/neels-plugins` and use the bundled `brand-registry-template.json` (`config/brand-registry-template.json`) as sample brand input. No paid services or API keys required for the default knowledge-only mode (covers all 149 skills + 25 agents + 170+ reference files). Optional Python scoring scripts use `nltk` and `textstat` (free, open-source).
+**Testing account:** Reviewers can install the plugin from the public marketplace at `indranilbanerjee/neels-plugins` and create a sample brand interactively via `/digital-marketing-pro:brand-setup` (no bundled `config/` template file ships — profiles are generated by the setup skill). No paid services or API keys required for the default knowledge-only mode (covers all 158 skills + 24 agents + 169 reference files). Optional Python scoring scripts use `nltk` and `textstat` (free, open-source).
 
-**Sample engagement output:** `examples/sample-engagement/` (to be added in v3.4.1) — a complete worked 12-part engagement for a fictitious B2B SaaS brand that reviewers can browse without running the plugin.
-
-**Sample brand profile:** `config/brand-registry-template.json` — fully populated example showing every supported field (voice, audience, channels, guardrails, jurisdictions, brand_pages, etc.).
+**Sample brand profile:** Run `/digital-marketing-pro:brand-setup` (Quick or Full mode) to generate a fully populated `profile.json` under `~/.claude-marketing/brands/<slug>/` showing every supported field (voice, audience, channels, guardrails, jurisdictions, etc.). There is no committed `examples/` or `config/` sample directory in the repo.
 
 ## 7. Ownership verification
 
@@ -113,7 +113,7 @@ Each brand has its own `~/.claude-marketing/<brand-slug>/` directory with isolat
 ## 9. Cowork compatibility statement
 
 - All 14 HTTP MCP connectors work in both Claude Code and Cowork.
-- All 70 Python scripts run natively in Cowork (Cowork is the Anthropic Desktop computer-use product with local filesystem access).
+- All ~86 Python scripts run natively in Cowork (Cowork is the Anthropic Desktop computer-use product with local filesystem access).
 - Plugin ships zero global hooks (`hooks/hooks.json` is empty) and zero auto-connecting MCP servers (`.mcp.json` is empty until user opt-in via `/digital-marketing-pro:connect`). Multi-plugin coexistence by design.
 - HTTP-only stack means no stdio/npx dependencies are required; users who want the wider stdio MCP catalog can `cp .mcp.json.example .mcp.json` (Claude Code only) or use the Pipedream/Composio/Zapier/Make.com aggregator paths documented in `.mcp.json.connectors-reference` (Cowork-compatible).
 

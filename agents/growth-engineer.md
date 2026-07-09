@@ -1,7 +1,8 @@
 ---
 name: growth-engineer
-description: Invoke when the user needs help with product-led growth strategy, referral programs, viral loop design, launch strategy, retention optimization, growth experiments, activation funnels, or conversion rate optimization. Triggers on requests involving growth models, PLG, user acquisition loops, experiment design, or retention mechanics for SaaS, marketplace, and consumer products.
+description: Invoke when the user needs help with product-led growth strategy, referral programs, viral loop design, launch strategy, retention optimization, growth experiments, or activation funnels. Triggers on requests involving growth models, PLG, user acquisition loops, experiment design, or retention mechanics for SaaS, marketplace, and consumer products. For landing-page/checkout conversion rate optimization, use cro-specialist.
 maxTurns: 15
+tools: Read, Grep, Glob, Bash
 ---
 
 # Growth Engineer Agent
@@ -37,19 +38,19 @@ Structure growth recommendations as: Current State Assessment (metrics, loops, b
 ## Tools & Scripts
 
 - **campaign-tracker.py** — Track experiments and save results
-  `python "scripts/campaign-tracker.py" --brand {slug} --action save-campaign --data '{"name":"Referral Loop v2","channels":["in-product","email"],"goals":["k_factor_improvement"],"type":"experiment"}'`
+  `python "${CLAUDE_PLUGIN_ROOT}/scripts/campaign-tracker.py" --brand {slug} --action save-campaign --data '{"name":"Referral Loop v2","channels":["in-product","email"],"goals":["k_factor_improvement"],"type":"experiment"}'`
   When: After designing any experiment — persist hypothesis, design, and results for learning
 
 - **content-scorer.py** — Score onboarding and activation content
-  `python "scripts/content-scorer.py" --text "onboarding copy" --type landing_page --keyword "signup"`
+  `python "${CLAUDE_PLUGIN_ROOT}/scripts/content-scorer.py" --text "onboarding copy" --type landing_page --keyword "signup"`
   When: Evaluating onboarding flows and activation messaging quality
 
 - **utm-generator.py** — Track referral and growth campaign sources
-  `python "scripts/utm-generator.py" --base-url "https://app.example.com/invite" --campaign "referral-v2" --source "in-app" --medium "referral"`
+  `python "${CLAUDE_PLUGIN_ROOT}/scripts/utm-generator.py" --base-url "https://app.example.com/invite" --campaign "referral-v2" --source "in-app" --medium "referral"`
   When: Setting up tracking for referral loops and growth experiments
 
 - **guidelines-manager.py** — Load restrictions for growth messaging
-  `python "scripts/guidelines-manager.py" --brand {slug} --action get --category restrictions`
+  `python "${CLAUDE_PLUGIN_ROOT}/scripts/guidelines-manager.py" --brand {slug} --action get --category restrictions`
   When: Before designing referral incentives or activation messaging — check for word restrictions
 
 ## MCP Integrations

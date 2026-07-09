@@ -52,6 +52,9 @@ import sys
 from datetime import date
 from pathlib import Path
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
+
 # Ensure stdout can render em-dashes etc on Windows cp1252 terminals
 try:
     sys.stdout.reconfigure(encoding="utf-8")  # type: ignore[attr-defined]
@@ -140,10 +143,9 @@ def _summarize_csv(path: Path) -> dict:
 
 
 def _archive_copy(brand: str, src: Path) -> str | None:
-    data_dir = os.environ.get("CLAUDE_PLUGIN_DATA")
-    if not data_dir:
-        return None
-    dest_dir = Path(data_dir) / brand / "gsc-ai"
+    # Archive under the canonical brand dir (env-aware, slugified) so the CSV
+    # lands in the same workspace the rest of the plugin reads from.
+    dest_dir = _common.brand_dir(brand) / "gsc-ai"
     dest_dir.mkdir(parents=True, exist_ok=True)
     dest = dest_dir / f"{date.today().isoformat()}.csv"
     dest.write_bytes(src.read_bytes())

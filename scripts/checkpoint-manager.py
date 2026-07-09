@@ -3,11 +3,9 @@
 checkpoint-manager.py
 =====================
 Per-step checkpoint storage for Digital Marketing Pro long-running workflows.
-Ported from the ContentForge v3.12.3 pattern, adapted for DMP's 12-Part
-Strategy Flow (the workflow Shreea reported as "taking too long to process"
-— a single interruption used to mean restarting the entire ~60-minute run
-from Part 1; with checkpoints, a fresh session reloads completed parts and
-continues from the next one).
+Adapted for DMP's 12-Part Strategy Flow: a single interruption used to mean
+restarting the entire multi-part run from Part 1; with checkpoints, a fresh
+session reloads completed parts and continues from the next one.
 
 Workflows tracked
 -----------------
@@ -22,7 +20,7 @@ Workflows tracked
 
 Storage layout
 --------------
-    ~/.claude-marketing/{brand}/runs/{run_id}/
+    <workspace>/brands/{brand-slug}/runs/{run_id}/
         run.json                 — manifest (workflow, status, parts, timestamps)
         part-1-client-inputs.md      — Part 1 deliverable
         part-2-research.md           — Part 2 deliverable
@@ -51,13 +49,15 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shutil
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-BASE_DIR = Path.home() / ".claude-marketing"
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
 # The 12-Part Strategy Flow — DMP's canonical engagement workflow
 ENGAGEMENT_PARTS = {
@@ -71,7 +71,7 @@ ENGAGEMENT_PARTS = {
     "8": "Growth Plan + 12-month Yearly Planner",
     "9": "Channel-strategy fan-out (up to 17 channel docs in 7 families)",
     "10": "Execution artefacts (ad copy, post copy, headlines, CTAs)",
-    "11": "AI creative briefs (Nano Banana Pro / Veo 3.1 / Gemini Omni + C2PA + deepfake-disclosure)",
+    "11": "AI creative briefs (current image/video generation models + C2PA + deepfake-disclosure)",
     "12": "Continuous improvement loop",
 }
 
@@ -97,7 +97,9 @@ def _slug(text: str, maxlen: int = 40) -> str:
 
 
 def _runs_dir(brand: str) -> Path:
-    return BASE_DIR / brand / "runs"
+    # Env-aware, slugified, canonical brands/ layout (with legacy-dir fallback
+    # for pre-v3.15 runs stored at the old ~/.claude-marketing/{brand}/runs).
+    return _common.brand_dir(brand) / "runs"
 
 
 def _run_dir(brand: str, run_id: str) -> Path:
@@ -358,6 +360,11 @@ def main() -> int:
     p_dis.add_argument("--run-id", required=True)
 
     args = parser.parse_args()
+
+    # Slugify the brand at the boundary so checkpoint runs land in the SAME
+    # directory the rest of the plugin reads from.
+    if getattr(args, "brand", None):
+        args.brand = _common.slugify_brand(args.brand)
 
     try:
         if args.action == "init":

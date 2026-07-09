@@ -23,8 +23,21 @@ import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
-CREDENTIALS_DIR = Path.home() / ".claude-marketing" / "credentials"
+CREDENTIALS_DIR = _common.workspace_root() / "credentials"
+
+
+def _profile_path(brand_slug: str):
+    """Return the on-disk path for a brand's credential profile, with the slug
+    sanitised through the shared slugifier. This closes the M7 path-escape:
+    an unsanitised '../../x' brand_slug used to resolve OUTSIDE the credentials
+    directory. Returns (path, safe_slug)."""
+    safe = _common.slugify_brand(brand_slug)
+    return CREDENTIALS_DIR / f"{safe}.json", safe
 
 
 def _now_iso():
@@ -51,9 +64,10 @@ def create_profile(data):
     """Create a new credential profile for a brand."""
     CREDENTIALS_DIR.mkdir(parents=True, exist_ok=True)
 
-    brand_slug = data.get("brand_slug")
-    if not brand_slug:
+    raw_slug = data.get("brand_slug")
+    if not raw_slug:
         return {"error": "brand_slug is required in --data"}
+    filepath, brand_slug = _profile_path(raw_slug)
 
     platforms = data.get("platforms")
     if not platforms or not isinstance(platforms, dict):
@@ -70,8 +84,7 @@ def create_profile(data):
         "default_ads": data.get("default_ads", []),
     }
 
-    filepath = CREDENTIALS_DIR / f"{brand_slug}.json"
-    filepath.write_text(json.dumps(profile, indent=2), encoding="utf-8")
+    _common.atomic_write_json(filepath, profile)
 
     return {
         "status": "created",
@@ -113,7 +126,7 @@ def list_profiles():
 
 def get_profile(brand_slug):
     """Load and return a full credential profile."""
-    filepath = CREDENTIALS_DIR / f"{brand_slug}.json"
+    filepath, brand_slug = _profile_path(brand_slug)
     data, err = _load_json(filepath)
     if err:
         return {"error": f"Profile '{brand_slug}' not found."}
@@ -122,7 +135,7 @@ def get_profile(brand_slug):
 
 def switch_profile(brand_slug):
     """Set a profile as the active credential profile."""
-    filepath = CREDENTIALS_DIR / f"{brand_slug}.json"
+    filepath, brand_slug = _profile_path(brand_slug)
     data, err = _load_json(filepath)
     if err:
         return {"error": f"Profile '{brand_slug}' not found. Create it first."}
@@ -132,7 +145,7 @@ def switch_profile(brand_slug):
         "brand_slug": brand_slug,
         "switched_at": now,
     }
-    _active_path().write_text(json.dumps(active, indent=2), encoding="utf-8")
+    _common.atomic_write_json(_active_path(), active)
 
     platforms = list(data.get("platforms", {}).keys())
     return {
@@ -145,7 +158,7 @@ def switch_profile(brand_slug):
 
 def validate_profile(brand_slug):
     """Validate that env vars referenced in a profile are set."""
-    filepath = CREDENTIALS_DIR / f"{brand_slug}.json"
+    filepath, brand_slug = _profile_path(brand_slug)
     data, err = _load_json(filepath)
     if err:
         return {"error": f"Profile '{brand_slug}' not found."}
@@ -183,7 +196,7 @@ def validate_profile(brand_slug):
 
 def delete_profile(brand_slug):
     """Delete a credential profile."""
-    filepath = CREDENTIALS_DIR / f"{brand_slug}.json"
+    filepath, brand_slug = _profile_path(brand_slug)
     if not filepath.exists():
         return {"error": f"Profile '{brand_slug}' not found."}
 
@@ -258,8 +271,7 @@ def main():
             sys.exit(1)
         result = delete_profile(args.id)
 
-    json.dump(result, sys.stdout, indent=2)
-    print()
+    _common.finish(result)
 
 
 if __name__ == "__main__":

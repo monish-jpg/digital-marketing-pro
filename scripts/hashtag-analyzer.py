@@ -15,6 +15,10 @@ import argparse
 import json
 import re
 import sys
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -290,8 +294,7 @@ def main():
         sys.exit(1)
 
     result = analyze_hashtags(tags, args.platform)
-    json.dump(result, sys.stdout, indent=2)
-    print()
+    _common.finish(result)
 
 
 if __name__ == "__main__":

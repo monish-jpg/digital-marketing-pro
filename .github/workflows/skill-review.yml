@@ -1,5 +1,9 @@
 # Tessl Skill Review — runs on PRs that change any SKILL.md; posts scores as one PR comment.
-# Docs: https://github.com/tesslio/skill-review
+#
+# The old `tesslio/skill-review@main` GitHub Action was retired at the end of July 2026
+# (issue #8). This workflow uses the `tessl review` CLI instead. Scoring dimensions live
+# in .github/tessl-rubric.yml. Verify exact CLI flag names against the current Tessl
+# migration docs at swap time — the structure below is the required shape.
 name: Tessl Skill Review
 
 on:
@@ -16,7 +20,18 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
-      - uses: tesslio/skill-review@main
-      # Optional quality gate (off by default):
-      # with:
-      #   fail-threshold: 70
+        with:
+          fetch-depth: 0          # tessl review diffs SKILL.md changes vs the base branch
+      - name: Install Tessl CLI
+        run: npm install -g @tessl/cli
+      - name: Review changed skills
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TESSL_API_KEY: ${{ secrets.TESSL_API_KEY }}   # repo secret if your plan requires it
+        run: |
+          tessl review \
+            --base "origin/${{ github.base_ref }}" \
+            --paths "**/SKILL.md" \
+            --rubric .github/tessl-rubric.yml \
+            --output pr-comment \
+            --pr "${{ github.event.pull_request.number }}"

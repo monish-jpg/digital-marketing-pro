@@ -31,10 +31,26 @@ import json
 import sys
 from datetime import datetime
 from pathlib import Path
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
-BRANDS_DIR = Path.home() / ".claude-marketing" / "brands"
+BRANDS_DIR = _common.brands_root()
 
-PLATFORMS = ["chatgpt", "perplexity", "gemini", "copilot", "ai-mode", "ai-overviews"]
+# Canonical 6 AI-visibility surfaces — single source of truth in _common so
+# aeo-audit, geo-monitor, share-of-voice and serp-tracker never drift. The
+# display names below map 1:1 to the platform slugs this script accepts.
+CANONICAL_AI_SURFACES = _common.AI_VISIBILITY_SURFACES  # display names
+SURFACE_SLUGS = {
+    "Google AI Mode": "ai-mode",
+    "Google AI Overviews": "ai-overviews",
+    "ChatGPT": "chatgpt",
+    "Perplexity": "perplexity",
+    "Gemini": "gemini",
+    "Copilot": "copilot",
+}
+PLATFORMS = [SURFACE_SLUGS[s] for s in CANONICAL_AI_SURFACES]
 RESULTS = ["cited", "mentioned", "concept-only", "absent", "misrepresented"]
 RESULT_SCORES = {
     "cited": 10,
@@ -49,11 +65,10 @@ ENTITY_STATUSES = ["present", "absent", "inconsistent", "outdated"]
 
 
 def get_brand_dir(slug):
-    """Get and validate brand directory."""
-    brand_dir = BRANDS_DIR / slug
-    if not brand_dir.exists():
-        return None, f"Brand '{slug}' not found. Run /digital-marketing-pro:brand-setup first."
-    return brand_dir, None
+    """Resolve + validate the brand directory. Delegates to _common so the slug
+    is normalised (slugify at the boundary) and legacy raw-name dirs still
+    resolve, with the standard not-found message."""
+    return _common.get_brand_dir(slug)
 
 
 def _load_json(path):
@@ -481,8 +496,7 @@ def main():
     elif args.action == "summary":
         result = geo_summary(args.brand)
 
-    json.dump(result, sys.stdout, indent=2)
-    print()
+    _common.finish(result)
 
 
 if __name__ == "__main__":

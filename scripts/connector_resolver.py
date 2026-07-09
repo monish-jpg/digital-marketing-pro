@@ -46,8 +46,12 @@ from _connector_registry import (
     is_connector_configured,
 )
 
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
-BRANDS_DIR = Path.home() / ".claude-marketing" / "brands"
+BRANDS_DIR = _common.brands_root()
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -131,7 +135,7 @@ def _manifest_inventory(connector_name, brand, kwargs):
     endpoints = {
         "google-ads": {
             "method": "POST",
-            "url": "https://googleads.googleapis.com/v17/customers/{customer_id}/googleAds:search",
+            "url": "https://googleads.googleapis.com/v24/customers/{customer_id}/googleAds:search",
             "headers": {
                 "Authorization": "Bearer {GOOGLE_ADS_OAUTH_TOKEN}",
                 "developer-token": "{GOOGLE_ADS_DEVELOPER_TOKEN}",
@@ -157,7 +161,7 @@ def _manifest_inventory(connector_name, brand, kwargs):
             "url": "https://api.linkedin.com/rest/adCampaignsV2",
             "headers": {
                 "Authorization": "Bearer {LINKEDIN_ACCESS_TOKEN}",
-                "LinkedIn-Version": "202405",
+                "LinkedIn-Version": "202606",
                 "X-Restli-Protocol-Version": "2.0.0",
             },
             "params": {"q": "search", "search.account.values[0]": "urn:li:sponsoredAccount:{LINKEDIN_AD_ACCOUNT_ID}"},
@@ -266,7 +270,7 @@ def _manifest_cadence(connector_name, brand, kwargs):
             "url": "https://api.linkedin.com/rest/posts",
             "headers": {
                 "Authorization": "Bearer {LINKEDIN_ACCESS_TOKEN}",
-                "LinkedIn-Version": "202405",
+                "LinkedIn-Version": "202606",
             },
             "params": {"q": "author", "author": "urn:li:organization:{LINKEDIN_COMPANY_ID}",
                        "count": "100"},
@@ -473,7 +477,7 @@ def _manifest_schedule_posts(connector_name, brand, kwargs):
             "method": "POST",
             "url": "https://api.linkedin.com/rest/posts",
             "headers": {"Authorization": "Bearer {LINKEDIN_ACCESS_TOKEN}",
-                        "LinkedIn-Version": "202405",
+                        "LinkedIn-Version": "202606",
                         "Content-Type": "application/json"},
             "body_template": {"author": "urn:li:organization:{LINKEDIN_COMPANY_ID}",
                               "commentary": "{post.copy}",
@@ -645,7 +649,7 @@ def _manifest_launch_ads(connector_name, brand, kwargs):
     endpoints = {
         "google-ads": {
             "method": "POST",
-            "url": "https://googleads.googleapis.com/v17/customers/{customer_id}/campaigns:mutate",
+            "url": "https://googleads.googleapis.com/v24/customers/{customer_id}/campaigns:mutate",
             "headers": {"Authorization": "Bearer {GOOGLE_ADS_OAUTH_TOKEN}",
                         "developer-token": "{GOOGLE_ADS_DEVELOPER_TOKEN}"},
             "body_template": {"operations": [{"update": {"resourceName": "{campaign_resource}",
@@ -662,7 +666,7 @@ def _manifest_launch_ads(connector_name, brand, kwargs):
             "url": "https://api.linkedin.com/rest/adCampaignsV2/{campaign_id}",
             "headers": {"Authorization": "Bearer {LINKEDIN_ACCESS_TOKEN}",
                         "X-RestLi-Method": "PARTIAL_UPDATE",
-                        "LinkedIn-Version": "202405"},
+                        "LinkedIn-Version": "202606"},
             "body_template": {"patch": {"$set": {"status": "ACTIVE"}}},
         },
         "tiktok-ads": {
@@ -1046,6 +1050,16 @@ def _build_setup_hint(candidates: list[str]) -> dict:
                 "mcp_json_snippet": {c_name: {"type": "http", "url": info.get("url", "")}},
                 "auth_flow": "OAuth on first use — no env vars needed.",
                 "platforms": "Works in Claude Code CLI + IDE + Anthropic Cowork (HTTP transport).",
+            })
+        elif info.get("package_status") == "no-known-npm-package" or not info.get("package"):
+            hints.append({
+                "connector": c_name,
+                "transport": "unavailable",
+                "package_status": "no-known-npm-package",
+                "note": info.get(
+                    "note",
+                    "No verified MCP package on npm — use /digital-marketing-pro:add-integration "
+                    "to wire a custom server. npx runs remote code; verify any package before use."),
             })
         else:
             hints.append({

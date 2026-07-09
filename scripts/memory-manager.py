@@ -27,8 +27,12 @@ import os
 import sys
 from datetime import datetime
 from pathlib import Path
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
-BRANDS_DIR = Path.home() / ".claude-marketing" / "brands"
+BRANDS_DIR = _common.brands_root()
 
 VALID_CONTENT_TYPES = [
     "guideline", "campaign-learning", "competitive-intel",
@@ -48,11 +52,10 @@ MEMORY_ENV_VARS = {
 
 
 def get_brand_dir(slug):
-    """Get and validate brand directory."""
-    brand_dir = BRANDS_DIR / slug
-    if not brand_dir.exists():
-        return None, f"Brand '{slug}' not found. Run /digital-marketing-pro:brand-setup first."
-    return brand_dir, None
+    """Resolve + validate the brand directory. Delegates to _common so the slug
+    is normalised (slugify at the boundary) and legacy raw-name dirs still
+    resolve, with the standard not-found message."""
+    return _common.get_brand_dir(slug)
 
 
 def _load_json(path, default=None):
@@ -68,8 +71,45 @@ def _load_json(path, default=None):
 
 
 def _save_json(path, data):
-    """Atomically write JSON to a file."""
-    path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    """Atomically write JSON to a file (tmp + replace). Previously this docstring
+    claimed 'atomically' over a plain write_text — an interrupted write could
+    truncate the master index. Now it is genuinely atomic."""
+    _common.atomic_write_json(path, data)
+
+
+def _rebuild_memory_index(memory_dir):
+    """Rebuild the master memory index by rescanning memory/stored/*.json so a
+    corrupt/interrupted _index.json write never silently wipes stored history."""
+    rebuilt = []
+    stored_dir = memory_dir / "stored"
+    if not stored_dir.exists():
+        return rebuilt
+    for fp in sorted(stored_dir.glob("*.json")):
+        try:
+            e = json.loads(fp.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            continue
+        rebuilt.append({
+            "content_hash": e.get("content_hash", fp.stem),
+            "vector_db": e.get("vector_db"),
+            "storage_id": e.get("storage_id"),
+            "content_type": e.get("content_type", "unknown"),
+            "tags": e.get("tags", []),
+            "stored_at": e.get("stored_at"),
+        })
+    return rebuilt
+
+
+def _load_memory_index(memory_dir):
+    """Load the master memory index. If missing OR corrupt, rebuild from the
+    individual stored/*.json files rather than defaulting to empty (H3)."""
+    index_path = memory_dir / "_index.json"
+    if not index_path.exists():
+        return _rebuild_memory_index(memory_dir)
+    try:
+        return json.loads(index_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return _rebuild_memory_index(memory_dir)
 
 
 def prepare_store(slug, data):
@@ -95,7 +135,7 @@ def prepare_store(slug, data):
     # Check for existing item with same hash in index
     memory_dir = brand_dir / "memory"
     memory_dir.mkdir(exist_ok=True)
-    index = _load_json(memory_dir / "_index.json", [])
+    index = _load_memory_index(memory_dir)
     for entry in index:
         if entry.get("content_hash") == content_hash:
             return {
@@ -171,7 +211,7 @@ def log_stored(slug, data):
         payload = {"content_hash": content_hash}
 
     # Update master index
-    index = _load_json(memory_dir / "_index.json", [])
+    index = _load_memory_index(memory_dir)
     index.append({
         "content_hash": content_hash,
         "vector_db": vector_db,
@@ -191,7 +231,7 @@ def search_local(slug, content_type=None, tags=None, from_date=None, to_date=Non
     if err:
         return {"error": err}
 
-    index = _load_json(brand_dir / "memory" / "_index.json", [])
+    index = _load_memory_index(brand_dir / "memory")
     results = index
 
     if content_type:
@@ -301,7 +341,7 @@ def get_memory_status(slug):
         return {"error": err}
 
     memory_dir = brand_dir / "memory"
-    index = _load_json(memory_dir / "_index.json", [])
+    index = _load_memory_index(memory_dir)
     last_sync = _load_json(memory_dir / "_last_sync.json", {})
 
     # Count pending items
@@ -386,8 +426,7 @@ def main():
     elif args.action == "get-memory-status":
         result = get_memory_status(args.brand)
 
-    json.dump(result, sys.stdout, indent=2)
-    print()
+    _common.finish(result)
 
 
 if __name__ == "__main__":

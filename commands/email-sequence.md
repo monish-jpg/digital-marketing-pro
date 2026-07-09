@@ -11,7 +11,7 @@ Design a complete email sequence ready for implementation in any ESP. Includes s
 
 ## Trigger
 
-User runs `/email-sequence` or asks to create an email drip, email flow, nurture sequence, welcome series, re-engagement campaign, or cart abandonment flow.
+User runs `/digital-marketing-pro:email-sequence` or asks to create an email drip, email flow, nurture sequence, welcome series, re-engagement campaign, or cart abandonment flow.
 
 ## Inputs
 
@@ -126,9 +126,9 @@ Include: open rate, click rate, conversion rate, unsubscribe rate per email.
 ## After the Sequence
 
 Ask: "Would you like me to:
-- Set up this sequence in your ESP? (`/send-email-campaign`)
-- Create A/B test variants for the subject lines? (`/prompt-test`)
+- Set up this sequence in your ESP? (`/digital-marketing-pro:send-email-campaign`)
+- Create A/B test variants for the subject lines? (`/digital-marketing-pro:prompt-test`)
 - Design a complementary re-engagement flow for non-openers?
-- Build landing pages for the CTA destinations? (`/content-engine`)
-- Add SMS touchpoints alongside the emails? (`/send-sms`)
-- Review deliverability setup for your domain? (`/email-sequence` with deliverability focus)"
+- Build landing pages for the CTA destinations? (`/digital-marketing-pro:content-engine`)
+- Add SMS touchpoints alongside the emails? (`/digital-marketing-pro:send-sms`)
+- Review deliverability setup for your domain? (`/digital-marketing-pro:email-sequence` with deliverability focus)"

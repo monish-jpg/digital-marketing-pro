@@ -310,7 +310,7 @@ def main() -> int:
                 if replacement:
                     line += f" (use {replacement})"
                 print(line)
-            return 1 if status in {"deprecated", "unknown"} else 0
+            return 1 if status in {"deprecated", "retired", "unknown"} else 0
 
         if args.list:
             models = list_models(args.vendor, args.modality, args.status, args.tier)

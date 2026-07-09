@@ -5,6 +5,10 @@ import argparse
 import json
 import re
 import sys
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
 # Platform specifications: character limits, hashtag limits, and content types
 PLATFORM_SPECS = {
@@ -276,8 +280,7 @@ def main():
         sys.exit(1)
 
     result = format_for_platform(args.text, args.platform, args.content_type)
-    json.dump(result, sys.stdout, indent=2)
-    print()
+    _common.finish(result)
 
 
 if __name__ == "__main__":

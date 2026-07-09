@@ -67,7 +67,7 @@ Once you have `cert.pem` and `key.pem` from any of the four authorities above:
 ### SocialForge
 
 ```
-python3 scripts/c2pa_sign.py \
+python scripts/c2pa_sign.py \
     --input asset.png --output signed.png \
     --brand "Acme Corp" --generator "Vertex AI Nano Banana Pro" \
     --platform instagram \
@@ -80,7 +80,7 @@ Or pass the flags to `generate_image.py --c2pa-sign --c2pa-signing-cert ... --c2
 ### ContentForge
 
 ```
-python3 scripts/generate-docx.py \
+python scripts/generate-docx.py \
     --content humanized.md --output article.docx \
     --reports reports.json --brand "Acme Corp" --content-type article \
     --c2pa-sign \

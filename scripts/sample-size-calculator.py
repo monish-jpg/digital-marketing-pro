@@ -8,8 +8,18 @@ duration estimates based on daily traffic.
 
 Dependencies: none (stdlib only)
 
+MDE semantics (IMPORTANT): --mde is interpreted per --mde-type.
+    absolute (default): mde is an absolute change in the rate.
+        baseline 0.05 + --mde 0.005 → target 0.055.
+    relative: mde is a fractional lift of the baseline.
+        baseline 0.05 + --mde 0.10 (a 10% relative lift) → target 0.055.
+    (The old script silently treated every --mde as absolute; a skill that
+    documented --mde as a relative lift therefore under-sized tests by ~40×.
+    --mde-type makes the interpretation explicit.)
+
 Usage:
     python sample-size-calculator.py --baseline-rate 0.03 --mde 0.005
+    python sample-size-calculator.py --baseline-rate 0.05 --mde 0.10 --mde-type relative
     python sample-size-calculator.py --baseline-rate 0.03 --mde 0.005 --daily-traffic 5000
     python sample-size-calculator.py --baseline-rate 0.10 --mde 0.02 --significance 0.99 --power 0.90 --variants 3
 """
@@ -17,7 +27,11 @@ Usage:
 import argparse
 import json
 import math
+import os
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
 
 def inverse_normal_cdf(p):
@@ -118,7 +132,11 @@ def main():
     parser.add_argument("--baseline-rate", type=float, required=True,
                         help="Current conversion rate (e.g. 0.03 for 3%%)")
     parser.add_argument("--mde", type=float, required=True,
-                        help="Minimum detectable effect — absolute change (e.g. 0.005 for +0.5%%)")
+                        help="Minimum detectable effect. Interpreted per --mde-type "
+                             "(absolute change like 0.005, or relative lift like 0.10)")
+    parser.add_argument("--mde-type", choices=["absolute", "relative"], default="absolute",
+                        help="Whether --mde is an absolute rate change (default) or a "
+                             "relative lift of the baseline (e.g. 0.10 = +10%% relative)")
     parser.add_argument("--significance", type=float, default=0.95,
                         help="Confidence level (default: 0.95)")
     parser.add_argument("--power", type=float, default=0.80,
@@ -131,47 +149,41 @@ def main():
 
     # --- Validation ---
     if not (0 < args.baseline_rate < 1):
-        json.dump({"error": "baseline-rate must be between 0 and 1 exclusive"}, sys.stdout, indent=2)
-        print()
-        sys.exit(1)
+        _common.finish({"error": "baseline-rate must be between 0 and 1 exclusive"})
 
     if args.mde <= 0:
-        json.dump({"error": "mde must be greater than 0"}, sys.stdout, indent=2)
-        print()
-        sys.exit(1)
+        _common.finish({"error": "mde must be greater than 0"})
 
-    if args.baseline_rate + args.mde >= 1:
-        json.dump({"error": "baseline-rate + mde must be less than 1"}, sys.stdout, indent=2)
-        print()
-        sys.exit(1)
+    # Resolve the MDE to an absolute rate change based on --mde-type. This is
+    # the fix for the ~40x under-sizing bug: a relative lift of 0.10 on a 0.05
+    # baseline is an absolute change of only 0.005, not 0.10.
+    if args.mde_type == "relative":
+        absolute_mde = args.baseline_rate * args.mde
+    else:
+        absolute_mde = args.mde
+
+    if args.baseline_rate + absolute_mde >= 1:
+        _common.finish({"error": "baseline-rate + resolved absolute mde must be less than 1"})
 
     if not (0.5 < args.significance < 0.999):
-        json.dump({"error": "significance must be between 0.5 and 0.999 exclusive"}, sys.stdout, indent=2)
-        print()
-        sys.exit(1)
+        _common.finish({"error": "significance must be between 0.5 and 0.999 exclusive"})
 
     if not (0.5 < args.power < 0.999):
-        json.dump({"error": "power must be between 0.5 and 0.999 exclusive"}, sys.stdout, indent=2)
-        print()
-        sys.exit(1)
+        _common.finish({"error": "power must be between 0.5 and 0.999 exclusive"})
 
     if args.variants < 2:
-        json.dump({"error": "variants must be at least 2"}, sys.stdout, indent=2)
-        print()
-        sys.exit(1)
+        _common.finish({"error": "variants must be at least 2"})
 
     if args.daily_traffic is not None and args.daily_traffic <= 0:
-        json.dump({"error": "daily-traffic must be a positive integer"}, sys.stdout, indent=2)
-        print()
-        sys.exit(1)
+        _common.finish({"error": "daily-traffic must be a positive integer"})
 
-    # --- Calculation ---
+    # --- Calculation (always in absolute terms) ---
     sample_per_variant = calculate_sample_size(
-        args.baseline_rate, args.mde, args.significance, args.power
+        args.baseline_rate, absolute_mde, args.significance, args.power
     )
     total_sample = sample_per_variant * args.variants
 
-    relative_lift = (args.mde / args.baseline_rate) * 100
+    relative_lift = (absolute_mde / args.baseline_rate) * 100
 
     estimated_days = None
     if args.daily_traffic:
@@ -179,15 +191,18 @@ def main():
         estimated_days = math.ceil(sample_per_variant / visitors_per_variant_per_day)
 
     recommendations = build_recommendations(
-        args.baseline_rate, args.mde, sample_per_variant, total_sample,
+        args.baseline_rate, absolute_mde, sample_per_variant, total_sample,
         args.daily_traffic, estimated_days, args.variants
     )
 
     # --- Output ---
     output = {
         "baseline_rate": args.baseline_rate,
-        "minimum_detectable_effect": args.mde,
-        "target_rate": round(args.baseline_rate + args.mde, 6),
+        "mde_input": args.mde,
+        "mde_type": args.mde_type,
+        "absolute_mde": round(absolute_mde, 6),
+        "minimum_detectable_effect": round(absolute_mde, 6),
+        "target_rate": round(args.baseline_rate + absolute_mde, 6),
         "relative_lift": f"{relative_lift:.1f}%",
         "significance_level": args.significance,
         "statistical_power": args.power,
@@ -202,8 +217,7 @@ def main():
         output["daily_traffic"] = args.daily_traffic
         output["estimated_days"] = estimated_days
 
-    json.dump(output, sys.stdout, indent=2)
-    print()
+    _common.finish(output)
 
 
 if __name__ == "__main__":

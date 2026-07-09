@@ -26,8 +26,12 @@ import sys
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
-BRANDS_DIR = Path.home() / ".claude-marketing" / "brands"
+BRANDS_DIR = _common.brands_root()
 
 VALID_ROLES = [
     "content-lead", "media-buyer", "email-manager", "social-manager",
@@ -57,11 +61,10 @@ def _now_iso():
 
 
 def get_brand_dir(slug):
-    """Get and validate brand directory."""
-    brand_dir = BRANDS_DIR / slug
-    if not brand_dir.exists():
-        return None, f"Brand '{slug}' not found. Run /digital-marketing-pro:brand-setup first."
-    return brand_dir, None
+    """Resolve + validate the brand directory. Delegates to _common so the slug
+    is normalised (slugify at the boundary) and legacy raw-name dirs still
+    resolve, with the standard not-found message."""
+    return _common.get_brand_dir(slug)
 
 
 def _load_json(path):
@@ -518,8 +521,7 @@ def main():
     elif args.action == "get-assignments":
         result = get_assignments(args.brand, args.id, args.status, args.limit)
 
-    json.dump(result, sys.stdout, indent=2)
-    print()
+    _common.finish(result)
 
 
 if __name__ == "__main__":

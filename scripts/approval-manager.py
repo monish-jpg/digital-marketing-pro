@@ -24,8 +24,12 @@ import json
 import sys
 from datetime import datetime
 from pathlib import Path
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
-BRANDS_DIR = Path.home() / ".claude-marketing" / "brands"
+BRANDS_DIR = _common.brands_root()
 
 VALID_TYPES = [
     "publish-blog", "send-email", "launch-ad", "schedule-social",
@@ -35,18 +39,17 @@ VALID_RISK_LEVELS = ["low", "medium", "high", "critical"]
 
 
 def get_brand_dir(slug):
-    """Get and validate brand directory."""
-    brand_dir = BRANDS_DIR / slug
-    if not brand_dir.exists():
-        return None, f"Brand '{slug}' not found. Run /digital-marketing-pro:brand-setup first."
-    return brand_dir, None
+    """Resolve + validate the brand directory. Delegates to _common so the slug
+    is normalised (slugify at the boundary) and legacy raw-name dirs still
+    resolve, with the standard not-found message."""
+    return _common.get_brand_dir(slug)
 
 
 def _load_approval(filepath):
     """Load a single approval JSON file."""
     try:
-        return json.loads(filepath.read_text())
-    except json.JSONDecodeError:
+        return json.loads(filepath.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
         return None
 
 
@@ -133,7 +136,7 @@ def create_approval(slug, data):
     }
 
     filepath = approvals_dir / f"{approval_id}.json"
-    filepath.write_text(json.dumps(approval, indent=2))
+    _common.atomic_write_json(filepath, approval)
 
     return {
         "status": "created",
@@ -181,7 +184,7 @@ def approve(slug, approval_id):
     approval["approved_by"] = "user"
     approval["approved_at"] = datetime.now().isoformat()
 
-    filepath.write_text(json.dumps(approval, indent=2))
+    _common.atomic_write_json(filepath, approval)
 
     return {
         "status": "approved",
@@ -214,7 +217,7 @@ def reject(slug, approval_id, data):
     approval["status"] = "rejected"
     approval["rejected_reason"] = reason
 
-    filepath.write_text(json.dumps(approval, indent=2))
+    _common.atomic_write_json(filepath, approval)
 
     return {
         "status": "rejected",
@@ -251,7 +254,7 @@ def mark_executed(slug, approval_id, data):
     approval["url"] = data.get("url")
     approval["rollback_data"] = data.get("rollback_data")
 
-    filepath.write_text(json.dumps(approval, indent=2))
+    _common.atomic_write_json(filepath, approval)
 
     return {
         "status": approval["status"],
@@ -382,8 +385,7 @@ def main():
     elif args.action == "get-execution-log":
         result = get_execution_log(args.brand)
 
-    json.dump(result, sys.stdout, indent=2)
-    print()
+    _common.finish(result)
 
 
 if __name__ == "__main__":

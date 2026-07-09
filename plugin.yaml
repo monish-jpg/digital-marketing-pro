@@ -16,10 +16,10 @@
 # the skills/ directory and exposes every SKILL.md to Hermes via ctx.register_skill().
 
 name: digital-marketing-pro
-version: 3.14.1
+version: 3.15.0
 description: >-
   Open-source AI marketing plugin for agencies & in-house teams. 158 skills,
-  25 specialist agents, 12-Part Strategy Flow, Cowork team-persistent, EU AI
+  24 specialist agents, 12-Part Strategy Flow, Cowork team-persistent, EU AI
   Act Article 50 ready. Now native on Hermes Agent.
 author: Indranil Banerjee
 license: MIT
@@ -30,11 +30,11 @@ homepage: https://github.com/indranilbanerjee/digital-marketing-pro
 provides_tools: []
 
 # We don't register any Hermes lifecycle hooks (zero global hooks policy across
-# all platforms — same as our Claude Code .hooks/hooks.json which ships empty).
+# all platforms — same as our Claude Code hooks/hooks.json which ships empty).
 provides_hooks: []
 
 # No environment variables required at install time. Brand state lives at
-# ~/.claude-marketing/<brand>/ (works on every platform that has a host
+# ~/.claude-marketing/brands/<brand>/ (works on every platform that has a host
 # filesystem; on Cowork use /digital-marketing-pro:cowork-setup to route
 # through a Drive MCP). Connectors are opt-in via the user's own MCP setup.
 requires_env: []

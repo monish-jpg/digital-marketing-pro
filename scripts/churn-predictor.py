@@ -23,8 +23,12 @@ import json
 import sys
 from datetime import datetime
 from pathlib import Path
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
-BRANDS_DIR = Path.home() / ".claude-marketing" / "brands"
+BRANDS_DIR = _common.brands_root()
 
 # Signal weights (must sum to 1.0)
 WEIGHTS = {
@@ -497,8 +501,7 @@ def main():
         result = summary(args.brand)
 
     if result is not None:
-        json.dump(result, sys.stdout, indent=2)
-        print()
+        _common.finish(result)
 
 
 if __name__ == "__main__":

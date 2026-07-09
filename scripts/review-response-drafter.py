@@ -16,6 +16,10 @@ import argparse
 import json
 import re
 import sys
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -466,8 +470,7 @@ def main():
             tone=args.tone,
             brand=args.brand,
         )
-        json.dump(result, sys.stdout, indent=2)
-        print()
+        _common.finish(result)
     except Exception as exc:
         json.dump({"error": f"Analysis failed: {exc}"}, sys.stdout, indent=2)
         print()

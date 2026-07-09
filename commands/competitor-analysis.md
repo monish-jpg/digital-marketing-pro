@@ -11,7 +11,7 @@ Deliver a comprehensive competitive intelligence report across all major marketi
 
 ## Trigger
 
-User runs `/competitor-analysis` or asks to analyze competitors, benchmark against competition, find competitive gaps, or understand the competitive landscape.
+User runs `/digital-marketing-pro:competitor-analysis` or asks to analyze competitors, benchmark against competition, find competitive gaps, or understand the competitive landscape.
 
 ## Inputs
 
@@ -43,13 +43,13 @@ Gather the following from the user. If not provided, ask before proceeding:
 
 ### 2. SEO Competitive Landscape
 
-**If ~~SEO tools are connected (Ahrefs, Similarweb):**
+**If SEO tools are connected (Ahrefs, Similarweb):**
 - Pull domain metrics, keyword rankings, backlink profiles automatically
 - Identify exact keyword overlap and gaps
 
 **If tools are not connected:**
 - Use web search to research the SEO landscape
-- Note: "For detailed ranking data, connect Ahrefs or Similarweb via `/connect`."
+- Note: "For detailed ranking data, connect Ahrefs or Similarweb via `/digital-marketing-pro:connect`."
 
 Assess:
 - Domain authority comparison
@@ -125,17 +125,17 @@ For each competitor: Strengths, Weaknesses, Opportunities (for your brand), Thre
 ## After the Analysis
 
 Ask: "Would you like me to:
-- Set up ongoing competitor monitoring? (`/competitor-monitor`)
-- Create a counter-narrative strategy? (`/counter-narrative`)
-- Draft content to fill the competitive gaps identified? (`/content-brief`)
-- Build a share-of-voice tracking dashboard? (`/share-of-voice`)
-- Analyze competitor ad creative in detail? (`/paid-advertising`)
-- Map the full narrative landscape? (`/narrative-landscape`)"
+- Set up ongoing competitor monitoring? (`/digital-marketing-pro:competitor-monitor`)
+- Create a counter-narrative strategy? (`/digital-marketing-pro:counter-narrative`)
+- Draft content to fill the competitive gaps identified? (`/digital-marketing-pro:content-brief`)
+- Build a share-of-voice tracking dashboard? (`/digital-marketing-pro:share-of-voice`)
+- Analyze competitor ad creative in detail? (`/digital-marketing-pro:paid-advertising`)
+- Map the full narrative landscape? (`/digital-marketing-pro:narrative-landscape`)"
 
-## Execution discipline — parallel dispatch (v3.4)
+## Execution discipline — parallel dispatch
 
 A full competitor analysis covers **7 independent dimensions** per competitor: content, SEO, paid ads, social, AI visibility, pricing, positioning. These have no cross-dependencies — they read different data sources and produce different sections of the final report.
 
-Dispatch them via **one message with seven parallel `Task` tool calls** rather than seven sequential calls. With 4–8 minutes per dimension sequentially → ~35 min total; parallel dispatch reduces this by **50–80% wall-clock** per Claude Code's April 2026 parallel-subagent initialization — typical run lands at **~7–17 min** (rate-limit dependent). Past 8 concurrent subagents, you queue and the wall-clock win drops.
+Dispatch them via **one message with seven parallel `Task` tool calls** rather than seven sequential calls. Parallel dispatch of these independent dimensions is substantially faster than running them one after another; actual time varies with model and rate limits. Keep concurrency to a handful — past roughly 8 concurrent subagents you queue against API rate limits and the wall-clock win drops.
 
 For multi-competitor analyses (the common case), parallelize per-dimension within each competitor, but **sequence the competitors** — running 3 competitors × 7 dimensions = 21 parallel subagents at once hits API concurrency ceilings on most tiers.

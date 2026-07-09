@@ -49,5 +49,5 @@ Resolves every action in the campaign-audit and launch-campaign skill surfaces a
 ## Run
 
 ```bash
-python scripts/action-doctor.py "$@"
+python "${CLAUDE_PLUGIN_ROOT}/scripts/action-doctor.py" "$@"
 ```

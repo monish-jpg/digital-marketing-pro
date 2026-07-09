@@ -11,7 +11,7 @@ Generate a structured marketing performance report that transforms raw data into
 
 ## Trigger
 
-User runs `/performance-report` or asks for a marketing report, performance review, channel analysis, or campaign results summary.
+User runs `/digital-marketing-pro:performance-report` or asks for a marketing report, performance review, channel analysis, or campaign results summary.
 
 ## Inputs
 
@@ -26,7 +26,7 @@ Gather the following from the user. If not provided, ask before proceeding:
 3. **Data source** — raw performance data in any of these forms:
    - Pasted directly into the conversation
    - CSV or spreadsheet file
-   - Connected platform (if ~~analytics or ~~advertising are available)
+   - Connected platform (if analytics or advertising connectors are available)
 
 4. **Comparison period** — previous period, year-over-year, or custom benchmark
 
@@ -105,9 +105,9 @@ Flag any metric that moved more than 2 standard deviations from its trend.
 ## After the Report
 
 Ask: "Would you like me to:
-- Dive deeper into any specific channel? (`/analytics-insights`)
-- Investigate an anomaly in detail? (`/anomaly-scan`)
-- Adjust budget allocation based on these results? (`/budget-optimizer`)
-- Generate a client-ready version of this report? (`/client-report`)
-- Create a live dashboard to track these KPIs? (`/live-dashboard`)
-- Export this data to a spreadsheet? (`/data-export`)"
+- Dive deeper into any specific channel? (`/digital-marketing-pro:analytics-insights`)
+- Investigate an anomaly in detail? (`/digital-marketing-pro:anomaly-scan`)
+- Adjust budget allocation based on these results? (`/digital-marketing-pro:budget-optimizer`)
+- Generate a client-ready version of this report? (`/digital-marketing-pro:client-report`)
+- Create a live dashboard to track these KPIs? (`/digital-marketing-pro:live-dashboard`)
+- Export this data to a spreadsheet? (`/digital-marketing-pro:data-export`)"

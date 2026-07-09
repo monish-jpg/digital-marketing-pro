@@ -29,9 +29,9 @@ Drive MCP tools to perform the actual file transfers.
 
 State files:
 
-  ~/.claude-marketing/_cowork-config.json          (Drive root + namespace)
-  ~/.claude-marketing/{brand}/_drive-sync.json     (per-brand sync state)
-  ~/.claude-marketing/{brand}/runs/{run}/_sync-pending.json (per-run pending uploads)
+  <workspace>/_cowork-config.json                        (Drive root + namespace)
+  <workspace>/brands/{brand-slug}/_drive-sync.json        (per-brand sync state)
+  <workspace>/brands/{brand-slug}/runs/{run}/_sync-pending.json (per-run pending uploads)
 
 Usage:
     # Cowork+Drive config
@@ -65,7 +65,11 @@ if hasattr(sys.stdout, "reconfigure"):
     except Exception:
         pass
 
-CLAUDE_MARKETING = Path.home() / ".claude-marketing"
+import os  # noqa: E402
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
+
+CLAUDE_MARKETING = _common.workspace_root()
 COWORK_CONFIG_PATH = CLAUDE_MARKETING / "_cowork-config.json"
 
 
@@ -91,7 +95,7 @@ def write_cowork_config(data: dict) -> dict:
         **data,
         "configured_at": data.get("configured_at") or _now_iso(),
     }
-    COWORK_CONFIG_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    _common.atomic_write_json(COWORK_CONFIG_PATH, payload)
     return {"status": "written", "path": str(COWORK_CONFIG_PATH), "config": payload}
 
 
@@ -100,11 +104,11 @@ def write_cowork_config(data: dict) -> dict:
 # ---------------------------------------------------------------------------
 
 def _brand_sync_path(brand: str) -> Path:
-    return CLAUDE_MARKETING / _slugify(brand) / "_drive-sync.json"
+    return _common.brand_dir(brand) / "_drive-sync.json"
 
 
 def _profile_path(brand: str) -> Path:
-    return CLAUDE_MARKETING / _slugify(brand) / "profile.json"
+    return _common.brand_dir(brand) / "profile.json"
 
 
 def profile_needs_upload(brand: str) -> dict:
@@ -184,7 +188,7 @@ def profile_drive_state(brand: str) -> dict:
 # ---------------------------------------------------------------------------
 
 def _run_pending_path(brand: str, run_id: str) -> Path:
-    return CLAUDE_MARKETING / _slugify(brand) / "runs" / run_id / "_sync-pending.json"
+    return _common.brand_dir(brand) / "runs" / run_id / "_sync-pending.json"
 
 
 def add_pending_upload(brand: str, run_id: str, file: str) -> dict:
@@ -232,7 +236,7 @@ def mark_run_file_uploaded(brand: str, run_id: str, file: str,
 
 
 def list_runs_needing_sync(brand: str) -> dict:
-    runs_dir = CLAUDE_MARKETING / _slugify(brand) / "runs"
+    runs_dir = _common.brand_dir(brand) / "runs"
     if not runs_dir.exists():
         return {"brand": brand, "runs": []}
     needing = []
@@ -260,7 +264,10 @@ def list_runs_needing_sync(brand: str) -> dict:
 # ---------------------------------------------------------------------------
 
 def _slugify(s: str) -> str:
-    return "".join(c.lower() if c.isalnum() else "-" for c in s.strip()).strip("-")
+    # Delegate to the ONE shared slugifier. The old per-char version turned
+    # "Acme & Co" into "acme---co" while other scripts produced "acme-co",
+    # so Cowork/Drive filed the brand under a different slug than local state.
+    return _common.slugify_brand(s)
 
 
 def _file_hash(path: Path) -> str:
@@ -288,7 +295,7 @@ def _read_brand_sync(brand: str) -> dict:
 def _write_brand_sync(brand: str, data: dict):
     path = _brand_sync_path(brand)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    _common.atomic_write_json(path, data)
 
 
 def _read_pending(path: Path) -> dict:
@@ -304,7 +311,7 @@ def _read_pending(path: Path) -> dict:
 
 
 def _write_pending(path: Path, data: dict):
-    path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    _common.atomic_write_json(path, data)
 
 
 def main():

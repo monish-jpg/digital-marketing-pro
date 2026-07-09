@@ -10,16 +10,21 @@ claim. This is the technical mechanism for EU AI Act Article 50 compliance
 Initiative (CAI) standard.
 
 Usage:
-    python3 embed-c2pa.py \
+    python embed-c2pa.py \
         --input path/to/asset.png \
         --output path/to/signed-asset.png \
         --brand "Acme Corp" \
         --generator "Vertex AI / Nano Banana Pro" \
         --ai-claim ai-generated-content \
+        --ai-disclosure \
         [--created 2026-05-16T10:30:00Z] \
         [--prompt "the prompt used"] \
         [--reviewer "Jane Smith"] \
         [--signing-cert /path/to/cert.pem --signing-key /path/to/key.pem]
+
+--ai-disclosure adds the C2PA 2.4 `c2pa.ai-disclosure` assertion — the explicit,
+machine-readable AI-generation disclosure that is the flagship EU AI Act
+Article 50 pathway (applicable 2 Aug 2026).
 
 If c2pa-python is not installed, it is auto-installed via pip. If a real
 signing certificate is not provided, the script falls back to a self-signed
@@ -102,11 +107,16 @@ def ensure_c2pa():
         sys.exit(2)
 
 
-def build_manifest_json(brand, generator, ai_claim, created, prompt, reviewer, asset_format):
+def build_manifest_json(brand, generator, ai_claim, created, prompt, reviewer,
+                        asset_format, ai_disclosure=False):
     """Build a manifest JSON definition the c2pa-python Builder accepts.
 
     Note: digital_source_type is set via builder.set_intent(), not embedded
     in the actions assertion — that's the current c2pa-python pattern.
+
+    When ai_disclosure is True, a C2PA 2.4 `c2pa.ai-disclosure` assertion is
+    added — the explicit machine-readable AI-generation disclosure that is the
+    flagship EU AI Act Article 50 pathway.
     """
     actions = [
         {
@@ -154,6 +164,22 @@ def build_manifest_json(brand, generator, ai_claim, created, prompt, reviewer, a
             },
         ],
     }
+    if ai_disclosure:
+        # C2PA 2.4 `c2pa.ai-disclosure` assertion — the explicit AI-generation
+        # disclosure the EU AI Act Article 50 enforcement tooling reads.
+        manifest["assertions"].append({
+            "label": "c2pa.ai-disclosure",
+            "data": {
+                "disclosure": True,
+                "digital_source_type": AI_CLAIM_TO_C2PA_TYPE.get(ai_claim, "TRAINED_ALGORITHMIC_MEDIA"),
+                "generator": generator,
+                "statement": (
+                    "This content was generated or substantially modified using "
+                    "generative AI and is disclosed as such."
+                ),
+                "regulation": "EU AI Act Article 50",
+            },
+        })
     return manifest
 
 
@@ -251,6 +277,8 @@ def main():
         choices=sorted(AI_CLAIM_TO_C2PA_TYPE.keys()),
         help="Maps to a C2paDigitalSourceType enum value used by Builder.set_intent",
     )
+    parser.add_argument("--ai-disclosure", action="store_true",
+                        help="Add the C2PA 2.4 c2pa.ai-disclosure assertion (EU AI Act Article 50 pathway)")
     parser.add_argument("--created", help="ISO-8601 creation timestamp (default: now)")
     parser.add_argument("--prompt", help="Original generation prompt (optional, embedded in actions)")
     parser.add_argument("--reviewer", help="Human reviewer name (optional, embedded in actions)")
@@ -271,7 +299,9 @@ def main():
         sys.exit(3)
 
     created = args.created or datetime.now(timezone.utc).isoformat()
-    manifest = build_manifest_json(args.brand, args.generator, args.ai_claim, created, args.prompt, args.reviewer, ext)
+    manifest = build_manifest_json(args.brand, args.generator, args.ai_claim, created,
+                                   args.prompt, args.reviewer, ext,
+                                   ai_disclosure=args.ai_disclosure)
 
     c2pa = ensure_c2pa()
 
@@ -339,6 +369,7 @@ def main():
         "brand": args.brand,
         "generator": args.generator,
         "ai_claim": args.ai_claim,
+        "ai_disclosure": args.ai_disclosure,
         "c2pa_digital_source_type": ds_type_name,
         "created": created,
         "manifest_assertions": [a["label"] for a in manifest["assertions"]],

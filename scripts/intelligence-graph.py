@@ -30,8 +30,12 @@ import json
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
-BRANDS_DIR = Path.home() / ".claude-marketing" / "brands"
+BRANDS_DIR = _common.brands_root()
 
 CONTEXT_DIMENSIONS = ["channel", "audience", "objective", "industry", "campaign_type"]
 
@@ -506,8 +510,7 @@ def main():
     elif args.action == "apply-time-decay":
         result = apply_time_decay(args.brand, args.decay_rate)
 
-    json.dump(result, sys.stdout, indent=2)
-    print()
+    _common.finish(result)
 
 
 if __name__ == "__main__":

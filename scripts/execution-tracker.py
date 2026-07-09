@@ -22,32 +22,58 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-BRANDS_DIR = Path.home() / ".claude-marketing" / "brands"
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
+
+BRANDS_DIR = _common.brands_root()
 
 
 def get_brand_dir(slug):
-    """Get and validate brand directory."""
-    brand_dir = BRANDS_DIR / slug
-    if not brand_dir.exists():
-        return None, f"Brand '{slug}' not found. Run /digital-marketing-pro:brand-setup first."
-    return brand_dir, None
+    """Resolve + validate the brand directory. Delegates to _common so the slug
+    is normalised (slugify at the boundary) and legacy raw-name dirs still
+    resolve, with the standard not-found message."""
+    return _common.get_brand_dir(slug)
+
+
+def _rebuild_index_from_files(executions_dir):
+    """Rebuild the summary index by rescanning the individual exec-*.json files.
+    Used when _index.json is missing or corrupt so an interrupted/truncated
+    write never silently erases the audit trail (H3)."""
+    rebuilt = []
+    for fp in sorted(executions_dir.glob("exec-*.json")):
+        try:
+            e = json.loads(fp.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            continue
+        rebuilt.append({
+            "execution_id": e.get("execution_id", fp.stem),
+            "platform": e.get("platform"),
+            "action_type": e.get("action_type"),
+            "result": e.get("result"),
+            "executed_at": e.get("executed_at"),
+        })
+    rebuilt.sort(key=lambda x: x.get("executed_at") or "")
+    return rebuilt
 
 
 def _load_index(executions_dir):
-    """Load the execution index file."""
+    """Load the execution index file. On a missing OR corrupt index, rebuild
+    it from the individual exec-*.json files rather than defaulting to empty —
+    a crash mid-write must never silently truncate the audit history."""
     index_path = executions_dir / "_index.json"
     if not index_path.exists():
-        return []
+        return _rebuild_index_from_files(executions_dir)
     try:
-        return json.loads(index_path.read_text())
-    except json.JSONDecodeError:
-        return []
+        return json.loads(index_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return _rebuild_index_from_files(executions_dir)
 
 
 def _save_index(executions_dir, index):
-    """Save the execution index file."""
-    index_path = executions_dir / "_index.json"
-    index_path.write_text(json.dumps(index, indent=2))
+    """Save the execution index file atomically (tmp + replace)."""
+    _common.atomic_write_json(executions_dir / "_index.json", index)
 
 
 def log_execution(slug, data):
@@ -88,9 +114,10 @@ def log_execution(slug, data):
         "executed_at": datetime.now().isoformat(),
     }
 
-    # Save individual execution file
+    # Save individual execution file (atomically — this is the source of truth
+    # the index is rebuilt from).
     filepath = executions_dir / f"{execution_id}.json"
-    filepath.write_text(json.dumps(execution, indent=2))
+    _common.atomic_write_json(filepath, execution)
 
     # Update index
     index = _load_index(executions_dir)
@@ -124,7 +151,7 @@ def get_history(slug, platform=None, status=None, limit=50):
     executions = []
     for fp in sorted(executions_dir.glob("exec-*.json"), reverse=True):
         try:
-            execution = json.loads(fp.read_text())
+            execution = json.loads(fp.read_text(encoding="utf-8"))
             executions.append(execution)
         except json.JSONDecodeError:
             continue
@@ -206,6 +233,56 @@ def get_stats(slug):
     }
 
 
+def resume_launch(slug, data):
+    """Recovery path for an interrupted launch-campaign run (launch-campaign
+    calls this after a mid-launch failure). Given a campaign_id and the step to
+    resume from, return the executions already logged for that campaign plus a
+    resume manifest so the orchestrator continues from the failed step instead
+    of restarting the entire launch."""
+    brand_dir, err = get_brand_dir(slug)
+    if err:
+        return {"error": err}
+    campaign_id = data.get("campaign_id")
+    if not campaign_id:
+        return {"error": "Missing required field: campaign_id"}
+    try:
+        from_step = int(data.get("from_step"))
+    except (TypeError, ValueError):
+        return {"error": "from_step must be an integer (the step number to resume from)"}
+
+    executions_dir = brand_dir / "executions"
+    prior = []
+    if executions_dir.exists():
+        for fp in sorted(executions_dir.glob("exec-*.json")):
+            try:
+                e = json.loads(fp.read_text(encoding="utf-8"))
+            except (json.JSONDecodeError, OSError):
+                continue
+            haystack = f"{e.get('content_id') or ''} {e.get('details') or ''}"
+            if campaign_id in haystack:
+                prior.append({
+                    "execution_id": e.get("execution_id"),
+                    "action_type": e.get("action_type"),
+                    "platform": e.get("platform"),
+                    "result": e.get("result"),
+                    "executed_at": e.get("executed_at"),
+                })
+    succeeded = [p for p in prior if p.get("result") == "success"]
+    return {
+        "status": "resume-ready",
+        "campaign_id": campaign_id,
+        "from_step": from_step,
+        "prior_executions": prior,
+        "already_succeeded": len(succeeded),
+        "guidance": (
+            "Re-run launch-campaign steps from from_step onward. Steps already "
+            "logged as success (see prior_executions) should be skipped. "
+            "Re-present the Execution gate and require typed approval before "
+            "each remaining external action; never auto-retry a failed step."
+        ),
+    }
+
+
 # v3.7.10 — connector-aware action resolver replaces the inline _stub_action.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from connector_resolver import resolve_action  # noqa: E402
@@ -216,6 +293,8 @@ def main():
     parser.add_argument("--brand", required=True, help="Brand slug")
     parser.add_argument("--action", required=True,
                         choices=["log-execution", "get-history", "get-stats",
+                                 # failure-recovery path for launch-campaign
+                                 "resume-launch",
                                  # v3.7.6 — launch-campaign skill surface
                                  "enable-automation", "schedule-posts",
                                  "notify-influencers", "pr-send", "internal-kickoff",
@@ -230,6 +309,8 @@ def main():
                                        "(for schedule-posts / notify-influencers / pr-send / internal-kickoff)")
     parser.add_argument("--automation-id", help="Automation id (for enable-automation)")
     args = parser.parse_args()
+    # Slugify at the boundary so every action resolves the same brand dir.
+    args.brand = _common.slugify_brand(args.brand)
 
     if args.action == "log-execution":
         if not args.data:
@@ -241,6 +322,17 @@ def main():
             print(json.dumps({"error": "Invalid JSON in --data"}))
             sys.exit(1)
         result = log_execution(args.brand, data)
+
+    elif args.action == "resume-launch":
+        if not args.data:
+            print(json.dumps({"error": "Provide --data with {\"campaign_id\":..,\"from_step\":N}"}))
+            sys.exit(1)
+        try:
+            data = json.loads(args.data)
+        except json.JSONDecodeError:
+            print(json.dumps({"error": "Invalid JSON in --data"}))
+            sys.exit(1)
+        result = resume_launch(args.brand, data)
 
     elif args.action == "get-history":
         result = get_history(args.brand, args.platform, args.status, args.limit)
@@ -256,8 +348,7 @@ def main():
                                 automation_id=args.automation_id,
                                 platform=args.platform)
 
-    json.dump(result, sys.stdout, indent=2)
-    print()
+    _common.finish(result)
 
 
 if __name__ == "__main__":

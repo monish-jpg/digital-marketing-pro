@@ -58,7 +58,8 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-BASE_DIR = Path.home() / ".claude-marketing"
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
 
 def get_visible_publish_dir(brand: str, workflow: str | None = None,
@@ -82,7 +83,7 @@ def get_visible_publish_dir(brand: str, workflow: str | None = None,
 
 def get_internal_tracking_dir(brand: str, workflow: str | None = None,
                                 run_id: str | None = None) -> Path:
-    base = BASE_DIR / brand / "output"
+    base = _common.brand_dir(brand) / "output"
     if workflow:
         base = base / workflow
     if run_id:
@@ -138,7 +139,7 @@ def publish(args) -> dict:
 
 def publish_run(args) -> dict:
     """Publish every artifact a checkpoint-manager run produced."""
-    run_dir = BASE_DIR / args.brand / "runs" / args.run_id
+    run_dir = _common.brand_dir(args.brand) / "runs" / args.run_id
     manifest_file = run_dir / "run.json"
     if not manifest_file.exists():
         return {"error": f"no run found: brand={args.brand} run_id={args.run_id}"}
@@ -252,6 +253,10 @@ def main() -> int:
 
     args = parser.parse_args()
 
+    # Slugify brand at the boundary so tracking/publish dirs match the canon.
+    if getattr(args, "brand", None):
+        args.brand = _common.slugify_brand(args.brand)
+
     if args.cmd == "publish":
         result = publish(args)
     elif args.cmd == "publish-run":
@@ -263,6 +268,7 @@ def main() -> int:
     else:
         result = {"error": f"unknown cmd {args.cmd!r}"}
 
+    _common.ensure_utf8_stdout()
     print(json.dumps(result, indent=2, ensure_ascii=False))
     return 0 if "error" not in result else 1
 

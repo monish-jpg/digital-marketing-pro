@@ -18,6 +18,10 @@ import json
 import re
 import sys
 from pathlib import Path
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Spam trigger words organized by severity tier
@@ -451,8 +455,7 @@ def main():
         sys.exit(1)
 
     result = analyze_email(content, subject=args.subject)
-    json.dump(result, sys.stdout, indent=2)
-    print()
+    _common.finish(result)
 
 
 if __name__ == "__main__":

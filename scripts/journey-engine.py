@@ -24,8 +24,12 @@ import random
 import sys
 from datetime import datetime
 from pathlib import Path
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
-BRANDS_DIR = Path.home() / ".claude-marketing" / "brands"
+BRANDS_DIR = _common.brands_root()
 
 # Default dwell time (days) per state when not specified
 DEFAULT_DWELL_DAYS = 3
@@ -532,8 +536,7 @@ def main():
         result = delete_journey(args.brand, args.journey_id)
 
     if result is not None:
-        json.dump(result, sys.stdout, indent=2)
-        print()
+        _common.finish(result)
 
 
 if __name__ == "__main__":

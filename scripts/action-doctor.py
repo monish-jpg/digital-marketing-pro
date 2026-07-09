@@ -118,7 +118,7 @@ def _model_curator_status():
             "age_days": None,
             "severity": "warn",
             "message": "Model registry has no last_updated timestamp. Treat all model IDs as suspect.",
-            "action": "python scripts/refresh_models.py",
+            "action": "python refresh_models.py (from the plugin scripts/ directory)",
         }
     severity = "ok"
     message = f"Model registry is {age} days old. Within the {REGISTRY_STALE_WARN_DAYS}-day refresh window."
@@ -129,14 +129,18 @@ def _model_curator_status():
             f"Model registry is {age} days old (>{REGISTRY_STALE_ERROR_DAYS} = URGENT). "
             "Frontier models shift ~every 6 weeks; deprecated IDs will start returning 404 silently."
         )
-        action = "ANTHROPIC_API_KEY=... OPENAI_API_KEY=... GEMINI_API_KEY=... EVOLINK_API_KEY=... python scripts/refresh_models.py"
+        action = ("Set ANTHROPIC_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY / EVOLINK_API_KEY "
+                  "in your environment, then run: python refresh_models.py "
+                  "(cross-shell: the POSIX 'VAR=... command' prefix does not work in PowerShell)")
     elif age >= REGISTRY_STALE_WARN_DAYS:
         severity = "warn"
         message = (
             f"Model registry is {age} days old (>{REGISTRY_STALE_WARN_DAYS} = stale). "
             "Run refresh_models.py to check provider drift before any high-volume run."
         )
-        action = "ANTHROPIC_API_KEY=... OPENAI_API_KEY=... GEMINI_API_KEY=... EVOLINK_API_KEY=... python scripts/refresh_models.py"
+        action = ("Set ANTHROPIC_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY / EVOLINK_API_KEY "
+                  "in your environment, then run: python refresh_models.py "
+                  "(cross-shell: the POSIX 'VAR=... command' prefix does not work in PowerShell)")
 
     return {
         "available": True,
@@ -278,14 +282,12 @@ def main():
                         help="Print only the one-line summary counts.")
     args = parser.parse_args()
 
-    # Single-action drill-in
+    # Single-action drill-in (always JSON — the previous --json/else branches
+    # were identical dead code).
     if args.action:
         kwargs = {"channel": args.channel} if args.channel else {}
         result = resolve_action(args.action, args.brand, **kwargs)
-        if args.json:
-            print(json.dumps(result, indent=2))
-        else:
-            print(json.dumps(result, indent=2))
+        print(json.dumps(result, indent=2))
         return
 
     rows = _per_action_readiness(args.brand, channel=args.channel)

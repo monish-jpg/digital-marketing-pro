@@ -4,6 +4,35 @@ All notable changes to the Digital Marketing Pro plugin are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project uses [Semantic Versioning](https://semver.org/).
 
+## [3.15.0] — 2026-07-07
+
+**The Reliability & Truth release — a full-repo audit (orchestration, agents, skills/commands, Python scripts, configs/docs/manifests) surfaced ~200 findings; this release fixes them in one coordinated pass.** The theme is honesty: every fabricated capability, fictional package, phantom script flag, stale count, and unsafe gate is either fixed or explicitly labeled. Mirrors ContentForge v3.16.0 (same release class, same day).
+
+### Added
+
+- **`scripts/_common.py`** — one shared workspace-root resolver (`$CLAUDE_PLUGIN_DATA/digital-marketing-pro/brands/{slug}/` → `~/.claude-marketing/brands/{slug}/`), one `slugify_brand`, atomic JSON writes, safe JSON loads, a UTF-8 stdout guard, and a `finish()` exit helper — adopted across the script layer to kill the storage split-brain and the four-different-slugify bug.
+- **`scripts/check_skill_contracts.py`** — a doc-vs-argparse linter that parses every fenced script call in SKILL.md/commands/agents and validates flags/actions against each script's real argparse. Wired into the test suite so contract rot can't silently return.
+- **C2PA 2.4 AI-disclosure** — `embed-c2pa.py` gains `--ai-disclosure`, embedding the `c2pa.ai-disclosure` assertion (the EU AI Act **Article 50** machine-readable pathway, applicable 2026-08-02) alongside the existing IPTC digital-source-type claim.
+- **Tessl CLI review workflow** — `.github/workflows/skill-review.yml` moves off the retired `tesslio/skill-review@main` Action to the `tessl review` CLI, with scoring dimensions encoded in the new `.github/tessl-rubric.yml` (closes issue #8).
+- **Uniform execution gate** — all 18 execution skills now carry an explicit `## Execution gate` (typed approval, cancel-on-anything, never proceed on ambiguous input) and `disable-model-invocation: false` so Codex's validator stops erroring (closes issue #6).
+- **State-layer + release-consistency tests** — engagement/checkpoint/execution state machines, `_common`, the contract scanner, and AGENTS/README/manifest count locks. Test suite grows from 123 to 207 passing.
+
+### Changed
+
+- **Agents 25 → 24.** `competitor-intelligence` merged into `competitive-intel` (with a `mode: snapshot|monitoring` input, keeping its evidence-discipline rules); `memory-manager` reduced to a thin storage agent while `intelligence-curator` owns intake/interpretation. All 9 manifest descriptions, AGENTS.md (now with the explicit 24-agent roster), and docs updated.
+- **Connector truth.** The `connect` skill's "13 HTTP connectors are already pre-configured" fiction is gone — connectors are an opt-in catalog (the shipped `.mcp.json` is empty `{"mcpServers":{}}`). `.mcp.json.example` gains a verification `_warning` enumerating verified-real vs known-fictional npm packages; memory-architecture and skill/registry text demote Graphiti/Supermemory/Qdrant/Notion npm backends to "only if you have a working server connected".
+- **Script-contract rot fixed** across compliance/intel/agency/memory/eval skills: real `eval-config-manager` actions (no `--value`/`set-content-type`/`reset-config`), agency CLI drift (`list`→`list-campaigns`/`get-history`, `metrics`→`get-campaign`, `list-assignments`→`get-assignments`, required `--brand` added), `intelligence-graph`/`narrative-mapper`/`geo-tracker`/`growth-loop-modeler`/`macro-signal-tracker`/`competitor-tracker` positional calls → `--action`/`--brand` forms, correct six eval dimensions (`content_quality, brand_voice, hallucination_risk, claim_verification, output_structure, readability`), and `--file` vs `--text` for eval inputs.
+- **Manifests hardened.** Dropped the dangling `mcpServers` key from `.cursor-plugin/plugin.json` and `.github/plugin/plugin.json` (they pointed at the gitignored `.mcp.json`); confirmed `repository` is a string URL and no `$schema` key in plugin/marketplace manifests; `plugin.yaml` `.hooks/`→`hooks/`; `settings.json.example` OTEL var moved under `env`; `.gitignore` bare-directory ignores anchored to repo root.
+- **Docs re-snapshotted to truth.** AGENTS.md (phantom `references/` dir removed — reference files live inside `skills/<name>/`, 169 of them; surfaces heading → v3.15.0), architecture.md (removed the false `$schema` claim, empty-`.mcp.json`/empty-hooks truth, package-verification caveat), claude-interfaces/getting-started (counts → 158 skills / 24 agents / 18 commands / 169 refs), CONNECTORS.md ("pre-configures" → shipped-empty), TESTING-GUIDE section 7 (hooks ship `{}` since v3.1.0), SUBMISSION.md (marked historical + phantom `config/`+`examples/` paths and fabricated agent list removed).
+- **Compliance currency.** `eu-code-of-practice.md` moved to a July verification pass (June passed without the final Code confirmed published; second draft remains operative), with FTC May-2026 endorsement guidance, the NY synthetic-performer law, and the standardized EU disclosure icon flagged for verification. `region-config` onboarding gains India DPDPA + EU AI Act Article 50.
+
+### Fixed
+
+- Uncited "93% of consumers" stat in `reputation-management/review-strategy.md` delabeled to a verify-before-citing note; `what-if` gains a simulated-output disclosure; hardcoded "Opus 4.7 / Sonnet 4.6 / Haiku 4.5" + unexecutable `/usage --since 7d` in `agency-dashboard` made registry-driven and user-data-gated; `sync-memory` checkpoint path corrected to `memory/_last_sync.json`; `memory-architecture` phantom `--entity-type`/no-op `--type` flags fixed; C2PA spec link v1.3 → 2.4.
+- `python3` → `python` and bare `scripts/` → `python "${CLAUDE_PLUGIN_ROOT}/scripts/…"` across the touched compliance/intel/agency skills (Windows-first). `validate-profile`'s connector probe softened to the honest local env-var/`.mcp.json` check it actually performs.
+
+---
+
 ## [3.14.1] — 2026-06-28
 
 **README sync patch + test-coverage extension. Catches the drift class v3.14.0 shipped with.**

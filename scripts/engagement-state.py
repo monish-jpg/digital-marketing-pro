@@ -49,6 +49,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Optional
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
+
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -95,15 +98,15 @@ VERSION_PATTERN = re.compile(r"^v(\d+)(?:\.(\d+))?$")
 
 def now_iso() -> str:
     """Return current UTC timestamp in ISO 8601 with 'Z' suffix."""
-    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return _common.now_iso()
 
 
 def workspace_root() -> Path:
-    """Return the workspace root, preferring CLAUDE_PLUGIN_DATA when set."""
-    plugin_data = os.environ.get("CLAUDE_PLUGIN_DATA")
-    if plugin_data:
-        return Path(plugin_data) / "digital-marketing-pro"
-    return Path.home() / ".claude-marketing"
+    """Return the workspace root. Delegates to the shared _common canon so all
+    scripts resolve to the SAME place (honours CLAUDE_MARKETING_HOME for tests,
+    CLAUDE_PLUGIN_DATA/digital-marketing-pro when that dir exists, else
+    ~/.claude-marketing)."""
+    return _common.workspace_root()
 
 
 def engagement_dir(brand: str, engagement_id: str) -> Path:
@@ -144,10 +147,10 @@ def read_json(path: Path) -> Any:
 
 
 def slugify(value: str) -> str:
-    """Lowercase alphanumeric+hyphen identifier suitable for directory names."""
-    value = value.strip().lower()
-    value = re.sub(r"[^a-z0-9]+", "-", value)
-    return value.strip("-")
+    """Lowercase alphanumeric+hyphen identifier suitable for directory names.
+    Delegates to the ONE shared slugifier so brand/engagement dirs never drift
+    (the raw-args H2 bug: init slugified but every other command used raw args)."""
+    return _common.slugify_brand(value)
 
 
 def out(payload: Any) -> None:
@@ -188,7 +191,7 @@ def initial_state(brand: str, engagement_id: str) -> dict[str, Any]:
         "rerun_decisions": [],
         "version_history": {},     # filled with {"3.1": [{"version": "v1.0", "updated_at": ..., "reason": ...}]}
         "lif_change_log": [],
-        "schema_url": "https://github.com/indranilbanerjee/digital-marketing-pro/blob/main/references/engagement-state-schema.md",
+        "checkpoint_run_id": None,  # set by set-checkpoint-run to link a checkpoint-manager run
     }
 
 
@@ -277,14 +280,23 @@ def initial_lif(brand: str, engagement_id: str) -> str:
 # ---------------------------------------------------------------------------
 
 def cmd_init(args: argparse.Namespace) -> None:
-    """Initialise a new engagement directory tree."""
+    """Initialise a new engagement directory tree.
+
+    With --repair, a directory that already exists (even one holding partial
+    state from an interrupted init) is completed in place: missing part
+    directories and intake files are created, but an existing _engagement.json
+    / LIF is preserved rather than overwritten. Without --repair, a non-empty
+    directory is a hard error (the original crash-brick behaviour, but now
+    escapable via --repair instead of forcing a manual delete)."""
     brand_slug = slugify(args.brand)
     engagement_slug = slugify(args.id)
     if not brand_slug or not engagement_slug:
         err("brand and id must contain at least one alphanumeric character")
+    repair = getattr(args, "repair", False)
     root = engagement_dir(brand_slug, engagement_slug)
-    if root.exists() and any(root.iterdir()):
-        err(f"engagement directory already exists and is not empty: {root}")
+    if root.exists() and any(root.iterdir()) and not repair:
+        err(f"engagement directory already exists and is not empty: {root}. "
+            f"Pass --repair to complete a partial/interrupted init in place.")
 
     # Create the part directories
     for definition in PART_DEFINITIONS.values():
@@ -301,35 +313,46 @@ def cmd_init(args: argparse.Namespace) -> None:
     (root / "reports" / "quarterly").mkdir(exist_ok=True)
     (root / "reports" / "annual").mkdir(exist_ok=True)
 
-    # Write initial state and LIF
-    state = initial_state(brand_slug, engagement_slug)
-    state["parts"]["1"]["status"] = "in_progress"
-    state["parts"]["1"]["started_at"] = now_iso()
-    write_json_atomic(engagement_state_path(brand_slug, engagement_slug), state)
-    lif_path(brand_slug, engagement_slug).write_text(
-        initial_lif(brand_slug, engagement_slug), encoding="utf-8"
-    )
+    # Write initial state and LIF. In repair mode, preserve any existing files.
+    state_path = engagement_state_path(brand_slug, engagement_slug)
+    repaired_existing = []
+    if not (repair and state_path.exists()):
+        state = initial_state(brand_slug, engagement_slug)
+        state["parts"]["1"]["status"] = "in_progress"
+        state["parts"]["1"]["started_at"] = now_iso()
+        write_json_atomic(state_path, state)
+    else:
+        repaired_existing.append("_engagement.json")
+
+    lp = lif_path(brand_slug, engagement_slug)
+    if not (repair and lp.exists()):
+        _common.atomic_write_text(lp, initial_lif(brand_slug, engagement_slug))
+    else:
+        repaired_existing.append("living-instruction-file.md")
 
     # Write empty Stone / Opinion intake files so downstream skills find them
-    stone_init = {
-        "engagement_id": engagement_slug,
-        "captured_at": now_iso(),
-        "facts": [],
-    }
-    opinion_init = {
-        "engagement_id": engagement_slug,
-        "captured_at": now_iso(),
-        "hypotheses": [],
-    }
-    write_json_atomic(stone_facts_path(brand_slug, engagement_slug), stone_init)
-    write_json_atomic(opinion_hypotheses_path(brand_slug, engagement_slug), opinion_init)
+    stone_path = stone_facts_path(brand_slug, engagement_slug)
+    if not (repair and stone_path.exists()):
+        write_json_atomic(stone_path, {
+            "engagement_id": engagement_slug,
+            "captured_at": now_iso(),
+            "facts": [],
+        })
+    opinion_path = opinion_hypotheses_path(brand_slug, engagement_slug)
+    if not (repair and opinion_path.exists()):
+        write_json_atomic(opinion_path, {
+            "engagement_id": engagement_slug,
+            "captured_at": now_iso(),
+            "hypotheses": [],
+        })
 
     out({
         "status": "ok",
-        "action": "initialised",
+        "action": "repaired" if repair else "initialised",
         "brand": brand_slug,
         "engagement_id": engagement_slug,
         "engagement_dir": str(root),
+        "preserved_existing": repaired_existing,
         "current_part": "1",
         "next_action": "Capture Stone vs Opinion intake. Use add-stone-fact / add-opinion commands or edit stone-facts.json / opinion-hypotheses.json directly.",
     })
@@ -365,8 +388,11 @@ def cmd_mark_part_started(args: argparse.Namespace) -> None:
     part = str(args.part)
     if part not in state["parts"]:
         err(f"unknown part: {part}")
+    if state["parts"][part]["status"] == "completed" and not getattr(args, "force", False):
+        err(f"part {part} is already completed; pass --force to reopen it", exit_code=2)
     if state["parts"][part]["status"] == "completed":
-        err(f"part {part} is already completed; use mark-part-started --force to reopen", exit_code=2)
+        # Reopening a completed part: clear its completion timestamp.
+        state["parts"][part]["completed_at"] = None
     state["parts"][part]["status"] = "in_progress"
     state["parts"][part]["started_at"] = state["parts"][part]["started_at"] or now_iso()
     state["current_part"] = part
@@ -502,13 +528,18 @@ def cmd_decision_matrix(args: argparse.Namespace) -> None:
             unknown_triggers.append(trigger)
 
     if unknown_triggers:
+        # Fail loud: an unknown trigger means the caller mis-typed a rule name
+        # and silently dropping it (the old exit-0 "warning") would skip real
+        # v2 re-runs. Print the valid set and exit non-zero so $? is trustworthy.
         out({
-            "status": "warning",
+            "status": "error",
+            "error": f"unknown trigger(s): {unknown_triggers}",
             "unknown_triggers": unknown_triggers,
             "valid_triggers": sorted(DECISION_MATRIX_RULES.keys()) + ["minor_corrections_only"],
-            "triggered_reruns": sorted(triggered_reruns),
+            "triggered_reruns_from_valid": sorted(triggered_reruns),
+            "recovery": "Re-run with only valid trigger names (see valid_triggers).",
         })
-        return
+        sys.exit(1)
 
     decision_record = {
         "timestamp": now_iso(),
@@ -616,8 +647,40 @@ def cmd_lif_show(args: argparse.Namespace) -> None:
     })
 
 
+def _refresh_lif_file(brand: str, engagement_id: str, entry: dict[str, Any],
+                      current_part: Optional[str]) -> bool:
+    """Rewrite living-instruction-file.md: refresh the 'Last updated' header
+    date (and 'Current part' if known) and append the change entry to a
+    '## LIF Change Log' section. Returns True if the file was rewritten.
+
+    Before this, lif-log-change only touched _engagement.json, so the on-disk
+    LIF (and its 'Last updated' display) went stale forever."""
+    path = lif_path(brand, engagement_id)
+    if not path.exists():
+        return False
+    text = path.read_text(encoding="utf-8")
+    stamp = now_iso()
+    text = re.sub(r"^\*\*Last updated:\*\* .*$",
+                  f"**Last updated:** {stamp}", text, count=1, flags=re.MULTILINE)
+    if current_part:
+        text = re.sub(r"^\*\*Current part:\*\* .*$",
+                      f"**Current part:** {current_part}", text, count=1, flags=re.MULTILINE)
+    log_line = f"- {stamp} — **{entry['section']}**: {entry['summary']}"
+    marker = "## LIF Change Log"
+    if marker in text:
+        idx = text.index(marker) + len(marker)
+        # Insert right after the heading line.
+        nl = text.index("\n", idx)
+        text = text[:nl + 1] + "\n" + log_line + text[nl + 1:]
+    else:
+        text = text.rstrip() + f"\n\n---\n\n{marker}\n\n{log_line}\n"
+    _common.atomic_write_text(path, text)
+    return True
+
+
 def cmd_lif_log_change(args: argparse.Namespace) -> None:
-    """Append a change-log entry to _engagement.json under lif_change_log."""
+    """Append a change-log entry to _engagement.json AND rewrite the on-disk
+    living-instruction-file.md (change-log section + refreshed header date)."""
     state_path = engagement_state_path(args.brand, args.id)
     state = read_json(state_path)
     entry = {
@@ -628,7 +691,62 @@ def cmd_lif_log_change(args: argparse.Namespace) -> None:
     state.setdefault("lif_change_log", []).append(entry)
     state["last_updated_at"] = now_iso()
     write_json_atomic(state_path, state)
-    out({"status": "ok", "action": "lif_change_logged", "entry": entry})
+    lif_rewritten = _refresh_lif_file(args.brand, args.id, entry, state.get("current_part"))
+    out({"status": "ok", "action": "lif_change_logged", "entry": entry,
+         "lif_file_rewritten": lif_rewritten})
+
+
+def cmd_set_checkpoint_run(args: argparse.Namespace) -> None:
+    """Store the checkpoint-manager run_id in _engagement.json so resume can
+    re-link the engagement to its checkpoint run (the linkage commands/
+    engagement.md claimed but nothing implemented)."""
+    state_path = engagement_state_path(args.brand, args.id)
+    state = read_json(state_path)
+    state["checkpoint_run_id"] = args.run_id
+    state["last_updated_at"] = now_iso()
+    write_json_atomic(state_path, state)
+    out({"status": "ok", "action": "checkpoint_run_set",
+         "checkpoint_run_id": args.run_id})
+
+
+def cmd_validate_part(args: argparse.Namespace) -> None:
+    """Diff the actual files on disk against the PART_DEFINITIONS manifest for a
+    given part and report missing pieces. Exits non-zero when the part
+    directory itself is absent (a structural problem), otherwise reports
+    empty/partial as informational."""
+    part = str(args.part)
+    if part not in PART_DEFINITIONS:
+        err(f"unknown part: {part} (valid: {sorted(PART_DEFINITIONS, key=int)})")
+    definition = PART_DEFINITIONS[part]
+    root = engagement_dir(args.brand, args.id)
+    part_dir = root / definition["dir"]
+    result: dict[str, Any] = {
+        "brand": slugify(args.brand),
+        "engagement_id": slugify(args.id),
+        "part": part,
+        "name": definition["name"],
+        "part_dir": str(part_dir),
+        "expected_subdocs": definition.get("subdocs", []),
+    }
+    if not part_dir.exists():
+        result["status"] = "error"
+        result["error"] = f"part directory missing: {part_dir}"
+        result["recovery"] = "Run `init --repair` to rebuild the directory tree."
+        out(result)
+        sys.exit(1)
+    files = [p for p in sorted(part_dir.rglob("*"))
+             if p.is_file() and not p.name.endswith(".tmp")]
+    result["file_count"] = len(files)
+    result["files"] = [str(p.relative_to(part_dir)) for p in files]
+    # For Parts 3/4, check the v1/v2 scaffolding exists.
+    missing = []
+    if part in ("3", "4"):
+        for sub in ("v1", "v2"):
+            if not (part_dir / sub).exists():
+                missing.append(sub + "/")
+    result["missing_structure"] = missing
+    result["status"] = "ok" if files and not missing else "incomplete"
+    out(result)
 
 
 def cmd_list_engagements(args: argparse.Namespace) -> None:
@@ -684,6 +802,8 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_init = sub.add_parser("init", help="Initialise a new engagement directory tree")
     add_brand_id(p_init)
+    p_init.add_argument("--repair", action="store_true",
+                        help="Complete a partial/interrupted init in place (preserve existing state)")
 
     p_status = sub.add_parser("status", help="Print engagement status")
     add_brand_id(p_status)
@@ -691,6 +811,8 @@ def build_parser() -> argparse.ArgumentParser:
     p_started = sub.add_parser("mark-part-started", help="Mark a part as in_progress")
     add_brand_id(p_started)
     p_started.add_argument("--part", required=True, help="Part identifier (e.g., '3')")
+    p_started.add_argument("--force", action="store_true",
+                           help="Reopen a part already marked completed")
 
     p_completed = sub.add_parser("mark-part-completed", help="Mark a part as completed")
     add_brand_id(p_completed)
@@ -741,10 +863,18 @@ def build_parser() -> argparse.ArgumentParser:
     p_lif = sub.add_parser("lif-show", help="Print the Living Project Instruction File")
     add_brand_id(p_lif)
 
-    p_lif_log = sub.add_parser("lif-log-change", help="Log an LIF change in _engagement.json")
+    p_lif_log = sub.add_parser("lif-log-change", help="Log an LIF change (updates _engagement.json AND the LIF file)")
     add_brand_id(p_lif_log)
     p_lif_log.add_argument("--section", required=True)
     p_lif_log.add_argument("--summary", required=True)
+
+    p_ckpt = sub.add_parser("set-checkpoint-run", help="Link a checkpoint-manager run_id to this engagement")
+    add_brand_id(p_ckpt)
+    p_ckpt.add_argument("--run-id", required=True, help="checkpoint-manager run id")
+
+    p_vpart = sub.add_parser("validate-part", help="Diff a part's files vs the PART_DEFINITIONS manifest")
+    add_brand_id(p_vpart)
+    p_vpart.add_argument("--part", required=True, help="Part identifier (e.g., '5')")
 
     p_list = sub.add_parser("list-engagements", help="List engagements (optionally filter by brand)")
     p_list.add_argument("--brand", default=None)
@@ -766,6 +896,8 @@ COMMAND_HANDLERS = {
     "file-tree": cmd_file_tree,
     "lif-show": cmd_lif_show,
     "lif-log-change": cmd_lif_log_change,
+    "set-checkpoint-run": cmd_set_checkpoint_run,
+    "validate-part": cmd_validate_part,
     "list-engagements": cmd_list_engagements,
 }
 
@@ -773,6 +905,13 @@ COMMAND_HANDLERS = {
 def main(argv: Optional[list[str]] = None) -> None:
     parser = build_parser()
     args = parser.parse_args(argv)
+    # H2 fix: slugify brand + id at the argparse boundary so EVERY command
+    # resolves the same directory (previously only `init` slugified, so
+    # `status --brand "Acme Co"` looked in brands/Acme Co/ and 404'd).
+    if getattr(args, "brand", None):
+        args.brand = slugify(args.brand)
+    if getattr(args, "id", None):
+        args.id = slugify(args.id)
     handler = COMMAND_HANDLERS.get(args.command)
     if not handler:
         err(f"unknown command: {args.command}")

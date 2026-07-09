@@ -15,6 +15,10 @@ import argparse
 import json
 import sys
 from pathlib import Path
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -557,8 +561,7 @@ def main():
 
     try:
         result = analyze_profile(links_raw, args.brand_domain)
-        json.dump(result, sys.stdout, indent=2)
-        print()
+        _common.finish(result)
     except Exception as exc:
         json.dump({"error": f"Analysis failed: {exc}"}, sys.stdout, indent=2)
         print()

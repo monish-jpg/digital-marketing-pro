@@ -40,7 +40,7 @@ token.json
 
 # Logs
 *.log
-logs/
+/logs/
 
 # Node (MCP servers use npx)
 node_modules/
@@ -61,23 +61,23 @@ vector_cache/
 # Credential profiles (agency operations)
 credentials/*.json
 
-# Execution logs (local only)
-executions/
-approvals/
+# Execution logs (local only) — anchored so only repo-root dirs are ignored, not nested skill content
+/executions/
+/approvals/
 
-# v2.1.0 Intelligence & Monitoring data (local only)
-competitors/
-intelligence/
-geo/
-journeys/
-signals/
-narrative/
-panels/
-creative/
-churn/
-operations/
-growth/
-reports/
+# v2.1.0 Intelligence & Monitoring data (local only) — anchored to repo root
+/competitors/
+/intelligence/
+/geo/
+/journeys/
+/signals/
+/narrative/
+/panels/
+/creative/
+/churn/
+/operations/
+/growth/
+/reports/
 .mcp.json
 
 # Internal source / reference PDFs (local only — never for public repo)

@@ -14,6 +14,10 @@ import os
 import sys
 from datetime import datetime
 from pathlib import Path
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
 # Curator: resolve model aliases / validate user-supplied model ids
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -318,8 +322,7 @@ def main():
                               openai_model_override=args.openai_model,
                               anthropic_model_override=args.anthropic_model)
 
-    json.dump(result, sys.stdout, indent=2)
-    print()
+    _common.finish(result)
 
 
 if __name__ == "__main__":

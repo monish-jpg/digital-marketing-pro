@@ -82,6 +82,10 @@ import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Optional
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
@@ -89,11 +93,11 @@ from typing import Any, Optional
 # ---------------------------------------------------------------------------
 
 def workspace_root() -> Path:
-    """Return the workspace root, preferring CLAUDE_PLUGIN_DATA when set."""
-    plugin_data = os.environ.get("CLAUDE_PLUGIN_DATA")
-    if plugin_data:
-        return Path(plugin_data) / "digital-marketing-pro"
-    return Path.home() / ".claude-marketing"
+    """Return the workspace root. Delegates to the shared _common canon so all
+    scripts resolve to the SAME place (honours CLAUDE_MARKETING_HOME for tests,
+    CLAUDE_PLUGIN_DATA/digital-marketing-pro when that dir exists, else
+    ~/.claude-marketing)."""
+    return _common.workspace_root()
 
 
 def brand_profile_path(brand_slug: str) -> Path:

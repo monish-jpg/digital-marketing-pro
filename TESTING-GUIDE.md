@@ -1,4 +1,4 @@
-# Digital Marketing Pro Testing Guide — v3.0.0
+# Digital Marketing Pro Testing Guide — v3.15.0
 
 Complete testing guide for the Digital Marketing Pro plugin, including the v3.0 12-Part engagement methodology.
 
@@ -68,8 +68,8 @@ rm -rf ~/.claude-marketing/
 
 **Expected Results:**
 - [ ] Marketplace loads without errors
-- [ ] DM Pro listed with version 2.5.0
-- [ ] Description mentions "25 specialist agents, 10 commands, 149 skills, 68 Python scripts, 14 HTTP connectors"
+- [ ] DM Pro listed with version 3.15.0
+- [ ] Description mentions "24 specialist agents, 18 commands, 158 skills"
 - [ ] Installation completes without rollback
 - [ ] No "Host key verification failed" error (uses HTTPS, not SSH)
 
@@ -92,23 +92,23 @@ rm -rf ~/.claude-marketing/
 **Test:** Start a new session after installation
 
 **Expected Results:**
-- [ ] SessionStart hook fires — setup.py runs `--check-deps --summary`
+- [ ] Plugin loads with NO auto-firing hook (hooks ship empty); optionally run `python scripts/setup.py --check-deps --summary` yourself
 - [ ] No Python errors or tracebacks
-- [ ] 10 top-level commands visible in Customize panel: brand-setup, campaign-plan, seo-audit, content-engine, performance-report, competitor-analysis, email-sequence (v2.5), engagement (v3.0), check + status (v3.2)
-- [ ] 149 skills visible in Skills section (141 atomic + 6 v3.0 methodology + 2 v3.2 quality-and-status)
-- [ ] 25 agents registered (check for no frontmatter errors in logs)
+- [ ] 18 top-level commands visible in the Customize panel (all prefixed `/digital-marketing-pro:`)
+- [ ] 158 skills visible in Skills section
+- [ ] 24 agents registered (check for no frontmatter errors in logs)
 
 ### 2.4 Plugin Structure Verification
 
 **Expected file counts:**
-- [ ] `agents/` — 25 agent .md files (all with YAML frontmatter)
-- [ ] `commands/` — 7 command .md files
-- [ ] `skills/` — 149 skill directories, each with SKILL.md (141 atomic + 6 v3.0 methodology + 2 v3.2 quality-and-status)
-- [ ] `scripts/` — 68 Python scripts (65 v2.x + engagement-state.py v3.0 + dm-status.py + auto-save-insight.py v3.2)
-- [ ] `.mcp.json` — 14 HTTP connectors
-- [ ] `.mcp.json.example` — 68 npx servers (opt-in for Claude Code)
-- [ ] `hooks/hooks.json` — 4 hook events
-- [ ] `docs/` — 11 documentation guides
+- [ ] `agents/` — 24 agent .md files (all with YAML frontmatter)
+- [ ] `commands/` — 18 command .md files
+- [ ] `skills/` — 158 skill directories, each with SKILL.md
+- [ ] `scripts/` — ~86 Python scripts
+- [ ] `.mcp.json` — ships empty `{"mcpServers":{}}` (gitignored; zero auto-connecting MCPs)
+- [ ] `.mcp.json.example` — illustrative npx catalog (opt-in; verify packages before use)
+- [ ] `hooks/hooks.json` — ships `{"hooks":{}}` (zero global hooks)
+- [ ] `docs/` — 16 documentation guides
 - [ ] `CONNECTORS.md` — Connector reference with `~~category` placeholders
 
 ---
@@ -320,7 +320,7 @@ DM Pro has 25 specialist agents. Verify they register correctly and respond when
 
 ### Agent Registration
 
-**Test:** After installation, verify all 25 agents are listed
+**Test:** After installation, verify all 24 agents are listed
 
 **Expected agents (all with valid YAML frontmatter — `name` + `description`):**
 
@@ -353,7 +353,7 @@ DM Pro has 25 specialist agents. Verify they register correctly and respond when
 | 25 | social-media-manager | `/digital-marketing-pro:social-strategy`, `/digital-marketing-pro:schedule-social` |
 
 **Checks:**
-- [ ] All 25 agents have valid frontmatter (`name` in kebab-case + `description`)
+- [ ] All 24 agents have valid frontmatter (`name` in kebab-case + `description`)
 - [ ] No agent registration errors in installation logs
 - [ ] Agent names match their file names (e.g., `agency-operations.md` has `name: agency-operations`)
 
@@ -367,9 +367,9 @@ DM Pro has 68 Python scripts (65 v2.x + engagement-state.py v3.0 + dm-status.py 
 
 | Script | Trigger | Test | Expected |
 |--------|---------|------|----------|
-| `setup.py` | SessionStart hook | Start new session | Checks dependencies, prints summary, no errors |
+| `setup.py` | manual / optional | `python scripts/setup.py --check-deps --summary` | Checks dependencies, prints summary, no errors |
 | `connector-status.py` | `/digital-marketing-pro:integrations` | Run integrations command | Lists 14 HTTP + available connectors by category |
-| `campaign-tracker.py` | SessionEnd hook | End a session after marketing work | Session insights saved |
+| `campaign-tracker.py` | skill-invoked (e.g. sync-memory) | Save an insight | Session insights saved |
 | `guidelines-manager.py` | Brand compliance | Set up brand with guidelines | Rules stored and enforced |
 
 ### 6.2 Analytics & Reporting Scripts
@@ -423,70 +423,39 @@ DM Pro has 68 Python scripts (65 v2.x + engagement-state.py v3.0 + dm-status.py 
 
 ## 7. Hook Tests
 
-DM Pro has 4 hook events.
+**DM Pro ships ZERO global hooks.** `hooks/hooks.json` is `{"hooks":{}}` and has been since **v3.1.0** — global hooks fire in *every* project (not just DMP contexts), so they were removed for safe multi-plugin coexistence. There is nothing to exercise at the hook layer, and a fresh install must show an empty hooks config.
 
-### 7.1 SessionStart
+**Test — confirm hooks ship empty:**
+- [ ] `hooks/hooks.json` contains exactly `{"hooks":{}}` (no SessionStart / PreToolUse / PostToolUse / SessionEnd entries)
+- [ ] Starting a session does NOT auto-run any DMP hook (no surprise banner, no auto-write, no dependency check firing on its own)
 
-**Test:** Start a new session
+The behaviors a hook layer *could* enforce are instead enforced **inside the skills and agents**. Test them there, not at the hook layer:
 
-**Expected:**
-- [ ] setup.py runs with `--check-deps --summary`
-- [ ] Plugin info printed (version, agent count, skill count)
-- [ ] No Python errors or tracebacks
+### 7.1 Brand-compliance + hallucination checks (skill/agent-enforced)
 
-### 7.2 PreToolUse — Write/Edit (Brand Compliance + Hallucination Detection)
+These run when a content skill or the `brand-guardian` / `quality-assurance` agents process content — not automatically on every Write/Edit.
 
-**Test:** Generate marketing content that triggers Write/Edit
+**Test:** Run `/digital-marketing-pro:check` or `/digital-marketing-pro:eval-content` on intentionally bad content:
 
-**Expected checks performed by hook:**
-- [ ] File path validation (prevents writing outside marketing directories)
-- [ ] Brand voice alignment check
-- [ ] Industry compliance verification
-- [ ] FTC disclosure check (for sponsored/affiliate content)
-- [ ] Hallucination detection:
-  - [ ] Unattributed statistics/percentages
-  - [ ] Placeholder URLs (example.com, your-site.com)
-  - [ ] Unsupported superlatives (#1, best, leading)
-  - [ ] Fabricated citations
-
-**Test with intentionally bad content:**
-
-| Bad Content | Expected Detection |
-|-------------|-------------------|
-| "87% of marketers agree..." (no source) | Flagged — unattributed stat |
+| Bad content | Expected detection |
+|---|---|
+| "87% of marketers agree..." (no source) | Flagged — unattributed stat (hallucination_risk dimension) |
 | "Visit https://example.com/pricing" | Flagged — placeholder URL |
 | "The #1 marketing platform" | Flagged — unsupported superlative |
 
-### 7.3 PreToolUse — MCP Tool Calls (External Platform Safety)
+### 7.2 External-platform safety (skill-enforced approval gates)
 
-**Test:** Invoke skills that write to external platforms
-
-**Expected checks performed by hook:**
-- [ ] Write operations to external platforms require explicit user approval
-- [ ] Budget verification before ad spend operations
-- [ ] Platform verification before publishing
-- [ ] Ad campaigns: budget within brand's stated range
-- [ ] Email/SMS: list size and consent compliance checked
-- [ ] CRM writes: prevents record overwrites without confirmation
-
-**Test scenarios:**
+Every execution skill carries an in-body **`## Execution gate`** — it presents a full preview (recipients / spend / changes / compliance) and requires explicit typed approval before any external write, and never proceeds on ambiguous input. This is skill logic, not a PreToolUse hook.
 
 | Action | Expected |
-|--------|----------|
-| Publish blog post | Approval prompt before external write |
-| Launch ad campaign | Budget verification before platform call |
-| Send email campaign | List size and consent check |
-| Update CRM records | Overwrite confirmation required |
+|---|---|
+| `/digital-marketing-pro:launch-campaign` | Execution Summary + typed-`yes` approval gate before any platform call |
+| publish-blog / send-email-campaign / launch-ad-campaign | Preview + approval required; any non-approval cancels |
+| CRM writes | Confirmation required before overwrite |
 
-### 7.4 SessionEnd
+### 7.3 Optional — re-enabling lifecycle hooks
 
-**Test:** End a session after doing marketing work
-
-**Expected:**
-- [ ] Session insights saved via campaign-tracker.py
-- [ ] Guideline violations logged (if any were flagged during session)
-- [ ] Key takeaways formatted for review
-- [ ] Brand update instructions if learnings discovered
+Users who *want* the former lifecycle behavior can copy `hooks/hooks-reference.example.json` into `hooks/hooks.json` at **user scope** (never ship it globally). If you do, re-run the original SessionStart / PreToolUse / SessionEnd checks — but the shipped default is empty and that is the supported configuration.
 
 ---
 
@@ -613,7 +582,7 @@ Run this after any changes to verify nothing is broken.
 
 ### Core Functionality
 
-- [ ] Session start hook fires with setup.py output
+- [ ] No auto-firing hook on session start (hooks ship empty); `python scripts/setup.py --check-deps` runs cleanly when invoked
 - [ ] Brand setup creates profile at `~/.claude-marketing/{brand}/`
 - [ ] Context engine loads brand correctly
 - [ ] Brand switch works between profiles
@@ -647,10 +616,10 @@ Run this after any changes to verify nothing is broken.
 
 ### Hooks
 
-- [ ] SessionStart hook fires without errors
-- [ ] Brand compliance hook fires on content writes
-- [ ] MCP write approval hook fires on external platform calls
-- [ ] SessionEnd hook saves session insights
+- [ ] `hooks/hooks.json` ships `{"hooks":{}}` — no hook fires (this is correct)
+- [ ] Brand compliance is enforced by skills/agents (brand-guardian, /check), not a hook
+- [ ] External-write approval is enforced by each execution skill's `## Execution gate`, not a hook
+- [ ] Session insights are saved by skills (e.g. sync-memory / save-knowledge), not a SessionEnd hook
 
 ### Versioning Consistency
 
@@ -658,7 +627,7 @@ Run this after any changes to verify nothing is broken.
 - [ ] `hooks.json` version string matches
 - [ ] `README.md` version = 2.5.1
 - [ ] Marketplace entry version = 2.5.1
-- [ ] `25 agents` in all descriptions
+- [ ] `24 agents` in all descriptions
 - [ ] `149 skills` in all descriptions (141 atomic + 6 v3.0 methodology + 2 v3.2 quality-and-status)
 - [ ] `10 commands` in all descriptions (7 v2.5 + /digital-marketing-pro:engagement v3.0 + /digital-marketing-pro:check + /digital-marketing-pro:status v3.2)
 - [ ] `68 scripts` in all descriptions (65 v2.x + engagement-state.py + dm-status.py + auto-save-insight.py)
@@ -677,10 +646,10 @@ If time is limited, test in this order:
 | 3 | `/campaign-plan` command | 3.2 | Validates core strategic skill |
 | 4 | `/seo-audit` command | 3.3 | Validates technical analysis |
 | 5 | `/digital-marketing-pro:help` and `/digital-marketing-pro:integrations` | 4 | Validates help accuracy and connector status |
-| 6 | Hook tests (all 4 events) | 7 | Validates compliance guardrails |
+| 6 | Hook config check (ships empty) | 7 | Confirms zero global hooks; guardrails are skill-enforced |
 | 7 | Key skills (one per module) | 4 | Validates breadth of skill coverage |
 | 8 | MCP connectors | 8 | Requires external service accounts |
-| 9 | Agent registration | 5 | Verify all 25 registered |
+| 9 | Agent registration | 5 | Verify all 24 registered |
 | 10 | Edge cases | 9 | Robustness testing |
 | 11 | v3.0 engagement methodology smoke test | 12 | Validates the methodology orchestration end-to-end |
 
@@ -807,8 +776,8 @@ After installing v3.0, verify v2.7 still works:
 | 2 | `/digital-marketing-pro:campaign-plan` (no engagement context) | Works as before; produces campaign brief |
 | 3 | `/digital-marketing-pro:content-engine` (no engagement context) | Works as before |
 | 4 | `/digital-marketing-pro:competitor-analysis` (no engagement context) | Works as before |
-| 5 | SessionStart hook | Brand summary banner prints normally |
-| 6 | PreToolUse compliance check | Compliance check runs on Write/Edit |
-| 7 | SessionEnd hook | Insights saved to brand profile |
+| 5 | Hooks ship empty | No auto-fire on session start (correct) |
+| 6 | Skill-enforced compliance | /check + brand-guardian flag issues on demand |
+| 7 | Skill-saved insights | sync-memory / save-knowledge persist insights |
 
 If any v2.7 functionality regresses, that is a critical bug. v3.0 is intended to be purely additive.

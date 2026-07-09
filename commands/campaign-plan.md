@@ -11,7 +11,7 @@ Generate a comprehensive multi-channel marketing campaign plan ready for executi
 
 ## Trigger
 
-User runs `/campaign-plan` or asks to plan, design, build, or launch a marketing campaign.
+User runs `/digital-marketing-pro:campaign-plan` or asks to plan, design, build, or launch a marketing campaign.
 
 ## Inputs
 
@@ -43,7 +43,7 @@ If a brand profile exists at `~/.claude-marketing/brands/`, load it automaticall
 - Load custom templates if available
 - Check agency SOPs for campaign planning standards
 
-If no brand exists, ask: "Set up a brand first (`/brand-setup`)?" — or proceed with general best practices.
+If no brand exists, ask: "Set up a brand first (`/digital-marketing-pro:brand-setup`)?" — or proceed with general best practices.
 
 ## Campaign Brief Structure
 
@@ -80,7 +80,7 @@ Channel categories to evaluate:
 - **Earned**: PR, influencer partnerships, guest posts, community
 - **Paid**: search ads, social ads, display, sponsored content, retail media
 
-If ~~analytics or ~~advertising connectors are available, reference historical performance data to inform channel recommendations.
+If analytics or advertising connectors are available, reference historical performance data to inform channel recommendations.
 
 ### 5. Content Calendar
 
@@ -126,13 +126,13 @@ List every content asset needed:
 ## After Planning
 
 Ask: "Would you like me to:
-- Draft specific content pieces from the calendar? (`/content-engine`)
-- Create the email sequences? (`/email-sequence`)
-- Build the media plan with budget pacing? (`/media-plan`)
-- Set up competitor monitoring for the campaign period? (`/competitor-monitor`)
-- Design the landing page copy? (`/content-engine`)"
+- Draft specific content pieces from the calendar? (`/digital-marketing-pro:content-engine`)
+- Create the email sequences? (`/digital-marketing-pro:email-sequence`)
+- Build the media plan with budget pacing? (`/digital-marketing-pro:media-plan`)
+- Set up competitor monitoring for the campaign period? (`/digital-marketing-pro:competitor-monitor`)
+- Design the landing page copy? (`/digital-marketing-pro:content-engine`)"
 
-## Execution discipline — parallel dispatch (v3.4)
+## Execution discipline — parallel dispatch
 
 Campaign planning has a strict dependency order at the top (objectives → audience → channel mix) but **fans out to independent per-channel work** once the channel mix is approved. After channel selection, dispatch per-channel briefs in **one message with parallel `Task` calls** — paid ads, email, social, content, PR, partnerships each get their own subagent.
 

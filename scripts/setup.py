@@ -17,8 +17,11 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-MEMORY_ROOT = Path.home() / ".claude-marketing"
-BRANDS_DIR = MEMORY_ROOT / "brands"
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
+
+MEMORY_ROOT = _common.workspace_root()
+BRANDS_DIR = _common.brands_root()
 ACTIVE_BRAND_FILE = BRANDS_DIR / "_active-brand.json"
 SETTINGS_FILE = MEMORY_ROOT / "settings.json"
 SCHEMA_VERSION = "1.0.0"
@@ -63,7 +66,7 @@ def init_memory_dirs():
             "auto_voice_check": True,
             "default_scoring": True,
         }
-        SETTINGS_FILE.write_text(json.dumps(settings, indent=2))
+        _common.atomic_write_json(SETTINGS_FILE, settings)
 
     return True
 
@@ -76,7 +79,7 @@ def check_brand():
         return False
 
     try:
-        active = json.loads(ACTIVE_BRAND_FILE.read_text())
+        active = json.loads(ACTIVE_BRAND_FILE.read_text(encoding="utf-8"))
         slug = active.get("active_slug", "")
         profile_path = BRANDS_DIR / slug / "profile.json"
 
@@ -84,7 +87,7 @@ def check_brand():
             print(f"BROKEN_BRAND: Active brand '{slug}' profile not found.")
             return False
 
-        profile = json.loads(profile_path.read_text())
+        profile = json.loads(profile_path.read_text(encoding="utf-8"))
         brand_name = profile.get("brand_name", slug)
         print(f"BRAND_ACTIVE: {brand_name}")
         return True
@@ -105,7 +108,7 @@ def print_brand_summary():
         return False
 
     try:
-        active = json.loads(ACTIVE_BRAND_FILE.read_text())
+        active = json.loads(ACTIVE_BRAND_FILE.read_text(encoding="utf-8"))
         slug = active.get("active_slug", "")
         profile_path = BRANDS_DIR / slug / "profile.json"
 
@@ -118,7 +121,7 @@ def print_brand_summary():
             print("===")
             return False
 
-        profile = json.loads(profile_path.read_text())
+        profile = json.loads(profile_path.read_text(encoding="utf-8"))
         name = profile.get("brand_name", slug)
         biz = profile.get("business_model", {})
         ind = profile.get("industry", {})
@@ -136,7 +139,7 @@ def print_brand_summary():
         idx_path = BRANDS_DIR / slug / "campaigns" / "_index.json"
         if idx_path.exists():
             try:
-                camp_count = len(json.loads(idx_path.read_text()))
+                camp_count = len(json.loads(idx_path.read_text(encoding="utf-8")))
             except Exception:
                 pass
 
@@ -175,7 +178,7 @@ def print_brand_summary():
         gl_parts = []
         if gl_manifest.exists():
             try:
-                gl = json.loads(gl_manifest.read_text())
+                gl = json.loads(gl_manifest.read_text(encoding="utf-8"))
                 total_rules = gl.get("total_rules", 0)
                 cats = len(gl.get("categories", {}))
                 custom = len(gl.get("custom_files", []))
@@ -193,7 +196,7 @@ def print_brand_summary():
             tmpl_manifest = tmpl_dir / "_manifest.json"
             if tmpl_manifest.exists():
                 try:
-                    tmpl_count = len(json.loads(tmpl_manifest.read_text()).get("templates", {}))
+                    tmpl_count = len(json.loads(tmpl_manifest.read_text(encoding="utf-8")).get("templates", {}))
                 except Exception:
                     pass
         if tmpl_count:
@@ -203,7 +206,7 @@ def print_brand_summary():
             sop_manifest = sops_dir / "_manifest.json"
             if sop_manifest.exists():
                 try:
-                    sop_count = len(json.loads(sop_manifest.read_text()).get("sops", {}))
+                    sop_count = len(json.loads(sop_manifest.read_text(encoding="utf-8")).get("sops", {}))
                 except Exception:
                     pass
         if sop_count:
@@ -286,9 +289,9 @@ def install_deps(mode="lite"):
 
         # Update settings with install mode
         if SETTINGS_FILE.exists():
-            settings = json.loads(SETTINGS_FILE.read_text())
+            settings = json.loads(SETTINGS_FILE.read_text(encoding="utf-8"))
             settings["install_mode"] = mode
-            SETTINGS_FILE.write_text(json.dumps(settings, indent=2))
+            _common.atomic_write_json(SETTINGS_FILE, settings)
 
         return True
     except subprocess.CalledProcessError as e:
@@ -299,7 +302,7 @@ def install_deps(mode="lite"):
 def create_brand(name, slug=None):
     """Create a new brand profile with default schema."""
     if slug is None:
-        slug = name.lower().replace(" ", "-").replace("'", "").replace('"', "")
+        slug = _common.slugify_brand(name)
 
     brand_dir = BRANDS_DIR / slug
     brand_dir.mkdir(parents=True, exist_ok=True)
@@ -375,18 +378,18 @@ def create_brand(name, slug=None):
     }
 
     profile_path = brand_dir / "profile.json"
-    profile_path.write_text(json.dumps(profile, indent=2))
+    _common.atomic_write_json(profile_path, profile)
 
     # Create empty supporting files
     for fname in ["audiences.json", "competitors.json", "insights.json"]:
         fpath = brand_dir / fname
         if not fpath.exists():
-            fpath.write_text("[]")
+            fpath.write_text("[]", encoding="utf-8")
 
     # Set as active brand
-    ACTIVE_BRAND_FILE.write_text(
-        json.dumps({"active_slug": slug, "updated_at": datetime.now().isoformat()}, indent=2)
-    )
+    _common.atomic_write_json(
+        ACTIVE_BRAND_FILE,
+        {"active_slug": slug, "updated_at": datetime.now().isoformat()})
 
     print(f"BRAND_CREATED: {name} ({slug})")
     print(f"Profile: {profile_path}")
@@ -403,7 +406,7 @@ def list_brands():
     active_slug = ""
     if ACTIVE_BRAND_FILE.exists():
         try:
-            active = json.loads(ACTIVE_BRAND_FILE.read_text())
+            active = json.loads(ACTIVE_BRAND_FILE.read_text(encoding="utf-8"))
             active_slug = active.get("active_slug", "")
         except json.JSONDecodeError:
             pass
@@ -413,7 +416,7 @@ def list_brands():
             profile_path = item / "profile.json"
             if profile_path.exists():
                 try:
-                    profile = json.loads(profile_path.read_text())
+                    profile = json.loads(profile_path.read_text(encoding="utf-8"))
                     is_active = "* " if item.name == active_slug else "  "
                     brands.append(
                         f"{is_active}{profile.get('brand_name', item.name)} [{item.name}]"
@@ -433,7 +436,7 @@ def list_brands():
 
 def switch_brand(slug):
     """Switch the active brand to the specified slug."""
-    slug = slug.lower().replace(" ", "-")
+    slug = _common.slugify_brand(slug)
     brand_dir = BRANDS_DIR / slug
     profile_path = brand_dir / "profile.json"
 
@@ -450,7 +453,7 @@ def switch_brand(slug):
                         p = item / "profile.json"
                         if p.exists():
                             try:
-                                data = json.loads(p.read_text())
+                                data = json.loads(p.read_text(encoding="utf-8"))
                                 if slug in data.get("brand_name", "").lower():
                                     available.append(item.name)
                             except json.JSONDecodeError:
@@ -464,16 +467,16 @@ def switch_brand(slug):
 
     # Load and validate profile
     try:
-        profile = json.loads(profile_path.read_text())
+        profile = json.loads(profile_path.read_text(encoding="utf-8"))
         brand_name = profile.get("brand_name", slug)
     except json.JSONDecodeError:
         print(f"BRAND_ERROR: Profile for '{slug}' is corrupted.")
         return False
 
     # Update active brand
-    ACTIVE_BRAND_FILE.write_text(
-        json.dumps({"active_slug": slug, "updated_at": datetime.now().isoformat()}, indent=2)
-    )
+    _common.atomic_write_json(
+        ACTIVE_BRAND_FILE,
+        {"active_slug": slug, "updated_at": datetime.now().isoformat()})
 
     print(f"BRAND_SWITCHED: Now using '{brand_name}' ({slug})")
     print(f"Industry: {profile.get('industry', {}).get('primary', 'Not set')}")
@@ -493,13 +496,13 @@ def migrate_schema():
             profile_path = item / "profile.json"
             if profile_path.exists():
                 try:
-                    profile = json.loads(profile_path.read_text())
+                    profile = json.loads(profile_path.read_text(encoding="utf-8"))
                     current_version = profile.get("schema_version", "0.0.0")
 
                     if current_version != SCHEMA_VERSION:
                         # Backup before migration
                         backup_path = item / "profile.backup.json"
-                        backup_path.write_text(profile_path.read_text())
+                        backup_path.write_text(profile_path.read_text(encoding="utf-8"), encoding="utf-8")
 
                         # Apply migrations (add new fields with defaults)
                         profile["schema_version"] = SCHEMA_VERSION
@@ -507,7 +510,7 @@ def migrate_schema():
                         profile.setdefault("business_model", {}).setdefault("customer_lifetime_value", "")
                         profile["updated_at"] = datetime.now().isoformat()
 
-                        profile_path.write_text(json.dumps(profile, indent=2))
+                        _common.atomic_write_json(profile_path, profile)
                         migrated += 1
                         print(f"  Migrated: {item.name} ({current_version} → {SCHEMA_VERSION})")
 
@@ -534,6 +537,10 @@ def main():
     # Always ensure memory dirs exist
     init_memory_dirs()
 
+    # Track hard failures so the shell caller can trust $? (H4: a failed
+    # dependency install or a missing switch target must NOT exit 0).
+    exit_code = 0
+
     if args.check_deps:
         check_deps()
 
@@ -544,7 +551,8 @@ def main():
         print_brand_summary()
 
     if args.install:
-        install_deps(args.install)
+        if not install_deps(args.install):
+            exit_code = 1
 
     if args.create_brand:
         create_brand(args.create_brand)
@@ -553,7 +561,8 @@ def main():
         list_brands()
 
     if args.switch_brand:
-        switch_brand(args.switch_brand)
+        if not switch_brand(args.switch_brand):
+            exit_code = 1
 
     if args.migrate:
         migrate_schema()
@@ -566,6 +575,9 @@ def main():
         init_memory_dirs()
         check_deps()
         print_brand_summary()
+
+    if exit_code:
+        sys.exit(exit_code)
 
 
 if __name__ == "__main__":

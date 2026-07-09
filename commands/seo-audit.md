@@ -11,7 +11,7 @@ Audit a website's SEO health across all major ranking dimensions: technical infr
 
 ## Trigger
 
-User runs `/seo-audit` or asks for an SEO audit, keyword research, content gap analysis, technical SEO check, or competitor SEO comparison.
+User runs `/digital-marketing-pro:seo-audit` or asks for an SEO audit, keyword research, content gap analysis, technical SEO check, or competitor SEO comparison.
 
 ## Inputs
 
@@ -34,13 +34,13 @@ Gather the following from the user. If not provided, ask before proceeding:
 
 ### 1. Keyword Research
 
-**If ~~SEO tools are connected (Ahrefs, Similarweb):**
+**If SEO tools are connected (Ahrefs, Similarweb):**
 - Pull keyword data, search volume, difficulty scores, and current ranking positions automatically
 - Identify keywords gaining or losing ground
 
 **If tools are not connected:**
 - Use web search to research the keyword landscape
-- Note: "For precise volume and difficulty data, connect an SEO tool via `/connect ahrefs` or `/connect similarweb`."
+- Note: "For precise volume and difficulty data, connect an SEO tool via `/digital-marketing-pro:connect ahrefs` or `/digital-marketing-pro:connect similarweb`."
 
 For each keyword opportunity, assess:
 - **Search volume signals** — relative demand (high, medium, low)
@@ -146,17 +146,25 @@ Each action includes: what to do, expected impact (high/medium/low), effort esti
 ## After the Audit
 
 Ask: "Would you like me to:
-- Draft content briefs for the top keyword opportunities? (`/content-brief`)
-- Create optimized title tags and meta descriptions? (`/seo-implement`)
-- Run a deeper technical audit? (`/tech-seo-audit`)
-- Set up keyword ranking monitoring? (`/rank-monitor`)
-- Check AI answer engine visibility? (`/aeo-audit`)
-- Compare SEO performance against specific competitors? (`/competitor-analysis`)"
+- Draft content briefs for the top keyword opportunities? (`/digital-marketing-pro:content-brief`)
+- Create optimized title tags and meta descriptions? (`/digital-marketing-pro:seo-implement`)
+- Run a deeper technical audit? (`/digital-marketing-pro:tech-seo-audit`)
+- Set up keyword ranking monitoring? (`/digital-marketing-pro:rank-monitor`)
+- Check AI answer engine visibility? (`/digital-marketing-pro:aeo-audit`)
+- Compare SEO performance against specific competitors? (`/digital-marketing-pro:competitor-analysis`)"
 
-## Execution discipline — parallel dispatch (v3.4)
+## Execution discipline — parallel dispatch
 
 An SEO audit covers **6 independent dimensions**: technical infrastructure (Core Web Vitals + crawlability + indexation + redirects + security), on-page optimization, content quality + gaps, E-E-A-T signals, link profile, AI answer engine visibility. None of these depend on the others' findings to produce their own.
 
-Dispatch via **one message with six parallel `Task` calls**: `tech-seo-audit` + `on-page-audit` + `content-engine`(audit mode) + `eeat-evaluator` + `link-profile-analyzer` + `aeo-audit`. Sequential dispatch takes ~25 min; parallel dispatch typically lands at **~5–12 min** wall-clock (rate-limit dependent) per Claude Code's April 2026 parallel-subagent initialization — roughly 50–80% reduction.
+Dispatch the independent dimensions concurrently in **one message**, using the real targets:
 
-The **action plan and prioritization step at the end must be sequential** — it consumes the merged output of all six parallel dimensions and produces a single ranked impact-to-effort matrix.
+- **Technical infrastructure** → run the `tech-seo-audit` skill
+- **On-page optimization + E-E-A-T signals** → invoke the `seo-specialist` agent (there is no `on-page-audit` or `eeat-evaluator` subagent — `seo-specialist` owns both dimensions)
+- **Content quality + gaps** → run `content-engine` in audit mode
+- **AI answer engine visibility** → run the `aeo-audit` skill
+- **Link profile** → run the link-profile analyzer as a **script** (not an agent): `python "${CLAUDE_PLUGIN_ROOT}/scripts/link-profile-analyzer.py" ...`
+
+Parallel dispatch of these independent dimensions is substantially faster than running them sequentially; actual time varies with model and rate limits.
+
+The **action plan and prioritization step at the end must be sequential** — it consumes the merged output of all six dimensions and produces a single ranked impact-to-effort matrix.

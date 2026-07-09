@@ -31,8 +31,12 @@ import random
 import sys
 from datetime import datetime
 from pathlib import Path
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _common  # noqa: E402
 
-BRANDS_DIR = Path.home() / ".claude-marketing" / "brands"
+BRANDS_DIR = _common.brands_root()
 
 ENGAGEMENT_WEIGHTS = {"high": 1.3, "medium": 1.0, "low": 0.7}
 INCOME_MULTIPLIERS = {"low": 0.6, "medium": 1.0, "high": 1.4, "very-high": 1.8}
@@ -782,8 +786,7 @@ def main():
             sys.exit(1)
         result = panel_stats(args.brand, args.panel_id)
 
-    json.dump(result, sys.stdout, indent=2)
-    print()
+    _common.finish(result)
 
 
 if __name__ == "__main__":
